@@ -19,11 +19,11 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
 |---|---|---|---|---|---|---|---|---|
-| 1 | **Ariel** | 190,929 | 0.001 | 0 | 2.5204 | 578.9 | 701 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27701%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ariel/) |
-| 2 | **Umbriel** | 265,986 | 0.004 | 0.1 | 4.1442 | 584.7 | 702 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27702%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/umbriel/) |
-| 3 | **Titania** | 436,298 | 0.002 | 0.1 | 8.7059 | 788.4 | 703 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27703%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/titania/) |
-| 4 | **Oberon** | 583,511 | 0.002 | 0.1 | 13.4632 | 761.4 | 704 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27704%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/oberon/) |
-| 5 | **Miranda** | 129,846 | 0.001 | 4.4 | 1.4135 | 235.8 | 705 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27705%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/miranda/) |
+| 1 | <a id="m-ariel"></a>**Ariel** | 190,929 | 0.001 | 0 | 2.5204 | 578.9 | 701 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27701%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ariel/) |
+| 2 | <a id="m-umbriel"></a>**Umbriel** | 265,986 | 0.004 | 0.1 | 4.1442 | 584.7 | 702 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27702%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/umbriel/) |
+| 3 | <a id="m-titania"></a>**Titania** | 436,298 | 0.002 | 0.1 | 8.7059 | 788.4 | 703 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27703%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/titania/) |
+| 4 | <a id="m-oberon"></a>**Oberon** | 583,511 | 0.002 | 0.1 | 13.4632 | 761.4 | 704 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27704%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/oberon/) |
+| 5 | <a id="m-miranda"></a>**Miranda** | 129,846 | 0.001 | 4.4 | 1.4135 | 235.8 | 705 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27705%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/miranda/) |
 
 ## Inner (14)
 
@@ -31,20 +31,20 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
 |---|---|---|---|---|---|---|---|---|
-| 1 | **Cordelia** | 49,755 | 0 | 0.2 | 0.3347 | 20.1 | 706 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27706%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cordelia/) |
-| 2 | **Ophelia** | 53,765 | 0.011 | 0.2 | 0.3764 | 21.4 | 707 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27707%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ophelia/) |
-| 3 | **Bianca** | 59,170 | 0.006 | 2.3 | 0.4347 | 25.7 | 708 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27708%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/bianca/) |
-| 4 | **Cressida** | 61,770 | 0.004 | 1.8 | 0.4639 | 39.8 | 709 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27709%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cressida/) |
-| 5 | **Desdemona** | 62,663 | 0.007 | 3.1 | 0.4736 | 32 | 710 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27710%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/desdemona/) |
-| 6 | **Juliet** | 64,362 | 0.006 | 3 | 0.4931 | 46.8 | 711 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27711%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/juliet/) |
-| 7 | **Portia** | 66,101 | 0.004 | 2.7 | 0.5132 | 67.6 | 712 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27712%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/portia/) |
-| 8 | **Rosalind** | 69,930 | 0.003 | 1.7 | 0.5583 | 36 | 713 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27713%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/rosalind/) |
-| 9 | **Belinda** | 75,258 | 0.002 | 1.4 | 0.6236 | 45 | 714 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27714%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/belinda/) |
-| 10 | **Puck** | 86,007 | 0.009 | 1.1 | 0.7618 | 81 | 715 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27715%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/puck/) |
-| 11 | **Perdita** | 76,418 | 0.005 | 1.6 | 0.6382 | 15 | 725 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27725%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/perdita/) |
-| 12 | **Mab** | 97,737 | 0.006 | 1.8 | 0.9229 | 12 | 726 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27726%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/mab/) |
-| 13 | **Cupid** | 74,396 | 0.007 | 2 | 0.6125 | 9 | 727 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27727%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cupid/) |
-| 14 | **S/2025 U 1** <sup>[note](#notes)</sup> | 57,844 | 0.039 | 4 | 0.4201 | *est.* | 75052 | [JPL table](https://ssd.jpl.nasa.gov/sats/elem/sep.html) |
+| 1 | <a id="m-cordelia"></a>**Cordelia** | 49,755 | 0 | 0.2 | 0.3347 | 20.1 | 706 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27706%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cordelia/) |
+| 2 | <a id="m-ophelia"></a>**Ophelia** | 53,765 | 0.011 | 0.2 | 0.3764 | 21.4 | 707 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27707%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ophelia/) |
+| 3 | <a id="m-bianca"></a>**Bianca** | 59,170 | 0.006 | 2.3 | 0.4347 | 25.7 | 708 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27708%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/bianca/) |
+| 4 | <a id="m-cressida"></a>**Cressida** | 61,770 | 0.004 | 1.8 | 0.4639 | 39.8 | 709 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27709%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cressida/) |
+| 5 | <a id="m-desdemona"></a>**Desdemona** | 62,663 | 0.007 | 3.1 | 0.4736 | 32 | 710 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27710%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/desdemona/) |
+| 6 | <a id="m-juliet"></a>**Juliet** | 64,362 | 0.006 | 3 | 0.4931 | 46.8 | 711 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27711%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/juliet/) |
+| 7 | <a id="m-portia"></a>**Portia** | 66,101 | 0.004 | 2.7 | 0.5132 | 67.6 | 712 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27712%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/portia/) |
+| 8 | <a id="m-rosalind"></a>**Rosalind** | 69,930 | 0.003 | 1.7 | 0.5583 | 36 | 713 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27713%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/rosalind/) |
+| 9 | <a id="m-belinda"></a>**Belinda** | 75,258 | 0.002 | 1.4 | 0.6236 | 45 | 714 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27714%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/belinda/) |
+| 10 | <a id="m-puck"></a>**Puck** | 86,007 | 0.009 | 1.1 | 0.7618 | 81 | 715 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27715%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/puck/) |
+| 11 | <a id="m-perdita"></a>**Perdita** | 76,418 | 0.005 | 1.6 | 0.6382 | 15 | 725 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27725%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/perdita/) |
+| 12 | <a id="m-mab"></a>**Mab** | 97,737 | 0.006 | 1.8 | 0.9229 | 12 | 726 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27726%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/mab/) |
+| 13 | <a id="m-cupid"></a>**Cupid** | 74,396 | 0.007 | 2 | 0.6125 | 9 | 727 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27727%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cupid/) |
+| 14 | <a id="m-s-2025-u-1"></a>**S/2025 U 1** <sup>[note](#notes)</sup> | 57,844 | 0.039 | 4 | 0.4201 | *est.* | 75052 | [JPL table](https://ssd.jpl.nasa.gov/sats/elem/sep.html) |
 
 ## Irregular (10)
 
@@ -52,16 +52,16 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
 |---|---|---|---|---|---|---|---|---|
-| 1 | **Caliban** | 7,167,000 | 0.2 | 141.4 | 580 | 36 | 716 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27716%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/caliban/) |
-| 2 | **Sycorax** | 12,193,200 | 0.52 | 157 | 1,286 | 78.5 | 717 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27717%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/sycorax/) |
-| 3 | **Prospero** | 16,221,000 | 0.441 | 149.4 | 1,974 | 25 | 718 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27718%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/prospero/) |
-| 4 | **Setebos** | 17,519,800 | 0.579 | 153.9 | 2,215 | 24 | 719 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27719%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/setebos/) |
-| 5 | **Stephano** | 7,951,400 | 0.235 | 143.6 | 677 | 16 | 720 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27720%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/stephano/) |
-| 6 | **Trinculo** | 8,502,600 | 0.22 | 167.1 | 749 | 9 | 721 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27721%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/trinculo/) |
-| 7 | **Francisco** | 4,275,700 | 0.144 | 146.8 | 267 | 11 | 722 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27722%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/francisco/) |
-| 8 | **Margaret** | 14,425,000 | 0.642 | 60.5 | 1,655 | 10 | 723 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27723%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/margaret/) |
-| 9 | **Ferdinand** | 20,421,400 | 0.395 | 169.2 | 2,788 | 10 | 724 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27724%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ferdinand/) |
-| 10 | **S/2023 U 1** | 7,976,600 | 0.25 | 143.9 | 681 | *est.* | 75051 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2775051%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 1 | <a id="m-caliban"></a>**Caliban** | 7,167,000 | 0.2 | 141.4 | 580 | 36 | 716 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27716%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/caliban/) |
+| 2 | <a id="m-sycorax"></a>**Sycorax** | 12,193,200 | 0.52 | 157 | 1,286 | 78.5 | 717 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27717%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/sycorax/) |
+| 3 | <a id="m-prospero"></a>**Prospero** | 16,221,000 | 0.441 | 149.4 | 1,974 | 25 | 718 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27718%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/prospero/) |
+| 4 | <a id="m-setebos"></a>**Setebos** | 17,519,800 | 0.579 | 153.9 | 2,215 | 24 | 719 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27719%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/setebos/) |
+| 5 | <a id="m-stephano"></a>**Stephano** | 7,951,400 | 0.235 | 143.6 | 677 | 16 | 720 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27720%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/stephano/) |
+| 6 | <a id="m-trinculo"></a>**Trinculo** | 8,502,600 | 0.22 | 167.1 | 749 | 9 | 721 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27721%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/trinculo/) |
+| 7 | <a id="m-francisco"></a>**Francisco** | 4,275,700 | 0.144 | 146.8 | 267 | 11 | 722 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27722%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/francisco/) |
+| 8 | <a id="m-margaret"></a>**Margaret** | 14,425,000 | 0.642 | 60.5 | 1,655 | 10 | 723 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27723%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/margaret/) |
+| 9 | <a id="m-ferdinand"></a>**Ferdinand** | 20,421,400 | 0.395 | 169.2 | 2,788 | 10 | 724 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27724%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ferdinand/) |
+| 10 | <a id="m-s-2023-u-1"></a>**S/2023 U 1** | 7,976,600 | 0.25 | 143.9 | 681 | *est.* | 75051 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2775051%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
 
 ## Notes
 
