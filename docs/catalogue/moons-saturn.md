@@ -1,0 +1,360 @@
+[← Documentation index](../README.md) · [Project README](../../README.md)
+
+# Moons of Saturn
+
+**292 moons.** Orbits use the **JPL mean orbital elements** of planetary satellites (Laplace-plane or ecliptic elements as published by JPL SSD). The *a*, *e*, *i* and *P* columns below are the exact values used by the app. Every moon links to its **JPL Horizons** object record by NAIF ID, and to its NASA Science page where NASA has published one.
+
+- NASA Science overview: <https://science.nasa.gov/saturn/moons/>
+- JPL mean elements table: <https://ssd.jpl.nasa.gov/sats/elem/sep.html>
+- JPL physical parameters: <https://ssd.jpl.nasa.gov/sats/phys_par/>
+- JPL discovery circumstances: <https://ssd.jpl.nasa.gov/sats/discovery.html>
+- S. S. Sheppard (Carnegie Science), Saturn moons page: <https://sites.google.com/carnegiescience.edu/sheppard/moons/saturnmoons>
+- IAU Minor Planet Center satellite announcements (MPECs): <https://minorplanetcenter.net/mpec/RecentMPECs.html>
+
+Radius values marked *est.* are not published; the app uses a placeholder size for display only.
+
+## Major (8)
+
+*major moon*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Mimas** | 186,000 | 0.02 | 1.6 | 0.9424 | 198.2 | 601 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27601%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/mimas/) |
+| 2 | **Enceladus** | 238,400 | 0.005 | 0 | 1.3702 | 252.1 | 602 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27602%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/enceladus/) |
+| 3 | **Tethys** | 295,000 | 0.001 | 1.1 | 1.8878 | 531.1 | 603 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27603%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/tethys/) |
+| 4 | **Dione** | 377,700 | 0.002 | 0 | 2.7369 | 561.4 | 604 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27604%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/dione/) |
+| 5 | **Rhea** | 527,200 | 0.001 | 0.3 | 4.5175 | 763.8 | 605 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27605%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/rhea/) |
+| 6 | **Titan** | 1,221,900 | 0.029 | 0.3 | 15.9454 | 2,574.7 | 606 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27606%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/titan/) |
+| 7 | **Hyperion** | 1,481,500 | 0.105 | 0.6 | 21.2767 | 135 | 607 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27607%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/hyperion/) |
+| 8 | **Iapetus** | 3,561,700 | 0.028 | 7.6 | 79.331 | 734.5 | 608 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27608%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/iapetus/) |
+
+## Ring moons (9)
+
+*ring moon / shepherd*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Janus** | 151,500 | 0.007 | 0.2 | 0.6974 | 89.5 | 610 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27610%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/janus/) |
+| 2 | **Epimetheus** | 151,400 | 0.02 | 0.3 | 0.697 | 58.1 | 611 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27611%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/epimetheus/) |
+| 3 | **Atlas** | 137,700 | 0.001 | 0 | 0.6046 | 15.1 | 615 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27615%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/atlas/) |
+| 4 | **Prometheus** | 139,400 | 0.002 | 0 | 0.6159 | 43.1 | 616 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27616%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/prometheus/) |
+| 5 | **Pandora** | 141,700 | 0.004 | 0 | 0.6314 | 40.7 | 617 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27617%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pandora/) |
+| 6 | **Pan** | 133,600 | 0 | 0 | 0.5751 | 14.1 | 618 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27618%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pan/) |
+| 7 | **Daphnis** | 136,500 | 0 | 0 | 0.5941 | 3.8 | 635 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27635%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/daphnis/) |
+| 8 | **Aegaeon** | 167,500 | 0 | 0 | 0.8081 | 0.3 | 653 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27653%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/aegaeon/) |
+| 9 | **S/2009 S 1** <sup>[note](#notes)</sup> | 117,061 | 0 | 0 | 0.473 | *est.* | 65304 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765304%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+
+## Alkyonides (3)
+
+*Alkyonides · small moon between Mimas and Enceladus*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Methone** | 194,700 | 0.002 | 0 | 1.0095 | 1.6 | 632 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27632%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/methone/) |
+| 2 | **Pallene** | 212,300 | 0.004 | 0.2 | 1.1561 | 2.2 | 633 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27633%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pallene/) |
+| 3 | **Anthe** | 198,100 | 0.002 | 0 | 1.0389 | 0.9 | 649 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27649%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/anthe/) |
+
+## Trojans (4)
+
+*Trojan co-orbital*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Helene** | 377,600 | 0.007 | 0.2 | 2.7369 | 18 | 612 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27612%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/helene/) |
+| 2 | **Telesto** | 295,000 | 0.001 | 1.2 | 1.8878 | 12.4 | 613 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27613%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/telesto/) |
+| 3 | **Calypso** | 295,000 | 0.001 | 1.5 | 1.8878 | 10.7 | 614 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27614%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/calypso/) |
+| 4 | **Polydeuces** | 377,600 | 0.019 | 0.2 | 2.7369 | 1.3 | 634 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27634%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/polydeuces/) |
+
+## Inuit group (38)
+
+*Inuit group · prograde irregular*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Paaliaq** | 14,997,700 | 0.378 | 48.5 | 685.7153 | 11 | 620 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27620%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/paaliaq/) |
+| 2 | **Ijiraq** | 11,344,700 | 0.293 | 49.2 | 451.1201 | 6 | 622 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27622%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/ijiraq/) |
+| 3 | **Kiviuq** | 11,307,400 | 0.275 | 48 | 448.9076 | 8 | 624 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27624%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/kiviuq/) |
+| 4 | **Siarnaq** | 17,881,100 | 0.308 | 47.8 | 892.6799 | 19.7 | 629 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27629%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/siarnaq/) |
+| 5 | **Tarqeq** | 17,751,000 | 0.144 | 48.7 | 882.8514 | *est.* | 652 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27652%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/tarqeq/) |
+| 6 | **S/2004 S 31** | 17,497,100 | 0.159 | 48 | 863.9229 | *est.* | 65067 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765067%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 7 | **S/2019 S 1** | 11,245,400 | 0.383 | 49.5 | 445.1701 | *est.* | 65093 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765093%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 8 | **S/2020 S 1** | 11,338,600 | 0.337 | 48.2 | 450.7722 | *est.* | 65096 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765096%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 9 | **S/2020 S 3** | 18,056,800 | 0.142 | 46 | 905.841 | *est.* | 65102 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765102%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 10 | **S/2020 S 5** | 18,391,000 | 0.22 | 48.2 | 931.1889 | *est.* | 65106 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765106%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 11 | **S/2019 S 6** | 18,205,600 | 0.12 | 46.4 | 917.1056 | *est.* | 65116 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765116%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 12 | **S/2005 S 4** | 11,324,500 | 0.315 | 48 | 449.925 | *est.* | 65129 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765129%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 13 | **S/2019 S 14** | 17,852,800 | 0.172 | 46.2 | 890.5868 | *est.* | 65133 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765133%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 14 | **S/2004 S 54** | 11,277,500 | 0.373 | 48.1 | 447.141 | *est.* | 65158 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765158%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 15 | **S/2004 S 55** | 11,294,700 | 0.26 | 48.9 | 448.1618 | *est.* | 65159 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765159%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 16 | **S/2004 S 58** | 18,254,500 | 0.249 | 45.7 | 920.8035 | *est.* | 65162 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765162%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 17 | **S/2005 S 6** | 18,107,300 | 0.084 | 47.7 | 909.5785 | *est.* | 65166 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765166%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 18 | **S/2007 S 10** | 11,364,900 | 0.367 | 45.8 | 452.3576 | *est.* | 65177 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765177%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 19 | **S/2019 S 22** | 11,305,100 | 0.369 | 47.3 | 448.775 | *est.* | 65179 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765179%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 20 | **S/2019 S 23** | 11,310,200 | 0.255 | 48.7 | 449.0806 | *est.* | 65180 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765180%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 21 | **S/2019 S 24** | 11,360,500 | 0.345 | 46.7 | 452.0743 | *est.* | 65181 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765181%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 22 | **S/2019 S 25** | 11,329,400 | 0.271 | 48.1 | 450.2181 | *est.* | 65182 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765182%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 23 | **S/2019 S 26** | 11,390,900 | 0.365 | 48.1 | 453.8882 | *est.* | 65183 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765183%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 24 | **S/2019 S 32** | 17,960,500 | 0.276 | 46.2 | 898.7083 | *est.* | 65189 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765189%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 25 | **S/2020 S 11** | 11,295,600 | 0.372 | 48.2 | 448.2111 | *est.* | 65202 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765202%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 26 | **S/2020 S 12** | 11,314,500 | 0.26 | 50.8 | 449.3271 | *est.* | 65203 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765203%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 27 | **S/2020 S 13** | 11,415,600 | 0.373 | 48 | 455.3875 | *est.* | 65204 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765204%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 28 | **S/2020 S 19** | 17,726,700 | 0.159 | 48.1 | 881.0431 | *est.* | 65210 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765210%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 29 | **S/2023 S 1** | 11,205,400 | 0.386 | 48.8 | 442.8632 | *est.* | 65236 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765236%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 30 | **S/2023 S 2** | 11,309,900 | 0.339 | 45.7 | 449.0535 | *est.* | 65237 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765237%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 31 | **S/2023 S 3** | 17,646,400 | 0.178 | 46.9 | 875.0007 | *est.* | 65238 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765238%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 32 | **S/2023 S 6** | 11,953,100 | 0.336 | 47.4 | 487.909 | *est.* | 65241 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765241%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 33 | **S/2023 S 7** | 12,133,700 | 0.284 | 44.7 | 499.0097 | *est.* | 65242 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765242%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 34 | **S/2023 S 19** | 17,590,300 | 0.092 | 48.2 | 870.9229 | *est.* | 65254 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765254%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 35 | **S/2023 S 22** | 18,577,500 | 0.182 | 47.5 | 945.3701 | *est.* | 65257 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765257%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 36 | **S/2020 S 48** | 11,355,100 | 0.373 | 45.9 | 451.7528 | *est.* | 65289 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765289%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 37 | **S/2023 S 56** | 11,287,500 | 0.358 | 45.4 | 447.7458 | *est.* | 65295 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765295%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 38 | **S/2020 S 49** | 11,305,900 | 0.373 | 48 | 448.8382 | *est.* | 65297 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765297%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+
+## Gallic group (20)
+
+*Gallic group · prograde irregular*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Tarvos** | 18,216,600 | 0.522 | 37.8 | 917.984 | 7.5 | 621 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27621%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/tarvos/) |
+| 2 | **Albiorix** | 16,329,200 | 0.482 | 36.8 | 779.0701 | 14.3 | 626 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27626%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/albiorix/) |
+| 3 | **Erriapus** | 17,506,900 | 0.475 | 37.1 | 864.9236 | *est.* | 628 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27628%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/erriapus/) |
+| 4 | **Bebhionn** | 17,027,300 | 0.459 | 38.6 | 829.6437 | *est.* | 637 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27637%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/bebhionn/) |
+| 5 | **S/2004 S 29** | 17,063,900 | 0.485 | 38.6 | 832.2736 | *est.* | 660 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27660%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 6 | **S/2004 S 24** | 23,338,200 | 0.071 | 37.4 | 1,331.3222 | *est.* | 65070 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765070%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 7 | **S/2020 S 4** | 18,236,400 | 0.496 | 40.1 | 919.5174 | *est.* | 65105 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765105%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 8 | **S/2006 S 12** | 19,570,300 | 0.542 | 38.6 | 1,022.2868 | *est.* | 65115 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765115%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 9 | **S/2007 S 8** | 17,048,900 | 0.49 | 36.2 | 831.2111 | *est.* | 65131 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765131%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 10 | **S/2005 S 7** | 18,502,500 | 0.565 | 34.6 | 939.7451 | *est.* | 65167 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765167%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 11 | **S/2006 S 23** | 18,269,700 | 0.19 | 43.8 | 921.8632 | *est.* | 65170 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765170%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 12 | **S/2007 S 11** | 17,434,400 | 0.499 | 35.5 | 859.5264 | *est.* | 65178 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765178%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 13 | **S/2019 S 29** | 17,353,900 | 0.441 | 37.7 | 853.6229 | *est.* | 65186 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765186%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 14 | **S/2019 S 31** | 17,739,100 | 0.488 | 39.8 | 882.241 | *est.* | 65188 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765188%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 15 | **S/2019 S 34** | 18,446,800 | 0.536 | 37.6 | 935.4472 | *est.* | 65191 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765191%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 16 | **S/2020 S 15** | 16,729,200 | 0.462 | 37.1 | 807.8243 | *est.* | 65206 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765206%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 17 | **S/2023 S 17** | 17,385,300 | 0.498 | 35.9 | 855.9354 | *est.* | 65252 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765252%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 18 | **S/2023 S 18** | 17,381,700 | 0.448 | 36.7 | 855.6535 | *est.* | 65253 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765253%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 19 | **S/2023 S 54** | 17,485,100 | 0.48 | 37.8 | 863.3486 | *est.* | 65293 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765293%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 20 | **S/2023 S 55** | 16,875,100 | 0.491 | 35.9 | 818.5125 | *est.* | 65294 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765294%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+
+## Norse group (210)
+
+*Norse group · retrograde irregular*
+
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Phoebe** | 12,929,400 | 0.164 | 175.2 | 550.3039 | 106.5 | 609 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27609%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/phoebe/) |
+| 2 | **Ymir** | 22,955,600 | 0.338 | 172.3 | 1,298.6819 | 9 | 619 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27619%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/ymir/) |
+| 3 | **Suttungr** | 19,391,900 | 0.116 | 175.7 | 1,008.2451 | *est.* | 623 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27623%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/suttungr/) |
+| 4 | **Mundilfari** | 18,588,200 | 0.211 | 167.1 | 946.2903 | *est.* | 625 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27625%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/mundilfari/) |
+| 5 | **Skathi** | 15,575,400 | 0.281 | 151.6 | 725.7313 | 4 | 627 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27627%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/skathi/) |
+| 6 | **Thrymr** | 20,330,500 | 0.467 | 175 | 1,082.2292 | *est.* | 630 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27630%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 7 | **Narvi** | 19,285,000 | 0.441 | 142.2 | 999.9417 | *est.* | 631 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27631%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/narvi/) |
+| 8 | **Aegir** | 20,664,400 | 0.255 | 166.1 | 1,109.1278 | *est.* | 636 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27636%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/aegir/) |
+| 9 | **Bergelmir** | 19,268,100 | 0.145 | 158.8 | 998.6187 | *est.* | 638 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27638%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/bergelmir/) |
+| 10 | **Bestla** | 20,337,800 | 0.486 | 138.3 | 1,082.9444 | *est.* | 639 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27639%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/bestla/) |
+| 11 | **Farbauti** | 20,290,700 | 0.249 | 156.2 | 1,079.1243 | *est.* | 640 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27640%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/farbauti/) |
+| 12 | **Fenrir** | 22,330,800 | 0.137 | 164.5 | 1,245.9215 | *est.* | 641 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27641%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/fenrir/) |
+| 13 | **Fornjot** | 24,936,800 | 0.213 | 170 | 1,470.3618 | *est.* | 642 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27642%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/fornjot/) |
+| 14 | **Hati** | 19,695,000 | 0.372 | 165.4 | 1,032.0236 | *est.* | 643 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27643%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/hati/) |
+| 15 | **Hyrrokkin** | 18,340,900 | 0.336 | 149.9 | 927.4569 | *est.* | 644 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27644%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/hyrrokkin/) |
+| 16 | **Kari** | 22,032,100 | 0.469 | 153 | 1,220.9757 | *est.* | 645 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27645%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/kari/) |
+| 17 | **Loge** | 22,919,200 | 0.191 | 168.1 | 1,295.5243 | *est.* | 646 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27646%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/loge/) |
+| 18 | **Skoll** | 17,623,400 | 0.463 | 159.4 | 873.5736 | *est.* | 647 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27647%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/skoll/) |
+| 19 | **Surtur** | 22,748,000 | 0.448 | 168.4 | 1,281.1396 | *est.* | 648 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27648%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/surtur/) |
+| 20 | **Jarnsaxa** | 19,273,500 | 0.218 | 163 | 999.1271 | *est.* | 650 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27650%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/jarnsaxa/) |
+| 21 | **Greip** | 18,380,000 | 0.317 | 174.2 | 930.4389 | *est.* | 651 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27651%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/greip/) |
+| 22 | **Gridr** | 19,250,600 | 0.187 | 163.9 | 997.3319 | *est.* | 654 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27654%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 23 | **Angrboda** | 20,591,500 | 0.216 | 177.7 | 1,103.1986 | *est.* | 655 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27655%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 24 | **Skrymir** | 21,447,400 | 0.437 | 175.6 | 1,172.7215 | *est.* | 656 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27656%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 25 | **Gerd** | 20,947,500 | 0.517 | 174.4 | 1,131.9062 | *est.* | 657 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27657%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 26 | **S/2004 S 26** | 26,097,500 | 0.147 | 172.9 | 1,574.2535 | *est.* | 658 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27658%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 27 | **Eggther** | 19,844,600 | 0.157 | 165 | 1,043.8035 | *est.* | 659 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27659%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 28 | **Beli** | 20,703,700 | 0.087 | 158.9 | 1,112.2687 | *est.* | 661 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27661%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 29 | **Gunnlod** | 21,141,800 | 0.251 | 160.4 | 1,147.7354 | *est.* | 662 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27662%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 30 | **Thiazzi** | 23,577,500 | 0.511 | 158.8 | 1,351.8319 | *est.* | 663 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27663%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 31 | **S/2004 S 34** | 24,145,800 | 0.279 | 168.3 | 1,400.9299 | *est.* | 664 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27664%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 32 | **Alvaldi** | 21,993,800 | 0.238 | 177.4 | 1,217.8042 | *est.* | 665 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27665%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 33 | **Geirrod** | 22,259,400 | 0.539 | 154.4 | 1,240.0465 | *est.* | 666 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27666%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 34 | **S/2004 S 28** | 21,865,900 | 0.159 | 167.9 | 1,207.1833 | *est.* | 65077 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765077%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 35 | **S/2004 S 21** | 23,160,900 | 0.394 | 153.2 | 1,316.1167 | *est.* | 65079 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765079%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 36 | **S/2004 S 36** | 23,390,800 | 0.625 | 153.3 | 1,335.8042 | *est.* | 65081 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765081%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 37 | **S/2004 S 37** | 15,956,300 | 0.448 | 158.2 | 752.5465 | *est.* | 65082 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765082%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 38 | **S/2004 S 39** | 23,192,400 | 0.1 | 165.9 | 1,318.7417 | *est.* | 65084 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765084%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 39 | **S/2004 S 7** | 21,327,600 | 0.511 | 164.8 | 1,162.9264 | *est.* | 65085 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765085%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 40 | **S/2004 S 12** | 19,801,000 | 0.337 | 164.7 | 1,040.3896 | *est.* | 65086 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765086%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 41 | **S/2004 S 13** | 18,453,700 | 0.265 | 169 | 936.0889 | *est.* | 65087 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765087%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 42 | **S/2004 S 17** | 19,699,000 | 0.162 | 167.9 | 1,032.3694 | *est.* | 65088 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765088%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 43 | **S/2006 S 1** | 18,746,300 | 0.105 | 156.1 | 958.3236 | *est.* | 65089 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765089%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 44 | **S/2006 S 3** | 21,353,100 | 0.432 | 156.1 | 1,165.0194 | *est.* | 65090 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765090%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 45 | **S/2007 S 2** | 15,939,100 | 0.232 | 174 | 751.3306 | *est.* | 65091 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765091%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 46 | **S/2007 S 3** | 19,614,400 | 0.15 | 173.8 | 1,025.6986 | *est.* | 65092 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765092%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 47 | **S/2019 S 2** | 16,560,300 | 0.279 | 173.3 | 795.6722 | *est.* | 65094 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765094%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 48 | **S/2019 S 3** | 17,077,400 | 0.248 | 166.9 | 833.1917 | *est.* | 65095 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765095%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 49 | **S/2020 S 2** | 17,869,000 | 0.152 | 170.7 | 891.8576 | *est.* | 65097 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765097%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 50 | **S/2004 S 40** | 16,075,600 | 0.297 | 169.2 | 760.9993 | *est.* | 65098 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765098%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 51 | **S/2006 S 9** | 14,406,700 | 0.249 | 173 | 645.5771 | *est.* | 65100 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765100%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 52 | **S/2007 S 5** | 15,835,600 | 0.104 | 158.4 | 744.0056 | *est.* | 65101 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765101%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 53 | **S/2019 S 4** | 17,951,900 | 0.408 | 170.1 | 898.0889 | *est.* | 65103 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765103%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 54 | **S/2004 S 41** | 18,095,400 | 0.301 | 165.7 | 908.8924 | *est.* | 65104 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765104%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 55 | **S/2007 S 6** | 18,545,000 | 0.168 | 166.5 | 942.9785 | *est.* | 65107 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765107%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 56 | **S/2004 S 42** | 18,240,700 | 0.158 | 165.7 | 919.8847 | *est.* | 65108 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765108%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 57 | **S/2006 S 10** | 18,979,900 | 0.151 | 161.6 | 976.3438 | *est.* | 65109 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765109%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 58 | **S/2019 S 5** | 19,090,100 | 0.216 | 158.8 | 984.8722 | *est.* | 65110 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765110%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 59 | **S/2004 S 43** | 18,935,700 | 0.432 | 171.1 | 972.8528 | *est.* | 65111 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765111%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 60 | **S/2004 S 44** | 19,515,400 | 0.129 | 167.7 | 1,017.9146 | *est.* | 65112 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765112%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 61 | **S/2004 S 45** | 19,693,700 | 0.551 | 154 | 1,031.8604 | *est.* | 65113 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765113%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 62 | **S/2006 S 11** | 19,711,900 | 0.143 | 174.1 | 1,033.3521 | *est.* | 65114 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765114%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 63 | **S/2006 S 13** | 19,953,300 | 0.313 | 162 | 1,052.316 | *est.* | 65117 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765117%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 64 | **S/2019 S 7** | 20,185,100 | 0.233 | 174.2 | 1,070.8007 | *est.* | 65118 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765118%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 65 | **S/2019 S 8** | 20,287,400 | 0.311 | 172.8 | 1,078.8604 | *est.* | 65119 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765119%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 66 | **S/2019 S 9** | 20,359,700 | 0.433 | 159.5 | 1,084.6194 | *est.* | 65120 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765120%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 67 | **S/2004 S 46** | 20,513,800 | 0.249 | 177.2 | 1,096.9882 | *est.* | 65121 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765121%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 68 | **S/2019 S 10** | 20,700,300 | 0.248 | 163.9 | 1,111.9924 | *est.* | 65122 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765122%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 69 | **S/2004 S 47** | 16,050,700 | 0.291 | 160.9 | 759.2201 | *est.* | 65123 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765123%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 70 | **S/2019 S 11** | 20,664,200 | 0.513 | 144.6 | 1,109.1097 | *est.* | 65124 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765124%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 71 | **S/2006 S 14** | 21,062,300 | 0.06 | 166.7 | 1,141.2708 | *est.* | 65125 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765125%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 72 | **S/2019 S 12** | 20,895,000 | 0.476 | 167.1 | 1,127.5993 | *est.* | 65126 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765126%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 73 | **S/2020 S 6** | 21,253,300 | 0.48 | 166.9 | 1,156.8111 | *est.* | 65127 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765127%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 74 | **S/2019 S 13** | 20,964,500 | 0.318 | 177.3 | 1,133.2653 | *est.* | 65128 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765128%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 75 | **S/2007 S 7** | 15,931,600 | 0.217 | 169.3 | 750.7958 | *est.* | 65130 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765130%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 76 | **S/2020 S 7** | 17,394,000 | 0.5 | 161.4 | 856.534 | *est.* | 65132 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765132%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 77 | **S/2019 S 15** | 21,191,100 | 0.257 | 157.8 | 1,151.6611 | *est.* | 65134 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765134%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 78 | **S/2005 S 5** | 21,364,900 | 0.588 | 169.5 | 1,165.9562 | *est.* | 65135 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765135%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 79 | **S/2006 S 15** | 21,799,600 | 0.117 | 161.1 | 1,201.6924 | *est.* | 65136 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765136%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 80 | **S/2006 S 16** | 21,721,200 | 0.204 | 164.1 | 1,195.1285 | *est.* | 65137 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765137%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 81 | **S/2006 S 17** | 22,384,200 | 0.425 | 168.7 | 1,250.4639 | *est.* | 65138 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765138%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 82 | **S/2004 S 48** | 22,137,400 | 0.374 | 161.9 | 1,229.8632 | *est.* | 65139 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765139%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 83 | **S/2020 S 8** | 21,967,200 | 0.252 | 161.8 | 1,215.6063 | *est.* | 65140 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765140%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 84 | **S/2004 S 49** | 22,399,400 | 0.453 | 159.8 | 1,251.6847 | *est.* | 65141 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765141%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 85 | **S/2004 S 50** | 22,345,000 | 0.45 | 164 | 1,247.1917 | *est.* | 65142 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765142%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 86 | **S/2006 S 18** | 22,760,600 | 0.131 | 169.5 | 1,282.0917 | *est.* | 65143 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765143%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 87 | **S/2019 S 16** | 23,265,200 | 0.25 | 162 | 1,324.9458 | *est.* | 65144 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765144%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 88 | **S/2019 S 17** | 22,722,700 | 0.546 | 155.5 | 1,278.9618 | *est.* | 65145 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765145%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 89 | **S/2019 S 18** | 23,139,500 | 0.509 | 154.6 | 1,314.2674 | *est.* | 65146 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765146%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 90 | **S/2019 S 19** | 23,044,400 | 0.458 | 151.8 | 1,306.1604 | *est.* | 65147 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765147%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 91 | **S/2019 S 20** | 23,677,900 | 0.354 | 156 | 1,360.4674 | *est.* | 65148 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765148%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 92 | **S/2006 S 19** | 23,800,500 | 0.467 | 175.5 | 1,371.0201 | *est.* | 65149 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765149%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 93 | **S/2004 S 51** | 25,207,100 | 0.201 | 171.2 | 1,494.4076 | *est.* | 65150 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765150%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 94 | **S/2020 S 9** | 25,408,700 | 0.531 | 161.4 | 1,512.384 | *est.* | 65151 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765151%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 95 | **S/2004 S 52** | 26,446,400 | 0.291 | 165.4 | 1,605.8868 | *est.* | 65152 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765152%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 96 | **S/2007 S 9** | 20,174,600 | 0.36 | 159.3 | 1,069.8069 | *est.* | 65153 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765153%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 97 | **S/2004 S 53** | 23,279,800 | 0.24 | 162.6 | 1,326.184 | *est.* | 65154 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765154%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 98 | **S/2020 S 10** | 25,315,300 | 0.296 | 165.6 | 1,503.9681 | *est.* | 65155 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765155%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 99 | **S/2019 S 21** | 26,439,500 | 0.155 | 171.9 | 1,605.2799 | *est.* | 65156 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765156%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 100 | **S/2006 S 20** | 13,193,700 | 0.206 | 173.1 | 565.7889 | *est.* | 65157 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765157%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 101 | **S/2004 S 56** | 13,670,200 | 0.339 | 161.6 | 596.6938 | *est.* | 65160 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765160%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 102 | **S/2004 S 57** | 18,150,500 | 0.263 | 167.9 | 913.0736 | *est.* | 65161 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765161%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 103 | **S/2004 S 59** | 19,170,700 | 0.262 | 167.3 | 991.1819 | *est.* | 65163 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765163%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 104 | **S/2004 S 60** | 19,517,000 | 0.28 | 173.8 | 1,018.1285 | *est.* | 65164 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765164%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 105 | **S/2004 S 61** | 20,986,900 | 0.466 | 168.4 | 1,135.0646 | *est.* | 65165 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765165%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 106 | **S/2006 S 21** | 14,976,500 | 0.204 | 169.8 | 684.2764 | *est.* | 65168 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765168%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 107 | **S/2006 S 22** | 15,109,500 | 0.246 | 172 | 693.4146 | *est.* | 65169 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765169%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 108 | **S/2006 S 24** | 18,210,700 | 0.352 | 165.9 | 917.559 | *est.* | 65171 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765171%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 109 | **S/2006 S 25** | 18,572,400 | 0.303 | 158.8 | 945.0681 | *est.* | 65172 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765172%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 110 | **S/2006 S 26** | 18,619,300 | 0.248 | 171.9 | 948.6722 | *est.* | 65173 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765173%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 111 | **S/2006 S 27** | 19,205,700 | 0.14 | 170.5 | 993.7889 | *est.* | 65174 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765174%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 112 | **S/2006 S 28** | 21,955,100 | 0.21 | 172.9 | 1,214.5257 | *est.* | 65175 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765175%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 113 | **S/2006 S 29** | 25,212,100 | 0.239 | 156.2 | 1,494.7833 | *est.* | 65176 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765176%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 114 | **S/2019 S 27** | 16,267,000 | 0.42 | 162.1 | 774.6333 | *est.* | 65184 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765184%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 115 | **S/2019 S 28** | 17,496,000 | 0.199 | 158.4 | 864.0938 | *est.* | 65185 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765185%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 116 | **S/2019 S 30** | 17,709,900 | 0.107 | 168.3 | 879.9708 | *est.* | 65187 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765187%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 117 | **S/2019 S 33** | 18,696,100 | 0.289 | 170.4 | 954.534 | *est.* | 65190 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765190%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 118 | **S/2019 S 35** | 18,557,800 | 0.577 | 157.3 | 943.9993 | *est.* | 65192 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765192%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 119 | **S/2019 S 36** | 19,903,200 | 0.161 | 166.9 | 1,048.4188 | *est.* | 65193 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765193%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 120 | **S/2019 S 37** | 19,996,900 | 0.404 | 149.9 | 1,055.7771 | *est.* | 65194 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765194%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 121 | **S/2019 S 38** | 21,998,400 | 0.399 | 163 | 1,218.2743 | *est.* | 65195 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765195%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 122 | **S/2019 S 39** | 23,784,500 | 0.098 | 174.5 | 1,369.6437 | *est.* | 65196 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765196%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 123 | **S/2019 S 40** | 24,087,800 | 0.088 | 161.8 | 1,395.8771 | *est.* | 65197 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765197%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 124 | **S/2019 S 41** | 24,493,600 | 0.257 | 157.1 | 1,431.2979 | *est.* | 65198 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765198%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 125 | **S/2019 S 42** | 24,111,600 | 0.121 | 163.2 | 1,397.975 | *est.* | 65199 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765199%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 126 | **S/2019 S 43** | 26,664,100 | 0.277 | 165.3 | 1,625.9 | *est.* | 65200 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765200%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 127 | **S/2019 S 44** | 26,796,900 | 0.512 | 172.6 | 1,638.1104 | *est.* | 65201 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765201%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 128 | **S/2020 S 14** | 16,186,200 | 0.313 | 161.7 | 768.8625 | *est.* | 65205 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765205%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 129 | **S/2020 S 16** | 16,963,400 | 0.405 | 167.3 | 824.9229 | *est.* | 65207 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765207%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 130 | **S/2020 S 17** | 17,094,200 | 0.378 | 148.9 | 834.4472 | *est.* | 65208 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765208%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 131 | **S/2020 S 18** | 17,777,900 | 0.18 | 168.9 | 885.1153 | *est.* | 65209 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765209%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 132 | **S/2020 S 20** | 17,997,300 | 0.133 | 169.8 | 901.525 | *est.* | 65211 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765211%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 133 | **S/2020 S 21** | 18,862,100 | 0.307 | 169.9 | 967.2604 | *est.* | 65212 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765212%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 134 | **S/2020 S 22** | 19,443,000 | 0.059 | 161.3 | 1,012.241 | *est.* | 65213 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765213%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 135 | **S/2020 S 23** | 19,801,500 | 0.089 | 165 | 1,040.3757 | *est.* | 65214 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765214%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 136 | **S/2020 S 24** | 20,618,300 | 0.23 | 159.6 | 1,105.4083 | *est.* | 65215 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765215%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 137 | **S/2020 S 25** | 20,763,700 | 0.316 | 171.8 | 1,117.0889 | *est.* | 65216 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765216%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 138 | **S/2020 S 26** | 21,264,400 | 0.273 | 163.2 | 1,157.766 | *est.* | 65217 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765217%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 139 | **S/2020 S 27** | 21,802,300 | 0.255 | 145.3 | 1,202.016 | *est.* | 65218 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765218%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 140 | **S/2020 S 28** | 21,993,700 | 0.474 | 160.1 | 1,217.8104 | *est.* | 65219 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765219%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 141 | **S/2020 S 29** | 22,301,400 | 0.047 | 169.1 | 1,243.4493 | *est.* | 65220 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765220%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 142 | **S/2020 S 30** | 21,790,700 | 0.601 | 154.2 | 1,201.0187 | *est.* | 65221 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765221%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 143 | **S/2020 S 31** | 22,457,300 | 0.238 | 163.8 | 1,256.5035 | *est.* | 65222 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765222%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 144 | **S/2020 S 32** | 21,884,100 | 0.502 | 169.1 | 1,208.8486 | *est.* | 65223 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765223%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 145 | **S/2020 S 33** | 22,922,500 | 0.555 | 162.8 | 1,295.85 | *est.* | 65224 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765224%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 146 | **S/2020 S 34** | 22,435,600 | 0.154 | 160.6 | 1,254.6069 | *est.* | 65225 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765225%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 147 | **S/2020 S 35** | 23,030,300 | 0.225 | 174.9 | 1,304.9653 | *est.* | 65226 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765226%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 148 | **S/2020 S 36** | 22,806,200 | 0.336 | 168.8 | 1,286.0292 | *est.* | 65227 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765227%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 149 | **S/2020 S 37** | 23,751,800 | 0.344 | 174.8 | 1,366.8215 | *est.* | 65228 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765228%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 150 | **S/2020 S 38** | 23,583,900 | 0.513 | 159.7 | 1,352.4347 | *est.* | 65229 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765229%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 151 | **S/2020 S 39** | 24,262,400 | 0.305 | 160.1 | 1,411.1451 | *est.* | 65230 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765230%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 152 | **S/2020 S 40** | 23,785,900 | 0.412 | 167.3 | 1,369.7562 | *est.* | 65231 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765231%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 153 | **S/2020 S 41** | 25,876,400 | 0.402 | 160.2 | 1,554.3993 | *est.* | 65232 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765232%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 154 | **S/2020 S 42** | 25,329,400 | 0.506 | 157.5 | 1,505.3118 | *est.* | 65233 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765233%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 155 | **S/2020 S 43** | 26,657,400 | 0.203 | 164.6 | 1,625.2931 | *est.* | 65234 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765234%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 156 | **S/2020 S 44** | 27,259,400 | 0.199 | 168.5 | 1,680.641 | *est.* | 65235 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765235%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 157 | **S/2023 S 4** | 17,764,600 | 0.276 | 170 | 884.1111 | *est.* | 65239 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765239%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 158 | **S/2023 S 5** | 25,583,500 | 0.599 | 168.8 | 1,528.0368 | *est.* | 65240 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765240%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 159 | **S/2023 S 8** | 14,018,800 | 0.122 | 166.9 | 619.691 | *est.* | 65243 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765243%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 160 | **S/2023 S 9** | 13,167,500 | 0.141 | 172.2 | 564.1139 | *est.* | 65244 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765244%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 161 | **S/2023 S 10** | 15,500,200 | 0.302 | 163 | 720.4931 | *est.* | 65245 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765245%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 162 | **S/2023 S 11** | 14,046,100 | 0.3 | 170.9 | 621.4931 | *est.* | 65246 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765246%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 163 | **S/2023 S 12** | 15,805,900 | 0.601 | 168.8 | 741.9167 | *est.* | 65247 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765247%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 164 | **S/2023 S 13** | 15,193,000 | 0.179 | 168.5 | 699.1799 | *est.* | 65248 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765248%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 165 | **S/2023 S 14** | 16,853,000 | 0.497 | 171.6 | 816.8618 | *est.* | 65249 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765249%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 166 | **S/2023 S 15** | 18,241,300 | 0.549 | 161.9 | 919.9347 | *est.* | 65250 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765250%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 167 | **S/2023 S 16** | 17,005,300 | 0.27 | 162.6 | 827.9111 | *est.* | 65251 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765251%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 168 | **S/2023 S 20** | 17,261,000 | 0.442 | 136.5 | 846.7653 | *est.* | 65255 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765255%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 169 | **S/2023 S 21** | 17,755,400 | 0.077 | 157.3 | 883.3083 | *est.* | 65256 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765256%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 170 | **S/2023 S 23** | 18,783,700 | 0.35 | 164.8 | 961.2236 | *est.* | 65258 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765258%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 171 | **S/2023 S 24** | 18,351,800 | 0.374 | 169.7 | 928.2451 | *est.* | 65259 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765259%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 172 | **S/2023 S 25** | 19,136,600 | 0.281 | 166.4 | 988.5278 | *est.* | 65260 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765260%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 173 | **S/2023 S 26** | 19,894,300 | 0.306 | 163.9 | 1,047.7618 | *est.* | 65261 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765261%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 174 | **S/2023 S 27** | 19,820,100 | 0.652 | 151.1 | 1,041.8521 | *est.* | 65262 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765262%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 175 | **S/2023 S 28** | 19,881,000 | 0.575 | 168.7 | 1,046.5556 | *est.* | 65263 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765263%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 176 | **S/2023 S 29** | 20,042,400 | 0.141 | 172.2 | 1,059.4208 | *est.* | 65264 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765264%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 177 | **S/2023 S 30** | 18,238,300 | 0.493 | 142.4 | 919.7139 | *est.* | 65265 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765265%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 178 | **S/2023 S 31** | 20,729,200 | 0.182 | 163 | 1,114.2889 | *est.* | 65266 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765266%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 179 | **S/2023 S 32** | 20,454,400 | 0.037 | 169.8 | 1,092.2417 | *est.* | 65267 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765267%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 180 | **S/2023 S 33** | 21,621,900 | 0.665 | 155.8 | 1,187.0667 | *est.* | 65268 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765268%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 181 | **S/2023 S 34** | 20,803,900 | 0.57 | 168.4 | 1,120.3833 | *est.* | 65269 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765269%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 182 | **S/2023 S 35** | 22,269,700 | 0.151 | 168.5 | 1,240.7618 | *est.* | 65270 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765270%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 183 | **S/2023 S 36** | 22,230,600 | 0.359 | 166.3 | 1,237.6104 | *est.* | 65271 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765271%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 184 | **S/2023 S 37** | 19,889,800 | 0.215 | 172.3 | 1,047.3903 | *est.* | 65272 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765272%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 185 | **S/2023 S 38** | 12,823,500 | 0.909 | 149.2 | 546.3146 | *est.* | 65273 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765273%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 186 | **S/2023 S 39** | 20,824,500 | 0.124 | 164.8 | 1,121.9938 | *est.* | 65274 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765274%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 187 | **S/2023 S 40** | 21,065,100 | 0.342 | 169.6 | 1,141.4813 | *est.* | 65275 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765275%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 188 | **S/2023 S 41** | 21,286,400 | 0.279 | 172.1 | 1,159.516 | *est.* | 65276 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765276%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 189 | **S/2023 S 42** | 21,837,000 | 0.059 | 166.7 | 1,204.8146 | *est.* | 65277 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765277%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 190 | **S/2023 S 43** | 22,563,900 | 0.264 | 170.3 | 1,265.5667 | *est.* | 65278 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765278%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 191 | **S/2023 S 44** | 19,292,400 | 0.434 | 167.4 | 1,000.4722 | *est.* | 65279 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765279%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 192 | **S/2023 S 45** | 23,438,400 | 0.633 | 157.4 | 1,339.8472 | *est.* | 65280 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765280%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 193 | **S/2023 S 46** | 24,708,900 | 0.336 | 143.2 | 1,450.2715 | *est.* | 65281 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765281%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 194 | **S/2023 S 47** | 25,102,300 | 0.101 | 162.5 | 1,485.0417 | *est.* | 65282 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765282%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 195 | **S/2023 S 48** | 20,029,200 | 0.022 | 169.7 | 1,058.3493 | *est.* | 65283 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765283%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 196 | **S/2023 S 49** | 21,766,500 | 0.026 | 171.7 | 1,198.9896 | *est.* | 65284 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765284%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 197 | **S/2023 S 50** | 11,656,500 | 0.263 | 166.1 | 469.8201 | *est.* | 65285 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765285%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 198 | **S/2020 S 45** | 23,507,700 | 0.199 | 172.8 | 1,345.7917 | *est.* | 65286 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765286%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 199 | **S/2020 S 46** | 18,892,100 | 0.207 | 167.3 | 969.5965 | *est.* | 65287 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765287%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 200 | **S/2020 S 47** | 21,397,400 | 0.564 | 146.1 | 1,168.5778 | *est.* | 65288 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765288%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 201 | **S/2023 S 51** | 23,431,500 | 0.191 | 163.3 | 1,339.2104 | *est.* | 65290 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765290%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 202 | **S/2023 S 52** | 22,528,000 | 0.124 | 146.2 | 1,262.3438 | *est.* | 65291 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765291%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 203 | **S/2023 S 53** | 17,181,100 | 0.103 | 171.2 | 840.8181 | *est.* | 65292 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765292%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 204 | **S/2023 S 57** | 20,536,100 | 0.245 | 168 | 1,098.8285 | *est.* | 65296 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765296%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 205 | **S/2023 S 58** | 17,206,000 | 0.093 | 169.6 | 842.6812 | *est.* | 65298 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765298%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 206 | **S/2023 S 59** | 20,064,000 | 0.467 | 169.5 | 1,061.041 | *est.* | 65299 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765299%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 207 | **S/2023 S 60** | 17,493,700 | 0.206 | 170.7 | 863.9632 | *est.* | 65300 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765300%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 208 | **S/2023 S 61** | 18,067,700 | 0.557 | 158 | 906.8486 | *est.* | 65301 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765301%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 209 | **S/2023 S 62** | 14,025,900 | 0.467 | 155.6 | 620.1486 | *est.* | 65302 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765302%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 210 | **S/2023 S 63** | 18,482,600 | 0.266 | 165 | 938.2549 | *est.* | 65303 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765303%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+
+## Notes
+
+- **S/2009 S 1** — Propeller moonlet in the outer B ring. JPL lists these exact elements under the label `S2009_S_2` (NAIF 65304).
+

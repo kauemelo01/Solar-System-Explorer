@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar System Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a calm observatory instrument; precise numbers, few words
+   IDEA: a digital orrery whose pivot you can move, with a catalogue you can switch on family by family
+   PICTURE: the live 3D system itself, full bleed, with starfield
+   COLOUR and TYPE: deep space ground, starlight ink, each body's own colour as its key; Jost
+   LAYOUT: canvas full screen; controls top-left, focused body top-right, time bar at the foot */
+:root{color-scheme:dark;--bg:#03050a;--ink:#e9edf5;--mute:#98a3b8;--line:rgba(255,255,255,.1);--card:rgba(8,12,21,.8);--accent:#8bb8ff;--hi:rgba(139,184,255,.16)}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Jost,system-ui,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#c.drag{cursor:grabbing}
+#labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;pointer-events:auto;border:0;font:500 13px/1 Jost,sans-serif;color:var(--ink);background:rgba(3,5,10,.55);padding:4px 8px 4px 7px;border-radius:999px;white-space:nowrap;cursor:pointer;display:none;gap:6px;align-items:center;will-change:transform}
+.lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.lbl.sm{font-size:13px;font-weight:400;color:#c3cad8;background:rgba(3,5,10,.4);padding:3px 7px 3px 6px}
+.lbl.sm::before{width:5px;height:5px}
+.lbl:hover,.lbl.on{background:rgba(20,28,46,.9)}
+.lbl.on{outline:1px solid var(--c)}
+.rl{position:absolute;left:0;top:0;font:13px/1 Jost,sans-serif;color:rgba(160,180,230,.5);white-space:nowrap;display:none}
+.card{position:fixed;background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+#panel{top:16px;left:16px;width:332px;max-height:calc(100% - 132px);display:flex;flex-direction:column}
+#panel header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 14px 6px 18px}
+h1{font-size:22px;line-height:1.05;margin:0;font-weight:600;text-wrap:balance}
+#pbody{overflow:auto;padding:0 18px 16px;overscroll-behavior:contain}
+details.sec{border-top:1px solid var(--line);margin-top:10px}
+details.sec>summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:15px}
+details.sec>summary::-webkit-details-marker,details.mp>summary::-webkit-details-marker{display:none}
+details.sec>summary::after,details.mp>summary::after{content:"";width:8px;height:8px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:rotate(45deg);margin:0 4px 4px 0;transition:transform .2s}
+details[open]>summary::after{transform:rotate(225deg);margin-bottom:-4px}
+h3{font-size:13px;font-weight:500;color:var(--mute);margin:12px 0 6px}
+h3 span{font-weight:400;opacity:.8}
+.sub{margin:0 0 8px;color:var(--mute);font-size:13px}
+.note{margin:6px 0 0;color:var(--mute);font-size:13px}
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.chip{min-height:44px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;font:500 14px Jost,sans-serif;display:flex;align-items:center;gap:7px;padding:0 9px;cursor:pointer;text-align:left}
+.chip i{width:10px;height:10px;border-radius:50%;flex:none;background:var(--c);box-shadow:0 0 8px var(--c)}
+.chip:hover{background:rgba(255,255,255,.05)}
+.chip[aria-pressed=true]{background:var(--hi);border-color:var(--accent)}
+details.mp{border:1px solid var(--line);border-radius:10px;margin-bottom:6px}
+details.mp>summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px;padding:0 10px}
+details.mp>summary i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+details.mp>summary b{font-weight:500;flex:1}
+details.mp>summary output{font-size:13px}
+details.mp[data-on=true]{border-color:rgba(139,184,255,.45)}
+.gch{display:flex;flex-wrap:wrap;gap:6px;padding:2px 10px 10px}
+.g{min-height:36px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;font:14px Jost,sans-serif;padding:0 12px;cursor:pointer;white-space:nowrap}
+.g small{color:var(--mute);font-size:13px;margin-left:4px}
+.g[aria-pressed=true]{background:var(--hi);border-color:var(--accent)}
+.g.q{color:var(--mute)}
+.qrow{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.qrow .g{min-height:40px}
+.qrow .g.q[aria-pressed=true]{color:var(--ink);background:var(--hi);border-color:var(--accent)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
+.row>span{flex:none}
+.sw{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+.sw output{margin-left:auto}
+.sw input{appearance:none;width:40px;height:24px;border-radius:12px;background:#2a3142;position:relative;cursor:pointer;flex:none;margin:0;transition:background .2s}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#cfd6e4;transition:transform .2s}
+.sw input:checked{background:var(--accent)}
+.sw input:checked::after{transform:translateX(16px);background:#fff}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{min-height:44px;border:0;background:transparent;color:var(--ink);font:500 14px Jost,sans-serif;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--hi);color:#fff;box-shadow:inset 0 -2px 0 var(--accent)}
+select,#find{font:16px Jost,sans-serif;color:var(--ink);background:#151b29;border:1px solid var(--line);border-radius:10px;min-height:44px;padding:0 12px}
+#find,.ref{width:100%;margin:4px 0 2px}
+.ref{margin-top:8px;font:16px Jost,sans-serif;color:var(--ink);background:#151b29;border:1px dashed rgba(139,184,255,.45);border-radius:10px;min-height:44px;padding:0 12px}
+.ref::placeholder{color:#8fa3c8}
+#find::placeholder{color:#79849a}
+input[type=range]{width:100%;accent-color:var(--accent);min-height:32px}
+output{font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.btn{min-height:44px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;font:500 14px Jost,sans-serif;cursor:pointer;padding:0 12px;white-space:nowrap}
+.btn:hover,.g:hover{background:rgba(255,255,255,.06)}
+.ib{width:44px;height:44px;display:grid;place-items:center;padding:0;flex:none}
+.ib svg{width:18px;height:18px;fill:currentColor}
+.ib[aria-pressed=true]{background:var(--hi);border-color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hint{font-size:13px;color:var(--mute);margin:14px 0 0}
+.src{font-size:13px;color:#6f7a90;margin:8px 0 0}
+#focus{top:16px;right:16px;width:284px;padding:16px 18px}
+#focus .nm{display:flex;align-items:center;gap:10px}
+#focus .nm i{width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);flex:none}
+#focus h3{margin:0;font-size:22px;font-weight:600;line-height:1.05;color:var(--ink)}
+#focus .kind{color:var(--mute);font-size:13px;margin:4px 0 10px}
+dl{margin:0;display:grid;grid-template-columns:auto auto;gap:6px 12px;font-size:14px}
+dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+#hold{width:100%;margin-top:12px}
+#timebar{left:50%;bottom:16px;transform:translateX(-50%);width:min(820px,calc(100% - 32px));display:flex;align-items:center;gap:10px;padding:10px 12px;flex-wrap:wrap}
+#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1}
+#date small{display:block;font-size:13px;font-weight:400;color:var(--mute);margin-top:3px}
+.spd{flex:1 1 180px;display:flex;flex-direction:column}
+.spd output{font-size:13px}
+#jump{font:15px Jost,sans-serif;background:#151b29;color:var(--ink);border:1px solid var(--line);border-radius:8px;min-height:44px;padding:0 8px;color-scheme:dark}
+#err{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:var(--mute)}
+@media(max-width:600px){
+ #panel{left:8px;right:8px;top:8px;width:auto;max-height:calc(100% - 244px)}
+ #panel:not(.open) #pbody{display:none}
+ #focus{left:8px;right:8px;top:auto;bottom:134px;width:auto;padding:10px 14px}
+ #focus .more,#focus .kind{display:none}
+ #focus h3{font-size:18px}
+ #focus dl{margin-top:6px}
+ #hold{min-height:40px;margin-top:8px}
+ #timebar{bottom:8px;width:calc(100% - 16px);gap:8px}
+ #date{font-size:18px;order:-1;flex:1 1 100%}
+ #jump{display:none}
+ .spd{flex:1 1 80px}
+}
+@media(min-width:601px){#ptog{display:none}}
+@media(prefers-reduced-motion:reduce){.sw input,.sw input::after,details>summary::after{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="3D view of the solar system"></canvas>
+<div id="labels"></div>
+<div id="err"><p>The 3D renderer could not start (WebGL or the Three.js library is unavailable in this browser).</p></div>
+
+<aside id="panel" class="card">
+ <header>
+  <h1>Solar System Explorer</h1>
+  <button id="ptog" class="btn" aria-expanded="false" aria-controls="pbody">Controls</button>
+ </header>
+ <div id="pbody">
+  <input id="find" list="names" placeholder="Find and fly to… (camera only)" aria-label="Find an object" autocomplete="off">
+  <datalist id="names"></datalist>
+  <details class="sec" open><summary>Reference body</summary>
+   <p class="sub">The body held still. Everything else moves relative to it.</p>
+   <div id="centers" class="chips"></div>
+   <input id="refFind" class="ref" list="names" placeholder="Hold any other object still…" aria-label="Choose any object as the reference body" autocomplete="off">
+   <p class="note">Or double-click any object in the view. The Find box above only points the camera.</p>
+  </details>
+  <details class="sec" open><summary>Show</summary>
+   <div class="qrow"><button class="g q" data-bulk="everything">Show everything</button><button class="g q" data-bulk="planets">Planets only</button></div>
+   <h3>Moons <span>· by planet and family</span></h3>
+   <div class="qrow"><button class="g q" data-bulk="moons-major">Major moons</button><button class="g q" data-bulk="moons-all">All moons</button><button class="g q" data-bulk="moons-none">No moons</button></div>
+   <div id="moonUI"></div>
+   <p class="note">Moons appear as you zoom toward their planet.</p>
+   <label class="sw"><input type="checkbox" id="orbits" checked> Moon orbit outlines</label>
+   <h3>Small bodies</h3>
+   <div class="qrow"><button class="g q" data-bulk="small-all">All</button><button class="g q" data-bulk="small-none">None</button></div>
+   <div id="catUI"></div>
+   <h3>Belts <span>· illustrative distributions</span></h3>
+   <div class="qrow"><button class="g q" data-bulk="belts-all">All</button><button class="g q" data-bulk="belts-none">None</button></div>
+   <div id="beltUI"></div>
+  </details>
+  <details class="sec" open><summary>Trails</summary>
+   <label class="sw"><input type="checkbox" id="trails" checked> Show trails</label>
+   <label class="row"><span>Trail length</span>
+    <select id="tlen">
+     <option value="1">1 year</option><option value="5">5 years</option><option value="12">12 years</option>
+     <option value="30" selected>30 years</option><option value="100">100 years</option><option value="250">250 years</option>
+    </select>
+   </label>
+  </details>
+  <details class="sec" open><summary>Scale &amp; view</summary>
+   <div class="seg" id="mode"><button data-v="true" aria-pressed="true">True distances</button><button data-v="log" aria-pressed="false">Compressed</button></div>
+   <label class="row" style="margin-top:6px"><span>Body size</span><output id="sizeOut">×1 true size</output></label>
+   <input type="range" id="size" min="0" max="100" value="0" aria-label="Body size magnification">
+   <label class="sw"><input type="checkbox" id="lbls" checked> Labels</label>
+   <label class="sw"><input type="checkbox" id="rings" checked> Distance rings (AU)</label>
+   <div class="grid2"><button class="btn" id="fitIn">Inner planets</button><button class="btn" id="fitAll">Whole system</button></div>
+  </details>
+  <p class="hint">Drag to orbit, scroll or pinch to zoom, click a name to fly to it, double-click to hold it still. Keys: space pause, ← → speed, R reverse, T trails, C hold selected still, / find.</p>
+  <p class="src">Planets: JPL Keplerian elements (best 1800–2050). Moons: JPL mean elements, 459 moons as of Nov 2026; Pluto’s small-moon phases approximate. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. At true size bodies are specks — raise Body size to see them.</p>
+ </div>
+</aside>
+
+<section id="focus" class="card" aria-live="polite">
+ <div class="nm"><i id="fDot"></i><h3 id="fName">Sun</h3></div>
+ <div class="kind" id="fKind">Star</div>
+ <dl>
+  <dt id="fDl">From Sun</dt><dd id="fDist">—</dd>
+  <dt>Light time</dt><dd id="fLight">—</dd>
+  <dt class="more">From the Sun</dt><dd class="more" id="fSun">—</dd>
+  <dt class="more">Radius</dt><dd class="more" id="fRad">—</dd>
+  <dt class="more">Orbital period</dt><dd class="more" id="fPer">—</dd>
+ </dl>
+ <button class="btn" id="hold">Hold this one still</button>
+</section>
+
+<footer id="timebar" class="card">
+ <button class="btn ib" id="rev" aria-pressed="false" title="Reverse time (R)" aria-label="Reverse time"><svg viewBox="0 0 24 24"><path d="M11 6v12L2 12zM21 6v12l-9-6z"/></svg></button>
+ <button class="btn ib" id="play" title="Pause (space)" aria-label="Pause"><svg viewBox="0 0 24 24" id="playIco"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+ <div class="spd"><input type="range" id="speed" min="0" max="10" step="1" value="5" aria-label="Simulation speed"><output id="speedOut">1 month / s</output></div>
+ <div id="date">—<small id="dsub">—</small></div>
+ <input type="date" id="jump" aria-label="Jump to date">
+ <button class="btn" id="today">Today</button>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const MOONS=[["Io","jupiter",421800,0.004,49.1,330.9,0.0,0.0,1.762732,268.1,64.5,"galilean"],["Europa","jupiter",671100,0.009,45.0,345.4,0.5,184.0,3.525463,268.1,64.5,"galilean"],["Ganymede","jupiter",1070400,0.001,198.3,324.8,0.2,58.5,7.155588,268.2,64.6,"galilean"],["Callisto","jupiter",1882700,0.007,43.8,87.4,0.3,309.1,16.69044,268.7,64.8,"galilean"],["Amalthea","jupiter",181400,0.003,180.1,310.6,0.4,282.9,0.499918,268.1,64.5,"inner"],["Thebe","jupiter",221900,0.018,26.6,182.1,1.1,340.4,0.676105,268.1,64.5,"inner"],["Adrastea","jupiter",129000,0.0,0.0,214.5,0.0,0.0,0.29826,268.1,64.5,"inner"],["Metis","jupiter",128000,0.0,0.0,166.0,0.0,0.0,0.294779,268.1,64.5,"inner"],["Himalia","jupiter",11439000,0.16,321.1,78.3,28.4,64.2,249.909,null,null,"himalia"],["Elara","jupiter",11710700,0.212,129.9,346.9,27.8,112.8,258.8861,null,null,"himalia"],["Pasiphae","jupiter",23463200,0.412,172.8,279.3,148.3,315.7,734.4215,null,null,"pasiphae"],["Sinope","jupiter",23679300,0.262,354.3,157.4,157.3,308.0,744.5951,null,null,"pasiphae"],["Lysithea","jupiter",11699100,0.117,48.3,328.5,27.7,9.2,258.5035,null,null,"himalia"],["Carme","jupiter",23139200,0.261,6.5,259.5,164.6,115.5,719.2806,null,null,"carme"],["Ananke","jupiter",21029500,0.238,78.8,271.7,147.6,13.7,623.1097,null,null,"ananke"],["Leda","jupiter",11145200,0.162,271.3,232.6,28.2,216.9,240.3264,null,null,"himalia"],["Callirrhoe","jupiter",23789400,0.29,13.5,117.9,144.9,278.2,749.791,null,null,"pasiphae"],["Themisto","jupiter",7397000,0.257,236.3,289.1,44.3,202.7,129.9681,null,null,"prograde"],["Megaclite","jupiter",23640100,0.421,309.9,116.1,149.9,292.2,742.7715,null,null,"pasiphae"],["Taygete","jupiter",23103400,0.257,207.7,116.5,164.7,300.8,717.5917,null,null,"carme"],["Chaldene","jupiter",22926300,0.261,231.6,275.3,164.7,134.5,709.3625,null,null,"carme"],["Harpalyke","jupiter",20887500,0.239,104.3,255.4,147.8,35.6,616.7833,null,null,"ananke"],["Kalyke","jupiter",23298000,0.261,240.5,224.9,164.7,37.7,726.7007,null,null,"carme"],["Iocaste","jupiter",21062300,0.223,91.4,182.0,148.7,268.9,624.5479,null,null,"ananke"],["Erinome","jupiter",23027200,0.272,359.9,273.1,164.3,311.2,714.0542,null,null,"carme"],["Isonoe","jupiter",22976300,0.249,131.0,116.3,164.9,134.1,711.6604,null,null,"carme"],["Praxidike","jupiter",20931100,0.245,182.5,128.0,148.2,281.3,618.7229,null,null,"ananke"],["Autonoe","jupiter",23785200,0.326,61.2,134.0,150.7,264.8,749.6097,null,null,"pasiphae"],["Thyone","jupiter",20972700,0.235,105.1,242.5,147.6,240.8,620.5875,null,null,"ananke"],["Hermippe","jupiter",21103600,0.22,277.2,158.6,150.2,330.3,626.3799,null,null,"ananke"],["Aitne","jupiter",23059400,0.273,72.2,120.6,164.5,358.4,715.5396,null,null,"carme"],["Eurydome","jupiter",22894500,0.287,223.4,281.8,148.9,297.7,707.8569,null,null,"pasiphae"],["Euanthe","jupiter",20822900,0.243,312.4,353.5,148.1,265.2,613.9278,null,null,"ananke"],["Euporie","jupiter",19261900,0.148,109.5,56.4,145.5,63.4,546.1778,null,null,"ananke"],["Orthosie","jupiter",20897800,0.294,244.7,161.1,144.2,212.4,617.2347,null,null,"ananke"],["Sponde","jupiter",23538700,0.323,56.6,177.4,149.4,109.3,737.9542,null,null,"pasiphae"],["Kale","jupiter",23047800,0.262,69.2,175.9,164.6,56.7,715.016,null,null,"carme"],["Pasithee","jupiter",22840800,0.274,207.9,237.8,164.5,318.0,705.409,null,null,"carme"],["Hegemone","jupiter",23342600,0.357,192.2,241.1,152.5,311.5,728.7743,null,null,"pasiphae"],["Mneme","jupiter",20815800,0.24,50.1,236.1,147.8,0.9,613.6104,null,null,"ananke"],["Aoede","jupiter",23773100,0.437,43.1,207.6,155.7,156.5,749.0708,null,null,"pasiphae"],["Thelxinoe","jupiter",20972300,0.229,307.0,275.1,150.7,174.9,620.5458,null,null,"ananke"],["Arche","jupiter",23093200,0.263,172.5,34.0,164.5,333.3,717.1056,null,null,"carme"],["Kallichore","jupiter",23017100,0.253,352.6,66.8,164.7,23.9,713.5931,null,null,"carme"],["Helike","jupiter",20911400,0.155,305.1,45.8,154.4,94.6,617.8625,null,null,"ananke"],["Carpo","jupiter",17039500,0.415,90.5,336.6,53.3,52.1,454.4,null,null,"prograde"],["Eukelade","jupiter",23062400,0.274,290.1,234.2,164.7,200.4,715.6868,null,null,"carme"],["Cyllene","jupiter",23650000,0.421,174.6,153.3,146.8,253.6,743.2062,null,null,"pasiphae"],["Kore","jupiter",24203300,0.338,135.3,40.6,141.7,324.2,769.4229,null,null,"pasiphae"],["Herse","jupiter",23146700,0.258,344.1,123.1,164.4,299.5,719.6264,null,null,"carme"],["S/2010 J 1","jupiter",23185600,0.256,175.6,183.4,164.5,284.7,721.4257,null,null,"carme"],["S/2010 J 2","jupiter",20786900,0.244,28.8,292.5,148.0,357.3,612.3507,null,null,"ananke"],["Dia","jupiter",12257900,0.232,164.1,320.9,29.1,293.9,277.2472,null,null,"himalia"],["S/2016 J 1","jupiter",20796700,0.245,298.5,215.3,145.1,247.7,612.7812,null,null,"ananke"],["S/2003 J 18","jupiter",20332800,0.102,86.2,252.5,145.7,166.8,592.3333,null,null,"ananke"],["S/2011 J 2","jupiter",22903400,0.358,262.9,297.6,151.7,24.9,708.2931,null,null,"pasiphae"],["Eirene","jupiter",23051300,0.263,86.4,336.7,164.7,180.0,715.191,null,null,"carme"],["Philophrosyne","jupiter",22600200,0.221,0.9,88.9,146.1,234.3,694.2042,null,null,"pasiphae"],["S/2017 J 1","jupiter",23739600,0.321,74.7,250.1,145.6,251.8,747.4382,null,null,"pasiphae"],["Eupheme","jupiter",20763400,0.234,73.6,339.8,147.9,227.5,611.316,null,null,"ananke"],["S/2003 J 19","jupiter",23153100,0.264,186.8,196.9,164.6,21.9,719.9222,null,null,"carme"],["Valetudo","jupiter",18690100,0.217,316.3,90.5,34.5,291.2,522.0743,null,null,"prograde"],["S/2017 J 2","jupiter",22949600,0.27,153.0,278.2,164.5,359.4,710.4208,null,null,"carme"],["S/2017 J 3","jupiter",20936500,0.238,105.7,235.4,147.9,27.9,618.9653,null,null,"ananke"],["Pandia","jupiter",11479600,0.178,188.7,158.5,28.9,249.8,251.2319,null,null,"himalia"],["S/2017 J 5","jupiter",23202000,0.261,292.5,69.3,164.7,42.3,722.1972,null,null,"carme"],["S/2017 J 6","jupiter",23251200,0.333,15.5,146.0,149.6,312.8,724.4688,null,null,"pasiphae"],["S/2017 J 7","jupiter",20960400,0.235,288.7,353.0,147.4,264.9,620.0167,null,null,"ananke"],["S/2017 J 8","jupiter",22819600,0.259,330.5,349.4,164.8,97.3,704.4181,null,null,"carme"],["S/2017 J 9","jupiter",21764200,0.197,276.4,243.3,155.4,245.3,656.0479,null,null,"ananke"],["Ersa","jupiter",11399400,0.117,300.7,270.8,29.0,113.7,248.6153,null,null,"himalia"],["S/2011 J 1","jupiter",23120800,0.269,50.4,225.4,164.7,253.5,718.4153,null,null,"carme"],["S/2003 J 2","jupiter",20992900,0.225,170.6,42.3,150.1,348.4,621.4715,null,null,"ananke"],["S/2003 J 4","jupiter",22922300,0.327,208.8,216.5,148.3,175.4,709.1229,null,null,"pasiphae"],["S/2003 J 9","jupiter",23195100,0.268,288.4,359.8,164.7,46.3,721.8792,null,null,"carme"],["S/2003 J 10","jupiter",23384400,0.257,187.6,272.8,164.6,155.7,730.7375,null,null,"carme"],["S/2003 J 12","jupiter",20959300,0.235,66.1,160.7,150.0,54.1,619.9611,null,null,"ananke"],["S/2003 J 16","jupiter",20877500,0.238,55.6,298.2,147.8,5.3,616.3444,null,null,"ananke"],["S/2003 J 23","jupiter",23824000,0.306,256.6,140.6,144.4,30.9,751.3993,null,null,"pasiphae"],["S/2003 J 24","jupiter",22882400,0.263,84.1,121.6,164.6,208.7,707.3347,null,null,"carme"],["S/2011 J 3","jupiter",11716800,0.192,134.7,359.4,27.6,123.3,259.0875,null,null,"himalia"],["S/2018 J 2","jupiter",11419700,0.152,288.6,115.5,28.3,91.8,249.275,null,null,"himalia"],["S/2018 J 3","jupiter",23400200,0.268,177.5,279.0,164.9,135.7,731.4875,null,null,"carme"],["S/2021 J 1","jupiter",20954700,0.228,20.6,129.1,150.5,241.1,619.7687,null,null,"ananke"],["S/2021 J 2","jupiter",20926600,0.242,25.9,110.8,148.1,269.5,618.5028,null,null,"ananke"],["S/2021 J 3","jupiter",20776600,0.239,218.6,167.9,147.9,141.7,611.8736,null,null,"ananke"],["S/2021 J 4","jupiter",23019700,0.265,140.5,218.9,164.6,129.9,713.7056,null,null,"carme"],["S/2021 J 5","jupiter",23414600,0.272,273.4,236.5,164.9,154.4,732.1528,null,null,"carme"],["S/2021 J 6","jupiter",22870400,0.271,146.2,208.5,164.9,87.2,706.7653,null,null,"carme"],["S/2016 J 3","jupiter",22719300,0.251,94.7,59.1,164.6,36.8,699.7583,null,null,"carme"],["S/2016 J 4","jupiter",23113900,0.294,249.4,217.5,147.1,203.2,718.0382,null,null,"pasiphae"],["S/2018 J 4","jupiter",16328500,0.177,285.0,138.3,50.2,52.1,426.2646,null,null,"prograde"],["S/2022 J 1","jupiter",22744700,0.257,232.4,42.2,164.5,310.9,700.9333,null,null,"carme"],["S/2022 J 2","jupiter",23073400,0.263,357.0,98.9,164.7,47.7,716.2104,null,null,"carme"],["S/2022 J 3","jupiter",21015100,0.248,351.6,271.7,148.1,233.1,622.4361,null,null,"ananke"],["S/2017 J 10","jupiter",21075800,0.209,195.3,157.7,145.1,329.6,625.1493,null,null,"ananke"],["S/2017 J 11","jupiter",22991300,0.268,25.5,236.9,164.8,134.9,712.3826,null,null,"carme"],["S/2011 J 4","jupiter",11104600,0.128,46.2,314.6,28.5,342.4,239.0521,null,null,"himalia"],["S/2018 J 5","jupiter",23269900,0.261,292.4,82.9,164.9,189.4,725.3785,null,null,"carme"],["S/2024 J 1","jupiter",23462100,0.273,108.8,147.7,164.7,272.4,734.3764,null,null,"carme"],["S/2011 J 5","jupiter",23527800,0.251,90.5,66.6,164.6,43.7,737.4646,null,null,"carme"],["S/2010 J 3","jupiter",23862900,0.313,30.2,40.1,148.3,312.4,753.2771,null,null,"pasiphae"],["S/2010 J 4","jupiter",22793400,0.278,161.9,80.4,164.6,147.5,703.1938,null,null,"carme"],["S/2010 J 5","jupiter",23581000,0.257,270.4,233.7,164.6,309.5,739.9875,null,null,"carme"],["S/2010 J 6","jupiter",21489800,0.297,73.2,87.8,149.9,279.1,643.6715,null,null,"ananke"],["S/2011 J 6","jupiter",23238700,0.261,211.5,54.2,164.9,310.6,723.934,null,null,"carme"],["S/2017 J 12","jupiter",23270500,0.257,330.7,273.2,164.8,236.7,725.3986,null,null,"carme"],["S/2017 J 13","jupiter",22842700,0.277,338.2,26.8,164.5,115.9,705.4972,null,null,"carme"],["S/2017 J 14","jupiter",23412500,0.436,150.2,100.3,142.7,294.2,732.0424,null,null,"pasiphae"],["S/2017 J 15","jupiter",23170300,0.232,58.1,324.6,149.2,304.1,720.6535,null,null,"pasiphae"],["S/2017 J 16","jupiter",23007800,0.268,178.6,148.8,164.7,4.7,713.1292,null,null,"carme"],["S/2017 J 17","jupiter",11776100,0.164,95.0,244.5,29.0,322.4,261.066,null,null,"himalia"],["S/2017 J 18","jupiter",22923800,0.254,238.8,40.6,164.9,39.9,709.2396,null,null,"carme"],["S/2021 J 7","jupiter",23305900,0.253,13.3,293.4,149.4,286.5,727.0104,null,null,"pasiphae"],["S/2021 J 8","jupiter",20978900,0.243,34.6,85.0,147.1,132.0,620.8486,null,null,"ananke"],["Mimas","saturn",186000,0.02,160.4,275.3,1.6,66.2,0.942422,40.6,83.5,"main"],["Enceladus","saturn",238400,0.005,119.5,57.0,0.0,0.0,1.370218,40.6,83.5,"main"],["Tethys","saturn",295000,0.001,335.3,0.0,1.1,273.0,1.887802,40.6,83.5,"main"],["Dione","saturn",377700,0.002,116.0,212.0,0.0,0.0,2.736916,40.6,83.5,"main"],["Rhea","saturn",527200,0.001,44.3,31.5,0.3,133.7,4.517503,40.6,83.5,"main"],["Titan","saturn",1221900,0.029,78.3,11.7,0.3,78.6,15.945448,36.4,84.0,"main"],["Hyperion","saturn",1481500,0.105,214.0,122.9,0.6,87.1,21.276658,40.2,83.6,"main"],["Iapetus","saturn",3561700,0.028,254.5,74.8,7.6,86.5,79.331002,288.7,78.9,"main"],["Phoebe","saturn",12929400,0.164,240.3,308.0,175.2,192.7,550.30391,276.0,67.5,"norse"],["Helene","saturn",377600,0.007,194.3,-64.5,0.2,260.8,2.736916,40.6,83.5,"trojans"],["Telesto","saturn",295000,0.001,66.2,360.0,1.2,242.1,1.887802,40.6,83.5,"trojans"],["Calypso","saturn",295000,0.001,221.6,-0.0,1.5,326.6,1.887803,40.6,83.5,"trojans"],["Methone","saturn",194700,0.002,315.5,0.0,0.0,0.0,1.009549,40.6,83.5,"alkyonides"],["Polydeuces","saturn",377600,0.019,94.1,359.0,0.2,167.5,2.736916,40.6,83.5,"trojans"],["Janus","saturn",151500,0.007,11.1,111.7,0.2,159.9,0.697353,40.6,83.5,"ring"],["Epimetheus","saturn",151400,0.02,96.3,197.2,0.3,189.8,0.697012,40.6,83.5,"ring"],["Atlas","saturn",137700,0.001,82.3,289.1,0.0,0.0,0.604602,40.6,83.5,"ring"],["Prometheus","saturn",139400,0.002,341.9,135.4,0.0,0.0,0.615878,40.6,83.5,"ring"],["Pandora","saturn",141700,0.004,217.9,123.9,0.0,0.0,0.631369,40.6,83.5,"ring"],["Pan","saturn",133600,0.0,0.0,146.6,0.0,0.0,0.575051,40.6,83.5,"ring"],["Pallene","saturn",212300,0.004,194.9,2.0,0.2,304.3,1.156059,40.6,83.5,"alkyonides"],["Daphnis","saturn",136500,0.0,0.0,153.6,0.0,0.0,0.59408,40.6,83.5,"ring"],["Anthe","saturn",198100,0.002,293.4,351.4,0.0,0.0,1.038898,40.6,83.5,"alkyonides"],["Aegaeon","saturn",167500,0.0,0.0,4.4,0.0,0.0,0.808115,40.6,83.5,"ring"],["S/2009 S 1","saturn",117061,0.0,0.0,293.4,0.0,0.0,0.473026,40.59,83.54,"ring"],["Ymir","saturn",22955600,0.338,45.3,167.5,172.3,204.5,1298.6819,null,null,"norse"],["Paaliaq","saturn",14997700,0.378,237.6,318.2,48.5,353.2,685.7153,null,null,"inuit"],["Tarvos","saturn",18216600,0.522,282.9,64.5,37.8,95.7,917.984,null,null,"gallic"],["Ijiraq","saturn",11344700,0.293,68.6,83.4,49.2,152.5,451.1201,null,null,"inuit"],["Suttungr","saturn",19391900,0.116,65.0,171.0,175.7,253.2,1008.2451,null,null,"norse"],["Kiviuq","saturn",11307400,0.275,91.8,183.2,48.0,352.7,448.9076,null,null,"inuit"],["Mundilfari","saturn",18588200,0.211,305.4,299.0,167.1,79.2,946.2903,null,null,"norse"],["Albiorix","saturn",16329200,0.482,62.8,155.0,36.8,111.1,779.0701,null,null,"gallic"],["Skathi","saturn",15575400,0.281,202.3,269.3,151.6,284.1,725.7313,null,null,"norse"],["Erriapus","saturn",17506900,0.475,279.8,14.3,37.1,146.2,864.9236,null,null,"gallic"],["Siarnaq","saturn",17881100,0.308,68.4,62.7,47.8,64.0,892.6799,null,null,"inuit"],["Thrymr","saturn",20330500,0.467,92.2,216.2,175.0,247.3,1082.2292,null,null,"norse"],["Narvi","saturn",19285000,0.441,177.9,111.5,142.2,179.0,999.9417,null,null,"norse"],["Aegir","saturn",20664400,0.255,244.7,23.5,166.1,181.9,1109.1278,null,null,"norse"],["Bebhionn","saturn",17027300,0.459,5.1,128.4,38.6,197.7,829.6437,null,null,"gallic"],["Bergelmir","saturn",19268100,0.145,133.9,255.7,158.8,207.9,998.6187,null,null,"norse"],["Bestla","saturn",20337800,0.486,85.6,33.1,138.3,283.0,1082.9444,null,null,"norse"],["Farbauti","saturn",20290700,0.249,343.6,9.0,156.2,138.0,1079.1243,null,null,"norse"],["Fenrir","saturn",22330800,0.137,114.5,38.6,164.5,234.6,1245.9215,null,null,"norse"],["Fornjot","saturn",24936800,0.213,321.9,53.5,170.0,269.3,1470.3618,null,null,"norse"],["Hati","saturn",19695000,0.372,10.4,270.6,165.4,316.3,1032.0236,null,null,"norse"],["Hyrrokkin","saturn",18340900,0.336,264.8,214.8,149.9,40.2,927.4569,null,null,"norse"],["Kari","saturn",22032100,0.469,160.2,83.1,153.0,288.3,1220.9757,null,null,"norse"],["Loge","saturn",22919200,0.191,20.5,32.1,168.1,333.0,1295.5243,null,null,"norse"],["Skoll","saturn",17623400,0.463,186.1,181.2,159.4,294.0,873.5736,null,null,"norse"],["Surtur","saturn",22748000,0.448,314.4,9.9,168.4,255.3,1281.1396,null,null,"norse"],["Jarnsaxa","saturn",19273500,0.218,229.2,175.5,163.0,9.2,999.1271,null,null,"norse"],["Greip","saturn",18380000,0.317,146.2,355.9,174.2,335.8,930.4389,null,null,"norse"],["Tarqeq","saturn",17751000,0.144,72.2,292.8,48.7,93.3,882.8514,null,null,"inuit"],["Gridr","saturn",19250600,0.187,271.4,197.0,163.9,330.8,997.3319,null,null,"norse"],["Angrboda","saturn",20591500,0.216,104.2,263.0,177.7,279.1,1103.1986,null,null,"norse"],["Skrymir","saturn",21447400,0.437,68.1,68.9,175.6,177.7,1172.7215,null,null,"norse"],["Gerd","saturn",20947500,0.517,307.2,49.5,174.4,260.4,1131.9062,null,null,"norse"],["S/2004 S 26","saturn",26097500,0.147,148.4,193.6,172.9,328.8,1574.2535,null,null,"norse"],["Eggther","saturn",19844600,0.157,130.1,111.7,165.0,84.5,1043.8035,null,null,"norse"],["S/2004 S 29","saturn",17063900,0.485,309.5,244.1,38.6,157.9,832.2736,null,null,"gallic"],["Beli","saturn",20703700,0.087,263.5,191.7,158.9,258.7,1112.2687,null,null,"norse"],["Gunnlod","saturn",21141800,0.251,24.7,311.4,160.4,293.3,1147.7354,null,null,"norse"],["Thiazzi","saturn",23577500,0.511,303.2,334.7,158.8,73.1,1351.8319,null,null,"norse"],["S/2004 S 34","saturn",24145800,0.279,354.5,160.0,168.3,292.6,1400.9299,null,null,"norse"],["Alvaldi","saturn",21993800,0.238,188.1,38.3,177.4,321.8,1217.8042,null,null,"norse"],["Geirrod","saturn",22259400,0.539,349.6,202.2,154.4,127.9,1240.0465,null,null,"norse"],["S/2004 S 31","saturn",17497100,0.159,253.9,261.8,48.0,82.5,863.9229,null,null,"inuit"],["S/2004 S 24","saturn",23338200,0.071,338.4,122.1,37.4,354.0,1331.3222,null,null,"gallic"],["S/2004 S 28","saturn",21865900,0.159,191.9,95.8,167.9,128.8,1207.1833,null,null,"norse"],["S/2004 S 21","saturn",23160900,0.394,174.9,198.7,153.2,112.3,1316.1167,null,null,"norse"],["S/2004 S 36","saturn",23390800,0.625,213.4,132.0,153.3,212.7,1335.8042,null,null,"norse"],["S/2004 S 37","saturn",15956300,0.448,72.4,187.6,158.2,135.3,752.5465,null,null,"norse"],["S/2004 S 39","saturn",23192400,0.1,223.3,83.8,165.9,168.9,1318.7417,null,null,"norse"],["S/2004 S 7","saturn",21327600,0.511,54.9,116.9,164.8,323.8,1162.9264,null,null,"norse"],["S/2004 S 12","saturn",19801000,0.337,88.1,10.9,164.7,306.0,1040.3896,null,null,"norse"],["S/2004 S 13","saturn",18453700,0.265,355.4,51.9,169.0,217.8,936.0889,null,null,"norse"],["S/2004 S 17","saturn",19699000,0.162,184.5,227.6,167.9,12.5,1032.3694,null,null,"norse"],["S/2006 S 1","saturn",18746300,0.105,159.7,86.3,156.1,333.6,958.3236,null,null,"norse"],["S/2006 S 3","saturn",21353100,0.432,191.6,125.3,156.1,213.3,1165.0194,null,null,"norse"],["S/2007 S 2","saturn",15939100,0.232,46.4,10.0,174.0,107.3,751.3306,null,null,"norse"],["S/2007 S 3","saturn",19614400,0.15,323.1,304.5,173.8,99.3,1025.6986,null,null,"norse"],["S/2019 S 1","saturn",11245400,0.383,86.6,36.5,49.5,185.6,445.1701,null,null,"inuit"],["S/2019 S 2","saturn",16560300,0.279,103.2,185.1,173.3,95.3,795.6722,null,null,"norse"],["S/2019 S 3","saturn",17077400,0.248,129.2,150.3,166.9,243.9,833.1917,null,null,"norse"],["S/2020 S 1","saturn",11338600,0.337,73.2,2.1,48.2,161.7,450.7722,null,null,"inuit"],["S/2020 S 2","saturn",17869000,0.152,130.7,19.2,170.7,96.2,891.8576,null,null,"norse"],["S/2004 S 40","saturn",16075600,0.297,127.5,291.4,169.2,37.9,760.9993,null,null,"norse"],["S/2006 S 9","saturn",14406700,0.249,341.9,65.2,173.0,36.0,645.5771,null,null,"norse"],["S/2007 S 5","saturn",15835600,0.104,44.4,23.2,158.4,128.9,744.0056,null,null,"norse"],["S/2020 S 3","saturn",18056800,0.142,317.6,135.8,46.0,216.8,905.841,null,null,"inuit"],["S/2019 S 4","saturn",17951900,0.408,247.0,217.8,170.1,301.4,898.0889,null,null,"norse"],["S/2004 S 41","saturn",18095400,0.301,232.6,343.6,165.7,43.6,908.8924,null,null,"norse"],["S/2020 S 4","saturn",18236400,0.496,157.7,178.7,40.1,67.8,919.5174,null,null,"gallic"],["S/2020 S 5","saturn",18391000,0.22,285.7,232.0,48.2,214.9,931.1889,null,null,"inuit"],["S/2007 S 6","saturn",18545000,0.168,19.2,347.8,166.5,324.1,942.9785,null,null,"norse"],["S/2004 S 42","saturn",18240700,0.158,107.2,325.2,165.7,3.9,919.8847,null,null,"norse"],["S/2006 S 10","saturn",18979900,0.151,79.7,173.5,161.6,350.8,976.3438,null,null,"norse"],["S/2019 S 5","saturn",19090100,0.216,321.5,59.4,158.8,271.1,984.8722,null,null,"norse"],["S/2004 S 43","saturn",18935700,0.432,234.0,14.5,171.1,191.9,972.8528,null,null,"norse"],["S/2004 S 44","saturn",19515400,0.129,176.4,292.8,167.7,39.5,1017.9146,null,null,"norse"],["S/2004 S 45","saturn",19693700,0.551,350.6,75.7,154.0,306.0,1031.8604,null,null,"norse"],["S/2006 S 11","saturn",19711900,0.143,159.9,353.1,174.1,254.4,1033.3521,null,null,"norse"],["S/2006 S 12","saturn",19570300,0.542,78.1,249.6,38.6,155.1,1022.2868,null,null,"gallic"],["S/2019 S 6","saturn",18205600,0.12,286.9,185.7,46.4,154.2,917.1056,null,null,"inuit"],["S/2006 S 13","saturn",19953300,0.313,254.7,248.5,162.0,44.4,1052.316,null,null,"norse"],["S/2019 S 7","saturn",20185100,0.233,6.3,336.0,174.2,226.6,1070.8007,null,null,"norse"],["S/2019 S 8","saturn",20287400,0.311,144.6,31.8,172.8,168.6,1078.8604,null,null,"norse"],["S/2019 S 9","saturn",20359700,0.433,316.4,244.7,159.5,114.2,1084.6194,null,null,"norse"],["S/2004 S 46","saturn",20513800,0.249,298.1,209.2,177.2,281.1,1096.9882,null,null,"norse"],["S/2019 S 10","saturn",20700300,0.248,352.9,149.5,163.9,274.7,1111.9924,null,null,"norse"],["S/2004 S 47","saturn",16050700,0.291,295.4,25.2,160.9,294.8,759.2201,null,null,"norse"],["S/2019 S 11","saturn",20664200,0.513,28.2,190.5,144.6,327.6,1109.1097,null,null,"norse"],["S/2006 S 14","saturn",21062300,0.06,136.1,264.7,166.7,274.4,1141.2708,null,null,"norse"],["S/2019 S 12","saturn",20895000,0.476,240.2,221.1,167.1,324.7,1127.5993,null,null,"norse"],["S/2020 S 6","saturn",21253300,0.48,27.9,271.2,166.9,7.0,1156.8111,null,null,"norse"],["S/2019 S 13","saturn",20964500,0.318,219.8,138.5,177.3,302.5,1133.2653,null,null,"norse"],["S/2005 S 4","saturn",11324500,0.315,107.1,247.1,48.0,169.4,449.925,null,null,"inuit"],["S/2007 S 7","saturn",15931600,0.217,149.6,63.4,169.3,3.8,750.7958,null,null,"norse"],["S/2007 S 8","saturn",17048900,0.49,258.7,6.3,36.2,202.2,831.2111,null,null,"gallic"],["S/2020 S 7","saturn",17394000,0.5,298.8,215.8,161.4,175.7,856.534,null,null,"norse"],["S/2019 S 14","saturn",17852800,0.172,303.2,240.9,46.2,149.6,890.5868,null,null,"inuit"],["S/2019 S 15","saturn",21191100,0.257,17.9,302.9,157.8,22.0,1151.6611,null,null,"norse"],["S/2005 S 5","saturn",21364900,0.588,284.6,9.9,169.5,84.7,1165.9562,null,null,"norse"],["S/2006 S 15","saturn",21799600,0.117,224.8,313.6,161.1,12.2,1201.6924,null,null,"norse"],["S/2006 S 16","saturn",21721200,0.204,282.9,62.5,164.1,165.4,1195.1285,null,null,"norse"],["S/2006 S 17","saturn",22384200,0.425,149.4,206.6,168.7,274.1,1250.4639,null,null,"norse"],["S/2004 S 48","saturn",22137400,0.374,286.6,195.0,161.9,194.7,1229.8632,null,null,"norse"],["S/2020 S 8","saturn",21967200,0.252,45.0,181.2,161.8,41.8,1215.6063,null,null,"norse"],["S/2004 S 49","saturn",22399400,0.453,199.0,19.2,159.8,221.2,1251.6847,null,null,"norse"],["S/2004 S 50","saturn",22345000,0.45,197.8,71.5,164.0,175.9,1247.1917,null,null,"norse"],["S/2006 S 18","saturn",22760600,0.131,62.5,14.5,169.5,47.6,1282.0917,null,null,"norse"],["S/2019 S 16","saturn",23265200,0.25,280.6,351.8,162.0,206.7,1324.9458,null,null,"norse"],["S/2019 S 17","saturn",22722700,0.546,317.0,40.5,155.5,125.3,1278.9618,null,null,"norse"],["S/2019 S 18","saturn",23139500,0.509,304.5,340.4,154.6,230.6,1314.2674,null,null,"norse"],["S/2019 S 19","saturn",23044400,0.458,305.8,335.8,151.8,248.3,1306.1604,null,null,"norse"],["S/2019 S 20","saturn",23677900,0.354,198.6,281.1,156.0,176.6,1360.4674,null,null,"norse"],["S/2006 S 19","saturn",23800500,0.467,19.2,195.9,175.5,281.1,1371.0201,null,null,"norse"],["S/2004 S 51","saturn",25207100,0.201,73.4,85.1,171.2,293.7,1494.4076,null,null,"norse"],["S/2020 S 9","saturn",25408700,0.531,171.0,46.4,161.4,15.0,1512.384,null,null,"norse"],["S/2004 S 52","saturn",26446400,0.291,292.6,333.0,165.4,204.7,1605.8868,null,null,"norse"],["S/2007 S 9","saturn",20174600,0.36,125.3,240.3,159.3,269.4,1069.8069,null,null,"norse"],["S/2004 S 53","saturn",23279800,0.24,284.3,37.3,162.6,215.7,1326.184,null,null,"norse"],["S/2020 S 10","saturn",25315300,0.296,213.5,158.8,165.6,243.6,1503.9681,null,null,"norse"],["S/2019 S 21","saturn",26439500,0.155,16.7,346.4,171.9,342.8,1605.2799,null,null,"norse"],["S/2006 S 20","saturn",13193700,0.206,77.4,153.1,173.1,60.9,565.7889,null,null,"norse"],["S/2004 S 54","saturn",11277500,0.373,108.4,69.3,48.1,80.2,447.141,null,null,"inuit"],["S/2004 S 55","saturn",11294700,0.26,80.0,59.6,48.9,196.6,448.1618,null,null,"inuit"],["S/2004 S 56","saturn",13670200,0.339,96.4,165.7,161.6,343.2,596.6938,null,null,"norse"],["S/2004 S 57","saturn",18150500,0.263,60.9,202.7,167.9,39.1,913.0736,null,null,"norse"],["S/2004 S 58","saturn",18254500,0.249,120.0,180.1,45.7,284.5,920.8035,null,null,"inuit"],["S/2004 S 59","saturn",19170700,0.262,222.1,282.6,167.3,125.2,991.1819,null,null,"norse"],["S/2004 S 60","saturn",19517000,0.28,264.3,357.6,173.8,321.7,1018.1285,null,null,"norse"],["S/2004 S 61","saturn",20986900,0.466,40.4,175.6,168.4,176.4,1135.0646,null,null,"norse"],["S/2005 S 6","saturn",18107300,0.084,77.4,163.4,47.7,166.5,909.5785,null,null,"inuit"],["S/2005 S 7","saturn",18502500,0.565,132.7,181.1,34.6,269.8,939.7451,null,null,"gallic"],["S/2006 S 21","saturn",14976500,0.204,157.4,40.7,169.8,328.3,684.2764,null,null,"norse"],["S/2006 S 22","saturn",15109500,0.246,71.7,254.1,172.0,231.1,693.4146,null,null,"norse"],["S/2006 S 23","saturn",18269700,0.19,72.5,309.9,43.8,257.1,921.8632,null,null,"gallic"],["S/2006 S 24","saturn",18210700,0.352,39.8,10.3,165.9,204.8,917.559,null,null,"norse"],["S/2006 S 25","saturn",18572400,0.303,130.1,348.5,158.8,277.4,945.0681,null,null,"norse"],["S/2006 S 26","saturn",18619300,0.248,2.5,201.0,171.9,147.8,948.6722,null,null,"norse"],["S/2006 S 27","saturn",19205700,0.14,91.6,6.1,170.5,3.7,993.7889,null,null,"norse"],["S/2006 S 28","saturn",21955100,0.21,242.2,98.4,172.9,152.8,1214.5257,null,null,"norse"],["S/2006 S 29","saturn",25212100,0.239,301.4,101.5,156.2,82.4,1494.7833,null,null,"norse"],["S/2007 S 10","saturn",11364900,0.367,94.2,23.6,45.8,287.1,452.3576,null,null,"inuit"],["S/2007 S 11","saturn",17434400,0.499,348.9,233.9,35.5,53.9,859.5264,null,null,"gallic"],["S/2019 S 22","saturn",11305100,0.369,100.5,223.0,47.3,21.1,448.775,null,null,"inuit"],["S/2019 S 23","saturn",11310200,0.255,81.5,1.0,48.7,356.3,449.0806,null,null,"inuit"],["S/2019 S 24","saturn",11360500,0.345,74.7,79.3,46.7,205.3,452.0743,null,null,"inuit"],["S/2019 S 25","saturn",11329400,0.271,73.9,358.9,48.1,213.7,450.2181,null,null,"inuit"],["S/2019 S 26","saturn",11390900,0.365,111.3,164.1,48.1,119.7,453.8882,null,null,"inuit"],["S/2019 S 27","saturn",16267000,0.42,97.2,152.1,162.1,115.1,774.6333,null,null,"norse"],["S/2019 S 28","saturn",17496000,0.199,95.6,307.9,158.4,268.3,864.0938,null,null,"norse"],["S/2019 S 29","saturn",17353900,0.441,332.7,133.8,37.7,306.9,853.6229,null,null,"gallic"],["S/2019 S 30","saturn",17709900,0.107,5.3,187.8,168.3,356.8,879.9708,null,null,"norse"],["S/2019 S 31","saturn",17739100,0.488,37.8,35.2,39.8,173.7,882.241,null,null,"gallic"],["S/2019 S 32","saturn",17960500,0.276,281.4,20.1,46.2,218.1,898.7083,null,null,"inuit"],["S/2019 S 33","saturn",18696100,0.289,46.9,245.6,170.4,186.4,954.534,null,null,"norse"],["S/2019 S 34","saturn",18446800,0.536,226.7,78.5,37.6,169.4,935.4472,null,null,"gallic"],["S/2019 S 35","saturn",18557800,0.577,181.1,259.0,157.3,63.3,943.9993,null,null,"norse"],["S/2019 S 36","saturn",19903200,0.161,278.1,145.8,166.9,353.4,1048.4188,null,null,"norse"],["S/2019 S 37","saturn",19996900,0.404,355.3,135.8,149.9,273.4,1055.7771,null,null,"norse"],["S/2019 S 38","saturn",21998400,0.399,303.7,138.3,163.0,216.6,1218.2743,null,null,"norse"],["S/2019 S 39","saturn",23784500,0.098,327.0,92.5,174.5,273.1,1369.6437,null,null,"norse"],["S/2019 S 40","saturn",24087800,0.088,242.4,347.6,161.8,44.4,1395.8771,null,null,"norse"],["S/2019 S 41","saturn",24493600,0.257,40.0,320.7,157.1,11.4,1431.2979,null,null,"norse"],["S/2019 S 42","saturn",24111600,0.121,84.5,351.4,163.2,318.2,1397.975,null,null,"norse"],["S/2019 S 43","saturn",26664100,0.277,108.2,306.2,165.3,116.0,1625.9,null,null,"norse"],["S/2019 S 44","saturn",26796900,0.512,332.7,330.6,172.6,223.0,1638.1104,null,null,"norse"],["S/2020 S 11","saturn",11295600,0.372,110.4,95.9,48.2,94.2,448.2111,null,null,"inuit"],["S/2020 S 12","saturn",11314500,0.26,81.2,350.8,50.8,70.5,449.3271,null,null,"inuit"],["S/2020 S 13","saturn",11415600,0.373,96.4,230.4,48.0,41.6,455.3875,null,null,"inuit"],["S/2020 S 14","saturn",16186200,0.313,54.7,209.3,161.7,355.4,768.8625,null,null,"norse"],["S/2020 S 15","saturn",16729200,0.462,275.8,141.7,37.1,338.2,807.8243,null,null,"gallic"],["S/2020 S 16","saturn",16963400,0.405,73.1,185.2,167.3,268.6,824.9229,null,null,"norse"],["S/2020 S 17","saturn",17094200,0.378,287.2,359.0,148.9,210.9,834.4472,null,null,"norse"],["S/2020 S 18","saturn",17777900,0.18,165.9,218.7,168.9,204.0,885.1153,null,null,"norse"],["S/2020 S 19","saturn",17726700,0.159,65.5,80.4,48.1,56.1,881.0431,null,null,"inuit"],["S/2020 S 20","saturn",17997300,0.133,230.5,330.0,169.8,92.9,901.525,null,null,"norse"],["S/2020 S 21","saturn",18862100,0.307,188.0,95.5,169.9,328.3,967.2604,null,null,"norse"],["S/2020 S 22","saturn",19443000,0.059,38.4,128.8,161.3,271.4,1012.241,null,null,"norse"],["S/2020 S 23","saturn",19801500,0.089,61.5,65.1,165.0,153.6,1040.3757,null,null,"norse"],["S/2020 S 24","saturn",20618300,0.23,114.8,301.4,159.6,42.2,1105.4083,null,null,"norse"],["S/2020 S 25","saturn",20763700,0.316,329.0,318.1,171.8,242.2,1117.0889,null,null,"norse"],["S/2020 S 26","saturn",21264400,0.273,143.0,141.3,163.2,252.9,1157.766,null,null,"norse"],["S/2020 S 27","saturn",21802300,0.255,314.6,32.0,145.3,324.5,1202.016,null,null,"norse"],["S/2020 S 28","saturn",21993700,0.474,226.7,2.2,160.1,60.9,1217.8104,null,null,"norse"],["S/2020 S 29","saturn",22301400,0.047,298.7,115.9,169.1,255.9,1243.4493,null,null,"norse"],["S/2020 S 30","saturn",21790700,0.601,352.3,60.3,154.2,132.1,1201.0187,null,null,"norse"],["S/2020 S 31","saturn",22457300,0.238,196.2,0.1,163.8,148.1,1256.5035,null,null,"norse"],["S/2020 S 32","saturn",21884100,0.502,198.2,88.9,169.1,351.6,1208.8486,null,null,"norse"],["S/2020 S 33","saturn",22922500,0.555,4.3,165.2,162.8,161.7,1295.85,null,null,"norse"],["S/2020 S 34","saturn",22435600,0.154,162.8,116.4,160.6,7.7,1254.6069,null,null,"norse"],["S/2020 S 35","saturn",23030300,0.225,19.8,98.0,174.9,344.7,1304.9653,null,null,"norse"],["S/2020 S 36","saturn",22806200,0.336,139.7,216.1,168.8,26.9,1286.0292,null,null,"norse"],["S/2020 S 37","saturn",23751800,0.344,211.7,182.3,174.8,25.1,1366.8215,null,null,"norse"],["S/2020 S 38","saturn",23583900,0.513,246.3,99.4,159.7,284.0,1352.4347,null,null,"norse"],["S/2020 S 39","saturn",24262400,0.305,28.9,165.2,160.1,318.8,1411.1451,null,null,"norse"],["S/2020 S 40","saturn",23785900,0.412,99.4,64.0,167.3,250.5,1369.7562,null,null,"norse"],["S/2020 S 41","saturn",25876400,0.402,224.9,63.1,160.2,28.3,1554.3993,null,null,"norse"],["S/2020 S 42","saturn",25329400,0.506,59.1,278.4,157.5,15.4,1505.3118,null,null,"norse"],["S/2020 S 43","saturn",26657400,0.203,257.0,252.6,164.6,68.7,1625.2931,null,null,"norse"],["S/2020 S 44","saturn",27259400,0.199,283.8,318.0,168.5,28.0,1680.641,null,null,"norse"],["S/2023 S 1","saturn",11205400,0.386,296.8,263.4,48.8,159.6,442.8632,null,null,"inuit"],["S/2023 S 2","saturn",11309900,0.339,117.3,257.2,45.7,253.8,449.0535,null,null,"inuit"],["S/2023 S 3","saturn",17646400,0.178,264.0,272.6,46.9,93.7,875.0007,null,null,"inuit"],["S/2023 S 4","saturn",17764600,0.276,9.5,123.9,170.0,264.4,884.1111,null,null,"norse"],["S/2023 S 5","saturn",25583500,0.599,94.9,334.2,168.8,235.0,1528.0368,null,null,"norse"],["S/2023 S 6","saturn",11953100,0.336,103.7,133.4,47.4,54.4,487.909,null,null,"inuit"],["S/2023 S 7","saturn",12133700,0.284,102.5,102.3,44.7,289.7,499.0097,null,null,"inuit"],["S/2023 S 8","saturn",14018800,0.122,278.8,149.6,166.9,240.1,619.691,null,null,"norse"],["S/2023 S 9","saturn",13167500,0.141,209.8,285.2,172.2,324.8,564.1139,null,null,"norse"],["S/2023 S 10","saturn",15500200,0.302,124.7,70.9,163.0,308.1,720.4931,null,null,"norse"],["S/2023 S 11","saturn",14046100,0.3,76.1,334.2,170.9,193.0,621.4931,null,null,"norse"],["S/2023 S 12","saturn",15805900,0.601,182.5,339.7,168.8,301.0,741.9167,null,null,"norse"],["S/2023 S 13","saturn",15193000,0.179,107.5,173.9,168.5,134.2,699.1799,null,null,"norse"],["S/2023 S 14","saturn",16853000,0.497,351.4,62.7,171.6,291.7,816.8618,null,null,"norse"],["S/2023 S 15","saturn",18241300,0.549,123.2,159.7,161.9,276.6,919.9347,null,null,"norse"],["S/2023 S 16","saturn",17005300,0.27,116.9,80.0,162.6,270.6,827.9111,null,null,"norse"],["S/2023 S 17","saturn",17385300,0.498,246.7,128.1,35.9,240.7,855.9354,null,null,"gallic"],["S/2023 S 18","saturn",17381700,0.448,280.0,169.7,36.7,78.1,855.6535,null,null,"gallic"],["S/2023 S 19","saturn",17590300,0.092,205.4,325.5,48.2,50.1,870.9229,null,null,"inuit"],["S/2023 S 20","saturn",17261000,0.442,322.1,200.6,136.5,112.7,846.7653,null,null,"norse"],["S/2023 S 21","saturn",17755400,0.077,341.9,38.7,157.3,124.2,883.3083,null,null,"norse"],["S/2023 S 22","saturn",18577500,0.182,266.5,4.2,47.5,121.8,945.3701,null,null,"inuit"],["S/2023 S 23","saturn",18783700,0.35,91.2,81.8,164.8,187.0,961.2236,null,null,"norse"],["S/2023 S 24","saturn",18351800,0.374,319.7,54.4,169.7,1.4,928.2451,null,null,"norse"],["S/2023 S 25","saturn",19136600,0.281,293.8,186.2,166.4,216.6,988.5278,null,null,"norse"],["S/2023 S 26","saturn",19894300,0.306,108.2,132.2,163.9,147.4,1047.7618,null,null,"norse"],["S/2023 S 27","saturn",19820100,0.652,117.0,91.2,151.1,306.6,1041.8521,null,null,"norse"],["S/2023 S 28","saturn",19881000,0.575,2.3,189.6,168.7,59.6,1046.5556,null,null,"norse"],["S/2023 S 29","saturn",20042400,0.141,47.0,162.8,172.2,227.4,1059.4208,null,null,"norse"],["S/2023 S 30","saturn",18238300,0.493,191.3,2.7,142.4,250.0,919.7139,null,null,"norse"],["S/2023 S 31","saturn",20729200,0.182,240.9,308.7,163.0,261.1,1114.2889,null,null,"norse"],["S/2023 S 32","saturn",20454400,0.037,90.3,30.0,169.8,195.2,1092.2417,null,null,"norse"],["S/2023 S 33","saturn",21621900,0.665,258.6,49.1,155.8,209.3,1187.0667,null,null,"norse"],["S/2023 S 34","saturn",20803900,0.57,275.5,293.6,168.4,303.0,1120.3833,null,null,"norse"],["S/2023 S 35","saturn",22269700,0.151,165.5,92.9,168.5,340.9,1240.7618,null,null,"norse"],["S/2023 S 36","saturn",22230600,0.359,157.0,312.2,166.3,325.1,1237.6104,null,null,"norse"],["S/2023 S 37","saturn",19889800,0.215,241.2,244.7,172.3,63.4,1047.3903,null,null,"norse"],["S/2023 S 38","saturn",12823500,0.909,241.2,244.7,149.2,63.4,546.3146,null,null,"norse"],["S/2023 S 39","saturn",20824500,0.124,351.9,345.1,164.8,118.3,1121.9938,null,null,"norse"],["S/2023 S 40","saturn",21065100,0.342,334.7,3.6,169.6,271.4,1141.4813,null,null,"norse"],["S/2023 S 41","saturn",21286400,0.279,323.0,29.1,172.1,7.2,1159.516,null,null,"norse"],["S/2023 S 42","saturn",21837000,0.059,33.2,315.9,166.7,355.1,1204.8146,null,null,"norse"],["S/2023 S 43","saturn",22563900,0.264,218.0,92.7,170.3,247.3,1265.5667,null,null,"norse"],["S/2023 S 44","saturn",19292400,0.434,166.3,232.9,167.4,179.9,1000.4722,null,null,"norse"],["S/2023 S 45","saturn",23438400,0.633,334.1,336.8,157.4,102.2,1339.8472,null,null,"norse"],["S/2023 S 46","saturn",24708900,0.336,100.4,230.0,143.2,306.8,1450.2715,null,null,"norse"],["S/2023 S 47","saturn",25102300,0.101,257.3,97.5,162.5,208.4,1485.0417,null,null,"norse"],["S/2023 S 48","saturn",20029200,0.022,108.2,315.6,169.7,338.7,1058.3493,null,null,"norse"],["S/2023 S 49","saturn",21766500,0.026,110.7,82.5,171.7,193.8,1198.9896,null,null,"norse"],["S/2023 S 50","saturn",11656500,0.263,326.3,79.8,166.1,29.0,469.8201,null,null,"norse"],["S/2020 S 45","saturn",23507700,0.199,195.7,190.2,172.8,183.1,1345.7917,null,null,"norse"],["S/2020 S 46","saturn",18892100,0.207,331.2,16.0,167.3,323.4,969.5965,null,null,"norse"],["S/2020 S 47","saturn",21397400,0.564,5.4,283.9,146.1,351.6,1168.5778,null,null,"norse"],["S/2020 S 48","saturn",11355100,0.373,114.9,21.9,45.9,253.5,451.7528,null,null,"inuit"],["S/2023 S 51","saturn",23431500,0.191,303.4,310.9,163.3,213.5,1339.2104,null,null,"norse"],["S/2023 S 52","saturn",22528000,0.124,88.7,267.3,146.2,42.8,1262.3438,null,null,"norse"],["S/2023 S 53","saturn",17181100,0.103,55.0,179.0,171.2,314.6,840.8181,null,null,"norse"],["S/2023 S 54","saturn",17485100,0.48,60.4,48.2,37.8,120.8,863.3486,null,null,"gallic"],["S/2023 S 55","saturn",16875100,0.491,60.8,68.8,35.9,191.1,818.5125,null,null,"gallic"],["S/2023 S 56","saturn",11287500,0.358,89.8,341.9,45.4,271.0,447.7458,null,null,"inuit"],["S/2023 S 57","saturn",20536100,0.245,183.5,318.0,168.0,86.3,1098.8285,null,null,"norse"],["S/2020 S 49","saturn",11305900,0.373,98.2,313.4,48.0,121.9,448.8382,null,null,"inuit"],["S/2023 S 58","saturn",17206000,0.093,70.6,175.6,169.6,119.3,842.6812,null,null,"norse"],["S/2023 S 59","saturn",20064000,0.467,10.5,66.5,169.5,337.9,1061.041,null,null,"norse"],["S/2023 S 60","saturn",17493700,0.206,258.1,93.9,170.7,81.3,863.9632,null,null,"norse"],["S/2023 S 61","saturn",18067700,0.557,37.7,75.3,158.0,303.7,906.8486,null,null,"norse"],["S/2023 S 62","saturn",14025900,0.467,206.6,241.3,155.6,355.8,620.1486,null,null,"norse"],["S/2023 S 63","saturn",18482600,0.266,299.9,225.6,165.0,101.8,938.2549,null,null,"norse"],["Phobos","mars",9375,0.015,216.3,189.7,1.1,169.2,0.3187,317.7,52.9,"main"],["Deimos","mars",23457,0.0,0.0,205.0,1.8,54.3,1.2625,316.6,53.5,"main"],["Ariel","uranus",190929,0.001,9.6,193.5,0.0,0.0,2.520379,77.311,15.175,"main"],["Umbriel","uranus",265986,0.004,183.4,253.0,0.1,174.8,4.144177,77.311,15.175,"main"],["Titania","uranus",436298,0.002,184.0,68.1,0.1,29.5,8.705869,77.311,15.175,"main"],["Oberon","uranus",583511,0.002,132.2,143.6,0.1,76.8,13.463237,77.311,15.175,"main"],["Miranda","uranus",129846,0.001,154.8,73.0,4.4,100.9,1.413479,77.311,15.175,"main"],["Cordelia","uranus",49755,0.0,0.0,287.4,0.2,1.1,0.3347,77.3,15.2,"inner"],["Ophelia","uranus",53765,0.011,19.3,213.4,0.2,151.6,0.3764,77.3,15.2,"inner"],["Bianca","uranus",59170,0.006,328.0,109.1,2.3,272.5,0.4347,77.3,15.2,"inner"],["Cressida","uranus",61770,0.004,87.9,0.5,1.8,308.2,0.4639,77.3,15.2,"inner"],["Desdemona","uranus",62663,0.007,137.0,230.0,3.1,283.9,0.4736,77.3,15.2,"inner"],["Juliet","uranus",64362,0.006,274.9,319.8,3.0,141.0,0.4931,77.3,15.2,"inner"],["Portia","uranus",66101,0.004,31.6,310.1,2.7,146.7,0.5132,77.3,15.2,"inner"],["Rosalind","uranus",69930,0.003,231.8,287.7,1.7,330.0,0.5583,77.3,15.2,"inner"],["Belinda","uranus",75258,0.002,58.6,226.4,1.4,96.2,0.6236,77.3,15.2,"inner"],["Puck","uranus",86007,0.009,337.0,264.1,1.1,111.2,0.7618,77.3,15.2,"inner"],["Perdita","uranus",76418,0.005,296.9,168.0,1.6,270.4,0.6382,77.3,15.2,"inner"],["Mab","uranus",97737,0.006,318.6,250.8,1.8,307.8,0.9229,77.3,15.2,"inner"],["Cupid","uranus",74396,0.007,168.0,3.3,2.0,31.1,0.6125,77.3,15.2,"inner"],["S/2025 U 1","uranus",57844,0.039,313.9,275.6,4.0,70.8,0.4201,77.3,15.2,"inner"],["Caliban","uranus",7167000,0.2,349.7,241.2,141.4,174.9,580.0,null,null,"irregular"],["Sycorax","uranus",12193200,0.52,25.4,332.1,157.0,267.1,1286.0,null,null,"irregular"],["Prospero","uranus",16221000,0.441,180.4,197.6,149.4,324.5,1974.0,null,null,"irregular"],["Setebos","uranus",17519800,0.579,356.1,148.0,153.9,244.7,2215.0,null,null,"irregular"],["Stephano","uranus",7951400,0.235,17.1,164.4,143.6,193.3,677.0,null,null,"irregular"],["Trinculo","uranus",8502600,0.22,162.2,55.6,167.1,196.5,749.0,null,null,"irregular"],["Francisco","uranus",4275700,0.144,137.6,288.4,146.8,101.9,267.0,null,null,"irregular"],["Margaret","uranus",14425000,0.642,90.7,115.9,60.5,0.9,1655.0,null,null,"irregular"],["Ferdinand","uranus",20421400,0.395,166.9,172.3,169.2,223.9,2788.0,null,null,"irregular"],["S/2023 U 1","uranus",7976600,0.25,158.7,101.8,143.9,260.2,681.0,null,null,"irregular"],["Triton","neptune",354800,0.0,0.0,63.0,157.3,177.7,5.8792,299.36,43.46,"triton"],["Naiad","neptune",48300,0.001,144.5,6.1,4.7,38.7,0.2951,299.36,43.46,"inner"],["Thalassa","neptune",50100,0.001,223.6,3.0,0.2,124.7,0.3118,299.36,43.46,"inner"],["Despina","neptune",52600,0.001,182.1,354.1,0.0,0.0,0.3347,299.36,43.46,"inner"],["Galatea","neptune",62000,0.001,113.9,12.0,0.0,0.0,0.4292,299.36,43.46,"inner"],["Larissa","neptune",73600,0.001,222.0,215.1,0.2,317.4,0.5549,299.36,43.46,"inner"],["Proteus","neptune",117700,0.001,357.2,297.4,0.6,355.5,1.1229,299.36,43.46,"inner"],["Hippocamp","neptune",105300,0.001,323.3,322.3,0.3,4.0,0.9507,299.36,43.46,"inner"],["Nereid","neptune",5513900,0.751,296.8,318.5,5.1,319.5,360.133039,null,null,"irregular"],["Halimede","neptune",16590500,0.521,157.9,135.8,119.6,198.5,1879.0,null,null,"irregular"],["Psamathe","neptune",47646600,0.413,148.2,183.2,127.8,302.9,9149.0,null,null,"irregular"],["Sao","neptune",22239900,0.296,93.5,178.5,50.2,41.8,2919.0,null,null,"irregular"],["Laomedeia","neptune",23499900,0.419,146.2,248.1,36.9,57.6,3168.0,null,null,"irregular"],["Neso","neptune",49897800,0.455,89.8,13.8,128.4,55.4,9805.0,null,null,"irregular"],["S/2002 N 5","neptune",23414700,0.433,59.1,303.2,46.3,258.3,3151.0,null,null,"irregular"],["S/2021 N 1","neptune",50700200,0.503,90.4,237.1,135.2,258.9,10043.0,null,null,"irregular"],["Charon","pluto",19591,0.0,0.0,0.0,0.0,0.0,6.38723,312.993,6.163,"charon"],["Styx","pluto",42656,0.0,0.0,120.0,0.0,0.0,20.16155,312.993,6.163,"small"],["Nix","pluto",48694,0.002,0.0,240.0,0.1,0.0,24.85463,312.993,6.163,"small"],["Kerberos","pluto",57783,0.003,0.0,60.0,0.4,0.0,32.16756,312.993,6.163,"small"],["Hydra","pluto",65200,0.009,139.3,335.0,0.3,114.3,38.20177,312.993,6.163,"small"]];
+</script>
+<script>
+{
+const $=id=>document.getElementById(id);
+if(typeof THREE==='undefined'){$('err').style.display='grid';throw new Error('THREE missing')}
+const AU=149.5978707,KM=1e-6,DEG=Math.PI/180,TAU=Math.PI*2,CKMS=299792.458,R0=20,OBL=23.4392911*DEG,J2000=2451545;
+/* JPL approximate planetary elements: a, e, I, L, long.peri, long.node, then rates per century */
+const EL={
+ mercury:[0.38709927,0.20563593,7.00497902,252.2503235,77.45779628,48.33076593,0.00000037,0.00001906,-0.00594749,149472.67411175,0.16047689,-0.12534081],
+ venus:[0.72333566,0.00677672,3.39467605,181.9790995,131.60246718,76.67984255,0.0000039,-0.00004107,-0.0007889,58517.81538729,0.00268329,-0.27769418],
+ emb:[1.00000261,0.01671123,-0.00001531,100.46457166,102.93768193,0,0.00000562,-0.00004392,-0.01294668,35999.37244981,0.32327364,0],
+ mars:[1.52371034,0.0933941,1.84969142,-4.55343205,-23.94362959,49.55953891,0.00001847,0.00007882,-0.00813131,19140.30268499,0.44441088,-0.29257343],
+ jupiter:[5.202887,0.04838624,1.30439695,34.39644051,14.72847983,100.47390909,-0.00011607,-0.00013253,-0.00183714,3034.74612775,0.21252668,0.20469106],
+ saturn:[9.53667594,0.05386179,2.48599187,49.95424423,92.59887831,113.66242448,-0.0012506,-0.00050991,0.00193609,1222.49362201,-0.41897216,-0.28867794],
+ uranus:[19.18916464,0.04725744,0.77263783,313.23810451,170.9542763,74.01692503,-0.00196176,-0.00004397,-0.00242939,428.48202785,0.40805281,0.04240589],
+ neptune:[30.06992276,0.00859048,1.77004347,-55.12002969,44.96476227,131.78422574,0.00026291,0.00005105,0.00035372,218.45945325,-0.32241464,-0.00508664],
+ pluto:[39.48211675,0.2488273,17.14001206,238.92903833,224.06891629,110.30393684,-0.00031596,0.0000517,0.00004818,145.20780515,-0.04062942,-0.01183482]};
+
+/* ---------- catalogue ---------- */
+// core: id,name,cat,kind,R km,color,P days,pole[ra,dec] (spin-positive pole),rot h,tex
+const CORE=[
+ ['sun','Sun','star','Star',695700,'#ffcc66',Infinity,[286.13,63.87],609.12,'sun'],
+ ['mercury','Mercury','planet','Planet',2439.7,'#b9b2a8',87.969,[281.01,61.41],1407.6,'mercury'],
+ ['venus','Venus','planet','Planet',6051.8,'#ecc98a',224.701,[92.76,-67.16],5832.5,'venus'],
+ ['earth','Earth','planet','Planet',6371,'#5c9dff',365.256,[0,90],23.934,'earth'],
+ ['moon','Moon','moon','Earth’s moon',1737.4,'#d6d6d2',27.3217,[266.86,65.64],655.72,'moon'],
+ ['mars','Mars','planet','Planet',3389.5,'#e8673d',686.98,[317.68,52.89],24.623,'mars'],
+ ['jupiter','Jupiter','planet','Gas giant',69911,'#dcae80',4332.59,[268.06,64.5],9.925,'jupiter'],
+ ['saturn','Saturn','planet','Gas giant',58232,'#ecd59b',10759.22,[40.59,83.54],10.656,'saturn'],
+ ['uranus','Uranus','planet','Ice giant',25362,'#9fe6ee',30688.5,[77.31,15.18],17.24,'uranus'],
+ ['neptune','Neptune','planet','Ice giant',24622,'#5f84ff',60182,[299.36,43.46],16.11,'neptune']];
+const CENTERABLE=['sun','mercury','venus','earth','moon','mars','jupiter','saturn','uranus','neptune'];
+// small bodies: id,name,cat,kind,a AU,e,i,om,w,M0,epoch,R km,color,rot h,round?
+const SB=[
+ ['ceres','Ceres','dwarf','Dwarf planet · asteroid belt',2.766,0.0797,10.59,80.25,73.29,274.42,2461200.5,469.7,'#9a958d',9.07,1],
+ ['eris','Eris','dwarf','Dwarf planet · scattered disc',67.93,0.4382,43.93,36.00,150.79,211.77,2461200.5,1163,'#ecebe6',378.9,1],
+ ['haumea','Haumea','dwarf','Dwarf planet · Kuiper belt',43.06,0.1944,28.21,121.79,240.69,223.21,2461200.5,1050,'#f2f1ee',3.92,1],
+ ['makemake','Makemake','dwarf','Dwarf planet · Kuiper belt',45.57,0.1589,29.03,79.29,297.09,169.94,2461200.5,715,'#c98d6b',22.83,1],
+ ['gonggong','Gonggong','dwarf','Dwarf planet candidate · scattered disc',66.87,0.5043,30.90,336.84,206.62,111.66,2461200.5,615,'#b8684c',22.4,1],
+ ['quaoar','Quaoar','dwarf','Dwarf planet candidate · Kuiper belt',43.16,0.0352,7.99,188.92,163.21,292.85,2461200.5,555,'#a87a62',17.7,1],
+ ['sedna','Sedna','dwarf','Dwarf planet candidate · detached object',543.7,0.8599,11.93,144.51,311.10,358.60,2461200.5,500,'#c05a3e',10.3,1],
+ ['orcus','Orcus','dwarf','Dwarf planet candidate · Kuiper belt',39.38,0.2205,20.56,268.41,73.57,189.10,2461200.5,455,'#a3a29f',13.2,1],
+ ['vesta','Vesta','asteroid','Main-belt asteroid · Dawn visited',2.361,0.0902,7.14,103.70,151.47,81.19,2461200.5,262,'#a39a8c',5.34,0],
+ ['pallas','Pallas','asteroid','Main-belt asteroid',2.77,0.2307,34.93,172.89,310.97,254.25,2461200.5,256,'#8f8a83',7.81,1],
+ ['juno','Juno','asteroid','Main-belt asteroid',2.671,0.2557,12.99,169.81,247.90,262.73,2461200.5,123,'#a29380',7.21,0],
+ ['hygiea','Hygiea','asteroid','Main-belt asteroid',3.151,0.1067,3.83,283.12,312.42,252.03,2461200.5,204,'#6a645d',13.83,1],
+ ['psyche','Psyche','asteroid','Metal-rich main-belt asteroid',2.926,0.1349,3.10,149.98,230.03,79.77,2461200.5,111,'#a7a49e',4.2,0],
+ ['lutetia','Lutetia','asteroid','Main-belt asteroid · Rosetta flyby',2.434,0.1648,3.06,80.84,249.88,298.77,2461200.5,49,'#8a847b',8.17,0],
+ ['ida','Ida','asteroid','Main-belt asteroid · Galileo flyby',2.863,0.0461,1.13,323.54,113.26,49.65,2461200.5,15.7,'#8d8273',4.63,0],
+ ['eros','Eros','asteroid','Near-Earth asteroid · NEAR landed',1.458,0.2229,10.83,304.27,178.92,62.51,2461200.5,8.4,'#a68f70',5.27,0],
+ ['bennu','Bennu','asteroid','Near-Earth asteroid · OSIRIS-REx sample',1.126,0.2037,6.03,2.06,66.22,101.70,2455562.5,0.245,'#5a5652',4.3,0],
+ ['apophis','Apophis','asteroid','Near-Earth asteroid · Earth flyby 2029',0.9224,0.1911,3.34,203.89,126.68,175.33,2461200.5,0.17,'#998d80',30.6,0],
+ ['hektor','Hektor','asteroid','Jupiter trojan (L4)',5.277,0.0243,18.15,342.80,181.29,24.91,2461200.5,112,'#7b6a5c',6.92,0],
+ ['chiron','Chiron','asteroid','Centaur',13.68,0.3798,6.93,209.30,339.29,216.72,2461200.5,83,'#8f8a85',5.92,0],
+ ['halley','Halley','comet','Periodic comet · returns 2061',0.575/0.032,0.968,162,59.1,112,0,2446469.974,5.5,'#cfe6ff',52.8,0],
+ ['encke','Encke','comet','Periodic comet · 3.3-year orbit',0.339/0.153,0.847,11.3,334,187,0,2460240.035,2.4,'#cfe6ff',11,0],
+ ['c67p','67P/Churyumov–Gerasimenko','comet','Periodic comet · Rosetta landed',1.24/0.359,0.641,7.04,50.1,12.8,0,2457247.589,2,'#cfe6ff',12.4,0],
+ ['halebopp','Hale–Bopp','comet','Long-period comet · 1997 apparition',0.891/0.005,0.995,89.3,283,130,0,2450537.135,30,'#cfe6ff',11.4,0]];
+const MOON_R={Phobos:11.1,Deimos:6.2,Io:1821.6,Europa:1560.8,Ganymede:2634.1,Callisto:2410.3,Amalthea:83.5,Thebe:49.3,Adrastea:8.2,Metis:21.5,Himalia:69.8,Elara:43,Pasiphae:30,Sinope:19,Lysithea:21,Carme:23,Ananke:14,Leda:10.8,Callirrhoe:4.8,Themisto:4.5,
+ Mimas:198.2,Enceladus:252.1,Tethys:531.1,Dione:561.4,Rhea:763.8,Titan:2574.7,Hyperion:135,Iapetus:734.5,Phoebe:106.5,Janus:89.5,Epimetheus:58.1,Helene:18,Telesto:12.4,Calypso:10.7,Atlas:15.1,Prometheus:43.1,Pandora:40.7,Pan:14.1,Daphnis:3.8,Methone:1.6,Pallene:2.2,Polydeuces:1.3,Anthe:0.9,Aegaeon:0.33,Paaliaq:11,Tarvos:7.5,Ijiraq:6,Siarnaq:19.7,Kiviuq:8,Albiorix:14.3,Ymir:9,Skathi:4,
+ Miranda:235.8,Ariel:578.9,Umbriel:584.7,Titania:788.4,Oberon:761.4,Puck:81,Portia:67.6,Juliet:46.8,Belinda:45,Cressida:39.8,Rosalind:36,Desdemona:32,Bianca:25.7,Ophelia:21.4,Cordelia:20.1,Perdita:15,Mab:12,Cupid:9,Sycorax:78.5,Caliban:36,Prospero:25,Setebos:24,Stephano:16,Trinculo:9,Francisco:11,Margaret:10,Ferdinand:10,
+ Triton:1353.4,Proteus:210,Nereid:170,Larissa:97,Galatea:88,Despina:75,Thalassa:41,Naiad:33,Hippocamp:17,Halimede:31,Neso:30,Sao:22,Laomedeia:21,Psamathe:20,Charon:606,Styx:6,Nix:25,Kerberos:6,Hydra:26};
+const MAJOR={Phobos:{t:'rock',c:['#7d6f63','#5d5148','#9a8b7d'],p:1},Deimos:{t:'rock',c:['#8a7c6c','#6a5d50','#a89a88'],p:1},
+ Io:{t:'io'},Europa:{t:'europa'},Ganymede:{t:'rock',c:['#8f8377','#5f564e','#c9c1b6']},Callisto:{t:'rock',c:['#5d5246','#3e362f','#b0a596'],cr:700},
+ Mimas:{t:'ice',c:['#c9c6c0','#9d9a95','#e8e6e2'],big:1},Enceladus:{t:'ice',c:['#f4f6f8','#d4dde4','#ffffff']},Tethys:{t:'ice',c:['#e8e4dc','#c4beb4','#f8f6f2']},Dione:{t:'ice',c:['#d8d4cc','#aaa59c','#f0ede8']},Rhea:{t:'ice',c:['#cfcac2','#a29d95','#ece9e4']},
+ Titan:{t:'titan'},Hyperion:{t:'rock',c:['#b3a48e','#7d705f','#d0c3ad'],p:1,cr:500},Iapetus:{t:'iapetus'},
+ Miranda:{t:'ice',c:['#bdbab4','#8e8a84','#dcd9d4']},Ariel:{t:'ice',c:['#c9c5bd','#9a958d','#e4e1db']},Umbriel:{t:'rock',c:['#6e6a66','#55514e','#8c8884']},Titania:{t:'ice',c:['#b5aca2','#8a8178','#d2cbc3']},Oberon:{t:'rock',c:['#9f938a','#766c64','#c0b6ad']},
+ Triton:{t:'triton'},Charon:{t:'charon'}};
+const MOON_COL={main:'#d8d2c6',galilean:'#e8d6a0',inner:'#b9b2a6',himalia:'#c7b8a0',prograde:'#c7b8a0',ananke:'#a69c90',carme:'#a69c90',pasiphae:'#a69c90',ring:'#d0cbc2',alkyonides:'#d0cbc2',trojans:'#d0cbc2',inuit:'#b7a48c',gallic:'#c2a07a',norse:'#9d958c',irregular:'#a69c90',triton:'#e6d3c8',charon:'#a9a097',small:'#c9c3bb'};
+// moon families: planet -> [key,label]
+const FAM={
+ earth:[['main','The Moon']],
+ mars:[['main','Phobos & Deimos']],
+ jupiter:[['galilean','Galilean'],['inner','Inner (Amalthea)'],['himalia','Himalia group'],['prograde','Other prograde'],['ananke','Ananke group'],['carme','Carme group'],['pasiphae','Pasiphae group']],
+ saturn:[['main','Major'],['ring','Ring moons'],['alkyonides','Alkyonides'],['trojans','Trojans'],['inuit','Inuit group'],['gallic','Gallic group'],['norse','Norse group']],
+ uranus:[['main','Major'],['inner','Inner'],['irregular','Irregular']],
+ neptune:[['triton','Triton'],['inner','Inner'],['irregular','Irregular']],
+ pluto:[['charon','Charon'],['small','Small moons']]};
+const FAM_DESC={galilean:'Galilean moon',inner:'inner moon',himalia:'Himalia group · prograde irregular',prograde:'prograde irregular',ananke:'Ananke group · retrograde irregular',carme:'Carme group · retrograde irregular',pasiphae:'Pasiphae group · retrograde irregular',main:'major moon',ring:'ring moon / shepherd',alkyonides:'Alkyonides · small moon between Mimas and Enceladus',trojans:'Trojan co-orbital',inuit:'Inuit group · prograde irregular',gallic:'Gallic group · prograde irregular',norse:'Norse group · retrograde irregular',irregular:'irregular moon',triton:'captured, retrograde',charon:'binary companion',small:'small moon'};
+
+/* ---------- maths ---------- */
+const wrapPi=x=>{x%=TAU;return x>Math.PI?x-TAU:x<-Math.PI?x+TAU:x};
+function solveE(M,e){let E=e<.8?M+e*Math.sin(M):Math.PI*Math.sign(M||1);for(let k=0;k<(e<.8?6:14);k++)E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));return E}
+const eqToEcl=(x,y,z)=>[x,Math.cos(OBL)*y+Math.sin(OBL)*z,-Math.sin(OBL)*y+Math.cos(OBL)*z];
+function poleEcl(ra,dec){ra*=DEG;dec*=DEG;return eqToEcl(Math.cos(dec)*Math.cos(ra),Math.cos(dec)*Math.sin(ra),Math.sin(dec))}
+function PQ(node,inc,w,ra,dec){ // perifocal axes in ecliptic; elements referred to ecliptic, or to the plane with pole (ra,dec)
+ const O=node*DEG,I=inc*DEG,W=w*DEG,cO=Math.cos(O),sO=Math.sin(O),cI=Math.cos(I),sI=Math.sin(I),cw=Math.cos(W),sw=Math.sin(W);
+ const P=[cw*cO-sw*sO*cI,cw*sO+sw*cO*cI,sw*sI],Q=[-sw*cO-cw*sO*cI,-sw*sO+cw*cO*cI,cw*sI];
+ if(ra==null)return[P,Q];
+ const a=ra*DEG,d=dec*DEG,X=[-Math.sin(a),Math.cos(a),0],Z=[Math.cos(d)*Math.cos(a),Math.cos(d)*Math.sin(a),Math.sin(d)],Y=[Z[1]*X[2]-Z[2]*X[1],Z[2]*X[0]-Z[0]*X[2],Z[0]*X[1]-Z[1]*X[0]];
+ const tr=v=>eqToEcl(X[0]*v[0]+Y[0]*v[1]+Z[0]*v[2],X[1]*v[0]+Y[1]*v[1]+Z[1]*v[2],X[2]*v[0]+Y[2]*v[1]+Z[2]*v[2]);return[tr(P),tr(Q)]}
+function kep(el,jd,o){
+ const T=(jd-J2000)/36525,a=(el[0]+el[6]*T)*AU,e=el[1]+el[7]*T,I=(el[2]+el[8]*T)*DEG,L=el[3]+el[9]*T,wb=el[4]+el[10]*T,Om=(el[5]+el[11]*T)*DEG;
+ const w=wb*DEG-Om,E=solveE(wrapPi((L-wb)*DEG),e),xp=a*(Math.cos(E)-e),yp=a*Math.sqrt(1-e*e)*Math.sin(E);
+ const cw=Math.cos(w),sw=Math.sin(w),cO=Math.cos(Om),sO=Math.sin(Om),cI=Math.cos(I),sI=Math.sin(I);
+ o[0]=(cw*cO-sw*sO*cI)*xp+(-sw*cO-cw*sO*cI)*yp;o[1]=(cw*sO+sw*cO*cI)*xp+(-sw*sO+cw*cO*cI)*yp;o[2]=sw*sI*xp+cw*sI*yp;return o}
+function moonGeo(jd,o){
+ const d=jd-2451543.5,N=(125.1228-0.0529538083*d)*DEG,i=5.1454*DEG,w=(318.0634+0.1643573223*d)*DEG,a=384400*KM,e=0.0549;
+ const E=solveE(wrapPi((115.3654+13.0649929509*d)*DEG),e),xv=a*(Math.cos(E)-e),yv=a*Math.sqrt(1-e*e)*Math.sin(E),u=Math.atan2(yv,xv)+w,r=Math.hypot(xv,yv);
+ o[0]=r*(Math.cos(N)*Math.cos(u)-Math.sin(N)*Math.sin(u)*Math.cos(i));o[1]=r*(Math.sin(N)*Math.cos(u)+Math.cos(N)*Math.sin(u)*Math.cos(i));o[2]=r*Math.sin(u)*Math.sin(i);return o}
+function ell(o,jd,out){const E=solveE(wrapPi((o.M0+o.n*(jd-o.ep))*DEG),o.e),c=o.a*(Math.cos(E)-o.e),s=o.b*Math.sin(E),P=o.Pv,Q=o.Qv;
+ out[0]=P[0]*c+Q[0]*s;out[1]=P[1]*c+Q[1]*s;out[2]=P[2]*c+Q[2]*s;return out}
+const MU=0.0121505,_m=[0,0,0],_s=[0,0,0];
+function helio(o,jd,out){switch(o.orb){
+ case'sun':out[0]=out[1]=out[2]=0;return out;
+ case'pl':return kep(EL[o.id],jd,out);
+ case'em':{kep(EL.emb,jd,out);moonGeo(jd,_m);const f=o.id==='earth'?-MU:1-MU;out[0]+=f*_m[0];out[1]+=f*_m[1];out[2]+=f*_m[2];return out}
+ case'sat':{helio(o.par,jd,out);ell(o,jd,_s);out[0]+=_s[0];out[1]+=_s[1];out[2]+=_s[2];return out}
+ default:return ell(o,jd,out)}}
+const nowJD=()=>Date.now()/864e5+2440587.5;
+
+/* ---------- build object list ---------- */
+const OBJ=[],byId={};
+const add=o=>{o.i=OBJ.length;o.h=new Float64Array(3);o.d=new Float64Array(3);o.k=1;OBJ.push(o);byId[o.id]=o;return o};
+CORE.forEach(([id,name,cat,kind,R,color,P,pole,rot,tex])=>add({id,name,cat,kind,R,color,P,pole,rot,tex,major:1,orb:id==='sun'?'sun':id==='earth'||id==='moon'?'em':'pl',parent:id==='moon'?'earth':'sun',grp:id==='moon'?'earth:main':'core'}));
+byId.moon.par=byId.earth;
+add({id:'pluto',name:'Pluto',cat:'dwarf',kind:'Dwarf planet · Kuiper belt',R:1188.3,color:'#d9b996',P:90560,pole:[312.99,6.16],rot:153.29,tex:'pluto',major:1,orb:'pl',parent:'sun',grp:'dwarf'});
+const r1=rng(11);
+SB.forEach(([id,name,cat,kind,a,e,i,om,w,M0,ep,R,color,rot,round])=>{const[Pv,Qv]=PQ(om,i,w);
+ add({id,name,cat,kind,R,color,rot,round,major:1,orb:'sb',parent:'sun',grp:cat,a:a*AU,b:a*AU*Math.sqrt(1-e*e),e,M0,ep,n:0.9856076686/Math.pow(a,1.5),P:365.25*Math.pow(a,1.5),Pv,Qv,
+  pole:[r1()*360,r1()*140-70],tex:cat==='comet'?{t:'rock',c:['#3b3633','#272321','#5a524c'],p:1}:{t:'rock',c:[color,shade(color,-.25),shade(color,.2)],p:!round}})});
+MOONS.forEach(([name,pid,akm,e,w,M0,inc,node,P,ra,dec,fam])=>{const[Pv,Qv]=PQ(node,inc,w,ra,dec),par=byId[pid],mj=MAJOR[name];
+ const R=MOON_R[name]||(fam==='irregular'?(pid==='neptune'?20:10):pid==='saturn'?2:pid==='jupiter'?1.5:5);
+ add({id:'m-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),name,cat:'moon',kind:'Moon of '+par.name+' · '+(FAM_DESC[fam]||''),R,est:!MOON_R[name],color:mj?(mj.c?mj.c[2]:MOON_COL[fam]):MOON_COL[fam],
+  P,parent:pid,par,fam,grp:pid+':'+fam,major:mj?1:0,tex:mj,orb:'sat',a:akm*KM,b:akm*KM*Math.sqrt(1-e*e),e,M0,ep:J2000,n:360/P,Pv,Qv,retro:inc>90,
+  pole:ra==null?par.pole:[ra,dec],rot:P*24})});
+const MOONCOUNT={};OBJ.forEach(o=>{if(o.cat==='moon')MOONCOUNT[o.grp]=(MOONCOUNT[o.grp]||0)+1});
+const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,neptune:354800,pluto:65200};
+
+/* ---------- state ---------- */
+const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false}};
+try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
+let MG=new Set(S.mg);
+const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat}))}catch(e){}};
+function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&(o.parent!=='pluto'||S.cat.dwarf);return!!S.cat[o.grp]}
+const sizeF=()=>Math.round(Math.pow(10,S.sizeV/100*Math.log10(3000)));
+const kf=r=>S.mode!=='log'||r<1e-9?1:R0*Math.log1p(r/R0)/r;
+const mapS=r=>S.mode==='log'?R0*Math.log1p(r/R0):r;
+const dispR=o=>o.R*KM*o.k*(o.id==='sun'?Math.min(sizeF(),S.mode==='log'?25:40):sizeF());
+const anch=o=>o.cat==='moon'&&o.parent!==S.center&&o.id!==S.center;
+
+/* ---------- renderer ---------- */
+const canvas=$('c');let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,logarithmicDepthBuffer:true})}catch(e){$('err').style.display='grid';throw e}
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputEncoding=THREE.sRGBEncoding;renderer.autoClear=false;
+const PR=renderer.getPixelRatio();
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(50,1,1e-7,1e7);
+const starScene=new THREE.Scene(),starCam=new THREE.PerspectiveCamera(50,1,.1,10);
+scene.add(new THREE.AmbientLight(0xffffff,.07));
+const sunLight=new THREE.PointLight(0xfff4e6,1.35,0);scene.add(sunLight);
+
+function rng(s){return()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shade(hex,f){const c=new THREE.Color(hex);if(f<0)c.multiplyScalar(1+f);else c.lerp(new THREE.Color('#fff'),f);return'#'+c.getHexString()}
+function ctex(w,h,draw){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t}
+function blob(g,W,x,y,rx,ry,col,a){g.globalAlpha=a;g.fillStyle=col;for(const dx of[-W,0,W]){g.beginPath();g.ellipse(x+dx,y,rx,ry,0,0,TAU);g.fill()}g.globalAlpha=1}
+function bands(g,W,H,R,cols,n,smear){const gr=g.createLinearGradient(0,0,0,H);for(let i=0;i<=n;i++)gr.addColorStop(i/n,cols[Math.floor(R()*cols.length)]);g.fillStyle=gr;g.fillRect(0,0,W,H);
+ for(let i=0;i<smear;i++)blob(g,W,R()*W,R()*H,W/64+R()*W/7,1+R()*H/64,cols[Math.floor(R()*cols.length)],.22)}
+function craters(g,W,H,R,n,dark,light){const s=W/512;for(let i=0;i<n;i++){const x=R()*W,y=H*.08+R()*H*.84,r=(1+Math.pow(R(),3)*16)*s;blob(g,W,x+r*.25,y+r*.25,r,r,light,.25);blob(g,W,x,y,r,r,dark,.35)}}
+function texFor(o){const R=rng((o.R*1000|0)+o.i),big=o.cat==='planet'||o.id==='sun'||o.id==='moon',w=big?512:256,h=w/2,sp=o.tex;
+ return ctex(w,h,(g,W,H)=>{const fill=c=>{g.fillStyle=c;g.fillRect(0,0,W,H)},s=W/512;
+ if(typeof sp==='string')switch(sp){
+ case'sun':fill('#ffb63f');for(let i=0;i<2600;i++)blob(g,W,R()*W,R()*H,1+R()*4,1+R()*3,R()<.5?'#fff0a8':'#ef7d16',.3);break;
+ case'mercury':fill('#8e8982');for(let i=0;i<160;i++)blob(g,W,R()*W,R()*H,6+R()*30,4+R()*20,R()<.5?'#a9a39b':'#706b64',.25);craters(g,W,H,R,380,'#5f5b55','#c4beb5');break;
+ case'venus':bands(g,W,H,R,['#ead19b','#d8b676','#f3dfb0','#c9a464'],18,420);break;
+ case'earth':fill('#1b4c8e');for(let k=0;k<9;k++){const cx=R()*W,cy=H*(.22+R()*.56);for(let i=0;i<70;i++)blob(g,W,cx+(R()-.5)*120,cy+(R()-.5)*70,4+R()*16,3+R()*12,R()<.72?'#3c7a3a':'#9a8550',.9)}
+  g.fillStyle='#f4f8ff';g.fillRect(0,0,W,H*.06);g.fillRect(0,H*.94,W,H*.06);for(let i=0;i<260;i++)blob(g,W,R()*W,R()*H,10+R()*42,2+R()*5,'#ffffff',.32);break;
+ case'moon':fill('#9b9b96');for(let i=0;i<14;i++)blob(g,W,R()*W,H*(.3+R()*.4),15+R()*40,12+R()*28,'#6b6b67',.55);craters(g,W,H,R,420,'#77776f','#c9c9c2');break;
+ case'mars':fill('#b9552f');for(let i=0;i<70;i++)blob(g,W,R()*W,H*(.2+R()*.6),10+R()*40,5+R()*18,R()<.6?'#7a3820':'#d47c4b',.35);g.fillStyle='#f3ece6';g.fillRect(0,0,W,H*.04);g.fillRect(0,H*.96,W,H*.04);craters(g,W,H,R,90,'#8d4024','#d58a5c');break;
+ case'jupiter':bands(g,W,H,R,['#d8b58f','#c48f62','#efe0c8','#a8714d','#e6cfae','#b98a64'],34,900);blob(g,W,W*.3,H*.64,26,12,'#c25a3c',.85);break;
+ case'saturn':bands(g,W,H,R,['#ead7a6','#d8bd84','#f2e4bf','#c9a86a','#e2c991'],26,500);break;
+ case'uranus':bands(g,W,H,R,['#a7e3ea','#9bd9e2','#b4ebef','#93d0db'],10,140);break;
+ case'neptune':bands(g,W,H,R,['#4b6fe0','#3f60cc','#5b80ee','#3554b8'],16,300);blob(g,W,W*.6,H*.62,20,9,'#22398a',.8);break;
+ case'pluto':fill('#c9ad8e');for(let i=0;i<40;i++)blob(g,W,R()*W*.45,H*(.45+R()*.15),8*s+R()*24*s,5*s+R()*10*s,'#6f5444',.5);blob(g,W,W*.68,H*.55,46*s,34*s,'#efe2cf',.85);craters(g,W,H,R,80,'#8d735e','#e4d3bc');break;}
+ else switch(sp.t){
+ case'io':fill('#e3cf62');for(let i=0;i<220;i++)blob(g,W,R()*W,R()*H,2+R()*12*s*2,2+R()*9*s*2,['#c4692b','#f6f1c4','#9c5a24','#3b2c1e','#e9a640'][Math.floor(R()*5)],.55);g.globalAlpha=.25;g.fillStyle='#a0522d';g.fillRect(0,0,W,H*.1);g.fillRect(0,H*.9,W,H*.1);g.globalAlpha=1;break;
+ case'europa':fill('#ddd2bd');for(let i=0;i<70;i++)blob(g,W,R()*W,R()*H,10+R()*30,6+R()*20,'#c8b69a',.3);g.strokeStyle='#9a6a45';g.lineWidth=1.2;g.globalAlpha=.55;for(let i=0;i<70;i++){g.beginPath();let x=R()*W,y=R()*H;g.moveTo(x,y);for(let k=0;k<4;k++){x+=(R()-.5)*90;y+=(R()-.5)*50;g.lineTo(x,y)}g.stroke()}g.globalAlpha=1;break;
+ case'titan':bands(g,W,H,R,['#d9a24a','#cf963f','#e2ad58','#c78d3b'],8,80);break;
+ case'iapetus':fill('#ded9d0');g.fillStyle='#3a2c22';g.beginPath();g.ellipse(W*.25,H*.5,W*.22,H*.36,0,0,TAU);g.fill();craters(g,W,H,R,260,'#9a948b','#f2efea');break;
+ case'triton':fill('#e9d8cd');for(let i=0;i<160;i++)blob(g,W,R()*W,H*(.45+R()*.5),4+R()*16,3+R()*10,R()<.5?'#c8a493':'#f7f0ea',.5);for(let i=0;i<40;i++)blob(g,W,R()*W,H*(.6+R()*.3),1,3+R()*6,'#5e4a42',.6);break;
+ case'charon':fill('#a39a90');blob(g,W,W/2,0,W,H*.18,'#6b3e2e',.8);craters(g,W,H,R,200,'#7a7168','#c4bbb1');break;
+ case'ice':fill(sp.c[0]);for(let i=0;i<60;i++)blob(g,W,R()*W,R()*H,6+R()*24,4+R()*16,R()<.5?sp.c[1]:sp.c[2],.18);craters(g,W,H,R,sp.cr||240,sp.c[1],sp.c[2]);if(sp.big)blob(g,W,W*.3,H*.48,W*.07,W*.07,sp.c[1],.6);break;
+ default:fill(sp.c[0]);for(let i=0;i<90;i++)blob(g,W,R()*W,R()*H,6+R()*24,4+R()*16,R()<.5?sp.c[1]:sp.c[2],.25);craters(g,W,H,R,sp.cr||300,sp.c[1],sp.c[2]);if(o.id==='ceres')blob(g,W,W*.55,H*.42,3,3,'#ffffff',.95)}})}
+function glowTex(inner,outer){return ctex(128,128,(g,W)=>{const gr=g.createRadialGradient(W/2,W/2,0,W/2,W/2,W/2);gr.addColorStop(0,inner);gr.addColorStop(.25,outer);gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,W,W)})}
+const dotTex=ctex(64,64,(g)=>{g.fillStyle='#fff';g.beginPath();g.arc(32,32,28,0,TAU);g.fill()});
+function potato(seed,amp,seg){const g=new THREE.SphereGeometry(1,seg||36,Math.round((seg||36)*.6)),p=g.attributes.position,R=rng(seed),w=[];
+ for(let k=0;k<6;k++)w.push([R()*2-1,R()*2-1,R()*2-1,1+R()*2.5,R()*TAU,(R()*.6+.4)/(k+1)]);
+ for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i);let r=1;for(const q of w)r+=amp*q[5]*Math.sin(q[3]*(q[0]*x+q[1]*y+q[2]*z)+q[4]);p.setXYZ(i,x*r*1.15,y*r*.82,z*r)}
+ g.computeVertexNormals();return g}
+
+const sph=new THREE.SphereGeometry(1,64,40),sphLo=new THREE.SphereGeometry(1,32,20),POT=[potato(3,.22),potato(8,.28),potato(21,.18)];
+const UP=new THREE.Vector3(0,1,0),v3=new THREE.Vector3(),q3=new THREE.Quaternion();
+function orientTo(obj,pole){const p=poleEcl(pole[0],pole[1]);v3.set(p[0],p[2],-p[1]).normalize();obj.quaternion.setFromUnitVectors(UP,v3)}
+OBJ.forEach(o=>{if(!o.major)return;
+ o.g=new THREE.Group();o.tg=new THREE.Group();orientTo(o.tg,o.pole);
+ const t=texFor(o),pot=o.tex&&o.tex.p;
+ const mat=o.id==='sun'?new THREE.MeshBasicMaterial({map:t}):new THREE.MeshLambertMaterial({map:t});
+ o.mesh=new THREE.Mesh(pot?POT[o.i%3]:o.cat==='planet'||o.id==='sun'?sph:sphLo,mat);
+ if(o.id==='haumea')o.mesh.scale.set(1,.52,.78);
+ o.tg.add(o.mesh);o.g.add(o.tg);scene.add(o.g);
+ if(o.id==='saturn'){const ri=74500/o.R,ro=136780/o.R,rg=new THREE.RingGeometry(ri,ro,160,1),uv=rg.attributes.uv,p=rg.attributes.position;
+  for(let i=0;i<p.count;i++)uv.setXY(i,(Math.hypot(p.getX(i),p.getY(i))-ri)/(ro-ri),.5);
+  const rt=ctex(512,4,(g,W,H)=>{for(let x=0;x<W;x++){const u=x/W;let a=u<.28?.18+u*.4:u<.69?.85:u<.765?.06:u>.955&&u<.965?.1:.6;a*=.85+.15*Math.sin(x*1.7)*Math.sin(x*.37);g.fillStyle=`rgba(${u<.28?190:226},${u<.28?175:206},${u<.28?150:160},${a})`;g.fillRect(x,0,1,H)}});
+  const ring=new THREE.Mesh(rg,new THREE.MeshLambertMaterial({map:rt,transparent:true,side:THREE.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;o.tg.add(ring)}
+ if(o.cat==='comet'){const cg=new THREE.ConeGeometry(1,1,24,1,true);cg.translate(0,-.5,0);
+  o.tail=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:0x9fc8ff,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));o.tail.frustumCulled=false;scene.add(o.tail);
+  o.coma=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(220,240,255,.9)','rgba(140,190,255,.25)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));scene.add(o.coma)}});
+const sun=byId.sun;
+const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(255,236,170,1)','rgba(255,170,60,.35)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));sun.g.add(glow);
+const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(255,240,200,.9)','rgba(255,180,80,.18)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,sizeAttenuation:false}));halo.scale.set(.09,.09,1);sun.g.add(halo);
+
+/* small moons: one instanced mesh */
+const SMALL=OBJ.filter(o=>!o.major);
+const inst=new THREE.InstancedMesh(POT[1],new THREE.MeshLambertMaterial({color:0xffffff}),SMALL.length);inst.frustumCulled=false;scene.add(inst);
+SMALL.forEach((o,j)=>{o.j=j;inst.setColorAt(j,new THREE.Color(o.color))});
+const mtx=new THREE.Matrix4(),pv=new THREE.Vector3(),sv=new THREE.Vector3(),qI=new THREE.Quaternion();
+
+/* markers: constant-size dots so true-scale bodies stay findable */
+function markerSet(list,px){const n=list.length,pos=new Float32Array(n*3),col=new Float32Array(n*4),g=new THREE.BufferGeometry();
+ list.forEach((o,i)=>{const c=new THREE.Color(o.color);col.set([c.r,c.g,c.b,0],i*4)});
+ g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('color',new THREE.BufferAttribute(col,4));
+ const pts=new THREE.Points(g,new THREE.PointsMaterial({size:px*PR,sizeAttenuation:false,vertexColors:true,map:dotTex,transparent:true,alphaTest:.4,depthWrite:false}));pts.frustumCulled=false;scene.add(pts);return{list,pos,col,g}}
+const MK=[markerSet(OBJ.filter(o=>o.major&&o.cat!=='moon'),6),markerSet(OBJ.filter(o=>o.major&&o.cat==='moon'),5),markerSet(SMALL,3.5)];
+
+/* starfield with a faint galactic band */
+{const n=5000,p=new Float32Array(n*3),c=new Float32Array(n*3),R=rng(7),ax=new THREE.Vector3(.2,.9,.4).normalize(),v=new THREE.Vector3();
+ for(let i=0;i<n;i++){do{v.set(R()*2-1,R()*2-1,R()*2-1)}while(v.lengthSq()>1||v.lengthSq()<.01);v.normalize();
+  if(i<n*.4)v.addScaledVector(ax,-v.dot(ax)*(.85+R()*.15)).normalize();
+  p.set([v.x*5,v.y*5,v.z*5],i*3);const t=R(),br=.35+Math.pow(R(),3)*.65;c.set([br*(t<.2?1:.8),br*.85,br*(t>.8?1:.85)],i*3)}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(c,3));
+ starScene.add(new THREE.Points(g,new THREE.PointsMaterial({size:1.6*PR,sizeAttenuation:false,vertexColors:true,map:dotTex,transparent:true,depthWrite:false})))}
+
+/* distance rings around the reference body */
+const RINGS=[1,2,5,10,20,30,50,100],ringG=new THREE.Group();scene.add(ringG);
+const ringMat=new THREE.LineBasicMaterial({color:0x7d97d6,transparent:true,opacity:.16,depthWrite:false});
+function buildRings(){while(ringG.children.length){const c=ringG.children.pop();c.geometry.dispose()}
+ RINGS.forEach(au=>{const r=mapS(au*AU),n=256,a=new Float32Array(n*3);for(let i=0;i<n;i++){const t=i/n*TAU;a[i*3]=Math.cos(t)*r;a[i*3+2]=-Math.sin(t)*r}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));ringG.add(new THREE.LineLoop(g,ringMat))})}
+
+/* moon orbit outlines: one line set per planet family, drawn in the planet's frame */
+const OUT={};
+{const mat=new THREE.LineBasicMaterial({color:0x9fb4e0,transparent:true,opacity:.22,depthWrite:false}),matS=new THREE.LineBasicMaterial({color:0x9fb4e0,transparent:true,opacity:.1,depthWrite:false});
+ const byG={};OBJ.forEach(o=>{if(o.orb==='sat')(byG[o.grp]=byG[o.grp]||[]).push(o)});
+ for(const k in byG){const L=byG[k],seg=L[0].major?128:48,a=new Float32Array(L.length*seg*6);let n=0;
+  for(const o of L)for(let s=0;s<seg;s++)for(const t of[s,s+1]){const E=t/seg*TAU,c=o.a*(Math.cos(E)-o.e),d=o.b*Math.sin(E);
+   a[n++]=o.Pv[0]*c+o.Qv[0]*d;a[n++]=o.Pv[2]*c+o.Qv[2]*d;a[n++]=-(o.Pv[1]*c+o.Qv[1]*d)}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));
+  const ls=new THREE.LineSegments(g,L.some(o=>o.major)?mat:matS);ls.frustumCulled=false;ls.visible=false;scene.add(ls);OUT[k]={ls,par:L[0].par}}
+ const g=new THREE.BufferGeometry(),a=new Float32Array(256*6),r=384400*KM;for(let s=0;s<256;s++)for(const[j,t]of[[0,s],[1,s+1]]){const E=t/256*TAU;a.set([Math.cos(E)*r,0,-Math.sin(E)*r],(s*2+j)*3)}
+ g.setAttribute('position',new THREE.BufferAttribute(a,3));const ls=new THREE.LineSegments(g,mat);ls.frustumCulled=false;ls.visible=false;ls.rotation.x=-5.145*DEG;scene.add(ls);OUT['earth:main']={ls,par:byId.earth}}
+
+/* illustrative belts */
+function makeField(n,seed,color,gen){const R=rng(seed),F={n,a:new Float32Array(n),e:new Float32Array(n),M0:new Float32Array(n),nn:new Float32Array(n),P:new Float32Array(n*3),Q:new Float32Array(n*3)};
+ for(let i=0;i<n;i++){const o=gen(R);F.a[i]=o.a*AU;F.e[i]=o.e;F.M0[i]=o.M*DEG;F.nn[i]=(o.n||0.9856076686/Math.pow(o.a,1.5))*DEG;const[P,Q]=PQ(o.om,o.i,o.w);F.P.set(P,i*3);F.Q.set(Q.map(x=>x*Math.sqrt(1-o.e*o.e)),i*3)}
+ F.pos=new Float32Array(n*3);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(F.pos,3));
+ F.pts=new THREE.Points(g,new THREE.PointsMaterial({color,size:1.7*PR,sizeAttenuation:false,map:dotTex,transparent:true,opacity:.7,depthWrite:false}));F.pts.frustumCulled=false;F.pts.visible=false;scene.add(F.pts);F.g=g;return F}
+const ray=(R,s)=>s*Math.sqrt(-2*Math.log(1-R()*.999));
+const FIELDS={
+ belt:makeField(5000,5,0xa79a8a,R=>{let a;do{a=2.1+Math.pow(R(),.8)*1.25}while(Math.abs(a-2.502)<.03||Math.abs(a-2.825)<.025||Math.abs(a-2.958)<.02||Math.abs(a-3.279)<.02);return{a,e:Math.min(.32,ray(R,.08)),i:ray(R,7),om:R()*360,w:R()*360,M:R()*360}}),
+ trojans:makeField(1600,6,0xc0a47a,R=>{const lam=34.396+(R()<.5?60:-60)+(R()+R()+R()-1.5)*24,w=R()*360;return{a:5.2026*(1+(R()-.5)*.02),e:ray(R,.05),i:ray(R,12),om:R()*360,w,M:lam-w,n:0.0830853}}),
+ kuiper:makeField(3500,9,0x8fb0d6,R=>{const t=R();if(t<.25)return{a:39.4+(R()-.5)*.6,e:.1+R()*.2,i:ray(R,10),om:R()*360,w:R()*360,M:R()*360};const hot=R()<.4;return{a:42+R()*6,e:ray(R,.05),i:hot?ray(R,14):ray(R,2),om:R()*360,w:R()*360,M:R()*360}})};
+function updateField(F,jd,ch,fv){const dt=jd-J2000,p=F.pos,l=S.mode==='log';
+ for(let i=0;i<F.n;i++){const e=F.e[i],M=wrapPi(F.M0[i]+F.nn[i]*dt);let E=M+e*Math.sin(M);E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));
+  const a=F.a[i],c=a*(Math.cos(E)-e),s=a*Math.sin(E),j=i*3;let x=F.P[j]*c+F.Q[j]*s-ch[0],y=F.P[j+1]*c+F.Q[j+1]*s-ch[1],z=F.P[j+2]*c+F.Q[j+2]*s-ch[2];
+  if(l){const k=kf(Math.hypot(x,y,z));x*=k;y*=k;z*=k}p[j]=x-fv[0];p[j+1]=z-fv[1];p[j+2]=-y-fv[2]}
+ F.g.attributes.position.needsUpdate=true}
+
+/* ---------- trails (analytic history, shifted incrementally) ---------- */
+const trailMat=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,depthWrite:false});
+const LOD={};for(const k in SYS)LOD[k]=false;
+const sysOf=o=>o.cat==='moon'?o.parent:o.id,inCenterSys=o=>sysOf(o)===sysOf(byId[S.center]);
+const effP=(o,other)=>o.id==='sun'?Infinity:o.cat==='moon'?(LOD[o.parent]||sysOf(other)===o.parent?o.P:o.par.P):o.P;
+const _a=[0,0,0],_c=[0,0,0],_pp=[0,0,0];
+function sample(o,jd,arr,i){const C=byId[S.center];helio(o,jd,_a);helio(C,jd,_c);let x=_a[0]-_c[0],y=_a[1]-_c[1],z=_a[2]-_c[2],k=1;
+ if(S.mode==='log'){if(anch(o)){helio(o.par,jd,_pp);k=kf(Math.hypot(_pp[0]-_c[0],_pp[1]-_c[1],_pp[2]-_c[2]))}else k=kf(Math.hypot(x,y,z))}
+ arr[i*3]=x*k;arr[i*3+1]=z*k;arr[i*3+2]=-y*k}
+function wantTrail(o){return S.trails&&o.major&&vis(o)&&o.id!==S.center&&(o.cat!=='moon'||LOD[o.parent]||inCenterSys(o))&&!(o.cat==='moon'&&SPEEDS[S.speed][1]>o.P*15)}
+function syncTrails(force){const L=S.tlen*365.25,C=byId[S.center];
+ OBJ.forEach(o=>{if(!o.major)return;
+  if(!wantTrail(o)){if(o.line){scene.remove(o.line);o.line.geometry.dispose();o.line=null;o.tr=null}return}
+  let step=Math.min(Math.min(effP(o,C),effP(C,o))/180,L/240);if(o.cat==='comet')step=Math.min(step,3);step=Math.min(Math.max(step,SPEEDS[S.speed][1]/1200),L/240);
+  const N=Math.min(6000,Math.ceil(L/step)),key=[S.center,S.mode,step,N].join('|');
+  if(o.tr&&o.tr.key===key&&!force)return;
+  if(o.line){scene.remove(o.line);o.line.geometry.dispose()}
+  const arr=new Float32Array((N+1)*3),col=new Float32Array((N+1)*4),c=new THREE.Color(o.color),al=o.cat==='moon'?.6:.86;
+  for(let i=0;i<=N;i++)col.set([c.r,c.g,c.b,.05+Math.pow(i/N,1.4)*al],i*4);
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(arr,3));g.setAttribute('color',new THREE.BufferAttribute(col,4));
+  o.line=new THREE.Line(g,trailMat);o.line.frustumCulled=false;scene.add(o.line);o.tr={N,step,K:null,arr,key}})}
+function updateTrail(o,jd){const t=o.tr,N=t.N,a=t.arr,K=Math.floor(jd/t.step);
+ if(t.K===null||Math.abs(K-t.K)>=N){for(let i=0;i<N;i++)sample(o,(K-N+1+i)*t.step,a,i)}
+ else if(K>t.K){const m=K-t.K;a.copyWithin(0,m*3,N*3);for(let j=0;j<m;j++)sample(o,(t.K+1+j)*t.step,a,N-m+j)}
+ else if(K<t.K){const m=t.K-K;a.copyWithin(m*3,0,(N-m)*3);for(let j=0;j<m;j++)sample(o,(K-N+1+j)*t.step,a,j)}
+ t.K=K;sample(o,jd,a,N);o.line.geometry.attributes.position.needsUpdate=true}
+
+/* ---------- camera ---------- */
+const cam={theta:.7,phi:1.05,dist:1,distT:1};
+const fitDist=au=>mapS(au*AU)/Math.tan(25*DEG)*1.25;
+const minD=()=>Math.max(dispR(byId[S.focus])*1.3,2e-6),maxD=()=>fitDist(1500);
+const clampD=()=>{cam.distT=Math.min(maxD(),Math.max(minD(),cam.distT))};
+cam.dist=cam.distT=fitDist(S.center==='sun'?1.9:3);
+const ptrs=new Map();let downAt=null,moved=0,pinch=0;
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});if(ptrs.size===1){downAt={x:e.clientX,y:e.clientY};moved=0}canvas.classList.add('drag')});
+canvas.addEventListener('pointermove',e=>{const p=ptrs.get(e.pointerId);if(!p)return;
+ if(ptrs.size===1){const dx=e.clientX-p.x,dy=e.clientY-p.y;moved+=Math.abs(dx)+Math.abs(dy);cam.theta-=dx*.005;cam.phi=Math.min(Math.PI-.02,Math.max(.02,cam.phi-dy*.005))}
+ p.x=e.clientX;p.y=e.clientY;
+ if(ptrs.size===2){const[a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pinch){cam.distT*=pinch/d;clampD()}pinch=d;moved=99}});
+const up=e=>{if(ptrs.size===1&&downAt&&moved<6)pick(e.clientX,e.clientY);ptrs.delete(e.pointerId);if(ptrs.size<2)pinch=0;if(!ptrs.size)canvas.classList.remove('drag')};
+canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',e=>{ptrs.delete(e.pointerId);pinch=0});
+canvas.addEventListener('wheel',e=>{e.preventDefault();cam.distT*=Math.exp((e.deltaMode?e.deltaY*33:e.deltaY)*.0015);clampD()},{passive:false});
+
+/* ---------- focus & reference ---------- */
+let fFrom='sun',fT=1;const fv=[0,0,0];
+function flyDist(o){const r=dispR(o);return o.cat==='planet'||o.id==='sun'?r*(o.id==='sun'?6:12):Math.max(r*14,(o.cat==='moon'?.0012:.004)*o.k)}
+function setFocus(id,fly){const o=byId[id];if(!vis(o))reveal(o);
+ if(id!==S.focus||fT<1){fFrom=S.focus;S.focus=id;fT=matchMedia('(prefers-reduced-motion: reduce)').matches?1:0}
+ if(fly){cam.distT=flyDist(o);clampD()}renderUI()}
+function setCenter(id){const o=byId[id];if(o.grp!=='core'&&!(o.cat==='moon'?MG.has(o.grp):S.cat[o.grp]))reveal(o);S.center=id;if(S.focus!==id){fFrom=S.focus=id;fT=1}syncTrails(true);renderUI();save()}
+function reveal(o){if(o.cat==='moon'){MG.add(o.grp);if(o.parent==='pluto')S.cat.dwarf=true}else if(o.grp!=='core')S.cat[o.grp]=true;applyVis();buildMoonUI()}
+
+/* ---------- labels (pooled) ---------- */
+const lblBox=$('labels'),POOL=[],LBL={};
+let lastPick={id:null,t:0};
+function choose(id){const t=performance.now();if(lastPick.id&&t-lastPick.t<500){const c=lastPick.id;lastPick.id=null;setCenter(c);return}if(id){lastPick={id,t};setFocus(id,true)}}
+for(let i=0;i<70;i++){const el=document.createElement('button');el.className='lbl';el.onclick=()=>choose(el.dataset.id);lblBox.appendChild(el);POOL.push(el)}
+const ringLbls=RINGS.map(au=>{const el=document.createElement('div');el.className='rl';el.textContent=au+' AU';lblBox.appendChild(el);return el});
+let W=1,H=1,PXR=1;const SX=new Float32Array(OBJ.length*2),SV=new Uint8Array(OBJ.length);
+const moonOn=o=>LOD[o.parent]||inCenterSys(o)||o.id===S.focus;
+const shownMarker=o=>vis(o)&&(o.cat!=='moon'||moonOn(o));
+const prioOf=o=>o.id===S.focus?0:o.id===S.center?1:o.cat==='star'||o.cat==='planet'?2:o.cat==='moon'&&o.major?3:o.cat==='dwarf'?4:o.cat==='moon'?6:5;
+function project(){for(const o of OBJ){SV[o.i]=0;if(!shownMarker(o))continue;v3.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]).project(camera);
+ if(v3.z<1&&Math.abs(v3.x)<1.1&&Math.abs(v3.y)<1.1){SV[o.i]=1;SX[o.i*2]=(v3.x+1)/2*W;SX[o.i*2+1]=(1-v3.y)/2*H}}}
+function placeLabels(){const placed=[],cand=[];
+ if(S.labels)for(const o of OBJ){if(!SV[o.i])continue;if(o.id===S.focus&&cam.dist<dispR(o)*25)continue;
+  if(o.cat==='moon'&&o.id!==S.focus){const p=o.par;if(SV[p.i]&&Math.hypot(SX[o.i*2]-SX[p.i*2],SX[o.i*2+1]-SX[p.i*2+1])<(o.major?10:18))continue}
+  cand.push(o)}
+ cand.sort((a,b)=>prioOf(a)-prioOf(b)||b.R-a.R);let nSm=0;
+ const show=[];
+ for(const o of cand){if(show.length>=POOL.length)break;if(prioOf(o)===6&&++nSm>10)continue;const x=SX[o.i*2],y=SX[o.i*2+1],sm=prioOf(o)>=5,w=o.name.length*(sm?6.6:7.5)+26,r=[x-w/2,y-(sm?30:34),x+w/2,y-10];
+  if(placed.some(q=>r[0]<q[2]&&r[2]>q[0]&&r[1]<q[3]&&r[3]>q[1]))continue;placed.push(r);show.push([o,x,y,sm])}
+ // sticky assignment: an object keeps its label element while it stays on screen
+ const keep=new Set(show.map(s=>s[0].id)),used=new Set();
+ for(const s of show){const el=LBL[s[0].id];if(el&&el.dataset.id===s[0].id){used.add(el);s.push(el)}}
+ const free=POOL.filter(el=>!used.has(el)&&!keep.has(el.dataset.id));let fi=0;
+ for(const s of show){let el=s[4];if(!el){el=free[fi++];if(!el)continue;if(el.dataset.id&&LBL[el.dataset.id]===el)delete LBL[el.dataset.id];el.dataset.id=s[0].id;LBL[s[0].id]=el;el.textContent=s[0].name;el.style.setProperty('--c',s[0].color);el.className='lbl'+(s[3]?' sm':'')}
+  used.add(el);el.classList.toggle('on',s[0].id===S.focus);el.style.display='flex';el.style.transform=`translate(${s[1]}px,${s[2]}px) translate(-50%,-140%)`}
+ for(const el of POOL)if(!used.has(el))el.style.display='none';
+ RINGS.forEach((au,i)=>{const el=ringLbls[i],r=mapS(au*AU);v3.set(r-fv[0],-fv[1],-fv[2]).project(camera);const x=(v3.x+1)/2*W,y=(1-v3.y)/2*H;
+  const ok=S.rings&&v3.z<1&&x>0&&x<W-40&&y>0&&y<H&&!placed.some(q=>x+20>q[0]&&x-20<q[2]&&y>q[1]-6&&y<q[3]+6);el.style.display=ok?'block':'none';if(ok)el.style.transform=`translate(${x+4}px,${y-16}px)`})}
+function nearest(x,y){let best=null,bd=22;for(const o of OBJ){if(!SV[o.i])continue;const d=Math.hypot(SX[o.i*2]-x,SX[o.i*2+1]-y)+(o.cat==='moon'&&!o.major?4:0);if(d<bd){bd=d;best=o}}return best}
+function pick(x,y){const o=nearest(x,y);choose(o?o.id:null)}
+
+/* ---------- UI ---------- */
+const cBox=$('centers');
+function buildCenters(){cBox.innerHTML=CENTERABLE.map(id=>{const o=byId[id];return`<button class="chip" data-id="${id}" style="--c:${o.color}" aria-pressed="false"><i></i>${o.name}</button>`}).join('')+(CENTERABLE.includes(S.center)?'':(o=>`<button class="chip" data-id="${o.id}" style="--c:${o.color};grid-column:1/-1" aria-pressed="true"><i></i>${o.name}<output style="margin-left:auto">${o.cat==='moon'?'moon of '+o.par.name:o.kind.split(' · ')[0]}</output></button>`)(byId[S.center]))}
+buildCenters();
+cBox.onclick=e=>{const t=e.target.closest('.chip');if(t)setCenter(t.dataset.id)};
+const PLN={earth:'Earth',mars:'Mars',jupiter:'Jupiter',saturn:'Saturn',uranus:'Uranus',neptune:'Neptune',pluto:'Pluto'};
+const openMP=new Set();
+function buildMoonUI(){if(typeof markBulk==='function')markBulk();const box=$('moonUI');
+ box.innerHTML=Object.keys(FAM).map(p=>{const fams=FAM[p],tot=fams.reduce((s,f)=>s+(MOONCOUNT[p+':'+f[0]]||0),0),on=fams.reduce((s,f)=>s+(MG.has(p+':'+f[0])?MOONCOUNT[p+':'+f[0]]||0:0),0),col=(byId[p]).color;
+  return`<details class="mp" data-p="${p}" data-on="${on>0}" ${openMP.has(p)?'open':''}><summary style="--c:${col}"><i></i><b>${PLN[p]}</b><output>${on?on+' of ':''}${tot}</output></summary><div class="gch">`+
+   fams.map(([k,l])=>`<button class="g" data-g="${p}:${k}" aria-pressed="${MG.has(p+':'+k)}">${l}<small>${MOONCOUNT[p+':'+k]}</small></button>`).join('')+
+   (fams.length>1?`<button class="g q" data-all="${p}">All</button><button class="g q" data-none="${p}">None</button>`:'')+`</div></details>`}).join('')}
+$('moonUI').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.g){const g=b.dataset.g;MG.has(g)?MG.delete(g):MG.add(g);if(g.startsWith('pluto')&&MG.has(g))S.cat.dwarf=true}
+ else if(b.dataset.all)FAM[b.dataset.all].forEach(f=>MG.add(b.dataset.all+':'+f[0])),b.dataset.all==='pluto'&&(S.cat.dwarf=true);
+ else if(b.dataset.none)FAM[b.dataset.none].forEach(f=>MG.delete(b.dataset.none+':'+f[0]));
+ applyVis();buildMoonUI();save()});
+$('moonUI').addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.p)d.open?openMP.add(d.dataset.p):openMP.delete(d.dataset.p)},true);
+const CATS=[['dwarf','Dwarf planets'],['asteroid','Asteroids & centaurs'],['comet','Comets']],BELTS=[['belt','Main asteroid belt'],['trojans','Jupiter trojans'],['kuiper','Kuiper belt']];
+const cnt=c=>OBJ.filter(o=>o.grp===c).length;
+$('catUI').innerHTML=CATS.map(([k,l])=>`<label class="sw"><input type="checkbox" data-cat="${k}"> ${l} <output>${cnt(k)}</output></label>`).join('');
+$('beltUI').innerHTML=BELTS.map(([k,l])=>`<label class="sw"><input type="checkbox" data-cat="${k}"> ${l}</label>`).join('');
+document.querySelectorAll('[data-cat]').forEach(i=>i.onchange=()=>{S.cat[i.dataset.cat]=i.checked;applyVis();buildMoonUI();save()});
+$('names').innerHTML=OBJ.map(o=>`<option value="${o.name}">${o.cat==='moon'?'Moon of '+o.par.name:o.kind}</option>`).join('');
+const findObj=v=>{v=v.trim().toLowerCase();return v&&(OBJ.find(o=>o.name.toLowerCase()===v)||OBJ.find(o=>o.name.toLowerCase().startsWith(v)))};
+const MAJOR_FAM={earth:'main',mars:'main',jupiter:'galilean',saturn:'main',uranus:'main',neptune:'triton',pluto:'charon'};
+const SMALLK=['dwarf','asteroid','comet'],BELTK=['belt','trojans','kuiper'];
+const allMoonKeys=()=>Object.keys(FAM).flatMap(p=>FAM[p].map(f=>p+':'+f[0]));
+function bulk(k){
+ if(k==='everything'){allMoonKeys().forEach(g=>MG.add(g));[...SMALLK,...BELTK].forEach(c=>S.cat[c]=true)}
+ else if(k==='planets'){MG.clear();[...SMALLK,...BELTK].forEach(c=>S.cat[c]=false)}
+ else if(k==='moons-all'){allMoonKeys().forEach(g=>MG.add(g));S.cat.dwarf=true}
+ else if(k==='moons-major'){MG.clear();for(const p in MAJOR_FAM)MG.add(p+':'+MAJOR_FAM[p])}
+ else if(k==='moons-none')MG.clear();
+ else{const[sec,v]=k.split('-');(sec==='small'?SMALLK:BELTK).forEach(c=>S.cat[c]=v==='all')}
+ applyVis();buildMoonUI();save()}
+function markBulk(){const all=allMoonKeys(),maj=Object.keys(MAJOR_FAM).map(p=>p+':'+MAJOR_FAM[p]),on=c=>!!S.cat[c],st={
+  'moons-all':all.every(g=>MG.has(g)),'moons-none':MG.size===0,'moons-major':MG.size===maj.length&&maj.every(g=>MG.has(g)),
+  'small-all':SMALLK.every(on),'small-none':!SMALLK.some(on),'belts-all':BELTK.every(on),'belts-none':!BELTK.some(on)};
+ st.everything=st['moons-all']&&st['small-all']&&st['belts-all'];st.planets=st['moons-none']&&st['small-none']&&st['belts-none'];
+ document.querySelectorAll('[data-bulk]').forEach(b=>b.setAttribute('aria-pressed',!!st[b.dataset.bulk]))}
+document.querySelectorAll('[data-bulk]').forEach(b=>b.onclick=()=>bulk(b.dataset.bulk));
+$('refFind').addEventListener('change',e=>{const o=findObj(e.target.value);if(o){setCenter(o.id);e.target.value='';e.target.blur()}});
+$('find').addEventListener('change',e=>{const v=e.target.value.trim().toLowerCase(),o=OBJ.find(o=>o.name.toLowerCase()===v)||OBJ.find(o=>o.name.toLowerCase().startsWith(v));if(o){setFocus(o.id,true);e.target.value='';e.target.blur()}});
+function applyVis(){
+ if(!vis(byId[S.focus]))setFocus(S.center,false);
+ document.querySelectorAll('[data-cat]').forEach(i=>i.checked=!!S.cat[i.dataset.cat]);
+ for(const k in FIELDS)FIELDS[k].pts.visible=!!S.cat[k];syncTrails()}
+const fmtD=u=>{const km=u*1e6;return km<2e7?Math.round(km).toLocaleString('en-US')+' km':(u/AU).toFixed(u/AU<10?3:u/AU<100?2:1)+' AU'};
+const fmtL=u=>{const s=u*1e6/CKMS;return s<120?s.toFixed(2)+' s':s<7200?(s/60).toFixed(1)+' min':s<172800?(s/3600).toFixed(2)+' h':(s/86400).toFixed(1)+' days'};
+const fmtT=d=>d<2?(d*24).toFixed(1)+' hours':d<1000?d.toFixed(d<100?2:1)+' days':(d/365.25).toFixed(d<36525?2:0)+' years';
+const fmtP=o=>o.id==='sun'?'—':o.cat==='moon'?fmtT(o.P)+(o.retro?' (retrograde)':''):fmtT(o.P);
+function renderUI(){
+ if(!!cBox.querySelector(`[data-id="${S.center}"]`)===false||cBox.children.length!==CENTERABLE.length+(CENTERABLE.includes(S.center)?0:1))buildCenters();
+ cBox.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.id===S.center));
+ const f=byId[S.focus];$('fDot').style.setProperty('--c',f.color);$('fName').textContent=f.name;$('fKind').textContent=f.kind;
+ $('fDl').textContent='From '+byId[S.center].name;$('fRad').textContent=(f.est?'≈ ':'')+(f.R<10?f.R.toFixed(f.R<1?2:1):Math.round(f.R).toLocaleString('en-US'))+' km'+(f.est?' (est.)':'');$('fPer').textContent=fmtP(f);
+ const can=f.id!==S.center;$('hold').style.display=can?'block':'none';$('hold').textContent='Hold '+f.name+' still';
+ $('mode').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.mode));
+ const s=sizeF();$('sizeOut').textContent=s===1?'×1 true size':'×'+s.toLocaleString('en-US');
+ $('speedOut').textContent=(S.dir<0?'−':'')+SPEEDS[S.speed][0];$('speed').value=S.speed;
+ $('rev').setAttribute('aria-pressed',S.dir<0);$('playIco').innerHTML=S.playing?'<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>':'<path d="M7 5l12 7-12 7z"/>';
+ $('play').setAttribute('aria-label',S.playing?'Pause':'Play');
+ $('trails').checked=S.trails;$('tlen').value=S.tlen;$('size').value=S.sizeV;$('lbls').checked=S.labels;$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
+const _h=[0,0,0],_hc=[0,0,0];
+function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
+ const d=Math.hypot(_h[0]-_hc[0],_h[1]-_hc[1],_h[2]-_hc[2]),ds=Math.hypot(..._h);
+ $('fDist').textContent=f.id===S.center?'—':fmtD(d);$('fLight').textContent=f.id===S.center?'—':fmtL(d);$('fSun').textContent=f.id==='sun'?'—':fmtD(ds);
+ const dt=new Date((S.jd-2440587.5)*864e5);
+ $('date').firstChild.nodeValue=dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
+ const y=dt.getUTCFullYear();$('dsub').textContent=dt.toISOString().slice(11,16)+' UTC'+(y<1800||y>2050?' · approximate':'')}
+$('ptog').onclick=()=>{const o=$('panel').classList.toggle('open');$('ptog').setAttribute('aria-expanded',o)};
+$('trails').onchange=e=>{S.trails=e.target.checked;syncTrails(true);save()};
+$('tlen').onchange=e=>{S.tlen=+e.target.value;syncTrails(true);save()};
+$('mode').onclick=e=>{const v=e.target.dataset.v;if(!v||v===S.mode)return;const view=cam.distT*Math.tan(25*DEG)/1.25,real=S.mode==='log'?R0*Math.expm1(view/R0):view;S.mode=v;cam.dist=cam.distT=mapS(real)/Math.tan(25*DEG)*1.25;clampD();buildRings();syncTrails(true);renderUI();save()};
+$('size').oninput=e=>{S.sizeV=+e.target.value;clampD();renderUI();save()};
+$('lbls').onchange=e=>{S.labels=e.target.checked;save()};
+$('rings').onchange=e=>{S.rings=e.target.checked;renderUI();save()};
+$('orbits').onchange=e=>{S.orbits=e.target.checked;save()};
+$('fitIn').onclick=()=>{cam.distT=fitDist(1.9);clampD()};$('fitAll').onclick=()=>{cam.distT=fitDist(S.cat.dwarf||S.cat.kuiper?55:36);clampD()};
+$('hold').onclick=()=>setCenter(S.focus);
+$('speed').oninput=e=>{S.speed=+e.target.value;renderUI();syncTrails();save()};
+$('play').onclick=()=>{S.playing=!S.playing;renderUI()};
+$('rev').onclick=()=>{S.dir=-S.dir;renderUI()};
+$('today').onclick=()=>{S.jd=nowJD()};
+$('jump').onchange=e=>{const t=Date.parse(e.target.value+'T00:00:00Z');if(!isNaN(t))S.jd=t/864e5+2440587.5};
+addEventListener('keydown',e=>{if(e.target.matches&&e.target.matches('input,select'))return;const k=e.key;
+ if(k===' '){e.preventDefault();S.playing=!S.playing}else if(k==='ArrowRight')S.speed=Math.min(10,S.speed+1);else if(k==='ArrowLeft')S.speed=Math.max(0,S.speed-1);
+ else if(k==='r'||k==='R')S.dir=-S.dir;else if(k==='t'||k==='T'){S.trails=!S.trails;syncTrails(true)}else if((k==='c'||k==='C')&&S.focus!==S.center){setCenter(S.focus);return}else if(k==='/'){e.preventDefault();$('panel').classList.add('open');$('find').focus();return}else return;renderUI();syncTrails();save()});
+function resize(){W=innerWidth;H=innerHeight;renderer.setSize(W,H,false);camera.aspect=starCam.aspect=W/H;camera.updateProjectionMatrix();starCam.updateProjectionMatrix();PXR=(H/2)/Math.tan(25*DEG)}
+const ro=new ResizeObserver(resize);ro.observe(document.body);
+
+/* ---------- loop ---------- */
+const JD_MIN=2086308,JD_MAX=2816788;
+let last=performance.now(),infoT=0;const _q=[0,0,0],tv=new THREE.Vector3();
+const PERF={js:0,gl:0};
+function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1000);last=now;
+ if(S.playing){S.jd+=S.dir*SPEEDS[S.speed][1]*dt;if(S.jd<JD_MIN||S.jd>JD_MAX){S.jd=Math.min(JD_MAX,Math.max(JD_MIN,S.jd));S.playing=false;renderUI()}}
+ const jd=S.jd,C=byId[S.center];
+ // positions: parents first (OBJ order guarantees it)
+ for(const o of OBJ){o.need=o.orb!=='sat'||vis(o)||o.id===S.focus||o.id===fFrom;if(!o.need)continue;
+  if(o.orb==='sat'){ell(o,jd,_q);const p=o.par.h;o.h[0]=p[0]+_q[0];o.h[1]=p[1]+_q[1];o.h[2]=p[2]+_q[2]}else helio(o,jd,o.h)}
+ const ch=C.h;
+ for(const o of OBJ){if(!o.need)continue;const x=o.h[0]-ch[0],y=o.h[1]-ch[1],z=o.h[2]-ch[2];
+  o.k=S.mode==='log'?(anch(o)?kf(Math.hypot(o.par.h[0]-ch[0],o.par.h[1]-ch[1],o.par.h[2]-ch[2])):kf(Math.hypot(x,y,z))):1;
+  o.d[0]=x*o.k;o.d[1]=z*o.k;o.d[2]=-y*o.k}
+ if(fT<1)fT=Math.min(1,fT+dt/1.1);const e=fT<.5?4*fT**3:1-(-2*fT+2)**3/2,a=byId[fFrom].d,c=byId[S.focus].d;
+ for(let i=0;i<3;i++)fv[i]=a[i]+(c[i]-a[i])*e;
+ // camera
+ clampD();const kk=1-Math.exp(-dt*7);cam.dist=Math.exp(Math.log(cam.dist)+(Math.log(cam.distT)-Math.log(cam.dist))*kk);
+ const sp=Math.sin(cam.phi);camera.position.set(cam.dist*sp*Math.sin(cam.theta),cam.dist*Math.cos(cam.phi),cam.dist*sp*Math.cos(cam.theta));camera.lookAt(0,0,0);
+ camera.updateMatrixWorld();starCam.quaternion.copy(camera.quaternion);
+ // level of detail per moon system
+ let lodChanged=false;
+ for(const p in SYS){const o=byId[p];tv.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);const px=SYS[p]*KM*o.k/Math.max(1e-12,tv.distanceTo(camera.position))*PXR,f=S.focus,fo=byId[f];
+  const want=px>(LOD[p]?22:34)||(fo.cat==='moon'&&fo.parent===p)||sysOf(C)===p;if(want!==LOD[p]){LOD[p]=want;lodChanged=true}}
+ if(lodChanged)syncTrails();
+ const sF=sizeF();
+ for(const o of OBJ){if(!o.major)continue;const v=vis(o);o.g.visible=v;
+  if(o.tail){o.tail.visible=o.coma.visible=false}
+  if(!v)continue;o.g.position.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);
+  o.tg.scale.setScalar(dispR(o));o.mesh.rotation.y=((jd*24/o.rot)%1)*TAU;
+  if(o.line){o.line.position.set(-fv[0],-fv[1],-fv[2]);updateTrail(o,jd)}
+  if(o.tail){const r=Math.hypot(o.h[0],o.h[1],o.h[2])/AU;if(r<5){const L=Math.min(.6,.3/(r*r))*AU,u=L/(r*AU);
+    _q[0]=o.h[0]*(1+u)-ch[0];_q[1]=o.h[1]*(1+u)-ch[1];_q[2]=o.h[2]*(1+u)-ch[2];const k2=S.mode==='log'?kf(Math.hypot(..._q)):1;
+    tv.set(_q[0]*k2-o.d[0],_q[2]*k2-o.d[1],-_q[1]*k2-o.d[2]);const len=tv.length();
+    if(len>0){o.tail.visible=o.coma.visible=true;o.tail.position.copy(o.g.position);o.tail.quaternion.setFromUnitVectors(v3.set(0,-1,0),tv.normalize());o.tail.scale.set(len*.07,len,len*.07);
+     o.tail.material.opacity=Math.min(.3,.08+.25/(r*r));o.coma.position.copy(o.g.position);o.coma.scale.setScalar(len*.12)}}}}
+ // small moons (instanced)
+ for(const o of SMALL){const show=vis(o)&&moonOn(o);
+  if(show){pv.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);const r=dispR(o);sv.set(r,r,r)}else{pv.set(0,0,0);sv.set(0,0,0)}
+  mtx.compose(pv,qI,sv);inst.setMatrixAt(o.j,mtx)}
+ inst.instanceMatrix.needsUpdate=true;
+ // markers
+ for(const m of MK){m.list.forEach((o,i)=>{const s=shownMarker(o);m.col[i*4+3]=s?1:0;if(s){m.pos[i*3]=o.d[0]-fv[0];m.pos[i*3+1]=o.d[1]-fv[1];m.pos[i*3+2]=o.d[2]-fv[2]}});m.g.attributes.position.needsUpdate=true;m.g.attributes.color.needsUpdate=true}
+ // orbit outlines
+ for(const k in OUT){const O=OUT[k],p=O.par,on=S.orbits&&MG.has(k)&&(p.id!=='pluto'||S.cat.dwarf)&&(LOD[p.id]||sysOf(byId[S.center])===p.id);O.ls.visible=on;
+  if(on){O.ls.position.set(p.d[0]-fv[0],p.d[1]-fv[1],p.d[2]-fv[2]);O.ls.scale.setScalar(p.k)}}
+ for(const k in FIELDS)if(S.cat[k])updateField(FIELDS[k],jd,ch,fv);
+ glow.scale.setScalar(dispR(sun)*7);sunLight.position.copy(sun.g.position);ringG.position.set(-fv[0],-fv[1],-fv[2]);
+ const t1=performance.now();renderer.clear();renderer.render(starScene,starCam);renderer.clearDepth();renderer.render(scene,camera);const t2=performance.now();
+ project();placeLabels();if(now-infoT>150){infoT=now;renderInfo()}
+ PERF.js=PERF.js*.9+(t1-t0+performance.now()-t2)*.1;PERF.gl=PERF.gl*.9+(t2-t1)*.1;
+ requestAnimationFrame(frame)}
+resize();buildRings();buildMoonUI();applyVis();renderUI();renderInfo();
+requestAnimationFrame(frame);
+window.__sse={PERF,S,OBJ,byId,LOD,setFocus,setCenter,MG,applyVis,buildMoonUI,cam};
+}
+</script>
+</body>
+</html>
