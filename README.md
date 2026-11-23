@@ -23,6 +23,12 @@ The motion of each body is the same in every case; only the vantage point change
 
 **Solar System Explorer makes this something you can see.** Pick any object (the Sun, the Earth, the Moon, Io, a comet, a tiny irregular moon of Saturn) and hold it still. Everything else then moves relative to it, and the orbit trails redraw in that frame. Students can watch retrograde loops appear when Earth is held still, see the Moon's "orbit" around the Sun as a gently wavy line, or see what the sky would look like from Titan.
 
+## What is an orrery model?
+
+An **orrery** is a working model of the solar system that shows the planets and moons moving around their orbits at their relative speeds. The first ones were clockwork machines: the name comes from Charles Boyle, 4th Earl of Orrery, for whom an early example was built around 1713, after a design by George Graham and Thomas Tompion. Turn a crank and gears carry each planet around the Sun, so a year of motion can play out in seconds. The much older Greek Antikythera mechanism (2nd–1st century BC) used gears for similar astronomical predictions.
+
+Mechanical orreries have two built-in limits. They are almost never to scale, because true distances and sizes would make the planets invisible specks, and their gears fix the Sun at the centre. A digital orrery removes both: positions are computed from real orbital elements for any date, the scale can be true or magnified, and nothing stops you from moving the centre. Solar System Explorer is that kind of orrery.
+
 ## What's inside
 
 - **494 real objects**, each with orbital elements from NASA/JPL:
