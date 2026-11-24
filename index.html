@@ -36,7 +36,7 @@
    PICTURE: the live 3D system itself, full bleed, with starfield
    COLOUR and TYPE: deep space ground, starlight ink, each body's own colour as its key; Jost
    LAYOUT: canvas full screen; controls top-left, focused body top-right, time bar at the foot.
-   On screens >= 1240 px the controls run to the bottom and the centred time bar narrows to clear them; phones stack the cards above the time bar */
+   On screens >= 1300 px the controls run to the bottom and the centred time bar narrows to clear them; phones stack the cards above the time bar */
 :root{color-scheme:dark;--bg:#03050a;--ink:#e9edf5;--mute:#98a3b8;--line:rgba(255,255,255,.1);--card:rgba(8,12,21,.8);--accent:#8bb8ff;--hi:rgba(139,184,255,.16)}
 *{box-sizing:border-box;min-width:0}
 html,body{height:100%}
@@ -52,7 +52,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Jost,system-u
 .lbl.on{outline:1px solid var(--c)}
 .rl{position:absolute;left:0;top:0;font:13px/1 Jost,sans-serif;color:rgba(160,180,230,.5);white-space:nowrap;display:none}
 .card{position:fixed;background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
-#panel{top:16px;left:16px;width:332px;max-height:calc(100% - 132px);display:flex;flex-direction:column}
+#panel{top:16px;left:16px;width:360px;max-height:calc(100% - 132px);display:flex;flex-direction:column}
 #panel header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 14px 6px 18px}
 h1{font-size:22px;line-height:1.05;margin:0;font-weight:600;text-wrap:balance}
 #pbody{overflow:auto;padding:0 18px 16px;overscroll-behavior:contain}
@@ -171,8 +171,8 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 }
 @media(min-width:601px){#panel h1{white-space:nowrap;min-width:0;overflow:hidden;flex:1 1 auto}#panel header{gap:4px;padding-right:8px;min-height:60px}#panel .hbtns{gap:2px}#panel .hbtns .ib{min-width:0;min-height:0;width:22px;height:22px;border-radius:6px}#panel .hbtns .ib svg{width:13px;height:13px}#ptog{display:none}#panel.min #pbody{display:none}#panel.min{max-height:none}}
 @media(max-width:600px){#pmin{display:none}}
-/* wide screens: the panel runs to the bottom of the screen; the time bar stays centred and narrows so it clears the panel (16 px edge + 332 px panel + 16 px gap, mirrored on the right) */
-@media(min-width:1240px){#panel{max-height:calc(100% - 32px)}#timebar{width:min(820px,calc(100% - 728px))}}
+/* wide screens: the panel runs to the bottom of the screen; the time bar stays centred and narrows so it clears the panel (16 px edge + 360 px panel + 16 px gap, mirrored on the right) */
+@media(min-width:1300px){#panel{max-height:calc(100% - 32px)}#timebar{width:min(820px,calc(100% - 784px))}}
 .hbtns{display:flex;align-items:center;gap:6px;flex:none}
 .hbtns .ib{min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center}
 #pmin svg{transition:transform .2s}#panel.min #pmin svg{transform:rotate(180deg)}
@@ -210,7 +210,6 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
   </details>
   <details class="sec" open><summary>Show</summary>
    <div class="qrow"><button class="g q" data-bulk="everything">Show everything</button><button class="g q" data-bulk="planets">Planets only</button></div>
-   <h3>Moons <span>· by parent body and family</span></h3>
    <div class="qrow"><button class="g q" data-bulk="moons-major">Major moons</button><button class="g q" data-bulk="moons-all">All moons</button><button class="g q" data-bulk="moons-none">No moons</button></div>
    <div id="moonUI"></div>
    <p class="note">Moons appear as you zoom toward their planet.</p>
@@ -421,7 +420,7 @@ byId.moon.par=byId.earth;
 add({id:'pluto',name:'Pluto',cat:'dwarf',kind:'Dwarf planet · Kuiper belt',R:1188.3,color:'#d9b996',P:90560,pole:[312.99,6.16],rot:153.29,tex:'pluto',major:1,orb:'pl',parent:'sun',grp:'dwarf'});
 const r1=rng(11),SB_POLE={ceres:[291.418,66.764],vesta:[309.031,42.235]};// IAU 2015 poles for bodies with a surface map; others get a random pole
 SB.forEach(([id,name,cat,kind,a,e,i,om,w,M0,ep,R,color,rot,round])=>{const[Pv,Qv]=PQ(om,i,w);
- add({id,name,cat,kind,R,color,rot,round,major:1,orb:'sb',parent:'sun',grp:cat,a:a*AU,b:a*AU*Math.sqrt(1-e*e),e,M0,ep,n:0.9856076686/Math.pow(a,1.5),P:365.25*Math.pow(a,1.5),Pv,Qv,
+ add({id,name,cat,kind,R,color,rot,round,major:1,orb:'sb',parent:'sun',grp:kind.includes('candidate')?'candidate':cat,a:a*AU,b:a*AU*Math.sqrt(1-e*e),e,M0,ep,n:0.9856076686/Math.pow(a,1.5),P:365.25*Math.pow(a,1.5),Pv,Qv,
   pole:((p,q)=>SB_POLE[id]||[p,q])(r1()*360,r1()*140-70),tex:cat==='comet'?{t:'rock',c:['#3b3633','#272321','#5a524c'],p:1}:{t:'rock',c:[color,shade(color,-.25),shade(color,.2)],p:!round}})});
 MOONS.forEach(([name,pid,akm,e,w,M0,inc,node,P,ra,dec,fam])=>{const[Pv,Qv]=PQ(node,inc,w,ra,dec),par=byId[pid],mj=MAJOR[name];
  const R=MOON_R[name]||(fam==='dmoon'?40:fam==='irregular'?(pid==='neptune'?20:10):pid==='saturn'?2:pid==='jupiter'?1.5:5);
@@ -433,8 +432,8 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
-const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
-try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
+try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
 const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
 const parOn=p=>p.grp==='core'||!!S.cat[p.grp];
@@ -813,11 +812,11 @@ $('moonUI').addEventListener('click',e=>{const b=e.target.closest('button');if(!
  if(d.g){const g=d.g;MG.has(g)?MG.delete(g):MG.add(g);if(MG.has(g))showPar(g.split(':')[0])}
  else if(d.all){famKeys(d.all).forEach(g=>MG.add(g));showPar(d.all)}
  else if(d.none)famKeys(d.none).forEach(g=>MG.delete(g));
- else if(d.gall||d.gnone){const ps=MOON_GROUPS.find(x=>x[0]===(d.gall||d.gnone))[2];ps.forEach(p=>famKeys(p).forEach(g=>d.gall?MG.add(g):MG.delete(g)));if(d.gall)S.cat[d.gall]=true}
+ else if(d.gall||d.gnone){const ps=MOON_GROUPS.find(x=>x[0]===(d.gall||d.gnone))[2];ps.forEach(p=>{famKeys(p).forEach(g=>d.gall?MG.add(g):MG.delete(g));if(d.gall)showPar(p)})}
  else return;
  applyVis();buildMoonUI();save()});
 $('moonUI').addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.p)d.open?openMP.add(d.dataset.p):openMP.delete(d.dataset.p)},true);
-const CATS=[['dwarf','Dwarf planets'],['asteroid','Asteroids & centaurs'],['comet','Comets']],BELTS=[['belt','Main asteroid belt'],['trojans','Jupiter trojans'],['kuiper','Kuiper belt']];
+const CATS=[['dwarf','Dwarf planets'],['candidate','Candidates'],['asteroid','Asteroids & centaurs'],['comet','Comets']],BELTS=[['belt','Main asteroid belt'],['trojans','Jupiter trojans'],['kuiper','Kuiper belt']];
 const cnt=c=>OBJ.filter(o=>o.grp===c).length;
 $('catUI').innerHTML=CATS.map(([k,l])=>`<label class="sw"><input type="checkbox" data-cat="${k}"> ${l} <output>${cnt(k)}</output></label>`).join('');
 $('beltUI').innerHTML=BELTS.map(([k,l])=>`<label class="sw"><input type="checkbox" data-cat="${k}"> ${l}</label>`).join('');
@@ -825,7 +824,7 @@ document.querySelectorAll('[data-cat]').forEach(i=>i.onchange=()=>{S.cat[i.datas
 $('names').innerHTML=OBJ.map(o=>`<option value="${o.name}">${o.cat==='moon'?'Moon of '+o.par.name:o.kind}</option>`).join('');
 const findObj=v=>{v=v.trim().toLowerCase();return v&&(OBJ.find(o=>o.name.toLowerCase()===v)||OBJ.find(o=>o.name.toLowerCase().startsWith(v)))};
 const MAJOR_FAM={earth:'main',mars:'main',jupiter:'galilean',saturn:'main',uranus:'main',neptune:'triton',pluto:'charon'};
-const SMALLK=['dwarf','asteroid','comet'],BELTK=['belt','trojans','kuiper'];
+const SMALLK=['dwarf','candidate','asteroid','comet'],BELTK=['belt','trojans','kuiper'];
 const allMoonKeys=()=>Object.keys(FAM).flatMap(p=>FAM[p].map(f=>p+':'+f[0]));
 function bulk(k){
  if(k==='everything'){allMoonKeys().forEach(g=>MG.add(g));[...SMALLK,...BELTK].forEach(c=>S.cat[c]=true)}
@@ -901,7 +900,7 @@ $('rings').onchange=e=>{S.rings=e.target.checked;renderUI();save()};
 $('realTex').onchange=e=>{S.realTex=e.target.checked;applyTextures();renderUI();save()};
 $('skyRes').onclick=e=>{const v=e.target.dataset.v;if(!v||e.target.disabled||v===S.skyRes)return;S.skyRes=v;loadSky();renderUI();save()};
 $('orbits').onchange=e=>{S.orbits=e.target.checked;save()};
-$('fitIn').onclick=()=>{cam.distT=fitDist(1.9);clampD()};$('fitAll').onclick=()=>{cam.distT=fitDist(S.cat.dwarf||S.cat.kuiper?55:36);clampD()};
+$('fitIn').onclick=()=>{cam.distT=fitDist(1.9);clampD()};$('fitAll').onclick=()=>{cam.distT=fitDist(S.cat.dwarf||S.cat.candidate||S.cat.kuiper?55:36);clampD()};
 $('hold').onclick=()=>setCenter(S.focus);
 $('speed').oninput=e=>{S.speed=+e.target.value;renderUI();syncTrails();save()};
 $('play').onclick=()=>{S.playing=!S.playing;renderUI()};
