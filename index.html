@@ -190,16 +190,13 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
     </select>
    </label>
   </details>
-  <details class="sec" open><summary>Scale &amp; view</summary>
-   <div class="seg" id="mode"><button data-v="true" aria-pressed="true">True distances</button><button data-v="log" aria-pressed="false">Compressed</button></div>
-   <label class="row" style="margin-top:6px"><span>Body size</span><output id="sizeOut">×1 true size</output></label>
-   <input type="range" id="size" min="0" max="100" value="0" aria-label="Body size magnification">
+  <details class="sec" open><summary>View</summary>
    <label class="sw"><input type="checkbox" id="lbls" checked> Labels</label>
    <label class="sw"><input type="checkbox" id="rings" checked> Distance rings (AU)</label>
    <div class="grid2"><button class="btn" id="fitIn">Inner planets</button><button class="btn" id="fitAll">Whole system</button></div>
   </details>
   <p class="hint">Drag to orbit, scroll or pinch to zoom, click a name to fly to it, double-click to hold it still. Keys: space pause, ← → speed, R reverse, T trails, C hold selected still, / find.</p>
-  <p class="src">Planets: JPL Keplerian elements (best 1800–2050). Moons: JPL mean elements, 459 moons as of Nov 2026; Pluto’s small-moon phases approximate. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. At true size bodies are specks — raise Body size to see them.</p>
+  <p class="src">Planets: JPL Keplerian elements (best 1800–2050). Moons: JPL mean elements, 459 moons as of Nov 2026; Pluto’s small-moon phases approximate. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
  </div>
 </aside>
 
@@ -368,7 +365,7 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
 const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true}};
-try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
+try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
 const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp}))}catch(e){}};
 function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&(o.parent!=='pluto'||S.cat.dwarf);return!!S.cat[o.grp]}
@@ -681,12 +678,10 @@ function renderUI(){
  const f=byId[S.focus];$('fDot').style.setProperty('--c',f.color);$('fName').textContent=f.name;$('fKind').textContent=f.kind;
  $('fDl').textContent='From '+byId[S.center].name;$('fRad').textContent=(f.est?'≈ ':'')+(f.R<10?f.R.toFixed(f.R<1?2:1):Math.round(f.R).toLocaleString('en-US'))+' km'+(f.est?' (est.)':'');$('fPer').textContent=fmtP(f);if(_lkId!==f.id){_lkId=f.id;$('fLinks').innerHTML=linksHTML(f.id)}
  const can=f.id!==S.center;$('hold').style.display=can?'block':'none';$('hold').textContent='Hold '+f.name+' still';
- $('mode').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.mode));
- const s=sizeF();$('sizeOut').textContent=s===1?'×1 true size':'×'+s.toLocaleString('en-US');
  $('speedOut').textContent=(S.dir<0?'−':'')+SPEEDS[S.speed][0];$('speed').value=S.speed;
  $('rev').setAttribute('aria-pressed',S.dir<0);$('playIco').innerHTML=S.playing?'<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>':'<path d="M7 5l12 7-12 7z"/>';
  $('play').setAttribute('aria-label',S.playing?'Pause':'Play');
- $('trails').checked=S.trails;$('tlen').value=S.tlen;$('size').value=S.sizeV;$('lbls').checked=S.labels;$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
+ $('trails').checked=S.trails;$('tlen').value=S.tlen;$('lbls').checked=S.labels;$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
 function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
  const d=Math.hypot(_h[0]-_hc[0],_h[1]-_hc[1],_h[2]-_hc[2]),ds=Math.hypot(..._h);
@@ -697,8 +692,6 @@ function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center
 $('ptog').onclick=()=>{const o=$('panel').classList.toggle('open');$('ptog').setAttribute('aria-expanded',o)};
 $('trails').onchange=e=>{S.trails=e.target.checked;syncTrails(true);save()};
 $('tlen').onchange=e=>{S.tlen=+e.target.value;syncTrails(true);save()};
-$('mode').onclick=e=>{const v=e.target.dataset.v;if(!v||v===S.mode)return;const view=cam.distT*Math.tan(25*DEG)/1.25,real=S.mode==='log'?R0*Math.expm1(view/R0):view;S.mode=v;cam.dist=cam.distT=mapS(real)/Math.tan(25*DEG)*1.25;clampD();buildRings();syncTrails(true);renderUI();save()};
-$('size').oninput=e=>{S.sizeV=+e.target.value;clampD();renderUI();save()};
 $('lbls').onchange=e=>{S.labels=e.target.checked;save()};
 $('rings').onchange=e=>{S.rings=e.target.checked;renderUI();save()};
 $('orbits').onchange=e=>{S.orbits=e.target.checked;save()};
