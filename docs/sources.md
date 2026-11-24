@@ -138,6 +138,8 @@ Bodies with no map keep the painted texture: Hyperion, all dwarf planets except 
 
 ### Processing
 
+All of the steps below are done by [`tools/build_textures.py`](../tools/build_textures.py), which downloads every source and rebuilds `textures/` (run `python3 tools/build_textures.py` from the repository root; it needs Pillow and about 400 MB of downloads, cached in `.texture-cache/`). Its output matches the committed files exactly.
+
 - The large Solar System Scope maps are recompressed to JPEG quality 80; the 2K ones are used as published.
 - The NASA maps are recompressed to JPEG quality 85.
 - For Io, the Uranian moons and Triton, the unmapped area (black in the originals) is made transparent and saved as WebP. In the app it is filled with the painted texture, so a seam is visible where they meet.

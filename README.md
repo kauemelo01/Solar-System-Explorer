@@ -122,6 +122,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 | `index.html` | The whole app: page, styles and code |
 | `sky/` | Sky data: star catalogue, NASA star maps, deep-sky objects, constellation boundaries and figures |
 | `textures/` | Surface maps for the Sun, planets, Saturn's rings, Ceres, Vesta and the major moons ([sources](docs/sources.md#surface-maps)) |
+| `tools/build_textures.py` | Rebuilds `textures/` from the original sources (downloads them; needs Pillow) |
 | `docs/` | Documentation and the per-object catalogue |
 | `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
 | `social-card.png` | Preview image shown when the link is shared (Open Graph / Twitter card) |
