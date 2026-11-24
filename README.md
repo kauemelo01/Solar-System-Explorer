@@ -40,7 +40,14 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 - **True scale** or magnified body sizes, orbit trails of adjustable length, distance rings in AU
 - Moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…) that you can switch on one group at a time
 - Statistical belts (main asteroid belt, Jupiter trojans, Kuiper belt) to show where those populations live
-- Runs fully in the browser: a single `index.html` with [three.js](https://threejs.org/), no build step and no server
+- **The real sky behind it all**:
+  - 9,096 stars from the Yale Bright Star Catalogue
+  - NASA's Milky Way map
+  - 29 nebulae, clusters, galaxies and deep fields (21 with NASA images), such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the Hubble and Webb deep fields
+  - 29 named bright stars and 5 stars with known planets (including Proxima Centauri and TRAPPIST-1)
+
+  Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
+- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data and images in [`sky/`](sky/). No build step and no server
 
 ### Controls
 
@@ -48,6 +55,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 |---|---|
 | Rotate / zoom | Drag; scroll or pinch |
 | Fly to an object | Click its name, or use **Find** (`/`) |
+| Look at a star, nebula or galaxy | Click its label, or type its name in **Find** to turn the view towards it |
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
@@ -64,6 +72,11 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Asteroids, dwarf planets, comets | [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html) |
 | Planet radii, rotation, poles | [NASA NSSDCA fact sheets](https://nssdc.gsfc.nasa.gov/planetary/planetfact.html); IAU WGCCRE 2015 report ([Archinal et al. 2018](https://doi.org/10.1007/s10569-017-9805-5)) |
 | Object identifiers | NAIF / JPL SPK IDs, checked against [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) |
+| Stars | *Yale Bright Star Catalogue*, 5th ed., via [NASA HEASARC](https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html) |
+| Milky Way | NASA/Goddard SVS, [*Deep Star Maps 2020*](https://svs.gsfc.nasa.gov/4851) |
+| Deep-sky images | [NASA Image and Video Library](https://images.nasa.gov/) (Hubble, Webb, Spitzer, GALEX) |
+| Deep-sky positions | CDS SIMBAD / Sesame |
+| Stars with planets | [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/) |
 
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
@@ -75,6 +88,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 - [Moons of Uranus](docs/catalogue/moons-uranus.md) (29)
 - [Moons of Neptune](docs/catalogue/moons-neptune.md) (16)
 - [Moons of Pluto](docs/catalogue/moons-pluto.md) (5)
+- [The sky beyond the solar system](docs/catalogue/sky.md): stars, the Milky Way, deep-sky objects and planet-hosting stars (63 named objects)
 
 The full methodology, accuracy notes and bibliography are in [docs/sources.md](docs/sources.md).
 
@@ -83,8 +97,10 @@ The full methodology, accuracy notes and bibliography are in [docs/sources.md](d
 ```bash
 git clone https://github.com/kauemelo01/Solar-System-Explorer.git
 cd Solar-System-Explorer
-python3 -m http.server 8000   # or just open index.html in a browser
+python3 -m http.server 8000   # then open http://localhost:8000
 ```
+
+Opening `index.html` directly from disk works for the solar system, but browsers block the sky images over `file://`, so use a local server to see them.
 
 ## Accuracy and limits
 
