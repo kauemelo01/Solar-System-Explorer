@@ -193,7 +193,7 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 | Irregular moons | JPL mean elements, ecliptic | Orbit shape and sense of motion; phases are indicative only |
 | Small bodies | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it |
 
-**Date range.** The app covers 1 January 1000 to 1 January 3000 (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. Beyond 1800–2050, the validity range of the planetary elements, the time bar marks the date *approximate*; the further from that window, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`.
+**Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. Beyond 1800–2050, the validity range of the planetary elements, the time bar marks the date *approximate*; the further from that window, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`.
 
 This is an educational model. For precise ephemerides, query [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/), which uses full numerical integrations (DE440 and satellite ephemerides).
 
