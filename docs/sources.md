@@ -49,13 +49,35 @@ The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point 
 ## The sky beyond the solar system
 
 - **Stars:** *Yale Bright Star Catalogue*, 5th revised ed. (D. Hoffleit & W. H. Warren Jr., 1991; CDS V/50), via the NASA HEASARC table `bsc5p` <https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html>. All 9,096 entries with a position and V magnitude are drawn; colour comes from B−V.
-- **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app loads the 4096 × 2048 version first, then the 8192 × 4096 version on screens and graphics cards that support it.
+- **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app ships two sizes; see [Sky map loading](#sky-map-loading).
 - **Deep-sky positions:** CDS SIMBAD and the Sesame name resolver (J2000).
 - **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky). Credits are listed in [catalogue/sky.md](catalogue/sky.md).
 - **Planet-hosting stars:** NASA Exoplanet Archive, `pscomppars` table <https://exoplanetarchive.ipac.caltech.edu/>.
 - **Star names:** IAU Working Group on Star Names.
 - **Frame:** J2000 equatorial positions are rotated into the ecliptic J2000 frame used for the planets. The sky sphere is centred on the camera, so it behaves as infinitely far away. That is a very good approximation: from Neptune, even Proxima Centauri shifts by less than 25″.
 - **Not modelled:** proper motion (the catalogue is J2000; Barnard's Star, the fastest, moves about 10″ per year) and precession.
+
+### Sky map loading
+
+The star map comes in two sizes, in `sky/`:
+
+| File | Size | Download |
+|---|---|---|
+| `starmap_4k.jpg` | 4096 × 2048 | 2.2 MB |
+| `starmap_8k.jpg` | 8192 × 4096 | 6.9 MB |
+
+1. **Every device loads the 4K map first**, so the sky appears quickly.
+2. **The 8K map is then loaded and swapped in** without a visible jump, but only when both of these hold:
+   - the graphics chip accepts textures at least 8192 pixels wide (`renderer.capabilities.maxTextureSize >= 8192`);
+   - the screen's longer side is at least 1600 device pixels (`max(screen.width, screen.height) × devicePixelRatio >= 1600`).
+
+In practice:
+
+- **Most desktops and laptops** switch to 8K; a 1920 × 1080 monitor already qualifies.
+- **Recent phones usually switch too.** For example, an iPhone screen's long side is 844 × 3 = 2,532 device pixels, and its graphics chip supports 8192.
+- **Older or low-end devices** stay on 4K.
+
+Devices that switch download both files, about 9.1 MB in total. The 4K map only covers the gap until the 8K map arrives. The logic is in `index.html`, next to the comment `Sky map: NASA/Goddard SVS Deep Star Maps`.
 
 ## Accuracy
 

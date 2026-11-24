@@ -468,6 +468,7 @@ const mwMat=new THREE.ShaderMaterial({uniforms:{map:{value:null},k:{value:1.}},s
  fragmentShader:'uniform sampler2D map;uniform float k;varying vec3 vD;const float E=0.40909280;void main(){vec3 d=normalize(vD);float xe=d.x,ye=-d.z,ze=d.y;float yq=cos(E)*ye-sin(E)*ze,zq=sin(E)*ye+cos(E)*ze;float ra=atan(yq,xe);float u=fract(.5-ra/6.28318531),v=.5+asin(clamp(zq,-1.,1.))/3.14159265;vec3 c=texture2D(map,vec2(u,v)).rgb;gl_FragColor=vec4(c*k,1.);}'});
 const mw=new THREE.Mesh(new THREE.SphereGeometry(9,64,32),mwMat);mw.renderOrder=0;mw.visible=false;starScene.add(mw);
 {const L=new THREE.TextureLoader(),use=t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;const o=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(o)o.dispose();mw.visible=S.skyp.mw};
+ // 4K map always loads first; the 8K map is then swapped in only if the GPU supports 8192-px textures and the screen's long side is >= 1600 device px (docs/sources.md#sky-map-loading)
  const big=renderer.capabilities.maxTextureSize>=8192&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600;
  L.load('sky/starmap_4k.jpg',t=>{use(t);if(big)L.load('sky/starmap_8k.jpg',use)})}
 // stars: Yale Bright Star Catalogue (9,096 stars to V 6.5)
