@@ -1,0 +1,73 @@
+# GitHub Pages / Jekyll settings: site identity and per-page titles and descriptions for search engines.
+# index.html (the app) has no front matter, so Jekyll copies it unchanged.
+title: Solar System Explorer
+description: >-
+  Interactive 3D orrery where any planet, moon or comet can be the centre, with NASA/JPL data, the real night sky and the 88 constellations.
+url: https://kauemelo01.github.io
+baseurl: /Solar-System-Explorer
+lang: en_US
+image: /social-card.png
+twitter:
+  card: summary_large_image
+author: kauemelo01
+defaults:
+  - scope:
+      path: "docs/README.md"
+    values:
+      title: "Documentation and object catalogue"
+      description: "Documentation for Solar System Explorer: every object in the 3D orrery with the NASA/JPL record each value comes from, plus sources and accuracy."
+  - scope:
+      path: "docs/sources.md"
+    values:
+      title: "Sources, methodology and accuracy"
+      description: "Where every number in Solar System Explorer comes from: JPL orbital elements, NASA fact sheets, star catalogues, sky maps and IAU constellation boundaries."
+  - scope:
+      path: "docs/catalogue/sun-planets.md"
+    values:
+      title: "Sun, planets, the Moon and Pluto"
+      description: "The Sun, the eight planets, the Moon and Pluto in Solar System Explorer, with NAIF IDs and links to JPL Horizons and NASA fact sheets."
+  - scope:
+      path: "docs/catalogue/small-bodies.md"
+    values:
+      title: "Dwarf planets, asteroids, centaurs and comets"
+      description: "Dwarf planets, asteroids, centaurs and comets in Solar System Explorer, with orbital elements and links to the JPL Small-Body Database."
+  - scope:
+      path: "docs/catalogue/moons-mars.md"
+    values:
+      title: "Moons of Mars"
+      description: "Phobos and Deimos: orbital elements, sizes and links to JPL Horizons and NASA, as used in Solar System Explorer."
+  - scope:
+      path: "docs/catalogue/moons-jupiter.md"
+    values:
+      title: "Moons of Jupiter"
+      description: "All 115 moons of Jupiter in Solar System Explorer, by family, with JPL mean orbital elements and links to JPL Horizons and NASA."
+  - scope:
+      path: "docs/catalogue/moons-saturn.md"
+    values:
+      title: "Moons of Saturn"
+      description: "All 292 moons of Saturn in Solar System Explorer, by family, with JPL mean orbital elements and links to JPL Horizons and NASA."
+  - scope:
+      path: "docs/catalogue/moons-uranus.md"
+    values:
+      title: "Moons of Uranus"
+      description: "All 29 moons of Uranus in Solar System Explorer, with JPL mean orbital elements and links to JPL Horizons and NASA."
+  - scope:
+      path: "docs/catalogue/moons-neptune.md"
+    values:
+      title: "Moons of Neptune"
+      description: "All 16 moons of Neptune in Solar System Explorer, with JPL mean orbital elements and links to JPL Horizons and NASA."
+  - scope:
+      path: "docs/catalogue/moons-pluto.md"
+    values:
+      title: "Moons of Pluto"
+      description: "Charon, Styx, Nix, Kerberos and Hydra in Solar System Explorer, with JPL mean orbital elements and links to JPL Horizons and NASA."
+  - scope:
+      path: "docs/catalogue/sky.md"
+    values:
+      title: "The sky beyond the solar system"
+      description: "Stars, the Milky Way, nebulae, clusters, galaxies and planet-hosting stars in Solar System Explorer, with positions, distances and sources."
+  - scope:
+      path: "docs/catalogue/constellations.md"
+    values:
+      title: "The 88 constellations and the 13 of the zodiac"
+      description: "The 88 IAU constellations with official boundaries, areas and the 13 zodiac constellations the Sun passes through, Ophiuchus included."

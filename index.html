@@ -3,7 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solar System Explorer</title>
+<title>Solar System Explorer: 3D Orrery Where Any Body Can Be the Centre</title>
+<meta name="description" content="Interactive 3D orrery where any planet, moon or comet can be the centre: 494 real objects from NASA/JPL data, the real night sky and the 88 constellations.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://kauemelo01.github.io/Solar-System-Explorer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solar System Explorer">
+<meta property="og:title" content="Solar System Explorer: 3D Orrery Where Any Body Can Be the Centre">
+<meta property="og:description" content="Interactive 3D orrery where any planet, moon or comet can be the centre: 494 real objects from NASA/JPL data, the real night sky and the 88 constellations.">
+<meta property="og:url" content="https://kauemelo01.github.io/Solar-System-Explorer/">
+<meta property="og:image" content="https://kauemelo01.github.io/Solar-System-Explorer/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Solar System Explorer icon: a planet with its own moon orbiting the Sun, on a starry background">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Solar System Explorer: 3D Orrery Where Any Body Can Be the Centre">
+<meta name="twitter:description" content="Interactive 3D orrery where any planet, moon or comet can be the centre: 494 real objects from NASA/JPL data, the real night sky and the 88 constellations.">
+<meta name="twitter:image" content="https://kauemelo01.github.io/Solar-System-Explorer/social-card.png">
+<meta name="twitter:image:alt" content="Solar System Explorer icon: a planet with its own moon orbiting the Sun, on a starry background">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Solar System Explorer", "url": "https://kauemelo01.github.io/Solar-System-Explorer/", "description": "An interactive 3D orrery of the solar system in which any body can be held still as the centre of the reference frame, showing that the Sun-centred view is one model among many. Positions come from NASA/JPL orbital elements; the sky shows real stars, the Milky Way, famous deep-sky objects and the 88 IAU constellations.", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (runs in a web browser)", "browserRequirements": "Requires JavaScript and WebGL", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "image": "https://kauemelo01.github.io/Solar-System-Explorer/social-card.png", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "author": {"@type": "Person", "name": "kauemelo01", "url": "https://github.com/kauemelo01"}, "codeRepository": "https://github.com/kauemelo01/Solar-System-Explorer", "educationalUse": "Exploring reference frames and the motion of planets, moons, asteroids and comets", "keywords": "solar system, orrery, 3D, planets, moons, reference frame, heliocentric, geocentric, retrograde motion, NASA, JPL, astronomy education, constellations, zodiac"}</script>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -160,6 +179,7 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
 </head>
 <body>
 <canvas id="c" aria-label="3D view of the solar system"></canvas>
+<noscript><p style="position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:#e9edf5">Solar System Explorer is an interactive 3D orrery of the solar system in which any body can be the centre. It needs JavaScript and WebGL. <a href="docs/" style="color:#8bb8ff">Read the documentation and object catalogue</a>.</p></noscript>
 <div id="labels"></div>
 <div id="err"><p>The 3D renderer could not start (WebGL or the Three.js library is unavailable in this browser).</p></div>
 
