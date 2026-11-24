@@ -105,7 +105,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
 - [Sun, planets and the Moon](docs/catalogue/sun-planets.md) (10)
-- [Dwarf planets (including Pluto), candidates, asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (39)
+- [Dwarf planets, candidates, asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (39)
 - [Moons of Mars](docs/catalogue/moons-mars.md) (2)
 - [Moons of Jupiter](docs/catalogue/moons-jupiter.md) (115)
 - [Moons of Saturn](docs/catalogue/moons-saturn.md) (292)
