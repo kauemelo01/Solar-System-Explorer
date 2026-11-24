@@ -96,6 +96,30 @@ In practice:
 
 Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On capable devices the sky appears once the 8K map has arrived, so it takes a little longer to show up than when the 4K map loaded first. The logic is in `index.html`, next to the comment `Sky map: NASA/Goddard SVS Deep Star Maps`.
 
+## Surface maps
+
+Bodies that a spacecraft has mapped are drawn with real surface maps, stored in `textures/`. The others keep a simple texture painted in code (`texFor()` in `index.html`).
+
+| Bodies | Source | Size |
+|---|---|---|
+| Sun, Mercury, Earth, the Moon, Mars | Solar System Scope, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0, based on NASA mission data | 2048 × 1024, and 8192 × 4096 (Sun 4096 × 2048) |
+| Venus (cloud tops), Jupiter, Saturn | Solar System Scope (as above) | 2048 × 1024, and 4096 × 2048 |
+| Uranus, Neptune | Solar System Scope (as above) | 2048 × 1024 |
+| Saturn's rings | Solar System Scope (as above); radial strip mapped so its C-ring inner edge and Cassini Division fall at their true radii | 2048 and 8192 px wide |
+| Pluto, Charon | NASA 3D Resources <https://github.com/nasa/NASA-3D-Resources> (public domain), from New Horizons | 720 × 360 |
+| Phobos, Deimos, Europa, Ganymede, Callisto, Mimas, Enceladus, Tethys, Dione, Rhea, Titan, Iapetus | NASA 3D Resources (as above), from Viking, Galileo and Cassini | 1440 × 720 (Titan 720 × 360) |
+| Io, Miranda, Ariel, Umbriel, Titania, Oberon, Triton | NASA 3D Resources (as above), from Galileo and Voyager 2 | 1440 × 720, partial |
+
+Changes made to the files: the large Solar System Scope maps are recompressed (JPEG quality 80); the NASA maps are recompressed (quality 85). For the partial maps, the unmapped area (black in the originals) is made transparent and saved as WebP; in the app it is filled with the painted texture. Voyager 2 saw only the southern hemispheres of Uranus's moons and about a fifth of Triton.
+
+How they load:
+
+1. **Each body starts in its plain colour** and switches to its map when the file arrives.
+2. **Capable devices try the large map first** (same test as the [sky map](#sky-map-loading)); if it fails they load the 2K map. Other devices load the 2K map directly.
+3. **The painted texture is the fallback**, used only if every file for that body fails to load.
+
+Longitude is not aligned: the app spins each body at its true rate but does not model where its prime meridian points, so the side facing you at a given moment is not the real one. Maps are aligned north-up. Venus, Uranus and its moons, Pluto and Charon are spun about the pole opposite their map's north, so their maps are turned 180° (a rotation, not a mirror image). The logic is in `index.html`, next to the comment `surface maps`.
+
 ## Accuracy
 
 | Object type | Model | Typical accuracy |

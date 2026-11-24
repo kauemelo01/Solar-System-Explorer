@@ -477,17 +477,40 @@ function potato(seed,amp,seg){const g=new THREE.SphereGeometry(1,seg||36,Math.ro
 const sph=new THREE.SphereGeometry(1,64,40),sphLo=new THREE.SphereGeometry(1,32,20),POT=[potato(3,.22),potato(8,.28),potato(21,.18)];
 const UP=new THREE.Vector3(0,1,0),v3=new THREE.Vector3(),q3=new THREE.Quaternion();
 function orientTo(obj,pole){const p=poleEcl(pole[0],pole[1]);v3.set(p[0],p[2],-p[1]).normalize();obj.quaternion.setFromUnitVectors(UP,v3)}
+/* surface maps: real images from textures/ (docs/sources.md#surface-maps). Each body shows its plain colour until its map arrives;
+   the procedural texFor() texture is used only if every file fails to load. Large maps are tried first on the same devices as the 8K sky map. */
+const BIGTEX=renderer.capabilities.maxTextureSize>=8192&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,TL=new THREE.TextureLoader();
+const MAP_HI=['sun','mercury','venus','earth','moon','mars','jupiter','saturn'],MAP_2K=['uranus','neptune'],
+ MAP_JPG=['pluto','m-charon','m-phobos','m-deimos','m-europa','m-ganymede','m-callisto','m-mimas','m-enceladus','m-tethys','m-dione','m-rhea','m-titan','m-iapetus'],
+ // partial maps: unmapped areas are transparent and filled with the procedural texture
+ MAP_PART=['m-io','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon','m-triton'],
+ // the app spins these about the IAU south pole (Pluto system: the pole opposite New Horizons' north), so their maps are turned 180° (a rotation, not a mirror)
+ MAP_FLIP=['venus','uranus','pluto','m-charon','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon'];
+function mapFiles(id){if(MAP_HI.includes(id))return BIGTEX?[id+'_hi.jpg',id+'_2k.jpg']:[id+'_2k.jpg'];if(MAP_2K.includes(id))return[id+'_2k.jpg'];
+ if(MAP_JPG.includes(id))return[id+'.jpg'];if(MAP_PART.includes(id))return[id+'.webp'];return null}
+function loadChain(files,ok,fail){if(!files.length)return fail();TL.load('textures/'+files[0],ok,undefined,()=>loadChain(files.slice(1),ok,fail))}
+function setMap(o,t){t.encoding=THREE.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+ if(MAP_FLIP.includes(o.id)){t.center.set(.5,.5);t.rotation=Math.PI}
+ const m=o.mesh.material,old=m.map;m.map=t;m.color.set(0xffffff);m.needsUpdate=true;if(old)old.dispose()}
+function loadMap(o){const files=mapFiles(o.id);if(!files)return setMap(o,texFor(o));
+ loadChain(files,t=>{if(!MAP_PART.includes(o.id))return setMap(o,t);
+  const img=t.image,c=document.createElement('canvas'),g=c.getContext('2d'),p=texFor(o);c.width=img.width;c.height=img.height;
+  g.drawImage(p.image,0,0,c.width,c.height);g.drawImage(img,0,0);p.dispose();t.dispose();setMap(o,new THREE.CanvasTexture(c))},()=>setMap(o,texFor(o)))}
 OBJ.forEach(o=>{if(!o.major)return;
  o.g=new THREE.Group();o.tg=new THREE.Group();orientTo(o.tg,o.pole);
- const t=texFor(o),pot=o.tex&&o.tex.p;
- const mat=o.id==='sun'?new THREE.MeshBasicMaterial({map:t}):new THREE.MeshLambertMaterial({map:t});
- o.mesh=new THREE.Mesh(pot?POT[o.i%3]:o.cat==='planet'||o.id==='sun'?sph:sphLo,mat);
+ const pot=o.tex&&o.tex.p,hasMap=!!mapFiles(o.id);
+ const mat=hasMap?(o.id==='sun'?new THREE.MeshBasicMaterial({color:o.color}):new THREE.MeshLambertMaterial({color:o.color})):o.id==='sun'?new THREE.MeshBasicMaterial({map:texFor(o)}):new THREE.MeshLambertMaterial({map:texFor(o)});
+ o.mesh=new THREE.Mesh(pot?POT[o.i%3]:o.cat==='planet'||o.id==='sun'||hasMap?sph:sphLo,mat);
+ if(hasMap)loadMap(o);
  if(o.id==='haumea')o.mesh.scale.set(1,.52,.78);
  o.tg.add(o.mesh);o.g.add(o.tg);scene.add(o.g);
  if(o.id==='saturn'){const ri=74500/o.R,ro=136780/o.R,rg=new THREE.RingGeometry(ri,ro,160,1),uv=rg.attributes.uv,p=rg.attributes.position;
   for(let i=0;i<p.count;i++)uv.setXY(i,(Math.hypot(p.getX(i),p.getY(i))-ri)/(ro-ri),.5);
-  const rt=ctex(512,4,(g,W,H)=>{for(let x=0;x<W;x++){const u=x/W;let a=u<.28?.18+u*.4:u<.69?.85:u<.765?.06:u>.955&&u<.965?.1:.6;a*=.85+.15*Math.sin(x*1.7)*Math.sin(x*.37);g.fillStyle=`rgba(${u<.28?190:226},${u<.28?175:206},${u<.28?150:160},${a})`;g.fillRect(x,0,1,H)}});
-  const ring=new THREE.Mesh(rg,new THREE.MeshLambertMaterial({map:rt,transparent:true,side:THREE.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;o.tg.add(ring)}
+  const ringTex=()=>ctex(512,4,(g,W,H)=>{for(let x=0;x<W;x++){const u=x/W;let a=u<.28?.18+u*.4:u<.69?.85:u<.765?.06:u>.955&&u<.965?.1:.6;a*=.85+.15*Math.sin(x*1.7)*Math.sin(x*.37);g.fillStyle=`rgba(${u<.28?190:226},${u<.28?175:206},${u<.28?150:160},${a})`;g.fillRect(x,0,1,H)}});
+  const ring=new THREE.Mesh(rg,new THREE.MeshLambertMaterial({transparent:true,side:THREE.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.visible=false;o.tg.add(ring);
+  const useRing=t=>{ring.material.map=t;ring.material.needsUpdate=true;ring.visible=true};
+  // ring strip spans 70,726 km (u=0) to 141,751 km (u=1); this maps the app's 74,500-136,780 km annulus onto it
+  loadChain(BIGTEX?['saturn_ring_hi.png','saturn_ring_2k.png']:['saturn_ring_2k.png'],t=>{t.encoding=THREE.sRGBEncoding;t.repeat.x=(136780-74500)/71025;t.offset.x=(74500-70726)/71025;useRing(t)},()=>useRing(ringTex()))}
  if(o.cat==='comet'){const cg=new THREE.ConeGeometry(1,1,24,1,true);cg.translate(0,-.5,0);
   o.tail=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:0x9fc8ff,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));o.tail.frustumCulled=false;scene.add(o.tail);
   o.coma=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(220,240,255,.9)','rgba(140,190,255,.25)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));scene.add(o.coma)}});

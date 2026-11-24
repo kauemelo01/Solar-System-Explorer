@@ -85,6 +85,8 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Stars with planets | [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/) |
 | Constellation boundaries | IAU (Delporte 1930), via CDS catalogues VI/42 (Roman 1987) and VI/49 (Davenhall & Leggett 1989) |
 | Constellation figures | NASA/Goddard SVS, [*Deep Star Maps*](https://svs.gsfc.nasa.gov/3895) (figures after Sky & Telescope for the IAU) |
+| Surface maps: Sun, planets, the Moon, Saturn's rings | [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0), based on NASA mission data |
+| Surface maps: Pluto, Charon and 19 major moons | [NASA 3D Resources](https://github.com/nasa/NASA-3D-Resources) (public domain) |
 
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
@@ -109,7 +111,7 @@ cd Solar-System-Explorer
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
 
-Opening `index.html` directly from disk works for the solar system, but browsers block the sky map over `file://`, so use a local server to see it.
+Opening `index.html` directly from disk works, but browsers block the sky map and surface maps over `file://` (bodies then use their simpler painted textures), so use a local server to see them.
 
 ## Project files
 
@@ -117,6 +119,7 @@ Opening `index.html` directly from disk works for the solar system, but browsers
 |---|---|
 | `index.html` | The whole app: page, styles and code |
 | `sky/` | Sky data: star catalogue, NASA star maps, deep-sky objects, constellation boundaries and figures |
+| `textures/` | Surface maps for the Sun, planets, Saturn's rings, Pluto and the major moons ([sources](docs/sources.md#surface-maps)) |
 | `docs/` | Documentation and the per-object catalogue |
 | `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
 | `social-card.png` | Preview image shown when the link is shared (Open Graph / Twitter card) |
