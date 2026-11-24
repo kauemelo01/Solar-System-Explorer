@@ -120,6 +120,8 @@ Opening `index.html` directly from disk works for the solar system, but browsers
 | `sky/` | Sky data: star catalogue, NASA star maps, deep-sky objects, constellation boundaries and figures |
 | `docs/` | Documentation and the per-object catalogue |
 | `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
+| `social-card.png` | Preview image shown when the link is shared (Open Graph / Twitter card) |
+| `_config.yml`, `sitemap.xml` | Search-engine setup for GitHub Pages: page titles and descriptions, and the list of pages for Google Search Console |
 | `LICENSE` | GNU General Public License v3 |
 
 ## Accuracy and limits
