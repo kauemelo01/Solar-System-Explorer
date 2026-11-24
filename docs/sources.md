@@ -14,6 +14,22 @@ All positions are computed in the **heliocentric ecliptic J2000** frame, the sta
 
 Distances and body sizes are always drawn to true scale. There is no compressed-distance mode and no size magnification. Bodies are therefore tiny compared with their orbits, as they really are, and you zoom in (or click a name to fly to it) to see them.
 
+**To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,500–136,780 km), the orbit trails and the distance rings in AU.
+
+### What is not to scale
+
+These are visual aids drawn on top of the true-scale model:
+
+| Element | What it really is |
+|---|---|
+| Coloured dots and labels marking bodies | A fixed 3.5–6 pixels on screen whatever the zoom, so bodies smaller than a pixel can still be found |
+| The Sun's glow | A glow 7 times the Sun's radius, plus a halo of fixed screen size. The Sun's sphere itself is true size |
+| Comet tails and comas | Illustrative length: the shorter of 0.6 AU and 0.3 / r² AU, where r is the comet's distance from the Sun in AU. Real tails vary widely and can exceed 1 AU |
+| Moons with no published radius | Placeholder radii of 1.5–20 km, marked *est.* in the app and the catalogue |
+| Irregular asteroids and small moons | Mean radius is correct; the lumpy shape is computer-generated, not the real shape |
+| Main asteroid belt, Jupiter trojans, Kuiper belt | Statistical clouds of fixed-size points, not individual catalogued objects (see [Belts](#belts)) |
+| The sky (stars, Milky Way, deep-sky objects) | Directions are true, but the sky is drawn on a backdrop that moves with the camera, so distances are not represented; the object's card gives its real distance. Star dot size shows brightness, not physical size |
+
 ## Planets
 
 - **Elements:** E. M. Standish, *Keplerian Elements for Approximate Positions of the Major Planets*, JPL SSD. Table 1 (valid 1800 AD – 2050 AD), with linear rates per Julian century. <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
