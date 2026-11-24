@@ -1,4 +1,4 @@
-[← Project README](../README.md) · [Open the app](https://kauemelo01.github.io/Solar-System-Explorer/)
+[← Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme) · [Open the app](https://kauemelo01.github.io/Solar-System-Explorer/)
 
 # Solar System Explorer: documentation
 
