@@ -1,0 +1,27 @@
+[← Documentation index](../README.md) · [Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme)
+
+# Moons of dwarf planets and asteroids
+
+**8 moons:** 6 moons of dwarf planets and candidates, and 2 asteroid moons. Pluto's moons have [their own page](moons-pluto.md).
+
+The *Surface image* column says what the app draws on each body; these moons are drawn as plain shapes. Details: [Surface maps](../sources.md#surface-maps). Where JPL Horizons has a satellite solution, the orbit comes from it; otherwise it comes from the peer-reviewed discovery or orbit paper listed. The *a*, *e*, *i* and *P* columns are the values used by the app. The JPL IDs are Horizons SPK IDs.
+
+Moons whose orbit could not be found in a verifiable published source are not included; this is why Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded) and Ida's moon Dactyl are absent.
+
+| Moon | Parent | a (km) | e | i (°) | Period | Radius (km) | JPL ID | Orbit source | References | [Surface image](../sources.md#card-notes) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| <a id="m-dysnomia"></a>**Dysnomia** | [Eris](small-bodies.md#eris) | 37,274.47 | 0.0061 | 61.61 | 15.7872 d | 350 | 120136199 | JPL Horizons TNO satellite solution (osculating elements about Eris, 2025-Jan-1) | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27120136199%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| <a id="m-hi-iaka"></a>**Hiʻiaka** | [Haumea](small-bodies.md#haumea) | 49,880 | 0.0513 | 126.36 | 49.4620 d | 160 | — | Ragozzine & Brown 2009, J2000 ecliptic, epoch HJD 2454615.0 | Ragozzine & Brown 2009, *AJ* ([arXiv:0903.4213](https://arxiv.org/abs/0903.4213)) | Plain shape |
+| <a id="m-namaka"></a>**Namaka** | [Haumea](small-bodies.md#haumea) | 25,657 | 0.249 | 113.01 | 18.2783 d | 80 | — | Ragozzine & Brown 2009, J2000 ecliptic, epoch HJD 2454615.0 | Ragozzine & Brown 2009, *AJ* ([arXiv:0903.4213](https://arxiv.org/abs/0903.4213)) | Plain shape |
+| <a id="m-weywot"></a>**Weywot** | [Quaoar](small-bodies.md#quaoar) | 13,517.66 | 0.2527 | 154.32 | 11.6863 d | 85 | 120050000 | JPL Horizons TNO satellite solution (osculating elements about Quaoar, 2025-Jan-1) | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27120050000%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| <a id="m-vanth"></a>**Vanth** | [Orcus](small-bodies.md#orcus) | 8,975.21 | 0.0015 | 89.78 | 9.5379 d | 221.5 | 120090482 | JPL Horizons TNO satellite solution (osculating elements about Orcus, 2025-Jan-1) | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27120090482%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| <a id="m-xiangliu"></a>**Xiangliu** | [Gonggong](small-bodies.md#gonggong) | 24,021 | 0.2908 | 83.08 | 25.2207 d | ≈ 40 *est.* | — | Kiss et al. 2019, prograde solution, epoch JD 2457000.0 | Kiss et al. 2019, *Icarus* ([arXiv:1903.05439](https://arxiv.org/abs/1903.05439)) | Plain shape |
+| <a id="m-dimorphos"></a>**Dimorphos** | [Didymos](small-bodies.md#didymos) | 1.17 | 0.0307 | 170.72 | 11.79 h | 0.08 | 120065803 | JPL Horizons DART/Hera reconstruction (osculating elements about Didymos, 2025-Jan-1) | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27120065803%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA DART](https://science.nasa.gov/mission/dart/) | Plain shape |
+| <a id="m-selam"></a>**Selam** | [Dinkinesh](small-bodies.md#dinkinesh) | 3.1 | 0 | 0 | 2.1958 d | 0.11 | — | Levison et al. 2024 (distance and period only) | Levison et al. 2024, *Nature* ([arXiv:2406.19337](https://arxiv.org/abs/2406.19337)) · [NASA](https://science.nasa.gov/solar-system/asteroids/dinkinesh/) | Plain shape |
+
+## Notes
+
+- **Frames.** Horizons elements are J2000 ecliptic, relative to the primary. Hiʻiaka and Namaka are J2000 ecliptic as published. Xiangliu's published orbit has a mirror ambiguity (prograde or retrograde); the app uses the prograde solution, with angles taken in the J2000 equatorial frame of the published astrometry, so its orientation is uncertain.
+- **Selam** orbits Dinkinesh at about 3.1 km with a period of about 52.7 h and is tidally locked. Its orbit plane is not published in a source we could verify, so the app places it in the ecliptic plane; only its distance and period are measured.
+- **Sizes.** Dysnomia, Weywot and Vanth radii are from their JPL Horizons records. Hiʻiaka (≈ 320 km) and Namaka (≈ 160 km) diameters are from Ragozzine & Brown (2009) as compiled by Johnston's Archive. Dimorphos is 160 m across ([NASA DART](https://science.nasa.gov/mission/dart/)). Each lobe of Selam is about 220 m ([NASA](https://science.nasa.gov/solar-system/asteroids/dinkinesh/)). Xiangliu is smaller than 100 km (Kiss et al. 2019); the app uses a placeholder, marked *est.*
+- **In the app.** The moons menu lists them under their parent: *Dwarf planets & candidates* (Eris, Haumea, then the candidates Quaoar, Orcus and Gonggong, after Pluto) and *Asteroids* (Didymos, Dinkinesh), with All / None for each group. A moon is shown when it is switched on and its parent's group is shown (*Dwarf planets*, *Candidates* or *Asteroids & centaurs*); switching a moon on also switches its parent's group on.

@@ -32,13 +32,15 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 
 ## What's inside
 
-- **494 real objects**, each with orbital elements from NASA/JPL:
+- **516 real objects**, each with orbital elements from NASA/JPL or peer-reviewed orbit papers:
   - the Sun, 8 planets and the Moon
-  - **459 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5
-  - 9 dwarf planets and candidates (Pluto among them), 12 asteroids and centaurs, 4 comets
+  - **467 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5 · other dwarf planets and candidates 6 (Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu) · asteroids 2 (Dimorphos, Selam)
+  - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 21 asteroids, centaurs and Kuiper belt objects, 9 comets
+- **7 ring systems** at their true radii: Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo
 - **Real-time positions** computed from JPL Keplerian and mean orbital elements, for any date (forward or backward in time)
 - **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
-- Moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…) that you can switch on one group at a time
+- **Moons menu by parent body**: the planets' moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…), then *Dwarf planets & candidates* (Pluto, Eris, Haumea, Quaoar, Orcus, Gonggong) and *Asteroids* (Didymos, Dinkinesh), each with All / None, so you can switch moons on one group at a time
+- Separate switches for **dwarf planets**, **dwarf planet candidates**, **asteroids & centaurs** and **comets**
 - Statistical belts (main asteroid belt, Jupiter trojans, Kuiper belt) to show where those populations live
 - **The real sky behind it all**:
   - 9,096 stars from the Yale Bright Star Catalogue
@@ -63,13 +65,15 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
+| Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent |
+| Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets** |
 | Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |
 | Sky map detail | *Images → Sky map detail*: **Auto** (8K on large screens, otherwise 4K), **4K** or **8K** (disabled on devices whose graphics cannot show 8K textures) |
 | Fold or unfold a menu section | Click the section's heading |
-| Collapse / expand the menu | The arrow button at the top of the menu (on phones: **Controls**) |
+| Collapse / expand the menu | The arrow button at the top of the menu; the collapsed menu keeps the **Find and fly to** search bar (on phones: **Controls**) |
 | Fullscreen mode (hides menus, cards and the time bar) | The corner-arrows button at the top of the menu, or `F`; exit with `Esc`, `F` or the **Exit fullscreen** button |
 
-On screens at least 1240 px wide, the menu runs the full height of the window and the time bar narrows to stay centred beside it. On smaller screens the menu stops above the time bar; on phones the menu, cards and time bar stack.
+On screens at least 1300 px wide, the menu (360 px) runs the full height of the window and the time bar narrows to stay centred beside it. On smaller screens the menu stops above the time bar; on phones the menu, cards and time bar stack.
 
 ## Data provenance
 
@@ -81,6 +85,8 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Moon orbits | JPL SSD, [*Planetary Satellite Mean Elements*](https://ssd.jpl.nasa.gov/sats/elem/) |
 | Moon sizes | JPL SSD, [*Planetary Satellite Physical Parameters*](https://ssd.jpl.nasa.gov/sats/phys_par/) |
 | Asteroids, dwarf planets, comets | [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html) |
+| Moons of dwarf planets and asteroids | [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) satellite solutions; Ragozzine & Brown (2009), Kiss et al. (2019), Levison et al. (2024) |
+| Ring systems | NASA NSSDCA ring fact sheets; occultation studies (Ortiz et al. 2017, Morgado et al. and Pereira et al. 2023, Braga-Ribas et al. 2014) |
 | Planet radii, rotation, poles | [NASA NSSDCA fact sheets](https://nssdc.gsfc.nasa.gov/planetary/planetfact.html); IAU WGCCRE 2015 report ([Archinal et al. 2018](https://doi.org/10.1007/s10569-017-9805-5)) |
 | Object identifiers | NAIF / JPL SPK IDs, checked against [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) |
 | Stars | *Yale Bright Star Catalogue*, 5th ed., via [NASA HEASARC](https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html) |
@@ -98,13 +104,15 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
 - [Sun, planets and the Moon](docs/catalogue/sun-planets.md) (10)
-- [Dwarf planets (including Pluto), asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (25)
+- [Dwarf planets (including Pluto), candidates, asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (39)
 - [Moons of Mars](docs/catalogue/moons-mars.md) (2)
 - [Moons of Jupiter](docs/catalogue/moons-jupiter.md) (115)
 - [Moons of Saturn](docs/catalogue/moons-saturn.md) (292)
 - [Moons of Uranus](docs/catalogue/moons-uranus.md) (29)
 - [Moons of Neptune](docs/catalogue/moons-neptune.md) (16)
 - [Moons of Pluto](docs/catalogue/moons-pluto.md) (5)
+- [Moons of dwarf planets and asteroids](docs/catalogue/moons-small-bodies.md) (8)
+- [Ring systems](docs/catalogue/rings.md) (7)
 - [The sky beyond the solar system](docs/catalogue/sky.md): stars, the Milky Way, deep-sky objects and planet-hosting stars (63 named objects)
 - [The 88 constellations](docs/catalogue/constellations.md), with the 13 of the zodiac and the dates the Sun passes through them
 
@@ -142,7 +150,8 @@ Distances and body sizes are always to true scale. A few visual aids are not. Ea
 - the fixed-size dots and labels that mark each body;
 - the Sun's glow;
 - comet tails;
-- placeholder sizes for moons with no published radius;
+- placeholder sizes for moons and small bodies with no published radius;
+- exaggerated ring opacity (ring radii are true);
 - computer-generated shapes for irregular bodies;
 - the statistical belts;
 - the sky backdrop, whose directions are true but whose distances are not drawn.
