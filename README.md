@@ -28,7 +28,7 @@ The motion of each body is the same in every case; only the vantage point change
 
 An **orrery** is a working model of the solar system that shows the planets and moons moving around their orbits at their relative speeds. The first ones were clockwork machines: the name comes from Charles Boyle, 4th Earl of Orrery, for whom an early example was built around 1713, after a design by George Graham and Thomas Tompion. Turn a crank and gears carry each planet around the Sun, so a year of motion can play out in seconds. The much older Greek Antikythera mechanism (2nd–1st century BC) used gears for similar astronomical predictions.
 
-Mechanical orreries have two built-in limits. They are almost never to scale, because true distances and sizes would make the planets invisible specks, and their gears fix the Sun at the centre. A digital orrery removes both: positions are computed from real orbital elements for any date, the scale can be true or magnified, and nothing stops you from moving the centre. Solar System Explorer is that kind of orrery.
+Mechanical orreries have two built-in limits. They are almost never to scale, because true distances and sizes would make the planets invisible specks, and their gears fix the Sun at the centre. A digital orrery removes both: positions are computed from real orbital elements for any date, distances and sizes stay true to scale (you zoom in instead of shrinking the solar system), and nothing stops you from moving the centre. Solar System Explorer is that kind of orrery.
 
 ## What's inside
 
@@ -37,7 +37,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - **459 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5
   - 8 dwarf planets and candidates, 12 asteroids and centaurs, 4 comets
 - **Real-time positions** computed from JPL Keplerian and mean orbital elements, for any date (forward or backward in time)
-- **True scale** or magnified body sizes, orbit trails of adjustable length, distance rings in AU
+- **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
 - Moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…) that you can switch on one group at a time
 - Statistical belts (main asteroid belt, Jupiter trojans, Kuiper belt) to show where those populations live
 - **The real sky behind it all**:
