@@ -15,10 +15,10 @@ The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* sw
 | <a id="ceres"></a>**Ceres** | 1 Ceres (A801 AA) | Dwarf planet · asteroid belt | 2.766 | 0.0797 | 10.59 | 469.7 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20000001) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20000001&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/ceres/) | Real photos |
 | <a id="pluto"></a>**Pluto** | 134340 Pluto (1930 BM) | Dwarf planet · Kuiper belt | 39.48 | 0.2488 | 17.14 | 1,188.3 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20134340) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20134340&phys-par=1) · [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27999%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/pluto/) | Painted |
 | <a id="eris"></a>**Eris** | 136199 Eris (2003 UB313) | Dwarf planet · scattered disc | 67.93 | 0.4382 | 43.93 | 1,163 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136199) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136199&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/eris/) | Painted |
-| <a id="haumea"></a>**Haumea** | 136108 Haumea (2003 EL61) | Dwarf planet · Kuiper belt | 43.06 | 0.1944 | 28.21 | 1,050 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136108) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136108&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/haumea/) · [rings](rings.md#haumea) | Painted |
+| <a id="haumea"></a>**Haumea** | 136108 Haumea (2003 EL61) | Dwarf planet · Kuiper belt | 43.06 | 0.1944 | 28.21 | 1,161 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136108) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136108&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/haumea/) · [rings](rings.md#haumea) | Painted |
 | <a id="makemake"></a>**Makemake** | 136472 Makemake (2005 FY9) | Dwarf planet · Kuiper belt | 45.57 | 0.1589 | 29.03 | 715 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136472) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136472&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/makemake/) | Painted |
 
-**Pluto** is a dwarf planet, but the app computes its orbit like the planets', from the JPL *Approximate Positions of the Planets* elements (E. M. Standish, valid 1800–2050), not from the SBDB. The *a*, *e* and *i* shown are that table's J2000 values; its NAIF ID is 999. Its five moons, including Charon, are listed in [Moons of Pluto](moons-pluto.md).
+**Pluto** is a dwarf planet, but the app computes its orbit like the planets', from the original version of the JPL *Approximate Positions of the Planets* elements (E. M. Standish, valid 1800–2050; JPL's current web page no longer lists Pluto), not from the SBDB. Checked against JPL Horizons, this places Pluto within 0.01° of its true position from 1900 to 2100. The *a*, *e* and *i* shown are that table's J2000 values; its NAIF ID is 999. Its five moons, including Charon, are listed in [Moons of Pluto](moons-pluto.md).
 
 ## Dwarf planet candidates
 
@@ -28,7 +28,7 @@ Large trans-Neptunian objects widely considered dwarf planets but not recognised
 |---|---|---|---|---|---|---|---|---|---|
 | <a id="gonggong"></a>**Gonggong** | 225088 Gonggong (2007 OR10) | Dwarf planet candidate · scattered disc | 66.87 | 0.5043 | 30.9 | 615 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20225088) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20225088&phys-par=1) | — | Painted |
 | <a id="quaoar"></a>**Quaoar** | 50000 Quaoar (2002 LM60) | Dwarf planet candidate · Kuiper belt | 43.16 | 0.0352 | 7.99 | 555 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20050000) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20050000&phys-par=1) | [rings](rings.md#quaoar) | Painted |
-| <a id="sedna"></a>**Sedna** | 90377 Sedna (2003 VB12) | Dwarf planet candidate · detached object | 543.7 | 0.8599 | 11.93 | 500 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20090377) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20090377&phys-par=1) | — | Painted |
+| <a id="sedna"></a>**Sedna** | 90377 Sedna (2003 VB12) | Dwarf planet candidate · detached object | 543.7 | 0.8599 | 11.93 | 497.5 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20090377) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20090377&phys-par=1) | — | Painted |
 | <a id="orcus"></a>**Orcus** | 90482 Orcus (2004 DW) | Dwarf planet candidate · Kuiper belt | 39.38 | 0.2205 | 20.56 | 455 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20090482) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20090482&phys-par=1) | — | Painted |
 
 ## Asteroids and centaurs
@@ -61,23 +61,39 @@ Large trans-Neptunian objects widely considered dwarf planets but not recognised
 
 | Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| <a id="halley"></a>**1P/Halley** | 1P/Halley | Periodic comet · returns 2061 | 17.969 | 0.968 | 162 | 5.5 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000036) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000036&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/1p-halley/) | Painted |
-| <a id="encke"></a>**2P/Encke** | 2P/Encke | Periodic comet · 3.3-year orbit | 2.216 | 0.847 | 11.3 | 2.4 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000025) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000025&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/2p-encke/) | Painted |
-| <a id="c67p"></a>**67P/Churyumov-Gerasimenko** | 67P/Churyumov-Gerasimenko | Periodic comet · Rosetta landed | 3.454 | 0.641 | 7.04 | 2 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000012) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000012&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/67p-churyumov-gerasimenko/) | Painted |
-| <a id="halebopp"></a>**C/1995 O1 (Hale-Bopp)** | C/1995 O1 (Hale-Bopp) | Long-period comet · 1997 apparition | 178.2 | 0.995 | 89.3 | 30 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000132) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000132&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/c-1995-o1-hale-bopp/) | Painted |
+| <a id="halley"></a>**1P/Halley** | 1P/Halley | Periodic comet · returns 2061 | 17.929 | 0.968 | 162.19 | 5.5 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000036) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000036&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/1p-halley/) | Painted |
+| <a id="encke"></a>**2P/Encke** | 2P/Encke | Periodic comet · 3.3-year orbit | 2.218 | 0.847 | 11.3 | 2.4 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000025) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000025&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/2p-encke/) | Painted |
+| <a id="c67p"></a>**67P/Churyumov-Gerasimenko** | 67P/Churyumov-Gerasimenko | Periodic comet · Rosetta landed | 3.462 | 0.641 | 7.04 | 1.7 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000012) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000012&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/67p-churyumov-gerasimenko/) | Painted |
+| <a id="halebopp"></a>**C/1995 O1 (Hale-Bopp)** | C/1995 O1 (Hale-Bopp) | Long-period comet · 1997 apparition | 177.4 | 0.995 | 89.3 | 30 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000132) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000132&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/c-1995-o1-hale-bopp/) | Painted |
 | <a id="c109p"></a>**109P/Swift-Tuttle** | 109P/Swift-Tuttle | Halley-type comet · parent of the Perseids | 26.092 | 0.9632 | 113.45 | 13 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000140) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000140&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/109p-swift-tuttle/) | Painted |
 | <a id="c55p"></a>**55P/Tempel-Tuttle** | 55P/Tempel-Tuttle | Halley-type comet · parent of the Leonids | 10.338 | 0.9056 | 162.49 | 1.8 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000095) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000095&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/55p-tempel-tuttle/) | Painted |
 | <a id="c9p"></a>**9P/Tempel 1** | 9P/Tempel 1 | Jupiter-family comet · Deep Impact | 3.146 | 0.5097 | 10.47 | 3 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000093) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000093&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/9p-tempel-1/) | Painted |
 | <a id="c81p"></a>**81P/Wild 2** | 81P/Wild 2 | Jupiter-family comet · Stardust sample return | 3.45 | 0.5374 | 3.24 | 2 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000107) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000107&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/81p-wild/) | Painted |
 | <a id="neowise"></a>**C/2020 F3 (NEOWISE)** | C/2020 F3 (NEOWISE) | Long-period comet · 2020 apparition | 358.468 | 0.9992 | 128.94 | ≈ 2.5 *est.* | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1003667) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1003667&phys-par=1) | — | Painted |
 
-## Notes on sizes
+## Notes on sizes and rotation
 
+Sizes are the JPL SBDB diameter halved where the SBDB lists one. Where it does not, or where a newer measurement is better, the app uses these published values:
+
+- **Eris:** radius 1,163 km (diameter 2,326 km, stellar occultation; Sicardy et al. 2011, *Nature*).
+- **Haumea:** an elongated body with semi-axes 1,161 × 852 × 513 km (Ortiz et al. 2017, *Nature*, [arXiv:2006.03113](https://arxiv.org/abs/2006.03113)). The app draws this shape; the *Radius* column gives the longest semi-axis.
+- **Makemake:** radius 715 km (Ortiz et al. 2012, *Nature*).
+- **Gonggong:** radius 615 km (diameter 1,230 km; Kiss et al. 2019, *Icarus*, [arXiv:1903.05439](https://arxiv.org/abs/1903.05439)).
+- **Quaoar:** radius 555 km (diameter 1,110 km, stellar occultation; Braga-Ribas et al. 2013, *ApJ*).
+- **Sedna:** radius 497.5 km (diameter 995 km; Pál et al. 2012, *A&A*).
+- **Orcus:** radius 455 km (diameter 910 km, ALMA; Brown & Butler 2018, *AJ*).
 - **Chariklo:** equivalent radius 124 ± 9 km from the 2013 stellar occultation (Braga-Ribas et al. 2014, *Nature*; [arXiv:1409.7259](https://arxiv.org/abs/1409.7259)), used instead of the older radiometric diameter in the SBDB.
 - **Dinkinesh:** about 790 m at its widest (Lucy team, [NASA](https://science.nasa.gov/solar-system/asteroids/dinkinesh/)); the app uses the SBDB-scale mean radius of 0.36 km.
 - **Arrokoth:** a contact binary about 36 km long (Spencer et al. 2020, *Science*; [arXiv:2004.00727](https://arxiv.org/abs/2004.00727)). The app draws it as one body of radius ≈ 9 km, marked *est.*
 - **C/2020 F3 (NEOWISE):** no published nucleus size was found in a source we could verify; the app uses a placeholder radius of 2.5 km, marked *est.*
-- **Comet nuclei** (109P, 55P, 9P, 81P): diameters from the SBDB physical parameters.
+- **Comet nuclei** (1P, 2P, 67P, Hale-Bopp, 109P, 55P, 9P, 81P): diameters from the SBDB physical parameters.
+
+**Rotation periods** are the SBDB values, except:
+
+- **Eris:** 378.9 h (15.79 days, rotating in step with its moon Dysnomia; Szakáts et al. 2023, *A&A*). The SBDB still lists an older 25.9 h.
+- **Quaoar:** 17.68 h (Ortiz et al. 2003; used by Morgado et al. 2023). The SBDB lists half of it, 8.84 h, the single-peaked lightcurve period.
+- **1P/Halley:** 52.8 h (2.2 days; Belton et al. 1991). **C/1995 O1 (Hale-Bopp):** 11.4 h (Licandro et al. 1998). The SBDB lists none for either.
+- **No published period** in a source we could verify: 109P/Swift-Tuttle, 55P/Tempel-Tuttle, 81P/Wild 2, C/2020 F3 (NEOWISE) and Donaldjohanson. The app spins them once every 12 hours as an illustration only.
 
 ## Sources for this group
 

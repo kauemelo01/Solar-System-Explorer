@@ -17,7 +17,7 @@ Radii and widths from the NASA NSSDCA ring fact sheets. Ring planes follow each 
 | | Amalthea gossamer ring | 128,940–181,350 | — | |
 | | Thebe gossamer ring | 181,350–221,900 | — | |
 | | Thebe extension | 221,900–280,000 | — | |
-| <a id="saturn"></a>**Saturn** | C, B and A rings, from the inner edge of the C ring to the outer edge of the A ring | 74,500–136,780 | — | [NSSDCA Saturn rings](https://nssdc.gsfc.nasa.gov/planetary/factsheet/satringfact.html); image strip from Solar System Scope (see [Surface maps](../sources.md#surface-maps)) |
+| <a id="saturn"></a>**Saturn** | C, B and A rings, from the inner edge of the C ring to the outer edge of the A ring | 74,658–136,780 | — | [NSSDCA Saturn rings](https://nssdc.gsfc.nasa.gov/planetary/factsheet/satringfact.html); image strip from Solar System Scope (see [Surface maps](../sources.md#surface-maps)) |
 | <a id="uranus"></a>**Uranus** | 6, 5, 4 | 41,837 · 42,234 · 42,571 | 1.5 · ~2 · ~2 | [NSSDCA Uranus rings](https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranringfact.html) |
 | | Alpha, Beta | 44,718 · 45,661 | 4–10 · 5–11 | |
 | | Eta, Gamma, Delta | 47,176 · 47,627 · 48,300 | 1.6 · 1–4 · 3–7 | |
