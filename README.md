@@ -45,6 +45,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - NASA's all-sky star map (Milky Way and faint stars), up to 8192 × 4096
   - 29 nebulae, clusters, galaxies and deep fields, such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the Hubble and Webb deep fields
   - 29 named bright stars and 5 stars with known planets (including Proxima Centauri and TRAPPIST-1)
+  - the **88 IAU constellations** (off by default): official boundaries, stick figures and names, with a **Zodiac** filter showing the 13 constellations the Sun actually passes through, Ophiuchus included
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
 - Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step; any static web host (such as GitHub Pages) can serve it
@@ -55,6 +56,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 |---|---|
 | Rotate / zoom | Drag; scroll or pinch |
 | Fly to an object | Click its name, or use **Find** (`/`) |
+| Show constellations | *Beyond the solar system → Constellations (IAU)*; choose **All 88** or **Zodiac (13)**, figures and boundaries |
 | Look at a star, nebula or galaxy | Click its label to open its card, or type its name in **Find** to turn the view towards it |
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
@@ -77,6 +79,8 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Deep-sky reference images (linked) | [NASA Image and Video Library](https://images.nasa.gov/) |
 | Deep-sky positions | CDS SIMBAD / Sesame |
 | Stars with planets | [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/) |
+| Constellation boundaries | IAU (Delporte 1930), via CDS catalogues VI/42 (Roman 1987) and VI/49 (Davenhall & Leggett 1989) |
+| Constellation figures | NASA/Goddard SVS, [*Deep Star Maps*](https://svs.gsfc.nasa.gov/3895) (figures after Sky & Telescope for the IAU) |
 
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
@@ -89,6 +93,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 - [Moons of Neptune](docs/catalogue/moons-neptune.md) (16)
 - [Moons of Pluto](docs/catalogue/moons-pluto.md) (5)
 - [The sky beyond the solar system](docs/catalogue/sky.md): stars, the Milky Way, deep-sky objects and planet-hosting stars (63 named objects)
+- [The 88 constellations](docs/catalogue/constellations.md), with the 13 of the zodiac and the dates the Sun passes through them
 
 The full methodology, accuracy notes and bibliography are in [docs/sources.md](docs/sources.md).
 
