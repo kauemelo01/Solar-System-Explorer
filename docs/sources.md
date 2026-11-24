@@ -12,7 +12,7 @@ All positions are computed in the **heliocentric ecliptic J2000** frame, the sta
 
 ## Scale
 
-Distances and body sizes are always drawn to true scale. There is no compressed-distance mode and no size magnification. Bodies are therefore tiny compared with their orbits, as they really are, and you zoom in (or click a name to fly to it) to see them.
+Distances and body sizes are always drawn to true scale. Bodies are therefore tiny compared with their orbits, as they really are, and you zoom in (or click a name to fly to it) to see them.
 
 **To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,500–136,780 km), the orbit trails and the distance rings in AU.
 
@@ -49,7 +49,7 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 - **Identifiers:** NAIF integer IDs, cross-checked in JPL Horizons. <https://ssd.jpl.nasa.gov/horizons/>
 - **Discoveries and families:** JPL *Satellite Discovery Circumstances* <https://ssd.jpl.nasa.gov/sats/discovery.html>; S. S. Sheppard (Carnegie Science) moon pages <https://sites.google.com/carnegiescience.edu/sheppard/moons>; IAU Minor Planet Center electronic circulars <https://minorplanetcenter.net/mpec/RecentMPECs.html>.
 - **Count:** 459 moons as of November 2026 (Mars 2, Jupiter 115, Saturn 292, Uranus 29, Neptune 16, Pluto 5). Earth's Moon is counted with the planets.
-- **Naming differences:** *S/2009 S 2* (NAIF 65304) follows JPL Horizons; earlier versions of the app called it *S/2009 S 1*. *Megaclite* and *Philophrosyne* follow JPL Horizons; the JPL mean-elements table spells them `Magaclite` and `Philophrosyn`.
+- **Naming differences:** *S/2009 S 2* (NAIF 65304) follows JPL Horizons. *Megaclite* and *Philophrosyne* follow JPL Horizons; the JPL mean-elements table spells them `Magaclite` and `Philophrosyn`.
 - The phases of Pluto's four small moons along their orbits are approximate.
 
 ## Dwarf planets, asteroids, centaurs and comets (24)

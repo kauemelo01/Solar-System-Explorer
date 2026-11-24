@@ -356,5 +356,5 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 ## Notes
 
-- **S/2009 S 2** — Named as in JPL Horizons and the JPL mean-elements table (NAIF 65304). Earlier versions of the app labelled this entry *S/2009 S 1*. Note that the JPL record describes it as an irregular satellite fit to 4 Cassini observations, while the mean elements place it at 117,061 km, inside the main rings.
+- **S/2009 S 2** — Named as in JPL Horizons and the JPL mean-elements table (NAIF 65304). Note that the JPL record describes it as an irregular satellite fit to 4 Cassini observations, while the mean elements place it at 117,061 km, inside the main rings.
 
