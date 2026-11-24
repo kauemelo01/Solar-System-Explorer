@@ -8,8 +8,8 @@ This folder documents **every object** in Solar System Explorer: the values the 
 
 | Page | Objects | Primary reference |
 |---|---:|---|
-| [Sun, planets, the Moon and Pluto](catalogue/sun-planets.md) | 11 | JPL Keplerian elements · NASA fact sheets |
-| [Dwarf planets, asteroids, centaurs and comets](catalogue/small-bodies.md) | 24 | JPL Small-Body Database |
+| [Sun, planets and the Moon](catalogue/sun-planets.md) | 10 | JPL Keplerian elements · NASA fact sheets |
+| [Dwarf planets (including Pluto), asteroids, centaurs and comets](catalogue/small-bodies.md) | 25 | JPL Small-Body Database; Pluto from the JPL planet table |
 | [Moons of Mars](catalogue/moons-mars.md) | 2 | JPL satellite mean elements |
 | [Moons of Jupiter](catalogue/moons-jupiter.md) | 115 | JPL satellite mean elements |
 | [Moons of Saturn](catalogue/moons-saturn.md) | 292 | JPL satellite mean elements |

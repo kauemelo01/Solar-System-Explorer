@@ -4,13 +4,14 @@
 
 The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
 
-24 named small bodies (Pluto is listed with the [planets](sun-planets.md)). Orbital elements are osculating heliocentric elements taken from the **JPL Small-Body Database (SBDB)**; most use epoch JD 2461200.5 (2026-Jun-24 TDB). Comet orbits use the elements of their most recent perihelion passage in the SBDB. Each row links to the live SBDB record, so values can be re-checked at any time.
+25 named bodies. Orbital elements are osculating heliocentric elements taken from the **JPL Small-Body Database (SBDB)**, except Pluto's (see the note under the dwarf planets); most use epoch JD 2461200.5 (2026-Jun-24 TDB). Comet orbits use the elements of their most recent perihelion passage in the SBDB. Each row links to the live SBDB record, so values can be re-checked at any time.
 
 ## Dwarf planets and candidates
 
 | Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | <a id="ceres"></a>**Ceres** | 1 Ceres (A801 AA) | Dwarf planet · asteroid belt | 2.766 | 0.0797 | 10.59 | 469.7 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20000001) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20000001&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/ceres/) | Real photos |
+| <a id="pluto"></a>**Pluto** | 134340 Pluto (1930 BM) | Dwarf planet · Kuiper belt | 39.48 | 0.2488 | 17.14 | 1,188.3 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20134340) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20134340&phys-par=1) · [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27999%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/pluto/) | Painted |
 | <a id="eris"></a>**Eris** | 136199 Eris (2003 UB313) | Dwarf planet · scattered disc | 67.93 | 0.4382 | 43.93 | 1,163 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136199) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136199&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/eris/) | Painted |
 | <a id="haumea"></a>**Haumea** | 136108 Haumea (2003 EL61) | Dwarf planet · Kuiper belt | 43.06 | 0.1944 | 28.21 | 1,050 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136108) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136108&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/haumea/) | Painted |
 | <a id="makemake"></a>**Makemake** | 136472 Makemake (2005 FY9) | Dwarf planet · Kuiper belt | 45.57 | 0.1589 | 29.03 | 715 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136472) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136472&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/makemake/) | Painted |
@@ -18,6 +19,8 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 | <a id="quaoar"></a>**Quaoar** | 50000 Quaoar (2002 LM60) | Dwarf planet candidate · Kuiper belt | 43.16 | 0.0352 | 7.99 | 555 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20050000) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20050000&phys-par=1) | — | Painted |
 | <a id="sedna"></a>**Sedna** | 90377 Sedna (2003 VB12) | Dwarf planet candidate · detached object | 543.7 | 0.8599 | 11.93 | 500 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20090377) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20090377&phys-par=1) | — | Painted |
 | <a id="orcus"></a>**Orcus** | 90482 Orcus (2004 DW) | Dwarf planet candidate · Kuiper belt | 39.38 | 0.2205 | 20.56 | 455 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20090482) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20090482&phys-par=1) | — | Painted |
+
+**Pluto** is a dwarf planet, but the app computes its orbit like the planets', from the JPL *Approximate Positions of the Planets* elements (E. M. Standish, valid 1800–2050), not from the SBDB. The *a*, *e* and *i* shown are that table's J2000 values; its NAIF ID is 999. Its five moons, including Charon, are listed in [Moons of Pluto](moons-pluto.md).
 
 ## Asteroids and centaurs
 
@@ -48,6 +51,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 ## Sources for this group
 
 - JPL Small-Body Database Lookup: <https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html>
+- Pluto's orbit: JPL SSD, *Approximate Positions of the Planets* <https://ssd.jpl.nasa.gov/planets/approx_pos.html>; NASA NSSDCA *Pluto Fact Sheet* <https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html>
 - JPL SBDB API documentation: <https://ssd-api.jpl.nasa.gov/doc/sbdb.html>
 - IAU Minor Planet Center: <https://www.minorplanetcenter.net/>
 - NASA Science — Asteroids, Comets & Meteors: <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/comets/>

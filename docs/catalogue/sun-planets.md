@@ -1,8 +1,10 @@
 [← Documentation index](../README.md) · [Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme)
 
-# Sun, planets, the Moon and Pluto
+# Sun, planets and the Moon
 
-11 bodies. Their positions are computed from the JPL *Approximate Positions of the Planets* Keplerian elements (E. M. Standish, valid 1800–2050), except the Moon, which uses a mean-element lunar orbit around the Earth–Moon barycentre. Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
+10 bodies. Their positions are computed from the JPL *Approximate Positions of the Planets* Keplerian elements (E. M. Standish, valid 1800–2050), except the Moon, which uses a mean-element lunar orbit around the Earth–Moon barycentre. Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
+
+Pluto, whose orbit also comes from this JPL table, is listed with the [dwarf planets](small-bodies.md#pluto).
 
 The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
 
@@ -18,7 +20,6 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 | <a id="saturn"></a>**Saturn** | Gas giant | 699 | [science.nasa.gov](https://science.nasa.gov/saturn/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturnfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27699%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
 | <a id="uranus"></a>**Uranus** | Ice giant | 799 | [science.nasa.gov](https://science.nasa.gov/uranus/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27799%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
 | <a id="neptune"></a>**Neptune** | Ice giant | 899 | [science.nasa.gov](https://science.nasa.gov/neptune/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptunefact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27899%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
-| <a id="pluto"></a>**Pluto** | Dwarf planet · Kuiper belt | 999 | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/pluto/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27999%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Painted |
 
 ## Sources for this group
 

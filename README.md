@@ -33,9 +33,9 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 ## What's inside
 
 - **494 real objects**, each with orbital elements from NASA/JPL:
-  - the Sun, 8 planets, the Moon and Pluto
+  - the Sun, 8 planets and the Moon
   - **459 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5
-  - 8 dwarf planets and candidates, 12 asteroids and centaurs, 4 comets
+  - 9 dwarf planets and candidates (Pluto among them), 12 asteroids and centaurs, 4 comets
 - **Real-time positions** computed from JPL Keplerian and mean orbital elements, for any date (forward or backward in time)
 - **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
 - Moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…) that you can switch on one group at a time
@@ -97,8 +97,8 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
-- [Sun, planets, the Moon and Pluto](docs/catalogue/sun-planets.md) (11)
-- [Dwarf planets, asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (24)
+- [Sun, planets and the Moon](docs/catalogue/sun-planets.md) (10)
+- [Dwarf planets (including Pluto), asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (25)
 - [Moons of Mars](docs/catalogue/moons-mars.md) (2)
 - [Moons of Jupiter](docs/catalogue/moons-jupiter.md) (115)
 - [Moons of Saturn](docs/catalogue/moons-saturn.md) (292)
