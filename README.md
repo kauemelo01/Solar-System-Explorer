@@ -49,7 +49,6 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
 - **Fullscreen mode** for classrooms and presentations: hides the menu, cards and time bar, leaving only the sky and the solar system
-- A **collapsible menu** whose sections (Reference body, Show, Beyond the solar system, Trails, View) all start expanded
 - Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step; any static web host (such as GitHub Pages) can serve it
 
 ### Controls
