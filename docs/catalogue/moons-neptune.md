@@ -1,4 +1,4 @@
-[← Documentation index](../README.md) · [Project README](../../README.md)
+[← Documentation index](../README.md) · [Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme)
 
 # Moons of Neptune
 
