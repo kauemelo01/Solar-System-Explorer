@@ -42,12 +42,12 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 - Statistical belts (main asteroid belt, Jupiter trojans, Kuiper belt) to show where those populations live
 - **The real sky behind it all**:
   - 9,096 stars from the Yale Bright Star Catalogue
-  - NASA's Milky Way map
-  - 29 nebulae, clusters, galaxies and deep fields (21 with NASA images), such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the Hubble and Webb deep fields
+  - NASA's all-sky star map (Milky Way and faint stars), up to 8192 × 4096
+  - 29 nebulae, clusters, galaxies and deep fields, such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the Hubble and Webb deep fields
   - 29 named bright stars and 5 stars with known planets (including Proxima Centauri and TRAPPIST-1)
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
-- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data and images in [`sky/`](sky/). No build step and no server
+- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step and no server
 
 ### Controls
 
@@ -73,8 +73,8 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Planet radii, rotation, poles | [NASA NSSDCA fact sheets](https://nssdc.gsfc.nasa.gov/planetary/planetfact.html); IAU WGCCRE 2015 report ([Archinal et al. 2018](https://doi.org/10.1007/s10569-017-9805-5)) |
 | Object identifiers | NAIF / JPL SPK IDs, checked against [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) |
 | Stars | *Yale Bright Star Catalogue*, 5th ed., via [NASA HEASARC](https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html) |
-| Milky Way | NASA/Goddard SVS, [*Deep Star Maps 2020*](https://svs.gsfc.nasa.gov/4851) |
-| Deep-sky images | [NASA Image and Video Library](https://images.nasa.gov/) (Hubble, Webb, Spitzer, GALEX) |
+| Milky Way and faint stars | NASA/Goddard SVS, [*Deep Star Maps*](https://svs.gsfc.nasa.gov/3895) (2009) |
+| Deep-sky reference images (linked) | [NASA Image and Video Library](https://images.nasa.gov/) |
 | Deep-sky positions | CDS SIMBAD / Sesame |
 | Stars with planets | [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/) |
 
@@ -100,7 +100,7 @@ cd Solar-System-Explorer
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
 
-Opening `index.html` directly from disk works for the solar system, but browsers block the sky images over `file://`, so use a local server to see them.
+Opening `index.html` directly from disk works for the solar system, but browsers block the sky map over `file://`, so use a local server to see it.
 
 ## Accuracy and limits
 
