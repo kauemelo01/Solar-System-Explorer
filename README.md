@@ -61,6 +61,8 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
+| Collapse / expand the menu | The arrow button at the top of the menu (on phones: **Controls**) |
+| Fullscreen mode (hides menus, cards and the time bar) | The corner-arrows button at the top of the menu, or `F`; exit with `Esc`, `F` or the **Exit fullscreen** button |
 
 ## Data provenance
 

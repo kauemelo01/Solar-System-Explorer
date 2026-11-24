@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Solar System Explorer</title>
+  <defs>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3c4"/><stop offset=".55" stop-color="#ffcc66"/><stop offset="1" stop-color="#f29a3a"/></radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffcc66" stop-opacity=".55"/><stop offset="1" stop-color="#ffcc66" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#070b16"/>
+  <g fill="#e9edf5"><circle cx="11" cy="13" r=".9"/><circle cx="52" cy="10" r=".7"/><circle cx="9" cy="47" r=".7"/><circle cx="56" cy="51" r=".9"/><circle cx="23" cy="56" r=".6"/></g>
+  <ellipse cx="32" cy="32" rx="25" ry="10.5" transform="rotate(-25 32 32)" fill="none" stroke="#8bb8ff" stroke-opacity=".75" stroke-width="1.8"/>
+  <circle cx="32" cy="32" r="12" fill="url(#glow)"/>
+  <circle cx="32" cy="32" r="6.5" fill="url(#sun)"/>
+  <circle cx="52.2" cy="30" r="7.5" fill="none" stroke="#c3cad8" stroke-opacity=".55" stroke-width="1.1" stroke-dasharray="2 1.6"/>
+  <circle cx="52.2" cy="30" r="4.2" fill="#5c9dff"/>
+  <circle cx="58.6" cy="26.6" r="1.4" fill="#d6d6d2"/>
+</svg>
