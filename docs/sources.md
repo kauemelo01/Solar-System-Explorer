@@ -56,7 +56,7 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 
 - **Elements and sizes:** JPL Small-Body Database (osculating heliocentric elements; epoch JD 2461200.5 = 2026-Jun-24 TDB for most objects, and the most recent perihelion solution for comets). <https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html>, API: <https://ssd-api.jpl.nasa.gov/doc/sbdb.html>
 - **Designations:** IAU Minor Planet Center. <https://www.minorplanetcenter.net/>
-- **Spin poles** of small bodies are not modelled from data. They are randomised for display only.
+- **Spin poles** of small bodies are not modelled from data. They are randomised for display only, except for Ceres and Vesta, which use their IAU 2015 poles (Archinal et al. 2018) so that their surface maps sit north-up.
 
 ## Belts
 
@@ -98,12 +98,14 @@ Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On
 
 ## Surface maps
 
-Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is real data.** Some are partial, some have gaps filled in by their makers, and three are artist's concepts. Each one is listed below with what its publisher says about it.
+Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it. Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](#card-notes)).
 
 ### Sources
 
 - **Solar System Scope**, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0. The publisher says the maps are "based on NASA elevation and imagery data", with colours tuned to true-colour photos from MESSENGER, Viking and Cassini and made "slightly more saturated". Gaps in the data "are filled with fictional terrain that corresponds with the rest of the landscape". The publisher does not say which parts are filled.
-- **NASA 3D Resources** <https://github.com/nasa/NASA-3D-Resources>, free to use under NASA's media guidelines. These maps come from the JPL/Caltech planetary map database and are mostly old, from before Galileo, Cassini and New Horizons. The descriptions below are quoted from each map's page at <https://science.nasa.gov/3d-resources/>.
+- **NASA 3D Resources** <https://github.com/nasa/NASA-3D-Resources>, free to use under NASA's media guidelines. These maps come from the JPL/Caltech planetary map database and are mostly old Voyager and Viking mosaics, from before Galileo and Cassini. The descriptions below are quoted from each map's page at <https://science.nasa.gov/3d-resources/>.
+- **NASA/JPL Photojournal**, PIA18668 *Map of Triton* <https://www.jpl.nasa.gov/images/pia18668-map-of-triton/> (Paul Schenk, Lunar and Planetary Institute, 2014), from Voyager 2 images. Public domain.
+- **DLR Dawn mosaics** <https://dawngis.dlr.de/>: global clear-filter mosaics from Dawn's framing camera, made by the German Aerospace Center (DLR). Credit: NASA/JPL-Caltech/UCLA/MPS/DLR/IDA.
 
 ### Every map, with its coverage
 
@@ -119,9 +121,8 @@ Bodies with a surface map in `textures/` are drawn with it. All others keep a si
 | Uranus | Solar System Scope | 2048 × 1024 | Nearly featureless cloud tops | Representative only |
 | Neptune | Solar System Scope | 2048 × 1024 | Cloud tops including the Great Dark Spot | The Great Dark Spot seen by Voyager 2 in 1989 had gone by 1994 |
 | Saturn's rings | Solar System Scope | 2048 and 8192 px strip | Radial brightness and transparency | The strip's scale was fitted by the C-ring inner edge and Cassini Division (about ±1%) |
-| Pluto | NASA 3D Resources | 720 × 360 | **Fictional.** Stitched by David Seal from a painting by Pat Rawlings | Not real data. It predates New Horizons (2015) and does not show Pluto's real features, such as the heart-shaped Tombaugh Regio |
-| Charon | NASA 3D Resources | 720 × 360 | **Fictional.** "Texture map faked from some Magellan images and recent ground-based albedo maps of Charon" | Not real data. It predates New Horizons and does not show Charon's red polar cap (Mordor Macula) |
-| Titan | NASA 3D Resources | 720 × 360 | **Fictional.** "Titan concept with color from Voyager images" | Not real data. It is nearly uniform orange haze, which is close to how Titan looks in visible light |
+| Ceres | DLR, *Ceres HAMO mosaic* (Dawn) | 2048 × 1024 | Global map from Dawn's high-altitude mapping orbit | Black-and-white; thin strips at the poles |
+| Vesta | DLR, *Vesta HAMO mosaic* (Dawn) | 2048 × 1024 | Global map from Dawn's high-altitude mapping orbit | Black-and-white. The far north is dark: it was in winter shadow when Dawn photographed it. The app's Vesta is a generic lumpy shape, so the map is only approximately placed |
 | Phobos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Few visible gaps |
 | Deimos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Roughly a third of the map (one side) is smeared filler |
 | Io | NASA 3D Resources | 1440 × 720 | USGS mosaic of Voyager images; "data gaps near the poles" | The polar gaps (black in the original) are filled in the app with the painted texture |
@@ -129,15 +130,18 @@ Bodies with a surface map in `textures/` are drawn with it. All others keep a si
 | Callisto | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; a band of longitude and the south polar region are filled with flat white, which is wrong for dark Callisto |
 | Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus | NASA 3D Resources | 1440 × 720 | "Mosaic from the Voyager imagery" (before Cassini) | Black-and-white. Unmapped areas are filled with flat white or smears: about half of Enceladus and Mimas, a third of Dione, the south of Tethys and Iapetus, and both sides of Rhea |
 | Miranda, Ariel, Umbriel, Titania, Oberon | NASA 3D Resources | 1440 × 720 | USGS (Tammy Becker) mosaic of Voyager 2 images | Black-and-white. Voyager 2 saw only the southern hemispheres; the app fills the north (about 60% of each map) with the painted texture |
-| Triton | NASA 3D Resources | 1440 × 720 | "Stitched together from limited Voyager imagery by the USGS" | Covers only about 20% of Triton, filled in the app with the painted texture. **The patch is misplaced:** it sits mostly in the northern hemisphere, but Voyager 2 saw mainly the south, including the south polar cap. Voyager 2 actually imaged about half of Triton; the 2014 map PIA18668 (Paul Schenk, LPI) shows that coverage correctly |
+| Triton | NASA/JPL PIA18668 (Paul Schenk, 2014) | 2048 × 1024 | Voyager 2 images, enhanced colour | About half of Triton, mostly the southern hemisphere; the north was in polar night during the 1989 flyby. The app fills the unseen part with the painted texture, so a seam is visible |
 
-Bodies with no map keep the painted texture: Hyperion, all dwarf planets except Pluto, the asteroids and the comets. Ceres and Vesta have been mapped (by Dawn), but no map is included yet.
+Bodies with no map keep the painted texture: Hyperion, all dwarf planets except Ceres, the asteroids except Vesta, and the comets.
+
+**Removed maps.** Earlier versions used NASA 3D Resources maps for Pluto, Charon and Titan. NASA's own pages call all three "Fictional": Pluto was stitched from a painting by Pat Rawlings, Charon was "faked from some Magellan images", and Titan is a "concept". They were dropped, and these bodies use the painted texture again. Real maps exist for Pluto and Charon (New Horizons, 2015) and Titan (Cassini radar and infrared) and could be added later.
 
 ### Processing
 
 - The large Solar System Scope maps are recompressed to JPEG quality 80; the 2K ones are used as published.
 - The NASA maps are recompressed to JPEG quality 85.
 - For Io, the Uranian moons and Triton, the unmapped area (black in the originals) is made transparent and saved as WebP. In the app it is filled with the painted texture, so a seam is visible where they meet.
+- The Ceres and Vesta mosaics (21093 and 26703 pixels wide) and the Triton map (14138 pixels wide) are scaled down to 2048 × 1024.
 
 ### How they load
 
@@ -148,9 +152,26 @@ Bodies with no map keep the painted texture: Hyperion, all dwarf planets except 
 ### Orientation
 
 - **North is up on every map**, but longitude is not aligned. The app spins each body at its true rate but does not model where its prime meridian points, so the side facing you at a given moment is not the real one.
-- **Some maps are turned 180°.** Venus, Uranus and its moons, Pluto and Charon are spun about the pole opposite their map's north, so their maps are rotated 180° (a rotation, not a mirror image).
+- **Some maps are turned 180°.** Venus, Uranus and its moons are spun about the pole opposite their map's north, so their maps are rotated 180° (a rotation, not a mirror image).
 
 The logic is in `index.html`, next to the comment `surface maps`.
+
+### Card notes
+
+Each object's card in the app has a short note under its type saying what its surface image is:
+
+| Note | Used for |
+|---|---|
+| Surface: real spacecraft photos | Ceres, Vesta, Phobos |
+| Surface: based on real spacecraft photos | Mercury, Earth, the Moon, Mars (Solar System Scope: colours tuned and any gaps filled by the publisher) |
+| Clouds: based on real photos; a snapshot, as they change constantly | Venus, Jupiter, Saturn, Uranus, Neptune |
+| Surface: representative image, not a map | The Sun |
+| Surface: real photos, partial; gaps filled in by the map makers | Deimos, Europa, Ganymede, Callisto, Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus |
+| Surface: real photos, partial; unseen areas are painted | Io, Miranda, Ariel, Umbriel, Titania, Oberon, Triton |
+| Surface: painted illustration, not a real image | Every other body drawn as a sphere or lumpy shape, including Pluto, Charon and Titan |
+| Shown as a plain shape; no surface image | The small moons, drawn as plain-coloured shapes |
+
+Some notes add a detail, for example that Neptune's map shows the Great Dark Spot of 1989. If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
 
 ## Accuracy
 

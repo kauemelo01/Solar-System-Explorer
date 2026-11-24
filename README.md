@@ -86,7 +86,9 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Constellation boundaries | IAU (Delporte 1930), via CDS catalogues VI/42 (Roman 1987) and VI/49 (Davenhall & Leggett 1989) |
 | Constellation figures | NASA/Goddard SVS, [*Deep Star Maps*](https://svs.gsfc.nasa.gov/3895) (figures after Sky & Telescope for the IAU) |
 | Surface maps: Sun, planets, the Moon, Saturn's rings | [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0), based on NASA mission data, with gaps filled by the publisher |
-| Surface maps: Pluto, Charon and 19 major moons | [NASA 3D Resources](https://github.com/nasa/NASA-3D-Resources), mostly old Voyager and Viking mosaics. **The Pluto, Charon and Titan maps are artist's concepts, and several moon maps are partial**; see [the per-map list](docs/sources.md#every-map-with-its-coverage) |
+| Surface maps: Ceres, Vesta | Dawn mosaics by [DLR](https://dawngis.dlr.de/) (NASA/JPL-Caltech/UCLA/MPS/DLR/IDA) |
+| Surface map: Triton | NASA/JPL [PIA18668](https://www.jpl.nasa.gov/images/pia18668-map-of-triton/) (Paul Schenk, LPI), from Voyager 2 |
+| Surface maps: 17 other major moons | [NASA 3D Resources](https://github.com/nasa/NASA-3D-Resources), old Voyager and Viking mosaics. **Several are partial or gap-filled**; each object's card says so, and [the per-map list](docs/sources.md#every-map-with-its-coverage) has the details |
 
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
@@ -119,7 +121,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 |---|---|
 | `index.html` | The whole app: page, styles and code |
 | `sky/` | Sky data: star catalogue, NASA star maps, deep-sky objects, constellation boundaries and figures |
-| `textures/` | Surface maps for the Sun, planets, Saturn's rings, Pluto and the major moons ([sources](docs/sources.md#surface-maps)) |
+| `textures/` | Surface maps for the Sun, planets, Saturn's rings, Ceres, Vesta and the major moons ([sources](docs/sources.md#surface-maps)) |
 | `docs/` | Documentation and the per-object catalogue |
 | `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
 | `social-card.png` | Preview image shown when the link is shared (Open Graph / Twitter card) |

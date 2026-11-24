@@ -115,6 +115,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visi
 #focus .nm i{width:14px;height:14px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);flex:none}
 #focus h3{margin:0;font-size:22px;font-weight:600;line-height:1.05;color:var(--ink)}
 #focus .kind{color:var(--mute);font-size:13px;margin:4px 0 10px}
+#focus .surf{color:var(--mute);font-size:12px;line-height:1.35;margin:-4px 0 10px}
 dl{margin:0;display:grid;grid-template-columns:auto auto;gap:6px 12px;font-size:14px}
 dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
 #hold{width:100%;margin-top:12px}
@@ -153,6 +154,7 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
  #panel:not(.open) #pbody{display:none}
  #focus{left:8px;right:8px;top:auto;bottom:134px;width:auto;padding:10px 14px}
  #focus .more,#focus .kind{display:none}
+ #focus .surf{margin:2px 0 0}
  #sky{left:8px;right:8px;top:auto;bottom:134px;width:auto;padding:10px 14px}
  #sky .more{display:none}
  #sky h3{font-size:18px}
@@ -252,6 +254,7 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
 <section id="focus" class="card" aria-live="polite">
  <div class="nm"><i id="fDot"></i><h3 id="fName">Sun</h3></div>
  <div class="kind" id="fKind">Star</div>
+ <p class="surf" id="fSurf"></p>
  <dl>
   <dt id="fDl">From Sun</dt><dd id="fDist">—</dd>
   <dt>Light time</dt><dd id="fLight">—</dd>
@@ -401,10 +404,10 @@ const add=o=>{o.i=OBJ.length;o.h=new Float64Array(3);o.d=new Float64Array(3);o.k
 CORE.forEach(([id,name,cat,kind,R,color,P,pole,rot,tex])=>add({id,name,cat,kind,R,color,P,pole,rot,tex,major:1,orb:id==='sun'?'sun':id==='earth'||id==='moon'?'em':'pl',parent:id==='moon'?'earth':'sun',grp:id==='moon'?'earth:main':'core'}));
 byId.moon.par=byId.earth;
 add({id:'pluto',name:'Pluto',cat:'dwarf',kind:'Dwarf planet · Kuiper belt',R:1188.3,color:'#d9b996',P:90560,pole:[312.99,6.16],rot:153.29,tex:'pluto',major:1,orb:'pl',parent:'sun',grp:'dwarf'});
-const r1=rng(11);
+const r1=rng(11),SB_POLE={ceres:[291.418,66.764],vesta:[309.031,42.235]};// IAU 2015 poles for bodies with a surface map; others get a random pole
 SB.forEach(([id,name,cat,kind,a,e,i,om,w,M0,ep,R,color,rot,round])=>{const[Pv,Qv]=PQ(om,i,w);
  add({id,name,cat,kind,R,color,rot,round,major:1,orb:'sb',parent:'sun',grp:cat,a:a*AU,b:a*AU*Math.sqrt(1-e*e),e,M0,ep,n:0.9856076686/Math.pow(a,1.5),P:365.25*Math.pow(a,1.5),Pv,Qv,
-  pole:[r1()*360,r1()*140-70],tex:cat==='comet'?{t:'rock',c:['#3b3633','#272321','#5a524c'],p:1}:{t:'rock',c:[color,shade(color,-.25),shade(color,.2)],p:!round}})});
+  pole:((p,q)=>SB_POLE[id]||[p,q])(r1()*360,r1()*140-70),tex:cat==='comet'?{t:'rock',c:['#3b3633','#272321','#5a524c'],p:1}:{t:'rock',c:[color,shade(color,-.25),shade(color,.2)],p:!round}})});
 MOONS.forEach(([name,pid,akm,e,w,M0,inc,node,P,ra,dec,fam])=>{const[Pv,Qv]=PQ(node,inc,w,ra,dec),par=byId[pid],mj=MAJOR[name];
  const R=MOON_R[name]||(fam==='irregular'?(pid==='neptune'?20:10):pid==='saturn'?2:pid==='jupiter'?1.5:5);
  add({id:'m-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),name,cat:'moon',kind:'Moon of '+par.name+' · '+(FAM_DESC[fam]||''),R,est:!MOON_R[name],color:mj?(mj.c?mj.c[2]:MOON_COL[fam]):MOON_COL[fam],
@@ -481,13 +484,33 @@ function orientTo(obj,pole){const p=poleEcl(pole[0],pole[1]);v3.set(p[0],p[2],-p
    the procedural texFor() texture is used only if every file fails to load. Large maps are tried first on the same devices as the 8K sky map. */
 const BIGTEX=renderer.capabilities.maxTextureSize>=8192&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,TL=new THREE.TextureLoader();
 const MAP_HI=['sun','mercury','venus','earth','moon','mars','jupiter','saturn'],MAP_2K=['uranus','neptune'],
- MAP_JPG=['pluto','m-charon','m-phobos','m-deimos','m-europa','m-ganymede','m-callisto','m-mimas','m-enceladus','m-tethys','m-dione','m-rhea','m-titan','m-iapetus'],
- // partial maps: unmapped areas are transparent and filled with the procedural texture. Not every map is real data (Pluto, Charon and Titan are artist's concepts): see docs/sources.md#every-map-with-its-coverage
+ MAP_JPG=['ceres','vesta','m-phobos','m-deimos','m-europa','m-ganymede','m-callisto','m-mimas','m-enceladus','m-tethys','m-dione','m-rhea','m-iapetus'],
+ // partial maps: unmapped areas are transparent and filled with the procedural texture. Coverage of each map, and the note shown on each card: docs/sources.md#every-map-with-its-coverage
  MAP_PART=['m-io','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon','m-triton'],
  // the app spins these about the pole opposite their map's north, so their maps are turned 180° (a rotation, not a mirror)
- MAP_FLIP=['venus','uranus','pluto','m-charon','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon'];
+ MAP_FLIP=['venus','uranus','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon'];
 function mapFiles(id){if(MAP_HI.includes(id))return BIGTEX?[id+'_hi.jpg',id+'_2k.jpg']:[id+'_2k.jpg'];if(MAP_2K.includes(id))return[id+'_2k.jpg'];
  if(MAP_JPG.includes(id))return[id+'.jpg'];if(MAP_PART.includes(id))return[id+'.webp'];return null}
+// one-line note on each object's card saying what its surface image is
+const SURF={
+ real:'Surface: real spacecraft photos',
+ sss:'Surface: based on real spacecraft photos',
+ rep:'Clouds: based on real photos; a snapshot, as they change constantly',
+ repimg:'Surface: representative image, not a map',
+ gaps:'Surface: real photos, partial; gaps filled in by the map makers',
+ part:'Surface: real photos, partial; unseen areas are painted',
+ paint:'Surface: painted illustration, not a real image',
+ shape:'Shown as a plain shape; no surface image'};
+const SURF_ID={sun:'repimg',mercury:'sss',venus:'rep',earth:'sss',moon:'sss',mars:'sss',jupiter:'rep',saturn:'rep',uranus:'rep',neptune:'rep',
+ ceres:'real',vesta:'real','m-phobos':'real','m-europa':'gaps','m-ganymede':'gaps','m-io':'part',
+ 'm-deimos':'gaps','m-callisto':'gaps','m-mimas':'gaps','m-enceladus':'gaps','m-tethys':'gaps','m-dione':'gaps','m-rhea':'gaps','m-iapetus':'gaps',
+ 'm-miranda':'part','m-ariel':'part','m-umbriel':'part','m-titania':'part','m-oberon':'part','m-triton':'part'};
+const SURF_DETAIL={sun:'The Sun has no fixed surface and changes constantly',venus:'The surface is hidden',
+ neptune:'Shows the Great Dark Spot of 1989, gone by 1994',vesta:'The far north is dark: it was in shadow when photographed',
+ 'm-io':'Only small gaps near the poles','m-triton':'Voyager 2 saw about half of Triton',
+ 'm-miranda':'Voyager 2 saw only the southern half','m-ariel':'Voyager 2 saw only the southern half','m-umbriel':'Voyager 2 saw only the southern half',
+ 'm-titania':'Voyager 2 saw only the southern half','m-oberon':'Voyager 2 saw only the southern half'};
+function surfNote(o){if(!o.mesh)return SURF.shape+'.';if(o.mapFail)return SURF.paint+' (the real map failed to load)';const k=SURF_ID[o.id]||'paint';return SURF[k]+(SURF_DETAIL[o.id]?'. '+SURF_DETAIL[o.id]+'.':'.')}
 function loadChain(files,ok,fail){if(!files.length)return fail();TL.load('textures/'+files[0],ok,undefined,()=>loadChain(files.slice(1),ok,fail))}
 function setMap(o,t){t.encoding=THREE.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
  if(MAP_FLIP.includes(o.id)){t.center.set(.5,.5);t.rotation=Math.PI}
@@ -495,7 +518,7 @@ function setMap(o,t){t.encoding=THREE.sRGBEncoding;t.anisotropy=Math.min(8,rende
 function loadMap(o){const files=mapFiles(o.id);if(!files)return setMap(o,texFor(o));
  loadChain(files,t=>{if(!MAP_PART.includes(o.id))return setMap(o,t);
   const img=t.image,c=document.createElement('canvas'),g=c.getContext('2d'),p=texFor(o);c.width=img.width;c.height=img.height;
-  g.drawImage(p.image,0,0,c.width,c.height);g.drawImage(img,0,0);p.dispose();t.dispose();setMap(o,new THREE.CanvasTexture(c))},()=>setMap(o,texFor(o)))}
+  g.drawImage(p.image,0,0,c.width,c.height);g.drawImage(img,0,0);p.dispose();t.dispose();setMap(o,new THREE.CanvasTexture(c))},()=>{o.mapFail=true;setMap(o,texFor(o));if(S.focus===o.id)$('fSurf').textContent=surfNote(o)})}
 OBJ.forEach(o=>{if(!o.major)return;
  o.g=new THREE.Group();o.tg=new THREE.Group();orientTo(o.tg,o.pole);
  const pot=o.tex&&o.tex.p,hasMap=!!mapFiles(o.id);
@@ -778,7 +801,7 @@ let _lkId=null;
 function renderUI(){
  if(!!cBox.querySelector(`[data-id="${S.center}"]`)===false||cBox.children.length!==CENTERABLE.length+(CENTERABLE.includes(S.center)?0:1))buildCenters();
  cBox.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.id===S.center));
- const f=byId[S.focus];$('fDot').style.setProperty('--c',f.color);$('fName').textContent=f.name;$('fKind').textContent=f.kind;
+ const f=byId[S.focus];$('fDot').style.setProperty('--c',f.color);$('fName').textContent=f.name;$('fKind').textContent=f.kind;$('fSurf').textContent=surfNote(f);
  $('fDl').textContent='From '+byId[S.center].name;$('fRad').textContent=(f.est?'≈ ':'')+(f.R<10?f.R.toFixed(f.R<1?2:1):Math.round(f.R).toLocaleString('en-US'))+' km'+(f.est?' (est.)':'');$('fPer').textContent=fmtP(f);if(_lkId!==f.id){_lkId=f.id;$('fLinks').innerHTML=linksHTML(f.id)}
  const can=f.id!==S.center;$('hold').style.display=can?'block':'none';$('hold').textContent='Hold '+f.name+' still';
  $('speedOut').textContent=(S.dir<0?'−':'')+SPEEDS[S.speed][0];$('speed').value=S.speed;
