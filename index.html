@@ -175,13 +175,11 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
   </details>
   <details class="sec"><summary>Beyond the solar system</summary>
    <p class="sub">Real stars, the Milky Way and famous objects at their true positions in the sky.</p>
-   <label class="sw"><input type="checkbox" id="skyMW" checked> Milky Way</label>
+   <label class="sw"><input type="checkbox" id="skyMW" checked> Milky Way &amp; faint stars</label>
    <label class="sw"><input type="checkbox" id="skyDSO" checked> Nebulae, clusters &amp; galaxies</label>
    <label class="sw"><input type="checkbox" id="skyStars" checked> Bright star names</label>
    <label class="sw"><input type="checkbox" id="skyExo" checked> Stars with known planets</label>
-   <label class="row" style="margin-top:6px"><span>Object size</span><output id="skySzOut">×1 true size</output></label>
-   <input type="range" id="skySz" min="0" max="100" value="0" aria-label="Sky object size magnification">
-   <p class="note">At true size only the largest (Andromeda, the Pleiades, Orion) show up. Hold Neptune still and the sky does not move: the stars are that far away.</p>
+   <p class="note">Click a label for details. Hold Neptune still and the sky does not move: the stars are that far away.</p>
   </details>
   <details class="sec" open><summary>Trails</summary>
    <label class="sw"><input type="checkbox" id="trails" checked> Show trails</label>
@@ -369,8 +367,8 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
-const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,sz:0}};
-try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,sz:0},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true}};
+try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
 const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp}))}catch(e){}};
 function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&(o.parent!=='pluto'||S.cat.dwarf);return!!S.cat[o.grp]}
@@ -467,12 +465,14 @@ const skyDir=(ra,dec,out)=>{ra*=DEG;dec*=DEG;const e=eqToEcl(Math.cos(dec)*Math.
 const SKYO=window.SKY_OBJECTS||{dso:[],exo:[],stars:[]},SKY=[],skyById={};
 SKYO.dso.forEach(o=>SKY.push(Object.assign({k:'dso'},o)));SKYO.stars.forEach(o=>SKY.push(Object.assign({k:'star'},o)));SKYO.exo.forEach(o=>SKY.push(Object.assign({k:'exo'},o)));
 SKY.forEach(o=>{o.dir=skyDir(o.ra,o.dec);skyById[o.id]=o});
-// Milky Way: NASA/Goddard SVS Deep Star Maps 2020 (equirectangular, RA 0h at centre, RA increasing to the left)
-const mwMat=new THREE.ShaderMaterial({uniforms:{map:{value:null},k:{value:.75}},side:THREE.BackSide,depthWrite:false,depthTest:false,
+// Sky map: NASA/Goddard SVS Deep Star Maps (SVS 3895), equirectangular in J2000 RA/Dec, RA 0h at centre, increasing to the left
+const mwMat=new THREE.ShaderMaterial({uniforms:{map:{value:null},k:{value:1.}},side:THREE.BackSide,depthWrite:false,depthTest:false,
  vertexShader:'varying vec3 vD;void main(){vD=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
- fragmentShader:'uniform sampler2D map;uniform float k;varying vec3 vD;const float E=0.40909280;void main(){vec3 d=normalize(vD);float xe=d.x,ye=-d.z,ze=d.y;float yq=cos(E)*ye-sin(E)*ze,zq=sin(E)*ye+cos(E)*ze;float ra=atan(yq,xe);float u=fract(.5-ra/6.28318531),v=.5+asin(clamp(zq,-1.,1.))/3.14159265;vec3 c=texture2D(map,vec2(u,v)).rgb;gl_FragColor=vec4(pow(c,vec3(1.25))*k,1.);}'});
+ fragmentShader:'uniform sampler2D map;uniform float k;varying vec3 vD;const float E=0.40909280;void main(){vec3 d=normalize(vD);float xe=d.x,ye=-d.z,ze=d.y;float yq=cos(E)*ye-sin(E)*ze,zq=sin(E)*ye+cos(E)*ze;float ra=atan(yq,xe);float u=fract(.5-ra/6.28318531),v=.5+asin(clamp(zq,-1.,1.))/3.14159265;vec3 c=texture2D(map,vec2(u,v)).rgb;gl_FragColor=vec4(c*k,1.);}'});
 const mw=new THREE.Mesh(new THREE.SphereGeometry(9,64,32),mwMat);mw.renderOrder=0;mw.visible=false;starScene.add(mw);
-new THREE.TextureLoader().load('sky/milkyway.jpg',t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;mwMat.uniforms.map.value=t;mw.visible=S.skyp.mw});
+{const L=new THREE.TextureLoader(),use=t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;const o=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(o)o.dispose();mw.visible=S.skyp.mw};
+ const big=renderer.capabilities.maxTextureSize>=8192&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600;
+ L.load('sky/starmap_4k.jpg',t=>{use(t);if(big)L.load('sky/starmap_8k.jpg',use)})}
 // stars: Yale Bright Star Catalogue (9,096 stars to V 6.5)
 {const A=window.SKY_STARS||[],n=A.length/4,p=new Float32Array(n*3),c=new Float32Array(n*3),z=new Float32Array(n*2),v=new THREE.Vector3();
  const BV=[[-.4,.62,.72,1],[0,.82,.88,1],[.4,1,.97,.92],[.8,1,.88,.72],[1.2,1,.8,.58],[1.6,1,.7,.45],[2.2,1,.6,.35]];
@@ -483,25 +483,15 @@ new THREE.TextureLoader().load('sky/milkyway.jpg',t=>{t.minFilter=THREE.LinearFi
   vertexShader:'attribute vec2 sa;varying vec3 vC;varying float vA;void main(){vC=color;vA=sa.y;gl_PointSize=sa.x;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
   fragmentShader:'varying vec3 vC;varying float vA;void main(){float r=length(gl_PointCoord-.5)*2.;float a=(1.-smoothstep(.35,1.,r))*vA;gl_FragColor=vec4(vC*a,a);}'}));
  pts.renderOrder=2;pts.frustumCulled=false;starScene.add(pts)}
-// deep-sky images (NASA Image and Video Library), drawn at the object's true angular size × magnification
-const skyMag=()=>Math.round(Math.pow(10,S.skyp.sz/100*Math.log10(40)));
-const SPR=[];
-{const L=new THREE.TextureLoader();
- for(const o of SKY){if(!o.img)continue;
-  const mat=new THREE.ShaderMaterial({uniforms:{map:{value:null},op:{value:0}},transparent:true,depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending,
-   vertexShader:'varying vec2 vU;void main(){vU=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-   fragmentShader:'uniform sampler2D map;uniform float op;varying vec2 vU;void main(){vec2 q=abs(vU-.5)*2.;float e=(1.-smoothstep(.62,1.,q.x))*(1.-smoothstep(.62,1.,q.y));vec3 c=texture2D(map,vU).rgb;gl_FragColor=vec4(c*e*op,1.);}'});
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(12),3));g.setAttribute('uv',new THREE.BufferAttribute(new Float32Array([0,0,1,0,1,1,0,1]),2));g.setIndex([0,1,2,0,2,3]);
-  const m=new THREE.Mesh(g,mat);m.renderOrder=1;m.frustumCulled=false;m.visible=false;starScene.add(m);o.mesh=m;SPR.push(o);
-  L.load(o.img,t=>{mat.uniforms.map.value=t;mat.uniforms.op.value=.95;m.visible=S.skyp.dso})}}
-const NP=skyDir(0,90),_u=new THREE.Vector3(),_r=new THREE.Vector3(),_x=new THREE.Vector3(),_y=new THREE.Vector3();
-function layoutSky(){const k=skyMag(),R=7;
- for(const o of SPR){const d=o.dir;_u.copy(NP).addScaledVector(d,-NP.dot(d)).normalize();_r.crossVectors(d,_u).normalize();
-  const pa=(o.pa==null?90:o.pa)*DEG;_x.copy(_r).multiplyScalar(Math.sin(pa)).addScaledVector(_u,-Math.cos(pa));_y.copy(_u).multiplyScalar(Math.sin(pa)).addScaledVector(_r,Math.cos(pa));
-  const th=Math.min(60,(o.isz||o.size)/60*k)*DEG,w=R*Math.tan(th/2),h=w*(o.aspect||1),P=o.mesh.geometry.attributes.position,c=[d.x*R,d.y*R,d.z*R];
-  [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx,sy],i)=>P.setXYZ(i,c[0]+_x.x*w*sx+_y.x*h*sy,c[1]+_x.y*w*sx+_y.y*h*sy,c[2]+_x.z*w*sx+_y.z*h*sy));P.needsUpdate=true}}
-function applySky(){mw.visible=S.skyp.mw&&!!mwMat.uniforms.map.value;for(const o of SPR)o.mesh.visible=S.skyp.dso&&!!o.mesh.material.uniforms.map.value;layoutSky();
- const k=skyMag();$('skySzOut').textContent=k===1?'×1 true size':'×'+k;$('skySz').value=S.skyp.sz;$('skyMW').checked=S.skyp.mw;$('skyDSO').checked=S.skyp.dso;$('skyStars').checked=S.skyp.st;$('skyExo').checked=S.skyp.exo}
+// markers at the true positions of deep-sky objects and planet-hosting stars
+{const L=SKY.filter(o=>o.k!=='star'),p=new Float32Array(L.length*3),c=new Float32Array(L.length*3);
+ L.forEach((o,i)=>{p.set([o.dir.x*5,o.dir.y*5,o.dir.z*5],i*3);c.set(o.k==='dso'?[.56,.69,1]:[.5,.88,.77],i*3)});
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(c,3));
+ var skyMk=new THREE.Points(g,new THREE.PointsMaterial({size:4*PR,sizeAttenuation:false,vertexColors:true,map:dotTex,transparent:true,depthWrite:false,depthTest:false}));
+ skyMk.renderOrder=3;skyMk.frustumCulled=false;starScene.add(skyMk);skyMk.userData.list=L}
+function applySky(){mw.visible=S.skyp.mw&&!!mwMat.uniforms.map.value;
+ {const L=skyMk.userData.list,C=skyMk.geometry.attributes.color;L.forEach((o,i)=>{const on=o.k==='dso'?S.skyp.dso:S.skyp.exo;C.setXYZ(i,...(on?(o.k==='dso'?[.56,.69,1]:[.5,.88,.77]):[0,0,0]))});C.needsUpdate=true}
+ $('skyMW').checked=S.skyp.mw;$('skyDSO').checked=S.skyp.dso;$('skyStars').checked=S.skyp.st;$('skyExo').checked=S.skyp.exo}
 
 /* distance rings around the reference body */
 const RINGS=[1,2,5,10,20,30,50,100],ringG=new THREE.Group();scene.add(ringG);
@@ -730,7 +720,7 @@ const skyPool=[],SKYL={};
 for(let i=0;i<40;i++){const el=document.createElement('button');el.className='lbl sky';el.onclick=()=>selectSky(el.dataset.id);lblBox.appendChild(el);skyPool.push(el)}
 const skyShown=o=>o.k==='dso'?S.skyp.dso:o.k==='star'?S.skyp.st:S.skyp.exo;
 const skyPrio=o=>o.id===S.sky?-1:o.k==='dso'?0:o.k==='exo'?1:2;
-const SKYSORT=SKY.slice().sort((a,b)=>skyPrio(a)-skyPrio(b)||(a.k==='star'?a.mag-b.mag:(b.size||b.isz||0)-(a.size||a.isz||0)));
+const SKYSORT=SKY.slice().sort((a,b)=>skyPrio(a)-skyPrio(b)||(a.k==='star'?a.mag-b.mag:(b.size||0)-(a.size||0)));
 const skyV=new THREE.Vector3();
 function placeSkyLabels(){const show=[];
  if(S.labels){const list=S.sky?[skyById[S.sky],...SKYSORT.filter(o=>o.id!==S.sky)]:SKYSORT;
@@ -755,7 +745,7 @@ function skyCard(o){const a=(h,t)=>`<a href="${h}" target="_blank" rel="noopener
  let L=a(SKYDOCS+o.id,'Details');if(o.nasa)L+=a('https://images.nasa.gov/details/'+encodeURIComponent(o.nasa),'NASA image');
  if(o.k==='exo')L+=a('https://exoplanetarchive.ipac.caltech.edu/overview/'+encodeURIComponent(o.host),'NASA Exoplanet Archive');
  L+=a('https://simbad.harvard.edu/simbad/sim-id?Ident='+encodeURIComponent(o.k==='star'?'HR '+o.hr:o.k==='exo'?o.host:o.simbad),'SIMBAD');
- h+=`<dd class="lk">${L}</dd>`;if(o.nasa)h+='<dd class="cr">Image: NASA (illustrative; not to exact scale or orientation)</dd>';$('sDl').innerHTML=h}
+ h+=`<dd class="lk">${L}</dd>`;$('sDl').innerHTML=h}
 function selectSky(id){const o=skyById[id];if(!o)return;S.sky=id;skyCard(o);$('focus').style.display='none';$('sky').style.display='block'}
 function clearSky(){if(!S.sky)return;S.sky=null;$('sky').style.display='none';$('focus').style.display=''}
 $('sClose').onclick=clearSky;
@@ -766,8 +756,7 @@ function turnStep(dt){if(!turn)return;turn.t=Math.min(1,turn.t+dt/1.2);const e=t
 $('skyMW').onchange=e=>{S.skyp.mw=e.target.checked;applySky();save()};
 $('skyDSO').onchange=e=>{S.skyp.dso=e.target.checked;applySky();save()};
 $('skyStars').onchange=e=>{S.skyp.st=e.target.checked;save()};
-$('skyExo').onchange=e=>{S.skyp.exo=e.target.checked;save()};
-$('skySz').oninput=e=>{S.skyp.sz=+e.target.value;applySky();save()};
+$('skyExo').onchange=e=>{S.skyp.exo=e.target.checked;applySky();save()};
 $('findNames').innerHTML=$('names').innerHTML+SKY.map(o=>`<option value="${o.name}">${o.k==='dso'?o.type:o.k==='exo'?'Star with planets':'Bright star'}</option>`).join('');
 
 /* ---------- loop ---------- */

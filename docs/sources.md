@@ -45,9 +45,9 @@ The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point 
 ## The sky beyond the solar system
 
 - **Stars:** *Yale Bright Star Catalogue*, 5th revised ed. (D. Hoffleit & W. H. Warren Jr., 1991; CDS V/50), via the NASA HEASARC table `bsc5p` <https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html>. All 9,096 entries with a position and V magnitude are drawn; colour comes from B−V.
-- **Milky Way:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps 2020* <https://svs.gsfc.nasa.gov/4851> (Milky Way without stars, celestial coordinates; Gaia DR2: ESA/Gaia/DPAC).
+- **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app loads the 4096 × 2048 version first, then the 8192 × 4096 version on screens and graphics cards that support it.
 - **Deep-sky positions:** CDS SIMBAD and the Sesame name resolver (J2000).
-- **Deep-sky images:** NASA Image and Video Library <https://images.nasa.gov/>. Credits are listed per image in [catalogue/sky.md](catalogue/sky.md).
+- **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky). Credits are listed in [catalogue/sky.md](catalogue/sky.md).
 - **Planet-hosting stars:** NASA Exoplanet Archive, `pscomppars` table <https://exoplanetarchive.ipac.caltech.edu/>.
 - **Star names:** IAU Working Group on Star Names.
 - **Frame:** J2000 equatorial positions are rotated into the ecliptic J2000 frame used for the planets. The sky sphere is centred on the camera, so it behaves as infinitely far away. That is a very good approximation: from Neptune, even Proxima Centauri shifts by less than 25″.
