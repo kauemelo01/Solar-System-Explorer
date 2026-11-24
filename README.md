@@ -47,7 +47,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - 29 named bright stars and 5 stars with known planets (including Proxima Centauri and TRAPPIST-1)
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
-- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step and no server
+- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step; any static web host (such as GitHub Pages) can serve it
 
 ### Controls
 
@@ -55,7 +55,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 |---|---|
 | Rotate / zoom | Drag; scroll or pinch |
 | Fly to an object | Click its name, or use **Find** (`/`) |
-| Look at a star, nebula or galaxy | Click its label, or type its name in **Find** to turn the view towards it |
+| Look at a star, nebula or galaxy | Click its label to open its card, or type its name in **Find** to turn the view towards it |
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |

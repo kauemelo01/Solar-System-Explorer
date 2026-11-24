@@ -33,3 +33,5 @@ Each row in the catalogue links to:
 2. Every planet and moon was matched to its NAIF ID in the JPL *Planetary Satellite Mean Elements* table, and the ID was confirmed in JPL Horizons. 493 of 494 resolve in Horizons. The exception, S/2025 U 1, is listed by JPL's table but not yet in Horizons.
 3. Every small body was resolved through the JPL SBDB API to its SPK ID and full designation.
 4. Each NASA Science link was checked to return HTTP 200 at the time of writing.
+5. Sky objects: each deep-sky object and planet-hosting star was resolved by name in CDS SIMBAD/Sesame for its J2000 position. Planet-hosting stars were cross-checked against the NASA Exoplanet Archive. Named stars were matched to their Bayer designations in the Yale Bright Star Catalogue.
+6. The sky map's orientation was checked by mapping the SIMBAD positions of the Large and Small Magellanic Clouds and the galactic centre onto the NASA star map: each lands on the matching feature.
