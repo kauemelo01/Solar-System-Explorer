@@ -62,6 +62,8 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
+| Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |
+| Sky map detail | *Images → Sky map detail*: **Auto** (8K on large screens, otherwise 4K), **4K** or **8K** (disabled on devices whose graphics cannot show 8K textures) |
 | Fold or unfold a menu section | Click the section's heading |
 | Collapse / expand the menu | The arrow button at the top of the menu (on phones: **Controls**) |
 | Fullscreen mode (hides menus, cards and the time bar) | The corner-arrows button at the top of the menu, or `F`; exit with `Esc`, `F` or the **Exit fullscreen** button |

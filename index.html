@@ -102,6 +102,7 @@ select,#find{font:16px Jost,sans-serif;color:var(--ink);background:#151b29;borde
 input[type=range]{width:100%;accent-color:var(--accent);min-height:32px}
 output{font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.seg.seg3{grid-template-columns:1fr 1fr 1fr}.seg button:disabled{color:var(--mute);cursor:not-allowed;opacity:.55}
 .btn{min-height:44px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;font:500 14px Jost,sans-serif;cursor:pointer;padding:0 12px;white-space:nowrap}
 .btn:hover,.g:hover{background:rgba(255,255,255,.06)}
 .ib{width:44px;height:44px;display:grid;place-items:center;padding:0;flex:none}
@@ -168,6 +169,8 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 }
 @media(min-width:601px){#panel h1{white-space:nowrap;min-width:0;overflow:hidden;flex:1 1 auto}#panel header{gap:4px;padding-right:8px;min-height:60px}#panel .hbtns{gap:2px}#panel .hbtns .ib{min-width:0;min-height:0;width:22px;height:22px;border-radius:6px}#panel .hbtns .ib svg{width:13px;height:13px}#ptog{display:none}#panel.min #pbody{display:none}#panel.min{max-height:none}}
 @media(max-width:600px){#pmin{display:none}}
+/* wide screens: the panel runs to the bottom of the screen; the time bar stays centred and narrows so it clears the panel (16 px edge + 332 px panel + 16 px gap, mirrored on the right) */
+@media(min-width:1240px){#panel{max-height:calc(100% - 32px)}#timebar{width:min(820px,calc(100% - 728px))}}
 .hbtns{display:flex;align-items:center;gap:6px;flex:none}
 .hbtns .ib{min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center}
 #pmin svg{transition:transform .2s}#panel.min #pmin svg{transform:rotate(180deg)}
@@ -244,6 +247,13 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
    <label class="sw"><input type="checkbox" id="lbls" checked> Labels</label>
    <label class="sw"><input type="checkbox" id="rings" checked> Distance rings (AU)</label>
    <div class="grid2"><button class="btn" id="fitIn">Inner planets</button><button class="btn" id="fitAll">Whole system</button></div>
+  </details>
+  <details class="sec" open><summary>Images</summary>
+   <label class="sw"><input type="checkbox" id="realTex" checked> Realistic surface textures</label>
+   <p class="sub">Spacecraft maps where they exist. Off: painted textures only, with nothing extra to download.</p>
+   <div class="row"><span>Sky map detail</span></div>
+   <div class="seg seg3" id="skyRes"><button data-v="auto" aria-pressed="true">Auto</button><button data-v="4k" aria-pressed="false">4K</button><button data-v="8k" aria-pressed="false">8K</button></div>
+   <p class="note" id="skyResNote"></p>
   </details>
   <p class="hint">Drag to orbit, scroll or pinch to zoom, click a name to fly to it, double-click to hold it still. Keys: space pause, ← → speed, R reverse, T trails, C hold selected still, / find, F fullscreen.</p>
   <p class="src">Planets: JPL Keplerian elements (best 1800–2050). Moons: JPL mean elements, 459 moons as of Nov 2026; Pluto’s small-moon phases approximate. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
@@ -418,10 +428,10 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
-const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false}};
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
 try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
-const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin}))}catch(e){}};
+const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
 function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&(o.parent!=='pluto'||S.cat.dwarf);return!!S.cat[o.grp]}
 const sizeF=()=>Math.round(Math.pow(10,S.sizeV/100*Math.log10(3000)));
 const kf=r=>S.mode!=='log'||r<1e-9?1:R0*Math.log1p(r/R0)/r;
@@ -512,9 +522,11 @@ const SURF_DETAIL={earth:'Clouds are painted',venus:'Surface hidden',neptune:'Da
  'm-titania':'Only the south was seen','m-oberon':'Only the south was seen'};
 function surfNote(o){if(!o.mesh)return SURF.shape+'.';if(o.mapFail)return SURF.paint+' (real map failed to load).';const k=SURF_ID[o.id]||'paint';return SURF[k]+(SURF_DETAIL[o.id]?'. '+SURF_DETAIL[o.id]+'.':'.')}
 function loadChain(files,ok,fail){if(!files.length)return fail();TL.load('textures/'+files[0],ok,undefined,()=>loadChain(files.slice(1),ok,fail))}
-function setMap(o,t){t.encoding=THREE.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
- if(MAP_FLIP.includes(o.id)){t.center.set(.5,.5);t.rotation=Math.PI}
- const m=o.mesh.material,old=m.map;m.map=t;m.color.set(0xffffff);m.needsUpdate=true;if(old)old.dispose()}
+// each body keeps both textures once made: o.texReal (its map, downloaded only when realistic textures are on) and o.texPaint (painted, made on first use)
+const paintTex=o=>o.texPaint||(o.texPaint=texFor(o));
+function prepReal(o,t){t.encoding=THREE.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+ if(MAP_FLIP.includes(o.id)){t.center.set(.5,.5);t.rotation=Math.PI}return t}
+function useTex(o,t){const m=o.mesh.material;if(m.map===t)return;const had=!!m.map;m.map=t;m.color.set(t?0xffffff:o.color);if(had!==!!t)m.needsUpdate=true}
 /* Earth's clouds: a random, painted cloud layer (no weather model) so the cloud-free map looks less artificial.
    3D value noise sampled on the sphere (no seams or polar pinching), thinned in the subtropics, denser near the equator and at mid-latitudes. */
 function cloudTex(W,H,done){const R=rng(7),P=new Uint8Array(512);for(let i=0;i<256;i++)P[i]=i;for(let i=255;i>0;i--){const j=Math.floor(R()*(i+1)),t=P[i];P[i]=P[j];P[j]=t}for(let i=0;i<256;i++)P[i+256]=P[i];
@@ -532,29 +544,41 @@ function cloudTex(W,H,done){const R=rng(7),P=new Uint8Array(512);for(let i=0;i<2
    D[k]=D[k+1]=D[k+2]=255;D[k+3]=a*a*(3-2*a)*225}}
   if(y<H)return setTimeout(step,0);g.putImageData(img,0,0);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;done(t)};step()}
 function addClouds(o){if(o.clouds)return;o.clouds=true;cloudTex(1024,512,t=>{const m=new THREE.Mesh(sph,new THREE.MeshLambertMaterial({map:t,transparent:true,depthWrite:false}));
- m.scale.setScalar(1.008);m.raycast=()=>{};o.clouds=m;o.mesh.add(m)})}
-function loadMap(o){const files=mapFiles(o.id);if(!files)return setMap(o,texFor(o));
- loadChain(files,t=>{if(o.id==='earth')addClouds(o);if(!MAP_PART.includes(o.id))return setMap(o,t);
-  const img=t.image,c=document.createElement('canvas'),g=c.getContext('2d'),p=texFor(o);c.width=img.width;c.height=img.height;
-  g.drawImage(p.image,0,0,c.width,c.height);g.drawImage(img,0,0);p.dispose();t.dispose();setMap(o,new THREE.CanvasTexture(c))},()=>{o.mapFail=true;setMap(o,texFor(o));if(S.focus===o.id)$('fSurf').textContent=surfNote(o)})}
+ m.scale.setScalar(1.008);m.raycast=()=>{};m.visible=S.realTex;o.clouds=m;o.mesh.add(m)})}
+function loadMap(o){o.mapState='loading';
+ loadChain(mapFiles(o.id),t=>{if(o.id==='earth')addClouds(o);
+  if(MAP_PART.includes(o.id)){const img=t.image,c=document.createElement('canvas'),g=c.getContext('2d'),p=paintTex(o);c.width=img.width;c.height=img.height;
+   g.drawImage(p.image,0,0,c.width,c.height);g.drawImage(img,0,0);t.dispose();t=new THREE.CanvasTexture(c)}
+  o.texReal=prepReal(o,t);o.mapState='ok';applyTex(o)},
+  ()=>{o.mapState='fail';o.mapFail=true;applyTex(o);if(S.focus===o.id)$('fSurf').textContent=surfNote(o)})}
+// show the real map when realistic textures are on and it has loaded (plain colour while it loads), otherwise the painted texture
+function applyTex(o){if(!o.mesh)return;const files=mapFiles(o.id);
+ if(S.realTex&&files){if(!o.mapState)loadMap(o);useTex(o,o.mapState==='ok'?o.texReal:o.mapState==='fail'?paintTex(o):null)}else useTex(o,paintTex(o));
+ if(o.clouds&&o.clouds.isMesh)o.clouds.visible=S.realTex;if(o.ring)applyRing(o)}
+function applyTextures(){OBJ.forEach(applyTex)}
 OBJ.forEach(o=>{if(!o.major)return;
  o.g=new THREE.Group();o.tg=new THREE.Group();orientTo(o.tg,o.pole);
  const pot=o.tex&&o.tex.p,hasMap=!!mapFiles(o.id);
- const mat=hasMap?(o.id==='sun'?new THREE.MeshBasicMaterial({color:o.color}):new THREE.MeshLambertMaterial({color:o.color})):o.id==='sun'?new THREE.MeshBasicMaterial({map:texFor(o)}):new THREE.MeshLambertMaterial({map:texFor(o)});
+ const mat=o.id==='sun'?new THREE.MeshBasicMaterial({color:o.color}):new THREE.MeshLambertMaterial({color:o.color});
  o.mesh=new THREE.Mesh(pot?POT[o.i%3]:o.cat==='planet'||o.id==='sun'||hasMap?sph:sphLo,mat);
- if(hasMap)loadMap(o);
  if(o.id==='haumea')o.mesh.scale.set(1,.52,.78);
  o.tg.add(o.mesh);o.g.add(o.tg);scene.add(o.g);
  if(o.id==='saturn'){const ri=74500/o.R,ro=136780/o.R,rg=new THREE.RingGeometry(ri,ro,160,1),uv=rg.attributes.uv,p=rg.attributes.position;
   for(let i=0;i<p.count;i++)uv.setXY(i,(Math.hypot(p.getX(i),p.getY(i))-ri)/(ro-ri),.5);
   const ringTex=()=>ctex(512,4,(g,W,H)=>{for(let x=0;x<W;x++){const u=x/W;let a=u<.28?.18+u*.4:u<.69?.85:u<.765?.06:u>.955&&u<.965?.1:.6;a*=.85+.15*Math.sin(x*1.7)*Math.sin(x*.37);g.fillStyle=`rgba(${u<.28?190:226},${u<.28?175:206},${u<.28?150:160},${a})`;g.fillRect(x,0,1,H)}});
   const ring=new THREE.Mesh(rg,new THREE.MeshLambertMaterial({transparent:true,side:THREE.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.visible=false;o.tg.add(ring);
-  const useRing=t=>{ring.material.map=t;ring.material.needsUpdate=true;ring.visible=true};
-  // ring strip spans 70,726 km (u=0) to 141,751 km (u=1); this maps the app's 74,500-136,780 km annulus onto it
-  loadChain(BIGTEX?['saturn_ring_hi.png','saturn_ring_2k.png']:['saturn_ring_2k.png'],t=>{t.encoding=THREE.sRGBEncoding;t.repeat.x=(136780-74500)/71025;t.offset.x=(74500-70726)/71025;useRing(t)},()=>useRing(ringTex()))}
+  o.ring={mesh:ring,paint:ringTex};}
  if(o.cat==='comet'){const cg=new THREE.ConeGeometry(1,1,24,1,true);cg.translate(0,-.5,0);
   o.tail=new THREE.Mesh(cg,new THREE.MeshBasicMaterial({color:0x9fc8ff,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));o.tail.frustumCulled=false;scene.add(o.tail);
   o.coma=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(220,240,255,.9)','rgba(140,190,255,.25)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));scene.add(o.coma)}});
+// Saturn's rings follow the same rule: real strip when realistic textures are on (hidden while it loads), painted otherwise
+function applyRing(o){const R=o.ring,m=R.mesh.material,use=t=>{if(m.map!==t){m.map=t;m.needsUpdate=true}R.mesh.visible=!!t};
+ if(!S.realTex){R.texPaint=R.texPaint||R.paint();return use(R.texPaint)}
+ if(R.state==='ok')return use(R.texReal);if(R.state==='fail'){R.texPaint=R.texPaint||R.paint();return use(R.texPaint)}
+ use(null);if(R.state)return;R.state='loading';
+ // ring strip spans 70,726 km (u=0) to 141,751 km (u=1); this maps the app's 74,500-136,780 km annulus onto it
+ loadChain(BIGTEX?['saturn_ring_hi.png','saturn_ring_2k.png']:['saturn_ring_2k.png'],t=>{t.encoding=THREE.sRGBEncoding;t.repeat.x=(136780-74500)/71025;t.offset.x=(74500-70726)/71025;R.texReal=t;R.state='ok';applyRing(o)},()=>{R.state='fail';applyRing(o)})}
+applyTextures();
 const sun=byId.sun;
 const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(255,236,170,1)','rgba(255,170,60,.35)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));sun.g.add(glow);
 const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex('rgba(255,240,200,.9)','rgba(255,180,80,.18)'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,sizeAttenuation:false}));halo.scale.set(.09,.09,1);sun.g.add(halo);
@@ -583,10 +607,16 @@ const mwMat=new THREE.ShaderMaterial({uniforms:{map:{value:null},k:{value:1.}},s
  vertexShader:'varying vec3 vD;void main(){vD=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
  fragmentShader:'uniform sampler2D map;uniform float k;varying vec3 vD;const float E=0.40909280;void main(){vec3 d=normalize(vD);float xe=d.x,ye=-d.z,ze=d.y;float yq=cos(E)*ye-sin(E)*ze,zq=sin(E)*ye+cos(E)*ze;float ra=atan(yq,xe);float u=fract(.5-ra/6.28318531),v=.5+asin(clamp(zq,-1.,1.))/3.14159265;vec3 c=texture2D(map,vec2(u,v)).rgb;gl_FragColor=vec4(c*k,1.);}'});
 const mw=new THREE.Mesh(new THREE.SphereGeometry(9,64,32),mwMat);mw.renderOrder=0;mw.visible=false;starScene.add(mw);
-{const L=new THREE.TextureLoader(),use=t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;const o=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(o)o.dispose();mw.visible=S.skyp.mw};
- // 8K map is tried first if the GPU supports 8192-px textures and the screen's long side is >= 1600 device px; the 4K map loads only if the 8K one fails, or on other devices (docs/sources.md#sky-map-loading)
- const big=renderer.capabilities.maxTextureSize>=8192&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,load4k=()=>L.load('sky/starmap_4k.jpg',use);
- if(big)L.load('sky/starmap_8k.jpg',use,undefined,load4k);else load4k()}
+// Sky map size: S.skyRes is 'auto', '4k' or '8k' (side panel). Auto tries 8K first if the GPU supports 8192-px textures and the screen's long side is >= 1600 device px,
+// otherwise 4K; any 8K attempt falls back to 4K if it fails. Loaded maps are kept, so switching back does not download again (docs/sources.md#sky-map-loading)
+const SKY8_OK=renderer.capabilities.maxTextureSize>=8192,SKY_AUTO8=SKY8_OK&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,skyTex={};let skyReq=0;
+if(S.skyRes==='8k'&&!SKY8_OK)S.skyRes='auto';
+function loadSky(){const req=++skyReq,want=(S.skyRes==='8k'||(S.skyRes==='auto'&&SKY_AUTO8))?['8k','4k']:['4k'],L=new THREE.TextureLoader();
+ const use=(k,t)=>{if(req!==skyReq)return;const old=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(old&&old!==t)old.dispose();mw.visible=S.skyp.mw;mwMat.userData.res=k};
+ const next=i=>{const k=want[i];if(!k)return;if(skyTex[k])return use(k,skyTex[k]);
+  L.load('sky/starmap_'+k+'.jpg',t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;skyTex[k]=t;use(k,t)},undefined,()=>next(i+1))};
+ next(0)}
+loadSky();
 // stars: Yale Bright Star Catalogue (9,096 stars to V 6.5)
 {const A=window.SKY_STARS||[],n=A.length/4,p=new Float32Array(n*3),c=new Float32Array(n*3),z=new Float32Array(n*2),v=new THREE.Vector3();
  const BV=[[-.4,.62,.72,1],[0,.82,.88,1],[.4,1,.97,.92],[.8,1,.88,.72],[1.2,1,.8,.58],[1.6,1,.7,.45],[2.2,1,.6,.35]];
@@ -819,13 +849,15 @@ let _lkId=null;
 function renderUI(){
  if(!!cBox.querySelector(`[data-id="${S.center}"]`)===false||cBox.children.length!==CENTERABLE.length+(CENTERABLE.includes(S.center)?0:1))buildCenters();
  cBox.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.id===S.center));
- const f=byId[S.focus];$('fDot').style.setProperty('--c',f.color);$('fName').textContent=f.name;$('fKind').textContent=f.kind;$('fSurf').textContent=surfNote(f);
+ const f=byId[S.focus];$('fDot').style.setProperty('--c',f.color);$('fName').textContent=f.name;$('fKind').textContent=f.kind;$('fSurf').textContent=surfNote(f);$('fSurf').hidden=!S.realTex;
  $('fDl').textContent='From '+byId[S.center].name;$('fRad').textContent=(f.est?'≈ ':'')+(f.R<10?f.R.toFixed(f.R<1?2:1):Math.round(f.R).toLocaleString('en-US'))+' km'+(f.est?' (est.)':'');$('fPer').textContent=fmtP(f);if(_lkId!==f.id){_lkId=f.id;$('fLinks').innerHTML=linksHTML(f.id)}
  const can=f.id!==S.center;$('hold').style.display=can?'block':'none';$('hold').textContent='Hold '+f.name+' still';
  $('speedOut').textContent=(S.dir<0?'−':'')+SPEEDS[S.speed][0];$('speed').value=S.speed;
  $('rev').setAttribute('aria-pressed',S.dir<0);$('playIco').innerHTML=S.playing?'<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>':'<path d="M7 5l12 7-12 7z"/>';
  $('play').setAttribute('aria-label',S.playing?'Pause':'Play');
- $('trails').checked=S.trails;$('tlen').value=S.tlen;$('lbls').checked=S.labels;$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
+ $('trails').checked=S.trails;$('tlen').value=S.tlen;$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
+ $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});
+ $('skyResNote').textContent=(S.skyRes==='auto'?'Auto: '+(SKY_AUTO8?'8K':'4K')+' on this screen. ':'')+(SKY8_OK?'8K is a 6.9 MB download, 4K is 2.2 MB.':'8K is not supported by this device\'s graphics.');$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
 function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
  const d=Math.hypot(_h[0]-_hc[0],_h[1]-_hc[1],_h[2]-_hc[2]),ds=Math.hypot(..._h);
@@ -852,6 +884,8 @@ $('trails').onchange=e=>{S.trails=e.target.checked;syncTrails(true);save()};
 $('tlen').onchange=e=>{S.tlen=+e.target.value;syncTrails(true);save()};
 $('lbls').onchange=e=>{S.labels=e.target.checked;save()};
 $('rings').onchange=e=>{S.rings=e.target.checked;renderUI();save()};
+$('realTex').onchange=e=>{S.realTex=e.target.checked;applyTextures();renderUI();save()};
+$('skyRes').onclick=e=>{const v=e.target.dataset.v;if(!v||e.target.disabled||v===S.skyRes)return;S.skyRes=v;loadSky();renderUI();save()};
 $('orbits').onchange=e=>{S.orbits=e.target.checked;save()};
 $('fitIn').onclick=()=>{cam.distT=fitDist(1.9);clampD()};$('fitAll').onclick=()=>{cam.distT=fitDist(S.cat.dwarf||S.cat.kuiper?55:36);clampD()};
 $('hold').onclick=()=>setCenter(S.focus);
