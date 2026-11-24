@@ -179,6 +179,6 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 ## Notes
 
-- **Megaclite** — Spelled `Magaclite` in the JPL table.
-- **Philophrosyne** — Spelled `Philophrosyn` in the JPL table.
+- **Megaclite** — Spelled as in JPL Horizons (NAIF 519). The JPL mean-elements table misspells it `Magaclite`.
+- **Philophrosyne** — Spelled as in JPL Horizons (NAIF 558). The JPL mean-elements table truncates it to `Philophrosyn`.
 

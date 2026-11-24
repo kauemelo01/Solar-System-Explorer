@@ -42,7 +42,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 6 | <a id="m-pan"></a>**Pan** | 133,600 | 0 | 0 | 0.5751 | 14.1 | 618 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27618%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pan/) |
 | 7 | <a id="m-daphnis"></a>**Daphnis** | 136,500 | 0 | 0 | 0.5941 | 3.8 | 635 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27635%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/daphnis/) |
 | 8 | <a id="m-aegaeon"></a>**Aegaeon** | 167,500 | 0 | 0 | 0.8081 | 0.3 | 653 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27653%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/aegaeon/) |
-| 9 | <a id="m-s-2009-s-1"></a>**S/2009 S 1** <sup>[note](#notes)</sup> | 117,061 | 0 | 0 | 0.473 | *est.* | 65304 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765304%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
+| 9 | <a id="m-s-2009-s-2"></a>**S/2009 S 2** <sup>[note](#notes)</sup> | 117,061 | 0 | 0 | 0.473 | *est.* | 65304 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765304%27&OBJ_DATA=YES&MAKE_EPHEM=NO) |
 
 ## Alkyonides (3)
 
@@ -356,5 +356,5 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 ## Notes
 
-- **S/2009 S 1** — Propeller moonlet in the outer B ring. JPL lists these exact elements under the label `S2009_S_2` (NAIF 65304).
+- **S/2009 S 2** — Named as in JPL Horizons and the JPL mean-elements table (NAIF 65304). Earlier versions of the app labelled this entry *S/2009 S 1*. Note that the JPL record describes it as an irregular satellite fit to 4 Cassini observations, while the mean elements place it at 117,061 km, inside the main rings.
 
