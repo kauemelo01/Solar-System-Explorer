@@ -83,18 +83,18 @@ The star map comes in two sizes, in `sky/`:
 | `starmap_4k.jpg` | 4096 × 2048 | 2.2 MB |
 | `starmap_8k.jpg` | 8192 × 4096 | 6.9 MB |
 
-1. **Every device loads the 4K map first**, so the sky appears quickly.
-2. **The 8K map is then loaded and swapped in** without a visible jump, but only when both of these hold:
+1. **Capable devices try the 8K map first.** A device counts as capable when both of these hold:
    - the graphics chip accepts textures at least 8192 pixels wide (`renderer.capabilities.maxTextureSize >= 8192`);
    - the screen's longer side is at least 1600 device pixels (`max(screen.width, screen.height) × devicePixelRatio >= 1600`).
+2. **The 4K map is the fallback.** It loads only if the 8K map fails to load, or straight away on devices that are not capable.
 
 In practice:
 
-- **Most desktops and laptops** switch to 8K; a 1920 × 1080 monitor already qualifies.
-- **Recent phones usually switch too.** For example, an iPhone screen's long side is 844 × 3 = 2,532 device pixels, and its graphics chip supports 8192.
-- **Older or low-end devices** stay on 4K.
+- **Most desktops and laptops** use 8K; a 1920 × 1080 monitor already qualifies.
+- **Recent phones usually use 8K too.** For example, an iPhone screen's long side is 844 × 3 = 2,532 device pixels, and its graphics chip supports 8192.
+- **Older or low-end devices** use 4K.
 
-Devices that switch download both files, about 9.1 MB in total. The 4K map only covers the gap until the 8K map arrives. The logic is in `index.html`, next to the comment `Sky map: NASA/Goddard SVS Deep Star Maps`.
+Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On capable devices the sky appears once the 8K map has arrived, so it takes a little longer to show up than when the 4K map loaded first. The logic is in `index.html`, next to the comment `Sky map: NASA/Goddard SVS Deep Star Maps`.
 
 ## Accuracy
 
