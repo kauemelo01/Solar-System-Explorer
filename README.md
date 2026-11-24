@@ -48,6 +48,8 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - the **88 IAU constellations** (off by default): official boundaries, stick figures and names, with a **Zodiac** filter showing the 13 constellations the Sun actually passes through, Ophiuchus included
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
+- **Fullscreen mode** for classrooms and presentations: hides the menu, cards and time bar, leaving only the sky and the solar system
+- A **collapsible menu** whose sections (Reference body, Show, Beyond the solar system, Trails, View) all start expanded
 - Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step; any static web host (such as GitHub Pages) can serve it
 
 ### Controls
@@ -61,6 +63,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
+| Fold or unfold a menu section | Click the section's heading |
 | Collapse / expand the menu | The arrow button at the top of the menu (on phones: **Controls**) |
 | Fullscreen mode (hides menus, cards and the time bar) | The corner-arrows button at the top of the menu, or `F`; exit with `Esc`, `F` or the **Exit fullscreen** button |
 
@@ -109,6 +112,16 @@ python3 -m http.server 8000   # then open http://localhost:8000
 
 Opening `index.html` directly from disk works for the solar system, but browsers block the sky map over `file://`, so use a local server to see it.
 
+## Project files
+
+| Path | What it is |
+|---|---|
+| `index.html` | The whole app: page, styles and code |
+| `sky/` | Sky data: star catalogue, NASA star maps, deep-sky objects, constellation boundaries and figures |
+| `docs/` | Documentation and the per-object catalogue |
+| `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
+| `LICENSE` | GNU General Public License v3 |
+
 ## Accuracy and limits
 
 This is an educational model built on mean and osculating Keplerian elements, not a full n-body integration. Planet positions are good to roughly arc-minutes within 1800–2050. Small-body positions drift slowly away from their element epoch. Moon positions follow mean elements, which do not include short-period perturbations. For mission-grade ephemerides, use [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) directly. See [docs/sources.md](docs/sources.md#accuracy) for details.
@@ -125,3 +138,7 @@ Distances and body sizes are always to true scale. A few visual aids are not. Ea
 ## Contributing
 
 New moons are announced every year. To add or update an object, open an issue or pull request that cites its JPL Horizons/SBDB record or its Minor Planet Electronic Circular, and update the matching page in [`docs/catalogue/`](docs/catalogue/).
+
+## License
+
+The code is released under the [GNU General Public License v3](LICENSE). Data and images keep the terms of their sources (NASA, JPL, CDS, the IAU and the papers cited), listed in [docs/sources.md](docs/sources.md).
