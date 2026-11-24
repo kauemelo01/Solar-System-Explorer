@@ -145,7 +145,7 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
  #jump{display:none}
  .spd{flex:1 1 80px}
 }
-@media(min-width:601px){#panel h1{white-space:nowrap}#panel header{gap:6px;padding-right:10px}.hbtns{gap:2px}.hbtns .ib{min-width:30px;min-height:30px;border-radius:8px}.hbtns .ib svg{width:15px;height:15px}#ptog{display:none}#panel.min #pbody{display:none}#panel.min{max-height:none}}
+@media(min-width:601px){#panel h1{white-space:nowrap;min-width:0;overflow:hidden;flex:1 1 auto}#panel header{gap:4px;padding-right:8px}.hbtns{gap:2px}.hbtns .ib{min-width:22px;min-height:22px;width:22px;height:22px;border-radius:6px}.hbtns .ib svg{width:13px;height:13px}#ptog{display:none}#panel.min #pbody{display:none}#panel.min{max-height:none}}
 @media(max-width:600px){#pmin{display:none}}
 .hbtns{display:flex;align-items:center;gap:6px;flex:none}
 .hbtns .ib{min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center}
@@ -752,6 +752,9 @@ function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center
 $('ptog').onclick=()=>{const o=$('panel').classList.toggle('open');$('ptog').setAttribute('aria-expanded',o)};
 function setMin(m){S.pmin=m;$('panel').classList.toggle('min',m);const b=$('pmin');b.setAttribute('aria-expanded',!m);b.title=b.ariaLabel=m?'Expand menu':'Collapse menu'}
 $('pmin').onclick=()=>{setMin(!S.pmin);save()};setMin(!!S.pmin);
+// keep the menu title on one line at its full size when it fits; shrink it only as much as needed when it does not
+function fitTitle(){const h=$('panel').querySelector('h1');h.style.fontSize='';if(!matchMedia('(min-width:601px)').matches)return;let f=22;while(h.scrollWidth>h.clientWidth+1&&f>15){f-=.5;h.style.fontSize=f+'px'}}
+fitTitle();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTitle);addEventListener('resize',fitTitle);
 // fullscreen mode: hides menus, cards and the time bar; also asks the browser for full screen when allowed
 let peekT=0;
 function setFS(on){document.body.classList.toggle('fs',on);
