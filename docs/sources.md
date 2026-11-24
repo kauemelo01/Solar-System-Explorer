@@ -42,6 +42,17 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 
 The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point clouds** drawn from typical orbital distributions (semi-major axis, eccentricity, inclination ranges). They show where those populations are, not individual catalogued objects. Overview: NASA Science <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/kuiper-belt/>.
 
+## The sky beyond the solar system
+
+- **Stars:** *Yale Bright Star Catalogue*, 5th revised ed. (D. Hoffleit & W. H. Warren Jr., 1991; CDS V/50), via the NASA HEASARC table `bsc5p` <https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html>. All 9,096 entries with a position and V magnitude are drawn; colour comes from B−V.
+- **Milky Way:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps 2020* <https://svs.gsfc.nasa.gov/4851> (Milky Way without stars, celestial coordinates; Gaia DR2: ESA/Gaia/DPAC).
+- **Deep-sky positions:** CDS SIMBAD and the Sesame name resolver (J2000).
+- **Deep-sky images:** NASA Image and Video Library <https://images.nasa.gov/>. Credits are listed per image in [catalogue/sky.md](catalogue/sky.md).
+- **Planet-hosting stars:** NASA Exoplanet Archive, `pscomppars` table <https://exoplanetarchive.ipac.caltech.edu/>.
+- **Star names:** IAU Working Group on Star Names.
+- **Frame:** J2000 equatorial positions are rotated into the ecliptic J2000 frame used for the planets. The sky sphere is centred on the camera, so it behaves as infinitely far away. That is a very good approximation: from Neptune, even Proxima Centauri shifts by less than 25″.
+- **Not modelled:** proper motion (the catalogue is J2000; Barnard's Star, the fastest, moves about 10″ per year) and precession.
+
 ## Accuracy
 
 | Object type | Model | Typical accuracy |

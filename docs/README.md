@@ -4,7 +4,7 @@
 
 This folder documents **every object** in Solar System Explorer: the values the app uses and the public NASA/JPL record each value comes from.
 
-## Object catalogue (494 objects)
+## Object catalogue (494 solar-system objects + the sky)
 
 | Page | Objects | Primary reference |
 |---|---:|---|
@@ -16,6 +16,7 @@ This folder documents **every object** in Solar System Explorer: the values the 
 | [Moons of Uranus](catalogue/moons-uranus.md) | 29 | JPL satellite mean elements |
 | [Moons of Neptune](catalogue/moons-neptune.md) | 16 | JPL satellite mean elements |
 | [Moons of Pluto](catalogue/moons-pluto.md) | 5 | JPL satellite mean elements |
+| [The sky beyond the solar system](catalogue/sky.md) | 63 named objects + 9,096 stars | Yale Bright Star Catalogue (NASA HEASARC) · NASA SVS · NASA images · NASA Exoplanet Archive · SIMBAD |
 
 Each row in the catalogue links to:
 
