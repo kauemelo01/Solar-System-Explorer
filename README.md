@@ -3,6 +3,7 @@
 **An interactive 3D orrery where *any* body in the solar system can be the centre.**
 
 ▶ **Live app:** <https://kauemelo01.github.io/Solar-System-Explorer/>
+
 📚 **Documentation and object catalogue:** [docs/](docs/README.md)
 
 ---
