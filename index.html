@@ -495,28 +495,46 @@ function mapFiles(id){if(MAP_HI.includes(id))return BIGTEX?[id+'_hi.jpg',id+'_2k
 const SURF={
  real:'Surface: real spacecraft photos',
  sss:'Surface: based on real spacecraft photos',
- rep:'Clouds: based on real photos; a snapshot, as they change constantly',
- repimg:'Surface: representative image, not a map',
- gaps:'Surface: real photos, partial; gaps filled in by the map makers',
- part:'Surface: real photos, partial; unseen areas are painted',
+ rep:'Clouds: based on real photos, but they change constantly',
+ repimg:'Representative image: the Sun has no fixed surface',
+ gaps:'Surface: real photos; gaps filled in by map makers',
+ part:'Surface: real photos, partial; the rest is painted',
  paint:'Surface: painted illustration, not a real image',
- shape:'Shown as a plain shape; no surface image'};
+ shape:'Plain shape; no surface image'};
 const SURF_ID={sun:'repimg',mercury:'sss',venus:'rep',earth:'sss',moon:'sss',mars:'sss',jupiter:'rep',saturn:'rep',uranus:'rep',neptune:'rep',
  ceres:'real',vesta:'real','m-phobos':'real','m-europa':'gaps','m-ganymede':'gaps','m-io':'part',
  'm-deimos':'gaps','m-callisto':'gaps','m-mimas':'gaps','m-enceladus':'gaps','m-tethys':'gaps','m-dione':'gaps','m-rhea':'gaps','m-iapetus':'gaps',
  'm-miranda':'part','m-ariel':'part','m-umbriel':'part','m-titania':'part','m-oberon':'part','m-triton':'part'};
-const SURF_DETAIL={sun:'The Sun has no fixed surface and changes constantly',venus:'The surface is hidden',
- neptune:'Shows the Great Dark Spot of 1989, gone by 1994',vesta:'The far north is dark: it was in shadow when photographed',
- 'm-io':'Only small gaps near the poles','m-triton':'Voyager 2 saw about half of Triton',
- 'm-miranda':'Voyager 2 saw only the southern half','m-ariel':'Voyager 2 saw only the southern half','m-umbriel':'Voyager 2 saw only the southern half',
- 'm-titania':'Voyager 2 saw only the southern half','m-oberon':'Voyager 2 saw only the southern half'};
-function surfNote(o){if(!o.mesh)return SURF.shape+'.';if(o.mapFail)return SURF.paint+' (the real map failed to load)';const k=SURF_ID[o.id]||'paint';return SURF[k]+(SURF_DETAIL[o.id]?'. '+SURF_DETAIL[o.id]+'.':'.')}
+// short extra detail; note + detail must fit in two lines of the card (checked for every object)
+const SURF_DETAIL={earth:'Clouds are painted',venus:'Surface hidden',neptune:'Dark spot of 1989, now gone',vesta:'Far north in shadow',
+ 'm-io':'Small polar gaps','m-triton':'Voyager 2 saw half',
+ 'm-miranda':'Only the south was seen','m-ariel':'Only the south was seen','m-umbriel':'Only the south was seen',
+ 'm-titania':'Only the south was seen','m-oberon':'Only the south was seen'};
+function surfNote(o){if(!o.mesh)return SURF.shape+'.';if(o.mapFail)return SURF.paint+' (real map failed to load).';const k=SURF_ID[o.id]||'paint';return SURF[k]+(SURF_DETAIL[o.id]?'. '+SURF_DETAIL[o.id]+'.':'.')}
 function loadChain(files,ok,fail){if(!files.length)return fail();TL.load('textures/'+files[0],ok,undefined,()=>loadChain(files.slice(1),ok,fail))}
 function setMap(o,t){t.encoding=THREE.sRGBEncoding;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
  if(MAP_FLIP.includes(o.id)){t.center.set(.5,.5);t.rotation=Math.PI}
  const m=o.mesh.material,old=m.map;m.map=t;m.color.set(0xffffff);m.needsUpdate=true;if(old)old.dispose()}
+/* Earth's clouds: a random, painted cloud layer (no weather model) so the cloud-free map looks less artificial.
+   3D value noise sampled on the sphere (no seams or polar pinching), thinned in the subtropics, denser near the equator and at mid-latitudes. */
+function cloudTex(W,H,done){const R=rng(7),P=new Uint8Array(512);for(let i=0;i<256;i++)P[i]=i;for(let i=255;i>0;i--){const j=Math.floor(R()*(i+1)),t=P[i];P[i]=P[j];P[j]=t}for(let i=0;i<256;i++)P[i+256]=P[i];
+ const V=new Float32Array(256);for(let i=0;i<256;i++)V[i]=R();const f=t=>t*t*(3-2*t),L=(a,b,t)=>a+(b-a)*t;
+ const n3=(x,y,z)=>{const X=Math.floor(x),Y=Math.floor(y),Z=Math.floor(z),u=f(x-X),v=f(y-Y),w=f(z-Z),h=(i,j,k)=>V[P[P[P[(X+i)&255]+((Y+j)&255)]+((Z+k)&255)]];
+  return L(L(L(h(0,0,0),h(1,0,0),u),L(h(0,1,0),h(1,1,0),u),v),L(L(h(0,0,1),h(1,0,1),u),L(h(0,1,1),h(1,1,1),u),v),w)};
+ const fbm=(x,y,z,n)=>{let a=0,s=.5,m=0;for(let o=0;o<n;o++){a+=s*n3(x,y,z);m+=s;x*=2.07;y*=2.07;z*=2.07;s*=.5}return a/m};
+ const c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d'),img=g.createImageData(W,H),D=img.data;
+ // built a few rows at a time so the page never stalls (the whole map takes about half a second)
+ let y=0;const step=()=>{for(const end=Math.min(H,y+16);y<end;y++){const lat=(.5-(y+.5)/H)*Math.PI,cl=Math.cos(lat),sl=Math.sin(lat),al=Math.abs(lat),
+  bias=.05*Math.exp(-((lat/.1)**2))-.08*Math.exp(-(((al-.47)/.14)**2))+.05*Math.exp(-(((al-1.)/.22)**2));
+  // latitude is sampled at higher frequency than longitude, so clouds come out stretched east-west like real cloud bands
+  for(let x=0;x<W;x++){const lon=(x+.5)/W*TAU,px=cl*Math.cos(lon)*3.4,pz=cl*Math.sin(lon)*3.4,py=sl*6.5;
+   const w=fbm(px+5.2,py+1.3,pz+9.1,3)-.5,v=fbm(px+w*2.2,py+w*1.2,pz+w*2.2,6)+bias,a=Math.min(1,Math.max(0,(v-.47)/.2)),k=(y*W+x)*4;
+   D[k]=D[k+1]=D[k+2]=255;D[k+3]=a*a*(3-2*a)*225}}
+  if(y<H)return setTimeout(step,0);g.putImageData(img,0,0);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;done(t)};step()}
+function addClouds(o){if(o.clouds)return;o.clouds=true;cloudTex(1024,512,t=>{const m=new THREE.Mesh(sph,new THREE.MeshLambertMaterial({map:t,transparent:true,depthWrite:false}));
+ m.scale.setScalar(1.008);m.raycast=()=>{};o.clouds=m;o.mesh.add(m)})}
 function loadMap(o){const files=mapFiles(o.id);if(!files)return setMap(o,texFor(o));
- loadChain(files,t=>{if(!MAP_PART.includes(o.id))return setMap(o,t);
+ loadChain(files,t=>{if(o.id==='earth')addClouds(o);if(!MAP_PART.includes(o.id))return setMap(o,t);
   const img=t.image,c=document.createElement('canvas'),g=c.getContext('2d'),p=texFor(o);c.width=img.width;c.height=img.height;
   g.drawImage(p.image,0,0,c.width,c.height);g.drawImage(img,0,0);p.dispose();t.dispose();setMap(o,new THREE.CanvasTexture(c))},()=>{o.mapFail=true;setMap(o,texFor(o));if(S.focus===o.id)$('fSurf').textContent=surfNote(o)})}
 OBJ.forEach(o=>{if(!o.major)return;

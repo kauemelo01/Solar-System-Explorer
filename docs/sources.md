@@ -114,7 +114,7 @@ Bodies with a surface map in `textures/` are drawn with it. All others keep a si
 | Sun | Solar System Scope | 2048 × 1024; 4096 × 2048 | A representative image of the photosphere | The Sun's surface changes constantly; no real map exists |
 | Mercury | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map, MESSENGER-era | Any gaps were filled by the publisher |
 | Venus | Solar System Scope | 2048 × 1024; 4096 × 2048 | Cloud tops (what Venus looks like), not the radar-mapped surface | Clouds change constantly; representative only |
-| Earth | Solar System Scope | 2048 × 1024; 8192 × 4096 | Cloud-free composite (Blue Marble) | None known; the publisher calls Earth "the most precise part of the pack" |
+| Earth | Solar System Scope, plus a painted cloud layer | 2048 × 1024; 8192 × 4096 | Cloud-free composite (Blue Marble), with random clouds drawn on top | The map itself has no known issues; the publisher calls Earth "the most precise part of the pack". **The clouds are not real**: they are generated in code (see below) only so the planet looks less artificial |
 | The Moon | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map | Any gaps were filled by the publisher |
 | Mars | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map, Viking-era colour | Any gaps were filled by the publisher |
 | Jupiter, Saturn | Solar System Scope | 2048 × 1024; 4096 × 2048 | Cloud bands, Cassini-era colour | Clouds change constantly; representative only |
@@ -156,22 +156,26 @@ Bodies with no map keep the painted texture: Hyperion, all dwarf planets except 
 
 The logic is in `index.html`, next to the comment `surface maps`.
 
+### Earth's clouds
+
+The Earth map is cloud-free, which looks artificial, so the app draws a separate layer of random clouds just above it. There is no weather model: the clouds are fixed noise patterns, the same on every visit, and they turn with the planet. They are shaped to look plausible: stretched east–west, a little denser near the equator and at mid-latitudes, and thinner in the subtropics. They cover about a fifth of the globe (real cloud cover is about two-thirds). The layer is generated a few rows at a time after the Earth map loads, so the page does not stall. It is added only on top of the real map, not the painted fallback. The code is in `index.html`, next to the comment `Earth's clouds`.
+
 ### Card notes
 
-Each object's card in the app has a short note under its type saying what its surface image is:
+Each object's card in the app has a short note under its type saying what its surface image is. Every note fits in two lines on the card, on desktop and phone screens.
 
 | Note | Used for |
 |---|---|
 | Surface: real spacecraft photos | Ceres, Vesta, Phobos |
 | Surface: based on real spacecraft photos | Mercury, Earth, the Moon, Mars (Solar System Scope: colours tuned and any gaps filled by the publisher) |
-| Clouds: based on real photos; a snapshot, as they change constantly | Venus, Jupiter, Saturn, Uranus, Neptune |
-| Surface: representative image, not a map | The Sun |
-| Surface: real photos, partial; gaps filled in by the map makers | Deimos, Europa, Ganymede, Callisto, Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus |
-| Surface: real photos, partial; unseen areas are painted | Io, Miranda, Ariel, Umbriel, Titania, Oberon, Triton |
+| Clouds: based on real photos, but they change constantly | Venus, Jupiter, Saturn, Uranus, Neptune |
+| Representative image: the Sun has no fixed surface | The Sun |
+| Surface: real photos; gaps filled in by map makers | Deimos, Europa, Ganymede, Callisto, Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus |
+| Surface: real photos, partial; the rest is painted | Io, Miranda, Ariel, Umbriel, Titania, Oberon, Triton |
 | Surface: painted illustration, not a real image | Every other body drawn as a sphere or lumpy shape, including Pluto, Charon and Titan |
-| Shown as a plain shape; no surface image | The small moons, drawn as plain-coloured shapes |
+| Plain shape; no surface image | The small moons, drawn as plain-coloured shapes |
 
-Some notes add a detail, for example that Neptune's map shows the Great Dark Spot of 1989. If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
+Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden", Neptune "Dark spot of 1989, now gone", Vesta "Far north in shadow", Io "Small polar gaps", Triton "Voyager 2 saw half", and the five Uranian moons "Only the south was seen". If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
 
 ## Accuracy
 
