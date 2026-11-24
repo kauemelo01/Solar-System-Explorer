@@ -482,9 +482,9 @@ function orientTo(obj,pole){const p=poleEcl(pole[0],pole[1]);v3.set(p[0],p[2],-p
 const BIGTEX=renderer.capabilities.maxTextureSize>=8192&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,TL=new THREE.TextureLoader();
 const MAP_HI=['sun','mercury','venus','earth','moon','mars','jupiter','saturn'],MAP_2K=['uranus','neptune'],
  MAP_JPG=['pluto','m-charon','m-phobos','m-deimos','m-europa','m-ganymede','m-callisto','m-mimas','m-enceladus','m-tethys','m-dione','m-rhea','m-titan','m-iapetus'],
- // partial maps: unmapped areas are transparent and filled with the procedural texture
+ // partial maps: unmapped areas are transparent and filled with the procedural texture. Not every map is real data (Pluto, Charon and Titan are artist's concepts): see docs/sources.md#every-map-with-its-coverage
  MAP_PART=['m-io','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon','m-triton'],
- // the app spins these about the IAU south pole (Pluto system: the pole opposite New Horizons' north), so their maps are turned 180° (a rotation, not a mirror)
+ // the app spins these about the pole opposite their map's north, so their maps are turned 180° (a rotation, not a mirror)
  MAP_FLIP=['venus','uranus','pluto','m-charon','m-miranda','m-ariel','m-umbriel','m-titania','m-oberon'];
 function mapFiles(id){if(MAP_HI.includes(id))return BIGTEX?[id+'_hi.jpg',id+'_2k.jpg']:[id+'_2k.jpg'];if(MAP_2K.includes(id))return[id+'_2k.jpg'];
  if(MAP_JPG.includes(id))return[id+'.jpg'];if(MAP_PART.includes(id))return[id+'.webp'];return null}

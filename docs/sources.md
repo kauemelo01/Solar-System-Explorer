@@ -98,27 +98,59 @@ Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On
 
 ## Surface maps
 
-Bodies that a spacecraft has mapped are drawn with real surface maps, stored in `textures/`. The others keep a simple texture painted in code (`texFor()` in `index.html`).
+Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is real data.** Some are partial, some have gaps filled in by their makers, and three are artist's concepts. Each one is listed below with what its publisher says about it.
 
-| Bodies | Source | Size |
-|---|---|---|
-| Sun, Mercury, Earth, the Moon, Mars | Solar System Scope, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0, based on NASA mission data | 2048 × 1024, and 8192 × 4096 (Sun 4096 × 2048) |
-| Venus (cloud tops), Jupiter, Saturn | Solar System Scope (as above) | 2048 × 1024, and 4096 × 2048 |
-| Uranus, Neptune | Solar System Scope (as above) | 2048 × 1024 |
-| Saturn's rings | Solar System Scope (as above); radial strip mapped so its C-ring inner edge and Cassini Division fall at their true radii | 2048 and 8192 px wide |
-| Pluto, Charon | NASA 3D Resources <https://github.com/nasa/NASA-3D-Resources> (public domain), from New Horizons | 720 × 360 |
-| Phobos, Deimos, Europa, Ganymede, Callisto, Mimas, Enceladus, Tethys, Dione, Rhea, Titan, Iapetus | NASA 3D Resources (as above), from Viking, Galileo and Cassini | 1440 × 720 (Titan 720 × 360) |
-| Io, Miranda, Ariel, Umbriel, Titania, Oberon, Triton | NASA 3D Resources (as above), from Galileo and Voyager 2 | 1440 × 720, partial |
+### Sources
 
-Changes made to the files: the large Solar System Scope maps are recompressed (JPEG quality 80); the NASA maps are recompressed (quality 85). For the partial maps, the unmapped area (black in the originals) is made transparent and saved as WebP; in the app it is filled with the painted texture. Voyager 2 saw only the southern hemispheres of Uranus's moons and about a fifth of Triton.
+- **Solar System Scope**, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0. The publisher says the maps are "based on NASA elevation and imagery data", with colours tuned to true-colour photos from MESSENGER, Viking and Cassini and made "slightly more saturated". Gaps in the data "are filled with fictional terrain that corresponds with the rest of the landscape". The publisher does not say which parts are filled.
+- **NASA 3D Resources** <https://github.com/nasa/NASA-3D-Resources>, free to use under NASA's media guidelines. These maps come from the JPL/Caltech planetary map database and are mostly old, from before Galileo, Cassini and New Horizons. The descriptions below are quoted from each map's page at <https://science.nasa.gov/3d-resources/>.
 
-How they load:
+### Every map, with its coverage
+
+| Body | Source | Size | What it shows | Known issues |
+|---|---|---|---|---|
+| Sun | Solar System Scope | 2048 × 1024; 4096 × 2048 | A representative image of the photosphere | The Sun's surface changes constantly; no real map exists |
+| Mercury | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map, MESSENGER-era | Any gaps were filled by the publisher |
+| Venus | Solar System Scope | 2048 × 1024; 4096 × 2048 | Cloud tops (what Venus looks like), not the radar-mapped surface | Clouds change constantly; representative only |
+| Earth | Solar System Scope | 2048 × 1024; 8192 × 4096 | Cloud-free composite (Blue Marble) | None known; the publisher calls Earth "the most precise part of the pack" |
+| The Moon | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map | Any gaps were filled by the publisher |
+| Mars | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map, Viking-era colour | Any gaps were filled by the publisher |
+| Jupiter, Saturn | Solar System Scope | 2048 × 1024; 4096 × 2048 | Cloud bands, Cassini-era colour | Clouds change constantly; representative only |
+| Uranus | Solar System Scope | 2048 × 1024 | Nearly featureless cloud tops | Representative only |
+| Neptune | Solar System Scope | 2048 × 1024 | Cloud tops including the Great Dark Spot | The Great Dark Spot seen by Voyager 2 in 1989 had gone by 1994 |
+| Saturn's rings | Solar System Scope | 2048 and 8192 px strip | Radial brightness and transparency | The strip's scale was fitted by the C-ring inner edge and Cassini Division (about ±1%) |
+| Pluto | NASA 3D Resources | 720 × 360 | **Fictional.** Stitched by David Seal from a painting by Pat Rawlings | Not real data. It predates New Horizons (2015) and does not show Pluto's real features, such as the heart-shaped Tombaugh Regio |
+| Charon | NASA 3D Resources | 720 × 360 | **Fictional.** "Texture map faked from some Magellan images and recent ground-based albedo maps of Charon" | Not real data. It predates New Horizons and does not show Charon's red polar cap (Mordor Macula) |
+| Titan | NASA 3D Resources | 720 × 360 | **Fictional.** "Titan concept with color from Voyager images" | Not real data. It is nearly uniform orange haze, which is close to how Titan looks in visible light |
+| Phobos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Few visible gaps |
+| Deimos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Roughly a third of the map (one side) is smeared filler |
+| Io | NASA 3D Resources | 1440 × 720 | USGS mosaic of Voyager images; "data gaps near the poles" | The polar gaps (black in the original) are filled in the app with the painted texture |
+| Europa, Ganymede | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; some smeared filler near the poles |
+| Callisto | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; a band of longitude and the south polar region are filled with flat white, which is wrong for dark Callisto |
+| Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus | NASA 3D Resources | 1440 × 720 | "Mosaic from the Voyager imagery" (before Cassini) | Black-and-white. Unmapped areas are filled with flat white or smears: about half of Enceladus and Mimas, a third of Dione, the south of Tethys and Iapetus, and both sides of Rhea |
+| Miranda, Ariel, Umbriel, Titania, Oberon | NASA 3D Resources | 1440 × 720 | USGS (Tammy Becker) mosaic of Voyager 2 images | Black-and-white. Voyager 2 saw only the southern hemispheres; the app fills the north (about 60% of each map) with the painted texture |
+| Triton | NASA 3D Resources | 1440 × 720 | "Stitched together from limited Voyager imagery by the USGS" | Covers only about 20% of Triton, filled in the app with the painted texture. **The patch is misplaced:** it sits mostly in the northern hemisphere, but Voyager 2 saw mainly the south, including the south polar cap. Voyager 2 actually imaged about half of Triton; the 2014 map PIA18668 (Paul Schenk, LPI) shows that coverage correctly |
+
+Bodies with no map keep the painted texture: Hyperion, all dwarf planets except Pluto, the asteroids and the comets. Ceres and Vesta have been mapped (by Dawn), but no map is included yet.
+
+### Processing
+
+- The large Solar System Scope maps are recompressed to JPEG quality 80; the 2K ones are used as published.
+- The NASA maps are recompressed to JPEG quality 85.
+- For Io, the Uranian moons and Triton, the unmapped area (black in the originals) is made transparent and saved as WebP. In the app it is filled with the painted texture, so a seam is visible where they meet.
+
+### How they load
 
 1. **Each body starts in its plain colour** and switches to its map when the file arrives.
 2. **Capable devices try the large map first** (same test as the [sky map](#sky-map-loading)); if it fails they load the 2K map. Other devices load the 2K map directly.
 3. **The painted texture is the fallback**, used only if every file for that body fails to load.
 
-Longitude is not aligned: the app spins each body at its true rate but does not model where its prime meridian points, so the side facing you at a given moment is not the real one. Maps are aligned north-up. Venus, Uranus and its moons, Pluto and Charon are spun about the pole opposite their map's north, so their maps are turned 180° (a rotation, not a mirror image). The logic is in `index.html`, next to the comment `surface maps`.
+### Orientation
+
+- **North is up on every map**, but longitude is not aligned. The app spins each body at its true rate but does not model where its prime meridian points, so the side facing you at a given moment is not the real one.
+- **Some maps are turned 180°.** Venus, Uranus and its moons, Pluto and Charon are spun about the pole opposite their map's north, so their maps are rotated 180° (a rotation, not a mirror image).
+
+The logic is in `index.html`, next to the comment `surface maps`.
 
 ## Accuracy
 

@@ -85,8 +85,8 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Stars with planets | [NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/) |
 | Constellation boundaries | IAU (Delporte 1930), via CDS catalogues VI/42 (Roman 1987) and VI/49 (Davenhall & Leggett 1989) |
 | Constellation figures | NASA/Goddard SVS, [*Deep Star Maps*](https://svs.gsfc.nasa.gov/3895) (figures after Sky & Telescope for the IAU) |
-| Surface maps: Sun, planets, the Moon, Saturn's rings | [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0), based on NASA mission data |
-| Surface maps: Pluto, Charon and 19 major moons | [NASA 3D Resources](https://github.com/nasa/NASA-3D-Resources) (public domain) |
+| Surface maps: Sun, planets, the Moon, Saturn's rings | [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0), based on NASA mission data, with gaps filled by the publisher |
+| Surface maps: Pluto, Charon and 19 major moons | [NASA 3D Resources](https://github.com/nasa/NASA-3D-Resources), mostly old Voyager and Viking mosaics. **The Pluto, Charon and Titan maps are artist's concepts, and several moon maps are partial**; see [the per-map list](docs/sources.md#every-map-with-its-coverage) |
 
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
