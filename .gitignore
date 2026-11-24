@@ -1,3 +1,4 @@
 *:Zone.Identifier
 .DS_Store
 .texture-cache/
+__pycache__/
