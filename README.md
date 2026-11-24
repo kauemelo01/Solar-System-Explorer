@@ -69,6 +69,8 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | Collapse / expand the menu | The arrow button at the top of the menu (on phones: **Controls**) |
 | Fullscreen mode (hides menus, cards and the time bar) | The corner-arrows button at the top of the menu, or `F`; exit with `Esc`, `F` or the **Exit fullscreen** button |
 
+On screens at least 1240 px wide, the menu runs the full height of the window and the time bar narrows to stay centred beside it. On smaller screens the menu stops above the time bar; on phones the menu, cards and time bar stack.
+
 ## Data provenance
 
 Everything in the app traces back to public, citable sources, mostly from NASA's Jet Propulsion Laboratory:
