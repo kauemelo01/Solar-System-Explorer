@@ -48,8 +48,9 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - the **88 IAU constellations** (off by default): official boundaries, stick figures and names, with a **Zodiac** filter showing the 13 constellations the Sun actually passes through, Ophiuchus included
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
+- **Real surface maps** where spacecraft have mapped a body: the Sun, the planets, the Moon, Saturn's rings, Ceres, Vesta and 18 major moons, from Solar System Scope, NASA, NASA/JPL and DLR. Large versions load on capable screens. Everything else gets a simple painted texture, and Earth gets painted clouds so the cloud-free map looks natural. **Each object's card says whether its surface is real photos, a partial map or a painted illustration**, and the *Images* panel can switch all maps off (see [Surface maps](docs/sources.md#surface-maps))
 - **Fullscreen mode** for classrooms and presentations: hides the menu, cards and time bar, leaving only the sky and the solar system
-- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/). No build step; any static web host (such as GitHub Pages) can serve it
+- Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/) and the surface maps in [`textures/`](textures/). No build step; any static web host (such as GitHub Pages) can serve it
 
 ### Controls
 
