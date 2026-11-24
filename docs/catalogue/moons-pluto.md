@@ -12,7 +12,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 - JPL discovery circumstances: <https://ssd.jpl.nasa.gov/sats/discovery.html>
 - IAU Minor Planet Center satellite announcements (MPECs): <https://minorplanetcenter.net/mpec/RecentMPECs.html>
 
-Radius values marked *est.* are not published; the app uses a placeholder size for display only.
+Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
 ## Charon (1)
 

@@ -18,7 +18,7 @@ Distances and body sizes are always drawn to true scale. Bodies are therefore ti
 
 ### What is not to scale
 
-These are visual aids drawn on top of the true-scale model:
+These are visual aids drawn on top of the true-scale model; each is a [limitation of the model](#limitations-of-the-model):
 
 | Element | What it really is |
 |---|---|
@@ -59,9 +59,9 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 - **JPL Horizons satellite solutions:** Dysnomia (Eris), Weywot (Quaoar), Vanth (Orcus) and Dimorphos (Didymos), as osculating J2000 ecliptic elements about each primary, 2025-Jan-1.
 - **Published orbits:**
   - Hiʻiaka and Namaka (Haumea): Ragozzine & Brown 2009, *AJ*, [arXiv:0903.4213](https://arxiv.org/abs/0903.4213).
-  - Xiangliu (Gonggong): Kiss et al. 2019, *Icarus*, [arXiv:1903.05439](https://arxiv.org/abs/1903.05439); prograde solution, orientation uncertain.
+  - Xiangliu (Gonggong): Kiss et al. 2019, *Icarus*, [arXiv:1903.05439](https://arxiv.org/abs/1903.05439); prograde solution, orientation uncertain ([limitation of the model](#limitations-of-the-model)).
   - Selam (Dinkinesh): Levison et al. 2024, *Nature*, [arXiv:2406.19337](https://arxiv.org/abs/2406.19337); distance and period only.
-- **Left out:** moons without a verifiable published orbit, such as Makemake's moon (orbit only bounded) and Ida's moon Dactyl.
+- **Left out:** moons without a verifiable published orbit, such as Makemake's moon (orbit only bounded) and Ida's moon Dactyl (a [limitation of the model](#limitations-of-the-model)).
 - **In the app:** listed in the moons menu under *Dwarf planets & candidates* or *Asteroids*; switching one on also shows its parent's group.
 - Details per moon: [catalogue/moons-small-bodies.md](catalogue/moons-small-bodies.md).
 
@@ -80,11 +80,11 @@ Pluto is grouped with the dwarf planets in the app and the catalogue, but its or
 - **Elements:** JPL Small-Body Database (osculating heliocentric elements; epoch JD 2461200.5 = 2026-Jun-24 TDB for most objects, and the most recent perihelion solution for comets). <https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html>, API: <https://ssd-api.jpl.nasa.gov/doc/sbdb.html>
 - **Sizes and rotation periods:** SBDB diameters and rotation periods where listed; otherwise published measurements, each cited in [the catalogue's notes](catalogue/small-bodies.md#notes-on-sizes-and-rotation). Five bodies with no published rotation period spin at an illustrative 12 hours.
 - **Designations:** IAU Minor Planet Center. <https://www.minorplanetcenter.net/>
-- **Spin poles** of small bodies are not modelled from data. They are randomised for display only, except six taken from published data: Ceres and Vesta (IAU 2015, Archinal et al. 2018, so that their surface maps sit north-up), Haumea (Hiʻiaka's orbit pole, which its ring shares), Quaoar (ring pole), Chariklo (ring pole) and Ida (NAIF `pck00011`).
+- **Spin poles** of small bodies are not modelled from data. They are randomised for display only (a [known issue](#known-issues)), except six taken from published data: Ceres and Vesta (IAU 2015, Archinal et al. 2018, so that their surface maps sit north-up), Haumea (Hiʻiaka's orbit pole, which its ring shares), Quaoar (ring pole), Chariklo (ring pole) and Ida (NAIF `pck00011`).
 
 ## Belts
 
-The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point clouds** drawn from typical orbital distributions (semi-major axis, eccentricity, inclination ranges). They show where those populations are, not individual catalogued objects. Overview: NASA Science <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/kuiper-belt/>.
+The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point clouds** drawn from typical orbital distributions (semi-major axis, eccentricity, inclination ranges). They show where those populations are, not individual catalogued objects. Overview: NASA Science <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/kuiper-belt/>. This is a [limitation of the model](#limitations-of-the-model).
 
 ## The sky beyond the solar system
 
@@ -96,7 +96,7 @@ The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point 
 - **Star names:** IAU Working Group on Star Names.
 - **Constellations:** boundaries from Delporte (1930) via Roman (1987, CDS VI/42) and Davenhall & Leggett (1989, CDS VI/49), precessed from B1875 to J2000 (IAU 1976 model). Stick figures from NASA/Goddard SVS *Deep Star Maps* (figures after Sky & Telescope for the IAU). Off by default. Details and checks: [catalogue/constellations.md](catalogue/constellations.md).
 - **Frame:** J2000 equatorial positions are rotated into the ecliptic J2000 frame used for the planets. The sky sphere is centred on the camera, so it behaves as infinitely far away. That is a very good approximation: from Neptune, even Proxima Centauri shifts by less than 25″.
-- **Not modelled:** proper motion (the catalogue is J2000; Barnard's Star, the fastest, moves about 10″ per year) and precession.
+- **Not modelled:** proper motion (the catalogue is J2000; Barnard's Star, the fastest, moves about 10″ per year) and precession (a [limitation of the model](#limitations-of-the-model)).
 
 ### Sky map loading
 
@@ -124,23 +124,23 @@ Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On
 
 ## Surface maps
 
-Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it. Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](#card-notes)).
+Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it. Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](#card-notes)). Gaps that better data could fill are [known issues](#known-issues); the rest are [limitations of the model](#limitations-of-the-model).
 
 ### Sources
 
-- **Solar System Scope**, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0. The publisher says the maps are "based on NASA elevation and imagery data", with colours tuned to true-colour photos from MESSENGER, Viking and Cassini and made "slightly more saturated". Gaps in the data "are filled with fictional terrain that corresponds with the rest of the landscape". The publisher does not say which parts are filled.
+- **Solar System Scope**, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0. The publisher says the maps are "based on NASA elevation and imagery data", with colours tuned to true-colour photos from MESSENGER, Viking and Cassini and made "slightly more saturated". Gaps in the data "are filled with fictional terrain that corresponds with the rest of the landscape". The publisher does not say which parts are filled. (A [limitation of the model](#limitations-of-the-model).)
 - **NASA 3D Resources** <https://github.com/nasa/NASA-3D-Resources>, free to use under NASA's media guidelines. These maps come from the JPL/Caltech planetary map database and are mostly old Voyager and Viking mosaics, from before Galileo and Cassini. The descriptions below are quoted from each map's page at <https://science.nasa.gov/3d-resources/>.
 - **NASA/JPL Photojournal**, PIA18668 *Map of Triton* <https://www.jpl.nasa.gov/images/pia18668-map-of-triton/> (Paul Schenk, Lunar and Planetary Institute, 2014), from Voyager 2 images. Public domain.
 - **DLR Dawn mosaics** <https://dawngis.dlr.de/>: global clear-filter mosaics from Dawn's framing camera, made by the German Aerospace Center (DLR). Credit: NASA/JPL-Caltech/UCLA/MPS/DLR/IDA.
 
 ### Every map, with its coverage
 
-| Body | Source | Size | What it shows | Known issues |
+| Body | Source | Size | What it shows | Notes |
 |---|---|---|---|---|
 | Sun | Solar System Scope | 2048 × 1024; 4096 × 2048 | A representative image of the photosphere | The Sun's surface changes constantly; no real map exists |
 | Mercury | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map, MESSENGER-era | Any gaps were filled by the publisher |
 | Venus | Solar System Scope | 2048 × 1024; 4096 × 2048 | Cloud tops (what Venus looks like), not the radar-mapped surface | Clouds change constantly; representative only |
-| Earth | Solar System Scope, plus a painted cloud layer | 2048 × 1024; 8192 × 4096 | Cloud-free composite (Blue Marble), with random clouds drawn on top | The map itself has no known issues; the publisher calls Earth "the most precise part of the pack". **The clouds are not real**: they are generated in code (see below) only so the planet looks less artificial |
+| Earth | Solar System Scope, plus a painted cloud layer | 2048 × 1024; 8192 × 4096 | Cloud-free composite (Blue Marble), with random clouds drawn on top | The map itself has no known problems; the publisher calls Earth "the most precise part of the pack". **The clouds are not real**: they are generated in code (see below) only so the planet looks less artificial |
 | The Moon | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map | Any gaps were filled by the publisher |
 | Mars | Solar System Scope | 2048 × 1024; 8192 × 4096 | Global map, Viking-era colour | Any gaps were filled by the publisher |
 | Jupiter, Saturn | Solar System Scope | 2048 × 1024; 4096 × 2048 | Cloud bands, Cassini-era colour | Clouds change constantly; representative only |
@@ -150,15 +150,15 @@ Bodies with a surface map in `textures/` are drawn with it. All others keep a si
 | Ceres | DLR, *Ceres HAMO mosaic* (Dawn) | 2048 × 1024 | Global map from Dawn's high-altitude mapping orbit | Black-and-white; thin strips at the poles |
 | Vesta | DLR, *Vesta HAMO mosaic* (Dawn) | 2048 × 1024 | Global map from Dawn's high-altitude mapping orbit | Black-and-white. The far north is dark: it was in winter shadow when Dawn photographed it. The app's Vesta is a generic lumpy shape, so the map is only approximately placed |
 | Phobos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Few visible gaps |
-| Deimos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Roughly a third of the map (one side) is smeared filler |
-| Io | NASA 3D Resources | 1440 × 720 | USGS mosaic of Voyager images; "data gaps near the poles" | The polar gaps (black in the original) are filled in the app with the painted texture |
+| Deimos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Roughly a third of the map (one side) is smeared filler (a [known issue](#known-issues)) |
+| Io | NASA 3D Resources | 1440 × 720 | USGS mosaic of Voyager images; "data gaps near the poles" | The polar gaps (black in the original) are filled in the app with the painted texture (a [limitation of the model](#limitations-of-the-model)) |
 | Europa, Ganymede | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; some smeared filler near the poles |
-| Callisto | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; a band of longitude and the south polar region are filled with flat white, which is wrong for dark Callisto |
-| Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus | NASA 3D Resources | 1440 × 720 | "Mosaic from the Voyager imagery" (before Cassini) | Black-and-white. Unmapped areas are filled with flat white or smears: about half of Enceladus and Mimas, a third of Dione, the south of Tethys and Iapetus, and both sides of Rhea |
-| Miranda, Ariel, Umbriel, Titania, Oberon | NASA 3D Resources | 1440 × 720 | USGS (Tammy Becker) mosaic of Voyager 2 images | Black-and-white. Voyager 2 saw only the southern hemispheres; the app fills the north (about 60% of each map) with the painted texture |
-| Triton | NASA/JPL PIA18668 (Paul Schenk, 2014) | 2048 × 1024 | Voyager 2 images, enhanced colour | About half of Triton, mostly the southern hemisphere; the north was in polar night during the 1989 flyby. The app fills the unseen part with the painted texture, so a seam is visible |
+| Callisto | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; a band of longitude and the south polar region are filled with flat white, which is wrong for dark Callisto (a [known issue](#known-issues)) |
+| Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus | NASA 3D Resources | 1440 × 720 | "Mosaic from the Voyager imagery" (before Cassini) | Black-and-white. Unmapped areas are filled with flat white or smears: about half of Enceladus and Mimas, a third of Dione, the south of Tethys and Iapetus, and both sides of Rhea (a [known issue](#known-issues)) |
+| Miranda, Ariel, Umbriel, Titania, Oberon | NASA 3D Resources | 1440 × 720 | USGS (Tammy Becker) mosaic of Voyager 2 images | Black-and-white. Voyager 2 saw only the southern hemispheres; the app fills the north (about 60% of each map) with the painted texture (a [limitation of the model](#limitations-of-the-model)) |
+| Triton | NASA/JPL PIA18668 (Paul Schenk, 2014) | 2048 × 1024 | Voyager 2 images, enhanced colour | About half of Triton, mostly the southern hemisphere; the north was in polar night during the 1989 flyby. The app fills the unseen part with the painted texture, so a seam is visible (a [limitation of the model](#limitations-of-the-model)) |
 
-Bodies with no map keep the painted texture: Hyperion, all dwarf planets and candidates except Ceres, the asteroids except Vesta, and the comets.
+Bodies with no map keep the painted texture (a [limitation of the model](#limitations-of-the-model)): Hyperion, all dwarf planets and candidates except Ceres, the asteroids except Vesta, and the comets.
 
 **Removed maps.** Earlier versions used NASA 3D Resources maps for Pluto, Charon and Titan. NASA's own pages call all three "Fictional": Pluto was stitched from a painting by Pat Rawlings, Charon was "faked from some Magellan images", and Titan is a "concept". They were dropped, and these bodies use the painted texture again. Real maps exist for Pluto and Charon (New Horizons, 2015) and Titan (Cassini radar and infrared) and could be added later.
 
@@ -183,14 +183,20 @@ All of the steps below are done by [`tools/build_textures.py`](../tools/build_te
 
 ### Orientation
 
-- **North is up on every map**, but longitude is not aligned. The app spins each body at its true rate but does not model where its prime meridian points, so the side facing you at a given moment is not the real one.
-- **Some maps are turned 180°.** Venus, Uranus and its moons are spun about the pole opposite their map's north, so their maps are rotated 180° (a rotation, not a mirror image).
+- **North is up on every map**, but longitude is not aligned. The app spins each body at its true rate but does not model where its prime meridian points, so the side facing you at a given moment is not the real one (a [known issue](#known-issues)).
+- **Some maps are turned 180°: those of bodies that rotate backwards.** The IAU defines a planet's or moon's *north* pole as the one on the north side of the solar system's main plane (the invariable plane), whichever way the body turns. Seen from that pole, most bodies turn counter-clockwise (*prograde*). Venus, Uranus and Uranus's five major moons (Miranda, Ariel, Umbriel, Titania, Oberon) turn clockwise (*retrograde*): their IAU 2015 spin rates are negative.
+  - The app always turns a body counter-clockwise about the pole it is given. To make these seven bodies turn the right way, it gives them the pole opposite the IAU north pole: for Venus (92.76°, −67.16°) instead of (272.76°, +67.16°), and for Uranus and its moons (77.31°, +15.18°) instead of (257.31°, −15.18°). Both are the IAU 2015 values ([Archinal et al. 2018](https://doi.org/10.1007/s10569-017-9805-5)), only reversed.
+  - Surface maps are drawn with IAU north at the top. Placed with their top at the app's pole, these seven maps would be upside down, so the app turns them 180°. This is a rotation, not a mirror image: north ends up at the IAU north pole, east and west keep their real layout, and the body still spins the right way.
+  - Example: Voyager 2 photographed only the southern hemispheres of Uranus's moons. After the turn, the mapped half sits around each moon's IAU south pole, as it should.
+  - Prograde bodies use the IAU north pole directly, and their maps are not turned: the Sun, Mercury, Earth, the Moon, Mars, Jupiter, Saturn, Neptune, Ceres, Vesta, and the moons of Mars, Jupiter and Saturn that have maps.
+  - One approximation: the app gives Uranus's five moons Uranus's own pole. The IAU's poles for these moons differ from it by about 0.1° (for example Ariel at 257.43°, −15.10°), which is not visible. This is a [limitation of the model](#limitations-of-the-model).
+  - Two [known issues](#known-issues), not yet fixed: **Triton** also rotates backwards (it turns once per orbit, and its orbit is retrograde), but the app currently spins it forwards and does not turn its map. **Iapetus** is spun about the pole of its orbit plane from JPL's table (288.7°, 78.9°) rather than its IAU spin pole (318.16°, 75.03°), about 8° away.
 
 The logic is in `index.html`, next to the comment `surface maps`.
 
 ### Earth's clouds
 
-The Earth map is cloud-free, which looks artificial, so the app draws a separate layer of random clouds just above it. There is no weather model: the clouds are fixed noise patterns, the same on every visit, and they turn with the planet. They are shaped to look plausible: stretched east–west, a little denser near the equator and at mid-latitudes, and thinner in the subtropics. They cover about a fifth of the globe (real cloud cover is about two-thirds). The layer is generated a few rows at a time after the Earth map loads, so the page does not stall. It is added only on top of the real map, not the painted fallback. The code is in `index.html`, next to the comment `Earth's clouds`.
+The Earth map is cloud-free, which looks artificial, so the app draws a separate layer of random clouds just above it. There is no weather model: the clouds are fixed noise patterns, the same on every visit, and they turn with the planet. They are shaped to look plausible: stretched east–west, a little denser near the equator and at mid-latitudes, and thinner in the subtropics. They cover about a fifth of the globe (real cloud cover is about two-thirds). The layer is generated a few rows at a time after the Earth map loads, so the page does not stall. It is added only on top of the real map, not the painted fallback. The code is in `index.html`, next to the comment `Earth's clouds`. The painted clouds are a [limitation of the model](#limitations-of-the-model).
 
 ### Card notes
 
@@ -216,20 +222,41 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 | Planets | Standish Keplerian elements + secular rates | ~arc-minutes, 1800–2050 |
 | The Moon | Mean elements (no periodic perturbations) | within a few degrees in longitude |
 | Regular moons | JPL mean elements, Laplace plane | Orbit shape, size and period good. Positions along the orbit can be tens of degrees off, because orbit precession is not modelled; see [Known issues](#known-issues) |
-| Irregular moons | JPL mean elements, ecliptic | Orbit shape and sense of motion; positions along the orbit are indicative only |
-| Small bodies | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it |
-| Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain |
+| Irregular moons | JPL mean elements, ecliptic | Orbit shape and sense of motion; positions along the orbit are indicative only (a [known issue](#known-issues)) |
+| Asteroids, dwarf planets | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it |
+| Comets | Two-body orbit from the SBDB solution for the latest perihelion | Good near perihelion; drifts faster than asteroids (Jupiter encounters, outgassing), up to several degrees within a decade (a [limitation of the model](#limitations-of-the-model)) |
+| Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain (a [limitation of the model](#limitations-of-the-model)) |
 
-**Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. Beyond 1800–2050, the validity range of the planetary elements, the time bar marks the date *approximate*; the further from that window, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`.
+**Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. Beyond 1800–2050, the validity range of the planetary elements, the time bar marks the date *approximate*; the further from that window, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Approximate positions outside 1800–2050 are a [limitation of the model](#limitations-of-the-model).
 
 ## Known issues
 
-A November 2026 check of every value against NASA, JPL and IAU sources found two problems that are not fixed yet:
+Things that are wrong compared with official NASA, JPL or IAU data, found in a November 2026 check of every value. They are not fixed yet; work in progress is on the `audit-fixes-wip` branch.
 
 - **Moon positions along their orbits.** The orbit shapes, sizes, tilts and periods are JPL's, but where each moon is on its orbit at a given date can be wrong: by tens of degrees for many moons, and up to the opposite side for some. Three causes: the app does not model the slow precession of moon orbits (Io, for example, is right to 0.1° in 2000 but about 90° off in 2025); 33 moons' JPL elements are for 2009, 2020 or 2025 but are treated as 2000 (Uranus's 14 inner and 10 irregular moons, Neptune's 8 irregular moons and Saturn's S/2009 S 2); and JPL's mean elements for Saturn's main moons do not reproduce their positions in JPL Horizons. Planets, dwarf planets, asteroids, comets, the Moon, Charon and the 8 moons of other dwarf planets and asteroids are not affected.
 - **Moon sizes.** Only 46 moon radii can be traced to JPL's *Planetary Satellite Physical Parameters*, and 12 of those differ slightly from JPL's current values (for example Nix 25 km in the app, 18 km at JPL). The remaining radii have no documented source yet.
+- **Spin axes of two moons.** Triton rotates backwards (IAU 2015), but the app spins it forwards. Iapetus is spun about the pole of its orbit plane (288.7°, 78.9°) instead of its IAU spin pole (318.16°, 75.03°). See [Orientation](#orientation).
+- **Which side of a body faces you.** The app spins every body at its true rate, but does not set where its prime meridian points, so the side facing you at a given moment is not the real one. The IAU publishes this for every planet and major moon.
+- **Spin axes of small bodies.** All but six small bodies have a random spin axis. Published axes exist for several more, for example Eros, Bennu, Ryugu, Itokawa, Psyche and Lutetia.
+- **Gaps in some moon maps that could be filled with better data.** Callisto's map has a band of longitude and its south polar region filled with flat white, which is wrong for dark Callisto. About a third of Deimos's map is smeared filler. The Voyager-era maps of Mimas, Enceladus, Tethys, Dione, Rhea and Iapetus have large areas filled with white or smears, although Cassini later mapped these moons. Details in the [map table](#every-map-with-its-coverage).
 
-Both are being fixed, with every moon checked against JPL Horizons before the corrected values replace the current ones.
+All of these will be fixed, with every value checked against JPL Horizons and the IAU before it replaces the current one.
+
+## Limitations of the model
+
+Simplifications kept on purpose. They are listed so you know what the app does and does not show.
+
+- **Visual aids not to scale:** the fixed-size dots and labels, the Sun's glow, comet tails, exaggerated ring opacity and computer-generated lumpy shapes. Each is described in [What is not to scale](#what-is-not-to-scale).
+- **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; five small bodies with no published rotation period spin at an illustrative 12 hours ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
+- **Orbit models are simple, so precision depends on the date and the body** (see [Accuracy](#accuracy)):
+  - planets and Pluto use Keplerian elements valid for 1800–2050; outside that window the time bar marks the date *approximate*;
+  - the Moon uses mean elements without periodic terms, good to a few degrees;
+  - small bodies use a single two-body orbit. Asteroids stay close for years, but comets drift faster, because Jupiter and their own outgassing change their orbits (in November 2026, 9P/Tempel 1 is about 7° off and 1P/Halley about 0.3 AU off);
+  - moons of dwarf planets and asteroids use two-body orbits, so their positions drift slowly, and the published orbits of Selam and Xiangliu leave their orientation uncertain.
+- **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon and Ida's moon Dactyl. The main asteroid belt, Jupiter trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
+- **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).
+- **One shared pole:** Uranus's five moons use Uranus's pole; their own IAU poles differ by about 0.1°.
+- **The sky:** star proper motion and precession are not modelled, and the sky is drawn as a backdrop at infinite distance, so its directions are true but distances are not shown ([The sky](#the-sky-beyond-the-solar-system)).
 
 This is an educational model. For precise ephemerides, query [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/), which uses full numerical integrations (DE440 and satellite ephemerides).
 

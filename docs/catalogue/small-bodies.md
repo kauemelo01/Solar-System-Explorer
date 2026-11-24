@@ -84,8 +84,8 @@ Sizes are the JPL SBDB diameter halved where the SBDB lists one. Where it does n
 - **Orcus:** radius 455 km (diameter 910 km, ALMA; Brown & Butler 2018, *AJ*).
 - **Chariklo:** equivalent radius 124 ± 9 km from the 2013 stellar occultation (Braga-Ribas et al. 2014, *Nature*; [arXiv:1409.7259](https://arxiv.org/abs/1409.7259)), used instead of the older radiometric diameter in the SBDB.
 - **Dinkinesh:** about 790 m at its widest (Lucy team, [NASA](https://science.nasa.gov/solar-system/asteroids/dinkinesh/)); the app uses the SBDB-scale mean radius of 0.36 km.
-- **Arrokoth:** a contact binary about 36 km long (Spencer et al. 2020, *Science*; [arXiv:2004.00727](https://arxiv.org/abs/2004.00727)). The app draws it as one body of radius ≈ 9 km, marked *est.*
-- **C/2020 F3 (NEOWISE):** no published nucleus size was found in a source we could verify; the app uses a placeholder radius of 2.5 km, marked *est.*
+- **Arrokoth:** a contact binary about 36 km long (Spencer et al. 2020, *Science*; [arXiv:2004.00727](https://arxiv.org/abs/2004.00727)). The app draws it as one body of radius ≈ 9 km, marked *est.* (a [limitation of the model](../sources.md#limitations-of-the-model))
+- **C/2020 F3 (NEOWISE):** no published nucleus size was found in a source we could verify; the app uses a placeholder radius of 2.5 km, marked *est.* (a [limitation of the model](../sources.md#limitations-of-the-model))
 - **Comet nuclei** (1P, 2P, 67P, Hale-Bopp, 109P, 55P, 9P, 81P): diameters from the SBDB physical parameters.
 
 **Rotation periods** are the SBDB values, except:
@@ -93,7 +93,7 @@ Sizes are the JPL SBDB diameter halved where the SBDB lists one. Where it does n
 - **Eris:** 378.9 h (15.79 days, rotating in step with its moon Dysnomia; Szakáts et al. 2023, *A&A*). The SBDB still lists an older 25.9 h.
 - **Quaoar:** 17.68 h (Ortiz et al. 2003; used by Morgado et al. 2023). The SBDB lists half of it, 8.84 h, the single-peaked lightcurve period.
 - **1P/Halley:** 52.8 h (2.2 days; Belton et al. 1991). **C/1995 O1 (Hale-Bopp):** 11.4 h (Licandro et al. 1998). The SBDB lists none for either.
-- **No published period** in a source we could verify: 109P/Swift-Tuttle, 55P/Tempel-Tuttle, 81P/Wild 2, C/2020 F3 (NEOWISE) and Donaldjohanson. The app spins them once every 12 hours as an illustration only.
+- **No published period** in a source we could verify: 109P/Swift-Tuttle, 55P/Tempel-Tuttle, 81P/Wild 2, C/2020 F3 (NEOWISE) and Donaldjohanson. The app spins them once every 12 hours as an illustration only. (A [limitation of the model](../sources.md#limitations-of-the-model).)
 
 ## Sources for this group
 
@@ -104,4 +104,4 @@ Sizes are the JPL SBDB diameter halved where the SBDB lists one. Where it does n
 - NASA Science — Asteroids, Comets & Meteors: <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/comets/>
 - NASA Science — Dwarf planets and the Kuiper belt: <https://science.nasa.gov/dwarf-planets/>, <https://science.nasa.gov/solar-system/kuiper-belt/>
 
-> **About the belts.** The *Main asteroid belt*, *Jupiter trojans* and *Kuiper belt* layers in the app are statistical clouds drawn from typical orbit distributions to show where these populations live. They are **not** individual catalogue objects and are therefore not listed here.
+> **About the belts.** The *Main asteroid belt*, *Jupiter trojans* and *Kuiper belt* layers in the app are statistical clouds drawn from typical orbit distributions to show where these populations live. They are **not** individual catalogue objects and are therefore not listed here. (A [limitation of the model](../sources.md#limitations-of-the-model).)

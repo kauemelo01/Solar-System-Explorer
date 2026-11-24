@@ -2,7 +2,7 @@
 
 # Ring systems
 
-**7 ring systems**: the four giant planets, the dwarf planets Haumea and Quaoar, and the centaur Chariklo. Each is drawn in its body's equatorial plane at its true radius. **Ring opacity is exaggerated** so that faint and narrow rings can be seen: Jupiter's rings, for example, have optical depths of about one in a million and would otherwise be invisible.
+**7 ring systems**: the four giant planets, the dwarf planets Haumea and Quaoar, and the centaur Chariklo. Each is drawn in its body's equatorial plane at its true radius. **Ring opacity is exaggerated** (a [limitation of the model](../sources.md#limitations-of-the-model)) so that faint and narrow rings can be seen: Jupiter's rings, for example, have optical depths of about one in a million and would otherwise be invisible.
 
 **How they are drawn.** Saturn's rings use a real brightness-and-transparency image strip when *Images → Realistic surface textures* is on, and a painted band when it is off. All other rings are drawn from the radii and widths below, the same either way.
 
