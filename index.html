@@ -779,10 +779,16 @@ canvas.addEventListener('wheel',e=>{e.preventDefault();cam.distT*=Math.exp((e.de
 /* ---------- focus & reference ---------- */
 let fFrom='sun',fT=1;const fv=[0,0,0];
 function flyDist(o){const r=dispR(o);return o.cat==='planet'||o.id==='sun'?r*(o.id==='sun'?6:12):Math.max(r*14,(o.cat==='moon'?.0012:.004)*o.k)}
-function setFocus(id,fly){clearSky();const o=byId[id];if(!vis(o))reveal(o);
+// selection history for Backspace: each new selection (a body or a sky object) saves the previous one, up to 50
+const HIST=[];let goingBack=false;
+const curSel=()=>S.sky?{k:'sky',id:S.sky}:{k:'body',id:S.focus};
+function pushSel(k,id){if(goingBack)return;const c=curSel();if(c.k===k&&c.id===id)return;HIST.push(c);if(HIST.length>50)HIST.shift()}
+function goBack(){while(HIST.length){const h=HIST.pop(),c=curSel();if(h.k===c.k&&h.id===c.id)continue;
+  goingBack=true;try{if(h.k==='sky'&&skyById[h.id]){selectSky(h.id);turnTo(skyById[h.id])}else if(h.k==='body'&&byId[h.id])setFocus(h.id,true);else continue}finally{goingBack=false}return}}
+function setFocus(id,fly){pushSel('body',id);clearSky();const o=byId[id];if(!vis(o))reveal(o);
  if(id!==S.focus||fT<1){fFrom=S.focus;S.focus=id;fT=matchMedia('(prefers-reduced-motion: reduce)').matches?1:0}
  if(fly){cam.distT=flyDist(o);clampD()}renderUI()}
-function setCenter(id){const o=byId[id];if(o.grp!=='core'&&!(o.cat==='moon'?MG.has(o.grp):S.cat[o.grp]))reveal(o);S.center=id;if(S.focus!==id){fFrom=S.focus=id;fT=1}syncTrails(true);renderUI();save()}
+function setCenter(id){pushSel('body',id);clearSky();const o=byId[id];if(o.grp!=='core'&&!(o.cat==='moon'?MG.has(o.grp):S.cat[o.grp]))reveal(o);S.center=id;if(S.focus!==id){fFrom=S.focus=id;fT=1}syncTrails(true);renderUI();save()}
 function reveal(o){if(o.cat==='moon'){MG.add(o.grp);if(!parOn(o.par))S.cat[o.par.grp]=true}else if(o.grp!=='core')S.cat[o.grp]=true;applyVis();buildMoonUI()}
 
 /* ---------- labels (pooled) ---------- */
@@ -949,7 +955,7 @@ $('jump').onkeydown=e=>{if(e.key==='Enter')jumpTo(e.target,true)};
 addEventListener('keydown',e=>{if(e.target.matches&&e.target.matches('input,select'))return;const k=e.key;
  if(k==='f'||k==='F'){setFS(!document.body.classList.contains('fs'));return}if(k==='Escape'&&document.body.classList.contains('fs')){setFS(false);return}
  if(k===' '){e.preventDefault();S.playing=!S.playing}else if(k==='ArrowRight')S.speed=Math.min(10,S.speed+1);else if(k==='ArrowLeft')S.speed=Math.max(0,S.speed-1);
- else if(k==='r'||k==='R')S.dir=-S.dir;else if(k==='t'||k==='T'){S.trails=!S.trails;syncTrails(true)}else if((k==='c'||k==='C')&&S.focus!==S.center){setCenter(S.focus);return}else if(k==='/'){e.preventDefault();$('panel').classList.add('open');$('find').focus();return}else return;renderUI();syncTrails();save()});
+ else if(k==='r'||k==='R')S.dir=-S.dir;else if(k==='t'||k==='T'){S.trails=!S.trails;syncTrails(true)}else if((k==='c'||k==='C')&&S.focus!==S.center){setCenter(S.focus);return}else if(k==='/'){e.preventDefault();$('panel').classList.add('open');$('find').focus();return}else if(k==='Backspace'){e.preventDefault();goBack();return}else return;renderUI();syncTrails();save()});
 function resize(){W=innerWidth;H=innerHeight;renderer.setSize(W,H,false);camera.aspect=starCam.aspect=W/H;camera.updateProjectionMatrix();starCam.updateProjectionMatrix();PXR=(H/2)/Math.tan(25*DEG)}
 const ro=new ResizeObserver(resize);ro.observe(document.body);
 
@@ -987,7 +993,7 @@ function skyCard(o){const a=(h,t)=>`<a href="${h}" target="_blank" rel="noopener
  if(o.k==='exo')L+=a('https://exoplanetarchive.ipac.caltech.edu/overview/'+encodeURIComponent(o.host),'NASA Exoplanet Archive');
  L+=a('https://simbad.harvard.edu/simbad/sim-id?Ident='+encodeURIComponent(o.k==='star'?'HR '+o.hr:o.k==='exo'?o.host:o.simbad),'SIMBAD');
  h+=`<dd class="lk">${L}</dd>`;$('sDl').innerHTML=h}
-function selectSky(id){const o=skyById[id];if(!o)return;S.sky=id;skyCard(o);$('focus').style.display='none';$('sky').style.display='block';applyCon()}
+function selectSky(id){const o=skyById[id];if(!o)return;pushSel('sky',id);S.sky=id;skyCard(o);$('focus').style.display='none';$('sky').style.display='block';applyCon()}
 function clearSky(){if(!S.sky)return;S.sky=null;$('sky').style.display='none';$('focus').style.display='';applyCon()}
 $('sClose').onclick=clearSky;
 let turn=null;

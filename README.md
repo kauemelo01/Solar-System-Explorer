@@ -65,6 +65,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
+| Go back to the previously selected object | `Backspace` (repeat to go further back; bodies and sky objects alike) |
 | Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent |
 | Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets** |
 | Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |
