@@ -253,7 +253,6 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
    <p class="sub">Spacecraft maps where they exist. Off: painted textures only, with nothing extra to download.</p>
    <div class="row"><span>Sky map detail</span></div>
    <div class="seg seg3" id="skyRes"><button data-v="auto" aria-pressed="true">Auto</button><button data-v="4k" aria-pressed="false">4K</button><button data-v="8k" aria-pressed="false">8K</button></div>
-   <p class="note" id="skyResNote"></p>
   </details>
   <p class="hint">Drag to orbit, scroll or pinch to zoom, click a name to fly to it, double-click to hold it still. Keys: space pause, ← → speed, R reverse, T trails, C hold selected still, / find, F fullscreen.</p>
   <p class="src">Planets: JPL Keplerian elements (best 1800–2050). Moons: JPL mean elements, 459 moons as of Nov 2026; Pluto’s small-moon phases approximate. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
@@ -856,8 +855,7 @@ function renderUI(){
  $('rev').setAttribute('aria-pressed',S.dir<0);$('playIco').innerHTML=S.playing?'<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>':'<path d="M7 5l12 7-12 7z"/>';
  $('play').setAttribute('aria-label',S.playing?'Pause':'Play');
  $('trails').checked=S.trails;$('tlen').value=S.tlen;$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
- $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});
- $('skyResNote').textContent=(S.skyRes==='auto'?'Auto: '+(SKY_AUTO8?'8K':'4K')+' on this screen. ':'')+(SKY8_OK?'8K is a 6.9 MB download, 4K is 2.2 MB.':'8K is not supported by this device\'s graphics.');$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
+ $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
 function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
  const d=Math.hypot(_h[0]-_hc[0],_h[1]-_hc[1],_h[2]-_hc[2]),ds=Math.hypot(..._h);
