@@ -895,8 +895,14 @@ $('today').onclick=()=>{S.jd=nowJD()};
 // supported dates: 1 Jan 1000 to 1 Jan 3000 (UTC). Playing stops at either end, and the date box keeps to the same range (docs/sources.md#accuracy)
 const JD_MIN=Date.UTC(1000,0,1)/864e5+2440587.5,JD_MAX=Date.UTC(3000,0,1)/864e5+2440587.5;
 $('jump').min='1000-01-01';$('jump').max='3000-01-01';
-$('jump').onchange=e=>{const t=Date.parse(e.target.value+'T00:00:00Z');if(isNaN(t))return;S.jd=Math.min(JD_MAX,Math.max(JD_MIN,t/864e5+2440587.5));
- if(S.jd*864e5!==t+2440587.5*864e5)e.target.value=new Date((S.jd-2440587.5)*864e5).toISOString().slice(0,10)};
+// While the box has focus, a date outside the range is ignored rather than clamped: typing a year passes through partial values
+// (2500 is typed as 0002, 0025, 0250, 2500), and clamping those would rewrite the box mid-typing. On Enter or leaving the box it is clamped.
+function jumpTo(el,final){const t=Date.parse(el.value+'T00:00:00Z');if(isNaN(t))return;const jd=t/864e5+2440587.5;
+ if(jd>=JD_MIN&&jd<=JD_MAX){S.jd=jd;return}if(!final)return;
+ S.jd=Math.min(JD_MAX,Math.max(JD_MIN,jd));el.value=new Date((S.jd-2440587.5)*864e5).toISOString().slice(0,10)}
+$('jump').onchange=e=>jumpTo(e.target,document.activeElement!==e.target);
+$('jump').onblur=e=>jumpTo(e.target,true);
+$('jump').onkeydown=e=>{if(e.key==='Enter')jumpTo(e.target,true)};
 addEventListener('keydown',e=>{if(e.target.matches&&e.target.matches('input,select'))return;const k=e.key;
  if(k==='f'||k==='F'){setFS(!document.body.classList.contains('fs'));return}if(k==='Escape'&&document.body.classList.contains('fs')){setFS(false);return}
  if(k===' '){e.preventDefault();S.playing=!S.playing}else if(k==='ArrowRight')S.speed=Math.min(10,S.speed+1);else if(k==='ArrowLeft')S.speed=Math.max(0,S.speed-1);
