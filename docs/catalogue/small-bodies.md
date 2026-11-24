@@ -2,9 +2,9 @@
 
 # Dwarf planets, asteroids, centaurs and comets
 
-The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
-
 25 named bodies. Orbital elements are osculating heliocentric elements taken from the **JPL Small-Body Database (SBDB)**, except Pluto's (see the note under the dwarf planets); most use epoch JD 2461200.5 (2026-Jun-24 TDB). Comet orbits use the elements of their most recent perihelion passage in the SBDB. Each row links to the live SBDB record, so values can be re-checked at any time.
+
+The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
 
 ## Dwarf planets and candidates
 
