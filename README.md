@@ -106,6 +106,15 @@ Opening `index.html` directly from disk works for the solar system, but browsers
 
 This is an educational model built on mean and osculating Keplerian elements, not a full n-body integration. Planet positions are good to roughly arc-minutes within 1800–2050. Small-body positions drift slowly away from their element epoch. Moon positions follow mean elements, which do not include short-period perturbations. For mission-grade ephemerides, use [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) directly. See [docs/sources.md](docs/sources.md#accuracy) for details.
 
+Distances and body sizes are always to true scale. A few visual aids are not. Each is described in [docs/sources.md](docs/sources.md#what-is-not-to-scale):
+- the fixed-size dots and labels that mark each body;
+- the Sun's glow;
+- comet tails;
+- placeholder sizes for moons with no published radius;
+- computer-generated shapes for irregular bodies;
+- the statistical belts;
+- the sky backdrop, whose directions are true but whose distances are not drawn.
+
 ## Contributing
 
 New moons are announced every year. To add or update an object, open an issue or pull request that cites its JPL Horizons/SBDB record or its Minor Planet Electronic Circular, and update the matching page in [`docs/catalogue/`](docs/catalogue/).
