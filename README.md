@@ -134,7 +134,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 
 ## Accuracy and limits
 
-This is an educational model built on mean and osculating Keplerian elements, not a full n-body integration. Planet positions are good to roughly arc-minutes within 1800–2050. Small-body positions drift slowly away from their element epoch. Moon positions follow mean elements, which do not include short-period perturbations. For mission-grade ephemerides, use [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) directly. See [docs/sources.md](docs/sources.md#accuracy) for details.
+This is an educational model built on mean and osculating Keplerian elements, not a full n-body integration. Planet positions are good to roughly arc-minutes within 1800–2050. The time bar covers **1 January 1000 to 1 January 3000**: playing stops at either end, and dates typed outside that range are moved to the nearest end. Outside 1800–2050 the date is marked *approximate*. Small-body positions drift slowly away from their element epoch. Moon positions follow mean elements, which do not include short-period perturbations. For mission-grade ephemerides, use [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) directly. See [docs/sources.md](docs/sources.md#accuracy) for details.
 
 Distances and body sizes are always to true scale. A few visual aids are not. Each is described in [docs/sources.md](docs/sources.md#what-is-not-to-scale):
 - the fixed-size dots and labels that mark each body;

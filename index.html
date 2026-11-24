@@ -892,7 +892,11 @@ $('speed').oninput=e=>{S.speed=+e.target.value;renderUI();syncTrails();save()};
 $('play').onclick=()=>{S.playing=!S.playing;renderUI()};
 $('rev').onclick=()=>{S.dir=-S.dir;renderUI()};
 $('today').onclick=()=>{S.jd=nowJD()};
-$('jump').onchange=e=>{const t=Date.parse(e.target.value+'T00:00:00Z');if(!isNaN(t))S.jd=t/864e5+2440587.5};
+// supported dates: 1 Jan 1000 to 1 Jan 3000 (UTC). Playing stops at either end, and the date box keeps to the same range (docs/sources.md#accuracy)
+const JD_MIN=Date.UTC(1000,0,1)/864e5+2440587.5,JD_MAX=Date.UTC(3000,0,1)/864e5+2440587.5;
+$('jump').min='1000-01-01';$('jump').max='3000-01-01';
+$('jump').onchange=e=>{const t=Date.parse(e.target.value+'T00:00:00Z');if(isNaN(t))return;S.jd=Math.min(JD_MAX,Math.max(JD_MIN,t/864e5+2440587.5));
+ if(S.jd*864e5!==t+2440587.5*864e5)e.target.value=new Date((S.jd-2440587.5)*864e5).toISOString().slice(0,10)};
 addEventListener('keydown',e=>{if(e.target.matches&&e.target.matches('input,select'))return;const k=e.key;
  if(k==='f'||k==='F'){setFS(!document.body.classList.contains('fs'));return}if(k==='Escape'&&document.body.classList.contains('fs')){setFS(false);return}
  if(k===' '){e.preventDefault();S.playing=!S.playing}else if(k==='ArrowRight')S.speed=Math.min(10,S.speed+1);else if(k==='ArrowLeft')S.speed=Math.max(0,S.speed-1);
@@ -952,7 +956,6 @@ $('conMode').onclick=e=>{const v=e.target.dataset.v;if(!v)return;S.skyp.conMode=
 $('findNames').innerHTML=$('names').innerHTML+SKY.filter((o,i)=>SKY.findIndex(q=>q.name===o.name)===i).map(o=>`<option value="${o.name}">${o.k==='con'?'Constellation'+(o.c.z?' · zodiac':''):o.k==='dso'?o.type:o.k==='exo'?'Star with planets':'Bright star'}</option>`).join('');
 
 /* ---------- loop ---------- */
-const JD_MIN=2086308,JD_MAX=2816788;
 let last=performance.now(),infoT=0;const _q=[0,0,0],tv=new THREE.Vector3();
 const PERF={js:0,gl:0};
 function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1000);last=now;
