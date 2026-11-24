@@ -68,6 +68,12 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | Go back to the previously selected object | `Backspace` (repeat to go further back; bodies and sky objects alike) |
 | Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent |
 | Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets** |
+| Quick views | *Show* → **Show everything** or **Planets only** |
+| Show the belts | *Show → Belts*: **Main asteroid belt**, **Jupiter trojans**, **Kuiper belt** (statistical clouds, not catalogued objects) |
+| Sky layers | *Beyond the solar system*: **Milky Way & faint stars**, **Nebulae, clusters & galaxies**, **Bright star names**, **Stars with known planets** |
+| Trails, outlines and labels | *Trails → Show trails* and *Trail length* (1 to 250 years); *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
+| Frame the view | *View* → **Inner planets** or **Whole system** |
+| Time | The time bar: play / pause, reverse, the speed slider (also `Space`, `R`, `←` `→`), a date box to jump to any date between 1000 and 3000 AD, and **Today** |
 | Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |
 | Sky map detail | *Images → Sky map detail*: **Auto** (8K on large screens, otherwise 4K), **4K** or **8K** (disabled on devices whose graphics cannot show 8K textures) |
 | Fold or unfold a menu section | Click the section's heading |
@@ -141,6 +147,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 | `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
 | `social-card.png` | Preview image shown when the link is shared (Open Graph / Twitter card) |
 | `_config.yml`, `sitemap.xml` | Search-engine setup for GitHub Pages: page titles and descriptions, and the list of pages for Google Search Console |
+| `google93f522f8da0be4f0.html` | Site ownership check for Google Search Console |
 | `LICENSE` | GNU General Public License v3 |
 
 ## Accuracy and limits
