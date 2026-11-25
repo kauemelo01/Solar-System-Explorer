@@ -51,8 +51,36 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 - **Discoveries and families:** JPL *Satellite Discovery Circumstances* <https://ssd.jpl.nasa.gov/sats/discovery.html>; S. S. Sheppard (Carnegie Science) moon pages <https://sites.google.com/carnegiescience.edu/sheppard/moons>; IAU Minor Planet Center electronic circulars <https://minorplanetcenter.net/mpec/RecentMPECs.html>.
 - **Count:** 459 moons as of November 2026 (Mars 2, Jupiter 115, Saturn 292, Uranus 29, Neptune 16, Pluto 5). Earth's Moon is counted with the planets. With the 8 moons of other dwarf planets, candidates and asteroids below, the app has 467 moons.
 - **Naming differences:** *S/2009 S 2* (NAIF 65304) follows JPL Horizons. *Megaclite* and *Philophrosyne* follow JPL Horizons; the JPL mean-elements table spells them `Magaclite` and `Philophrosyn`.
-- **Pluto's moons** use JPL's mean equatorial elements, referred to Pluto's equator with the IAU 2015 pole (RA 132.993°, Dec −6.163°). Checked against JPL Horizons, Charon's position is right to about 0.1°; the phases of the four small moons along their orbits are approximate.
-- **Epochs:** JPL gives most moons' elements for 2000-01-01, but some groups for 2009, 2020 or 2025; the app currently treats all of them as 2000 (see [Known issues](#known-issues)).
+- **Pluto's moons** use JPL's mean equatorial elements, referred to Pluto's equator with the IAU 2015 pole (RA 132.993°, Dec −6.163°), and are fitted to Horizons like the other moons: Charon to 0.06°, the four small moons to 1.4–2.8°.
+- **Positions:** fitted to JPL Horizons over 1800–2050; see [Moon orbits](#moon-orbits) below. The fits replace the mean elements' epochs (JPL gives most for 2000-01-01, some groups for 2009, 2020 or 2025), which Release 2 treated as 2000.
+
+### Moon orbits
+
+Since Release 3 the app places every planetary moon with an orbit fitted to its **JPL Horizons ephemeris** <https://ssd.jpl.nasa.gov/horizons/>, from 4 January 1800 to 1 January 2051, or the part of that range Horizons covers. The fits are in `data/moon-orbits.js` and are built by the scripts in [`tools/moon-orbit-fits/`](../tools/moon-orbit-fits/) (how to rerun them: its README). Each moon has one of two kinds of fit:
+
+- **One orbit for the whole range (113 moons, most regular moons).** JPL's orbit shape, with its phase, mean motion, apsidal and nodal precession, a slow drift and up to two periodic terms fitted to Horizons. For the four moons in co-orbital resonances (Janus and Epimetheus, which swap orbits every four years, and Dione's companions Helene and Polydeuces) a table of along-track corrections every 5 or 10 days, taken from Horizons, is added.
+- **Time windows (345 moons, mostly irregular).** The Sun disturbs these orbits too much for one ellipse, so each moon has consecutive windows of 10 years, split down to 2.5 years where needed, each with its own fitted ellipse.
+
+The fits use Horizons positions every 60 days, plus a dense stretch near 2000 for the fast inner moons, so that their speed is not mistaken for another one that fits the same 60-day samples. S/2009 S 2 is fitted in Saturn's equatorial plane, which the JPL table does not give.
+
+**Checked independently.** Every fit is compared with Horizons positions on dates it was not fitted to (every 211 days), computed with the app's own code. Typical errors (median over the moons of each planet; for each moon, the root-mean-square error over 1800–2050):
+
+| Moons of | Moons | Typical error | Least accurate |
+|---|---|---|---|
+| Mars | 2 | 1.0° | Phobos, 1.9° |
+| Jupiter | 115 | 1.5° | Carpo, 3.7° |
+| Saturn | 292 | 1.5° | S/2023 S 38, 8.1° |
+| Uranus | 28 | 0.9° | Desdemona, 2.9° |
+| Neptune | 16 | 0.4° | Naiad, 3.4° |
+| Pluto | 5 | 1.7° | Styx, 2.8° |
+
+Over all 458 fitted moons the typical error is 1.5°, and 90% of moons are within 2.5°. The major moons are within a fraction of a degree (Io 0.03°, Titan 0.03°, Triton 0.29°, Charon 0.06°; Mimas, in resonance with Tethys, 2.8°). In Release 2 the same check gave a typical error of 92°. The largest single errors come from very eccentric orbits near their closest approach: S/2023 S 38 up to 123°, Nereid up to 25°.
+
+**Where Horizons covers less than 1800–2050**, the moon's card says *Estimated position* outside its own range: Uranus's 13 inner moons from Cordelia to Cupid (Horizons from 1900), Saturn's Janus, Epimetheus, Atlas, Prometheus, Pandora, Pan, Pallene, Anthe, Aegaeon and S/2009 S 2 (1950–2050), and Daphnis (1990–2018). **S/2025 U 1** is not yet in Horizons: it keeps JPL's mean elements, at their 2025 epoch, and its card says so.
+
+**Outside 1800–2050** the fits are extended, and the time bar shows *Estimated positions*. A test of the same method 150 years beyond its fitted range kept one-orbit moons within about 0.5° (Io 0.06°, Titan 0.16°, Iapetus 0.38°), and their errors grow slowly beyond that. Windowed moons keep their first or last window: their orbit's size, shape and direction stay right, but within a few decades their position along it is no longer meaningful.
+
+Orbit outlines follow the fits, so they turn as the orbits precess.
 
 ## Moons of dwarf planets and asteroids (8)
 
@@ -222,8 +250,8 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 |---|---|---|
 | Planets | Standish Keplerian elements + secular rates | ~arc-minutes, 1800–2050 |
 | The Moon | Mean elements (no periodic perturbations) | within a few degrees in longitude |
-| Regular moons | JPL mean elements, Laplace plane | Orbit shape, size and period good. Positions along the orbit can be tens of degrees off, because orbit precession is not modelled; see [Known issues](#known-issues) |
-| Irregular moons | JPL mean elements, ecliptic | Orbit shape and sense of motion; positions along the orbit are indicative only (a [known issue](#known-issues)) |
+| Regular moons | One orbit fitted to JPL Horizons over 1800–2050 ([Moon orbits](#moon-orbits)) | Major moons within a fraction of a degree; small inner moons typically 1–3° |
+| Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°; S/2023 S 38 8° |
 | Asteroids, dwarf planets | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it |
 | Comets | Two-body orbit from the SBDB solution for the latest perihelion | Good near perihelion; drifts faster than asteroids (Jupiter encounters, outgassing), up to several degrees within a decade (a [limitation of the model](#limitations-of-the-model)) |
 | Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain (a [limitation of the model](#limitations-of-the-model)) |
@@ -234,7 +262,6 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 
 Things that are wrong compared with official NASA, JPL or IAU data, found in a November 2026 check of every value. They are not fixed yet; work in progress is on the `audit-fixes-wip` branch.
 
-- **Moon positions along their orbits.** The orbit shapes, sizes, tilts and periods are JPL's, but where each moon is on its orbit at a given date can be wrong: by tens of degrees for many moons, and up to the opposite side for some. Three causes: the app does not model the slow precession of moon orbits (Io, for example, is right to 0.1° in 2000 but about 90° off in 2025); 33 moons' JPL elements are for 2009, 2020 or 2025 but are treated as 2000 (Uranus's 14 inner and 10 irregular moons, Neptune's 8 irregular moons and Saturn's S/2009 S 2); and JPL's mean elements for Saturn's main moons do not reproduce their positions in JPL Horizons. Planets, dwarf planets, asteroids, comets, the Moon, Charon and the 8 moons of other dwarf planets and asteroids are not affected.
 - **Moon sizes.** Only 46 moon radii can be traced to JPL's *Planetary Satellite Physical Parameters*, and 12 of those differ slightly from JPL's current values (for example Nix 25 km in the app, 18 km at JPL). The remaining radii have no documented source yet.
 - **Spin axes of small bodies.** All but fifteen small bodies have a random spin axis. Published axes exist for some others, for example Arrokoth, Didymos and Apophis.
 - **Which side of a body faces you.** The app spins every body at its true rate, but does not set where its prime meridian points, so the side facing you at a given moment is not the real one. The IAU publishes this for every planet and major moon.
@@ -252,6 +279,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
   - planets and Pluto use Keplerian elements valid for 1800–2050; outside that range the time bar shows *Estimated positions*;
   - the Moon uses mean elements without periodic terms, good to a few degrees;
   - small bodies use a single two-body orbit. Asteroids stay close for years, but comets drift faster, because Jupiter and their own outgassing change their orbits (in November 2026, 9P/Tempel 1 is about 7° off and 1P/Halley about 0.3 AU off);
+  - planetary moons are fitted to JPL Horizons over 1800–2050; outside that range, and outside the shorter range Horizons covers for 24 of them, their positions are estimates, and S/2025 U 1, not yet in Horizons, uses JPL's mean elements ([Moon orbits](#moon-orbits));
   - moons of dwarf planets and asteroids use two-body orbits, so their positions drift slowly, and the published orbits of Selam and Xiangliu leave their orientation uncertain.
 - **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon and Ida's moon Dactyl. The main asteroid belt, Jupiter trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
 - **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).

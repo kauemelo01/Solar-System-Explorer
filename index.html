@@ -267,7 +267,7 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
    <div class="seg seg3" id="skyRes"><button data-v="auto" aria-pressed="true">Auto</button><button data-v="4k" aria-pressed="false">4K</button><button data-v="8k" aria-pressed="false">8K</button></div>
   </details>
   <p class="hint">Drag to orbit, scroll or pinch to zoom, click a name to fly to it, double-click to hold it still. Keys: space pause, ← → speed, R reverse, T trails, C hold selected still, Backspace back to the previous selection, / find, F fullscreen.</p>
-  <p class="src">Planets and Pluto: JPL Keplerian elements (best 1800–2050). Moons: JPL mean elements and JPL Horizons/published orbits, 467 moons as of Nov 2026; moon positions along their orbits are approximate (see the documentation’s Known issues). Rings: NASA fact sheets and occultation studies, radii true, opacity exaggerated. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
+  <p class="src">Planets and Pluto: JPL Keplerian elements (best 1800–2050). Moons: 467 as of Nov 2026; the planets’ moons are fitted to JPL Horizons over 1800–2050 (typically within 1.5°), the others use JPL Horizons or published orbits. Rings: NASA fact sheets and occultation studies, radii true, opacity exaggerated. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
  </div>
 </aside>
 
@@ -428,12 +428,13 @@ function moonGeo(jd,o){
  o[0]=r*(Math.cos(N)*Math.cos(u)-Math.sin(N)*Math.sin(u)*Math.cos(i));o[1]=r*(Math.sin(N)*Math.cos(u)+Math.cos(N)*Math.sin(u)*Math.cos(i));o[2]=r*Math.sin(u)*Math.sin(i);return o}
 // Moon orbits fitted to JPL Horizons over 1800-2050 (data/moon-orbits.js, built by tools/moon-orbit-fits; docs/sources.md#moon-orbits).
 // 'g': one orbit for the whole span (phase, mean motion, apsidal and nodal precession, slow drift and periodic terms) in the plane with pole f
-// (J2000 ecliptic if none); 'w': consecutive time windows in the J2000 ecliptic frame, each with its own ellipse [t0,t1,M0,n,w0,w',node0,node',M'',a km,e,i].
+// (J2000 ecliptic if none), with an optional table 'c' of along-track corrections for moons in resonances; 'w': consecutive time windows in the J2000 ecliptic frame, each with its own ellipse [t0,t1,M0,n,w0,w',node0,node',M'',a km,e,i].
 // Outside a moon's fitted span the single orbit, or the nearest window, is extended: positions there are estimates. Moons without a fit keep JPL's mean elements.
 const _mo={P:null,Q:null,M:0,a:0,e:0,b:0};
 function moonOrbit(o,jd){const f=o.fit,t=jd-J2000;let q,a=o.a,e=o.e,inc=o.inc,ra=f.f?f.f[0]:null,dec=f.f?f.f[1]:null;
  if(f.w){const W=f.w;let k=0;while(k<W.length-1&&t>W[k][1])k++;q=W[k].slice(2);a=q[7]*KM;e=q[8];inc=q[9];ra=dec=null}else q=f.g;
  let M=q[0]+q[1]*t+.5*q[6]*t*t;if(!f.w)for(let k=7;k+2<q.length;k+=3)M+=q[k]*Math.sin(q[k+1]*t+q[k+2]);
+ if(f.c){const c=f.c,nv=c.length-2,x=Math.min(Math.max((t-c[0])/c[1],0),nv-1),k=Math.min(nv-2,Math.floor(x));M+=c[k+2]+(c[k+3]-c[k+2])*(x-k)} // along-track corrections (resonant moons)
  [_mo.P,_mo.Q]=PQ(q[4]+q[5]*t,inc,q[2]+q[3]*t,ra,dec);_mo.M=M;_mo.a=a;_mo.e=e;_mo.b=a*Math.sqrt(1-e*e);return _mo}
 function ell(o,jd,out){let M,P,Q,a=o.a,e=o.e,b=o.b;
  if(o.fit){const m=moonOrbit(o,jd);M=m.M;P=m.P;Q=m.Q;a=m.a;e=m.e;b=m.b}else{M=o.M0+o.n*(jd-o.ep);P=o.Pv;Q=o.Qv}
@@ -467,11 +468,13 @@ SB.forEach(([id,name,cat,kind,a,e,i,om,w,M0,ep,R,color,rot,round])=>{const[Pv,Qv
 // moon spin poles (RA, Dec J2000, spin-positive) where they differ from the orbit's reference plane, IAU 2015 (Archinal et al. 2018):
 // Triton turns backwards, so it gets the pole opposite its IAU north pole at J2000 (298.45°, +20.30°); Iapetus uses its IAU spin pole
 const MOON_POLE={Triton:[118.45,-20.30],Iapetus:[318.16,75.03]};
+// moons not yet in JPL Horizons keep JPL's mean elements, at the epoch of JPL's table
+const MOON_EP={'S/2025 U 1':2460676.5};
 MOONS.forEach(([name,pid,akm,e,w,M0,inc,node,P,ra,dec,fam])=>{const fit=(window.MOON_FIT||{})[name];if(fit&&fit.s){akm=fit.s[0];e=fit.s[1];inc=fit.s[2]}
  const[Pv,Qv]=PQ(node,inc,w,ra,dec),par=byId[pid],mj=MAJOR[name];
  const R=MOON_R[name]||(fam==='dmoon'?40:fam==='irregular'?(pid==='neptune'?20:10):pid==='saturn'?2:pid==='jupiter'?1.5:5);
  add({id:'m-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),name,cat:'moon',kind:'Moon of '+par.name+' · '+(FAM_DESC[fam]||''),R,est:!MOON_R[name],color:mj?(mj.c?mj.c[2]:MOON_COL[fam]):MOON_COL[fam],
-  P,parent:pid,par,fam,grp:pid+':'+fam,major:mj?1:0,tex:mj,orb:'sat',a:akm*KM,b:akm*KM*Math.sqrt(1-e*e),e,M0,ep:J2000,n:360/P,Pv,Qv,retro:inc>90,fit,inc,span:fit&&fit.t,
+  P,parent:pid,par,fam,grp:pid+':'+fam,major:mj?1:0,tex:mj,orb:'sat',a:akm*KM,b:akm*KM*Math.sqrt(1-e*e),e,M0,ep:MOON_EP[name]||J2000,n:360/P,Pv,Qv,retro:inc>90,fit,inc,span:fit&&fit.t,nohz:!!window.MOON_FIT&&!fit&&!['dmoon','hiiaka','namaka','amoon'].includes(fam),
   pole:MOON_POLE[name]||(ra==null?par.pole:[ra,dec]),rot:P*24})});
 const MOONCOUNT={};OBJ.forEach(o=>{if(o.cat==='moon')MOONCOUNT[o.grp]=(MOONCOUNT[o.grp]||0)+1});
 const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,neptune:354800,pluto:65200,eris:37274,haumea:49880,quaoar:13518,orcus:8975,gonggong:24021,didymos:1.174,dinkinesh:3.1};
@@ -951,8 +954,8 @@ function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center
  // the date picker shows the current date (day and month already filled in), except while the user is editing it
  const jp=$('jump'),iso=dt.toISOString().slice(0,10);if(document.activeElement!==jp&&jp.value!==iso)jp.value=iso;
  // a moon whose Horizons ephemeris covers less than 1800-2050 is an estimate outside its own span too (docs/sources.md#moon-orbits)
- const sp=f.span,t=S.jd-J2000,fe=$('fEst'),yr=x=>new Date((x+J2000-2440587.5)*864e5).getUTCFullYear(),ex=!!sp&&!out&&(t<sp[0]||t>sp[1]);fe.hidden=!ex;
- if(ex)fe.textContent='Estimated position: fitted to JPL Horizons for '+yr(sp[0])+'–'+yr(sp[1])+' only'}
+ const sp=f.span,t=S.jd-J2000,fe=$('fEst'),yr=x=>new Date((x+J2000-2440587.5)*864e5).getUTCFullYear(),ex=(!!sp&&!out&&(t<sp[0]||t>sp[1]))||(!!f.nohz&&!out);fe.hidden=!ex;
+ if(ex)fe.textContent=f.nohz?'Estimated position: not yet in JPL Horizons; JPL mean elements':'Estimated position: fitted to JPL Horizons for '+yr(sp[0])+'–'+yr(sp[1])+' only'}
 $('ptog').onclick=()=>{const o=$('panel').classList.toggle('open');$('ptog').setAttribute('aria-expanded',o)};
 function setMin(m){S.pmin=m;$('panel').classList.toggle('min',m);const b=$('pmin');b.setAttribute('aria-expanded',!m);b.title=b.ariaLabel=m?'Expand menu':'Collapse menu'}
 $('pmin').onclick=()=>{setMin(!S.pmin);save()};setMin(!!S.pmin);

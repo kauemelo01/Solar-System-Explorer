@@ -2,7 +2,7 @@
 
 # Moons of Pluto
 
-**5 moons.** Orbits use the **JPL mean orbital elements** of planetary satellites (mean equatorial elements, referred to Pluto's equator with the IAU 2015 pole, as published by JPL SSD). The *a*, *e*, *i* and *P* columns below are the exact values used by the app. Every moon links to its **JPL Horizons** object record by NAIF ID, and to its NASA Science page where NASA has published one.
+**5 moons.** Positions along the orbits are **fitted to JPL Horizons over 1800–2050** ([Moon orbits](../sources.md#moon-orbits)): checked against Horizons on other dates, the typical error for this planet's moons is 1.7° (median), and the least accurate is Styx at 2.8°. The *a*, *e*, *i* and *P* columns below are the **JPL mean orbital elements** (mean equatorial elements, referred to Pluto's equator with the IAU 2015 pole, as published by JPL SSD); the fitted orbits keep these shapes, or refine them where Horizons shows they change. Every moon links to its **JPL Horizons** object record by NAIF ID, and to its NASA Science page where NASA has published one.
 
 The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
 
@@ -33,4 +33,4 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 3 | <a id="m-kerberos"></a>**Kerberos** | 58,300 | 0.01 | 0.4 | 32.1700 | 6 | 904 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27904%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/kerberos/) | Plain shape |
 | 4 | <a id="m-hydra"></a>**Hydra** | 65,200 | 0.009 | 0.3 | 38.2000 | 26 | 903 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27903%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/hydra/) | Plain shape |
 
-Charon's position matches JPL Horizons to about 0.1°. Phases of the four small moons (Styx, Nix, Kerberos, Hydra) along their orbits are approximate. Radii are under review; see [Known issues](../sources.md#known-issues).
+Charon's position matches JPL Horizons to about 0.1° (0.06° typical); the four small moons to 1.4–2.8° typical (Hydra 1.4°, Kerberos 1.7°, Nix 2.1°, Styx 2.8°). Radii are under review; see [Known issues](../sources.md#known-issues).
