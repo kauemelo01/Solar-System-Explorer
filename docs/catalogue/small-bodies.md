@@ -97,8 +97,9 @@ Sizes are the JPL SBDB diameter halved where the SBDB lists one. Where it does n
   - 12.4041 h from July to October 2014 (Jorda et al. 2016, *Icarus*).
   - Slightly longer in spring 2015, then much shorter after the August 2015 perihelion, reaching 12.055 h in 2016 (ESA; [Keller et al. 2015](https://www.aanda.org/articles/aa/abs/2015/07/aa26421-15/aa26421-15.html), *A&A* 579). Over the 2014–2016 pass the period shortened by about 21 minutes, as on the pass before ([Kramer et al. 2019](https://arxiv.org/abs/1812.01490), *A&A* 630, A3).
   - **Why 12.055 h:** it is the most recent measured value. 67P passed perihelion again in November 2021, and its period has probably changed since, but we found no later measurement. The app keeps one fixed period, so 67P's spin is only approximate at other dates (a [limitation of the model](../sources.md#limitations-of-the-model)).
+- **Donaldjohanson:** 251.09 h (10.46 days), measured from Lucy's 2025 flyby images, from the Lucy project's spin model ([`donaldjohanson_v12.tpc`](https://naif.jpl.nasa.gov/pub/naif/LUCY/kernels/pck/donaldjohanson_v12.tpc), DLR). The SBDB lists none.
 - **1P/Halley:** 52.8 h (2.2 days; Belton et al. 1991). **C/1995 O1 (Hale-Bopp):** 11.4 h (Licandro et al. 1998). The SBDB lists none for either.
-- **No published period** in a source we could verify: 109P/Swift-Tuttle, 55P/Tempel-Tuttle, 81P/Wild 2, C/2020 F3 (NEOWISE) and Donaldjohanson. The app spins them once every 12 hours as an illustration only. (A [limitation of the model](../sources.md#limitations-of-the-model).)
+- **No published period** in a source we could verify: 109P/Swift-Tuttle, 55P/Tempel-Tuttle, 81P/Wild 2 and C/2020 F3 (NEOWISE). The app spins them once every 12 hours as an illustration only. (A [limitation of the model](../sources.md#limitations-of-the-model).)
 
 ## Sources for this group
 

@@ -370,7 +370,7 @@ const SB=[
  ['dinkinesh','Dinkinesh','asteroid','Main-belt asteroid · Lucy flyby',2.191769,0.112682,2.0931,21.3527,66.9164,29.6075,2461200.5,0.36,'#a39a8c',52.67,0],
  ['ryugu', 'Ryugu', 'asteroid', 'Near-Earth asteroid · Hayabusa2 sample return', 1.190919, 0.191073, 5.8664, 251.2897, 211.609, 62.3407, 2461200.5, 0.448, '#4a4643', 7.63262, 0],
  ['itokawa', 'Itokawa', 'asteroid', 'Near-Earth asteroid · Hayabusa sample return', 1.324052, 0.280178, 1.6209, 69.0745, 162.8409, 170.6539, 2461200.5, 0.165, '#9a8f80', 12.132, 0],
- ['donaldjohanson', 'Donaldjohanson', 'asteroid', 'Main-belt asteroid · Lucy flyby', 2.383836, 0.186859, 4.4252, 262.7765, 212.8821, 147.8526, 2461200.5, 1.95, '#8a8279', 12, 0],
+ ['donaldjohanson', 'Donaldjohanson', 'asteroid', 'Main-belt asteroid · Lucy flyby', 2.383836, 0.186859, 4.4252, 262.7765, 212.8821, 147.8526, 2461200.5, 1.95, '#8a8279', 251.09, 0],
  ['eurybates', 'Eurybates', 'asteroid', 'Jupiter trojan (L4) · Lucy target', 5.217372, 0.090599, 8.0515, 43.5587, 28.6997, 125.748, 2461200.5, 31.94, '#5e5852', 8.711, 0],
  ['phaethon', 'Phaethon', 'asteroid', 'Near-Earth asteroid · parent of the Geminids', 1.271465, 0.889672, 22.3105, 265.0988, 322.3002, 301.4858, 2461200.5, 3.125, '#6d6a68', 3.604, 0],
  ['arrokoth', 'Arrokoth', 'asteroid', 'Kuiper belt object · New Horizons flyby', 44.052578, 0.035557, 2.4506, 159.0377, 188.8507, 310.9839, 2461200.5, 9, '#9c5a43', 15.918, 0],
@@ -466,11 +466,15 @@ byId.moon.par=byId.earth;
 add({id:'pluto',name:'Pluto',cat:'dwarf',kind:'Dwarf planet · Kuiper belt',R:1188.3,color:'#d9b996',P:90560,pole:[132.993,-6.163],rot:153.29,tex:'pluto',major:1,orb:'pl',parent:'sun',grp:'dwarf'});
 const r1=rng(11),SB_POLE={ceres:[291.418,66.764],vesta:[309.031,42.235],haumea:[112.05,-14.94],quaoar:[259.82,53.45],chariklo:[151.30,41.48],ida:[168.76,-87.12],
  pallas:[33,-3],lutetia:[52,12],eros:[11.35,17.22],itokawa:[90.53,-66.30],c9p:[255,64.5],c67p:[69.54,64.11],
- bennu:[85.45864,-60.36468],ryugu:[96.43112,-66.38741],psyche:[36.3,6.1]},SBEST=new Set(['arrokoth','neowise']);
+ bennu:[85.45864,-60.36468],ryugu:[96.43112,-66.38741],psyche:[36.3,6.1],
+ didymos:[69.32686,-72.72455],donaldjohanson:[324.66115,50.95721],eurybates:[6.612,-67.267],arrokoth:[319.36858,-25.58751],
+ juno:[109.43,43.43],hygiea:[319.6,-46.27],hektor:[348.73,-38.85],phaethon:[345.85,-58.49]},SBEST=new Set(['arrokoth','neowise']);
 // published spin poles (RA, Dec J2000), others random: Ceres and Vesta IAU 2015 (so their maps sit north-up); Haumea = Hiʻiaka orbit pole (ring coplanar, Ortiz et al. 2017);
 // Quaoar = Q1R ring pole (Pereira et al. 2023); Chariklo = ring pole (Braga-Ribas et al. 2014); Ida = NAIF pck00011;
 // Pallas, Lutetia, Eros, Itokawa, 9P/Tempel 1 and 67P = IAU 2015 as given in NAIF pck00011; Bennu = OSIRIS-REx bennu_v17.tpc;
-// Ryugu = Hayabusa2 ryugu_v10.tpc; Psyche = Shepard et al. 2021 (PSJ 2:125, Table 1)
+// Ryugu = Hayabusa2 ryugu_v10.tpc; Psyche = Shepard et al. 2021 (PSJ 2:125, Table 1);
+// Didymos = DART didymos_system_15.tpc; Donaldjohanson and Eurybates = Lucy donaldjohanson_v12.tpc, eurybates_v11.tpc; Arrokoth = New Horizons nh_arrokoth_002.tpc;
+// Juno, Hygiea, Hektor, Phaethon = DAMIT models (Viikinkoski et al. 2015; Vernazza et al. 2020; Hanuš et al. 2015; Hanuš et al. 2018), ecliptic λ/β converted to RA/Dec
 SB.forEach(([id,name,cat,kind,a,e,i,om,w,M0,ep,R,color,rot,round])=>{const[Pv,Qv]=PQ(om,i,w);
  add({id,name,cat,kind,R,color,rot,round,major:1,orb:'sb',parent:'sun',grp:kind.includes('candidate')?'candidate':cat,a:a*AU,b:a*AU*Math.sqrt(1-e*e),e,M0,ep,n:0.9856076686/Math.pow(a,1.5),P:365.25*Math.pow(a,1.5),Pv,Qv,
   pole:((p,q)=>SB_POLE[id]||[p,q])(r1()*360,r1()*140-70),est:SBEST.has(id),tex:cat==='comet'?{t:'rock',c:['#3b3633','#272321','#5a524c'],p:1}:{t:'rock',c:[color,shade(color,-.25),shade(color,.2)],p:!round}})});
