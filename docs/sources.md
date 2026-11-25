@@ -352,7 +352,7 @@ The app remembers its settings on the device (in the browser's local storage): t
 
 ## Known issues
 
-Things that are wrong compared with official NASA, JPL or IAU data, found in a November 2026 check of every value. They are not fixed yet; work in progress is on the `audit-fixes-wip` branch.
+Things that are wrong compared with official NASA, JPL or IAU data, found in a November 2026 check of every value. They are not fixed yet.
 
 - **Which side of a body faces you.** The app spins every body at its true rate, but does not set where its prime meridian points, so the side facing you at a given moment is not the real one. The IAU publishes this for every planet and major moon.
 - **Gaps in some moon maps that could be filled with better data.** Callisto's map has a band of longitude and its south polar region filled with flat white, which is wrong for dark Callisto. About a third of Deimos's map is smeared filler. The Voyager-era maps of Mimas, Enceladus, Tethys, Dione, Rhea and Iapetus have large areas filled with white or smears, although Cassini later mapped these moons. Details in the [map table](#every-map-with-its-coverage).
