@@ -92,6 +92,11 @@ Sizes are the JPL SBDB diameter halved where the SBDB lists one. Where it does n
 
 - **Eris:** 378.9 h (15.79 days, rotating in step with its moon Dysnomia; Szakáts et al. 2023, *A&A*). The SBDB still lists an older 25.9 h.
 - **Quaoar:** 17.68 h (Ortiz et al. 2003; used by Morgado et al. 2023). The SBDB lists half of it, 8.84 h, the single-peaked lightcurve period.
+- **67P/Churyumov-Gerasimenko:** 12.055 h, the period at the end of the Rosetta mission in September 2016 ([ESA](https://sci.esa.int/web/rosetta/-/58367-comet-rotation-period)). The SBDB lists 12.761 h. 67P's spin changes at each pass near the Sun, because gas escaping from its surface pushes on it. Measured values:
+  - 12.761 h before the 2009 perihelion and 12.4043 h after it ([Mottola et al. 2014](https://www.aanda.org/articles/aa/abs/2014/09/aa24590-14/aa24590-14.html), *A&A* 569). The IAU 2015 report uses 12.4043 h; see NAIF's [`pck00011.tpc`](https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc).
+  - 12.4041 h from July to October 2014 (Jorda et al. 2016, *Icarus*).
+  - Slightly longer in spring 2015, then much shorter after the August 2015 perihelion, reaching 12.055 h in 2016 (ESA; [Keller et al. 2015](https://www.aanda.org/articles/aa/abs/2015/07/aa26421-15/aa26421-15.html), *A&A* 579). Over the 2014–2016 pass the period shortened by about 21 minutes, as on the pass before ([Kramer et al. 2019](https://arxiv.org/abs/1812.01490), *A&A* 630, A3).
+  - **Why 12.055 h:** it is the most recent measured value. 67P passed perihelion again in November 2021, and its period has probably changed since, but we found no later measurement. The app keeps one fixed period, so 67P's spin is only approximate at other dates (a [limitation of the model](../sources.md#limitations-of-the-model)).
 - **1P/Halley:** 52.8 h (2.2 days; Belton et al. 1991). **C/1995 O1 (Hale-Bopp):** 11.4 h (Licandro et al. 1998). The SBDB lists none for either.
 - **No published period** in a source we could verify: 109P/Swift-Tuttle, 55P/Tempel-Tuttle, 81P/Wild 2, C/2020 F3 (NEOWISE) and Donaldjohanson. The app spins them once every 12 hours as an illustration only. (A [limitation of the model](../sources.md#limitations-of-the-model).)
 

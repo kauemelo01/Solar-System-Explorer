@@ -353,7 +353,7 @@ const SB=[
  ['chiron','Chiron','asteroid','Centaur',13.68,0.3798,6.93,209.30,339.29,216.72,2461200.5,83,'#8f8a85',5.92,0],
  ['halley','1P/Halley','comet','Periodic comet · returns 2061',17.92863505,0.967936,162.19053,59.098947,112.241431,0,2446469.973616,5.5,'#cfe6ff',52.8,0],
  ['encke','2P/Encke','comet','Periodic comet · 3.3-year orbit',2.21826255,0.84703903,11.341323,334.013413,187.281534,0,2460240.044454,2.4,'#cfe6ff',11,0],
- ['c67p','67P/Churyumov-Gerasimenko','comet','Periodic comet · Rosetta landed',3.46224949,0.64090813,7.040295,50.135574,12.79825,0,2457247.588658,1.7,'#cfe6ff',12.761,0],
+ ['c67p','67P/Churyumov-Gerasimenko','comet','Periodic comet · Rosetta landed',3.46224949,0.64090813,7.040295,50.135574,12.79825,0,2457247.588658,1.7,'#cfe6ff',12.055,0],
  ['halebopp','C/1995 O1 (Hale-Bopp)','comet','Long-period comet · 1997 apparition',177.43338391,0.994981,89.287594,282.733421,130.414667,0,2450537.134907,30,'#cfe6ff',11.4,0],
  ['didymos','Didymos','asteroid','Near-Earth asteroid · DART target system',1.64271,0.383123,3.4139,72.9858,319.5807,260.8613,2461200.5,0.39,'#8f8a83',2.2593,0],
  ['dinkinesh','Dinkinesh','asteroid','Main-belt asteroid · Lucy flyby',2.191769,0.112682,2.0931,21.3527,66.9164,29.6075,2461200.5,0.36,'#a39a8c',52.67,0],
@@ -430,9 +430,13 @@ const add=o=>{o.i=OBJ.length;o.h=new Float64Array(3);o.d=new Float64Array(3);o.k
 CORE.forEach(([id,name,cat,kind,R,color,P,pole,rot,tex])=>add({id,name,cat,kind,R,color,P,pole,rot,tex,major:1,orb:id==='sun'?'sun':id==='earth'||id==='moon'?'em':'pl',parent:id==='moon'?'earth':'sun',grp:id==='moon'?'earth:main':'core'}));
 byId.moon.par=byId.earth;
 add({id:'pluto',name:'Pluto',cat:'dwarf',kind:'Dwarf planet · Kuiper belt',R:1188.3,color:'#d9b996',P:90560,pole:[132.993,-6.163],rot:153.29,tex:'pluto',major:1,orb:'pl',parent:'sun',grp:'dwarf'});
-const r1=rng(11),SB_POLE={ceres:[291.418,66.764],vesta:[309.031,42.235],haumea:[112.05,-14.94],quaoar:[259.82,53.45],chariklo:[151.30,41.48],ida:[168.76,-87.12]},SBEST=new Set(['arrokoth','neowise']);
+const r1=rng(11),SB_POLE={ceres:[291.418,66.764],vesta:[309.031,42.235],haumea:[112.05,-14.94],quaoar:[259.82,53.45],chariklo:[151.30,41.48],ida:[168.76,-87.12],
+ pallas:[33,-3],lutetia:[52,12],eros:[11.35,17.22],itokawa:[90.53,-66.30],c9p:[255,64.5],c67p:[69.54,64.11],
+ bennu:[85.45864,-60.36468],ryugu:[96.43112,-66.38741],psyche:[36.3,6.1]},SBEST=new Set(['arrokoth','neowise']);
 // published spin poles (RA, Dec J2000), others random: Ceres and Vesta IAU 2015 (so their maps sit north-up); Haumea = Hiʻiaka orbit pole (ring coplanar, Ortiz et al. 2017);
-// Quaoar = Q1R ring pole (Pereira et al. 2023); Chariklo = ring pole (Braga-Ribas et al. 2014); Ida = NAIF pck00011
+// Quaoar = Q1R ring pole (Pereira et al. 2023); Chariklo = ring pole (Braga-Ribas et al. 2014); Ida = NAIF pck00011;
+// Pallas, Lutetia, Eros, Itokawa, 9P/Tempel 1 and 67P = IAU 2015 as given in NAIF pck00011; Bennu = OSIRIS-REx bennu_v17.tpc;
+// Ryugu = Hayabusa2 ryugu_v10.tpc; Psyche = Shepard et al. 2021 (PSJ 2:125, Table 1)
 SB.forEach(([id,name,cat,kind,a,e,i,om,w,M0,ep,R,color,rot,round])=>{const[Pv,Qv]=PQ(om,i,w);
  add({id,name,cat,kind,R,color,rot,round,major:1,orb:'sb',parent:'sun',grp:kind.includes('candidate')?'candidate':cat,a:a*AU,b:a*AU*Math.sqrt(1-e*e),e,M0,ep,n:0.9856076686/Math.pow(a,1.5),P:365.25*Math.pow(a,1.5),Pv,Qv,
   pole:((p,q)=>SB_POLE[id]||[p,q])(r1()*360,r1()*140-70),est:SBEST.has(id),tex:cat==='comet'?{t:'rock',c:['#3b3633','#272321','#5a524c'],p:1}:{t:'rock',c:[color,shade(color,-.25),shade(color,.2)],p:!round}})});
