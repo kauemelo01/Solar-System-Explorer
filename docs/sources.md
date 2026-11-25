@@ -228,7 +228,7 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 | Comets | Two-body orbit from the SBDB solution for the latest perihelion | Good near perihelion; drifts faster than asteroids (Jupiter encounters, outgassing), up to several degrees within a decade (a [limitation of the model](#limitations-of-the-model)) |
 | Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain (a [limitation of the model](#limitations-of-the-model)) |
 
-**Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. Beyond 1800–2050, the validity range of the planetary elements, the time bar marks the date *approximate*; the further from that window, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Approximate positions outside 1800–2050 are a [limitation of the model](#limitations-of-the-model).
+**Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. **Outside 1800–2050: positions are estimates.** That is the range in which the planets' elements are valid. Outside it the time bar turns amber and shows *Estimated positions* (next to the speed on wide screens, after the clock on phones); the further from that range, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Estimated positions outside 1800–2050 are a [limitation of the model](#limitations-of-the-model).
 
 ## Known issues
 
@@ -249,7 +249,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
 - **Visual aids not to scale:** the fixed-size dots and labels, the Sun's glow, comet tails, exaggerated ring opacity and computer-generated lumpy shapes. Each is described in [What is not to scale](#what-is-not-to-scale).
 - **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; five small bodies with no published rotation period spin at an illustrative 12 hours ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Orbit models are simple, so precision depends on the date and the body** (see [Accuracy](#accuracy)):
-  - planets and Pluto use Keplerian elements valid for 1800–2050; outside that window the time bar marks the date *approximate*;
+  - planets and Pluto use Keplerian elements valid for 1800–2050; outside that range the time bar shows *Estimated positions*;
   - the Moon uses mean elements without periodic terms, good to a few degrees;
   - small bodies use a single two-body orbit. Asteroids stay close for years, but comets drift faster, because Jupiter and their own outgassing change their orbits (in November 2026, 9P/Tempel 1 is about 7° off and 1P/Halley about 0.3 AU off);
   - moons of dwarf planets and asteroids use two-body orbits, so their positions drift slowly, and the published orbits of Selam and Xiangliu leave their orientation uncertain.
