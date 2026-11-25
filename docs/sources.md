@@ -206,13 +206,15 @@ Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On
 
 ## Surface maps
 
-Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it. Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](#card-notes)). Gaps that better data could fill are [known issues](#known-issues); the rest are [limitations of the model](#limitations-of-the-model).
+Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it. Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](#card-notes)). The remaining gaps, where no better published map exists, are [limitations of the model](#limitations-of-the-model).
 
 ### Sources
 
 - **Solar System Scope**, *Solar Textures* <https://www.solarsystemscope.com/textures/>, CC BY 4.0. The publisher says the maps are "based on NASA elevation and imagery data", with colours tuned to true-colour photos from MESSENGER, Viking and Cassini and made "slightly more saturated". Gaps in the data "are filled with fictional terrain that corresponds with the rest of the landscape". The publisher does not say which parts are filled (a [limitation of the model](#limitations-of-the-model)).
 - **NASA 3D Resources** <https://github.com/nasa/NASA-3D-Resources>, free to use under NASA's media guidelines. These maps come from the JPL/Caltech planetary map database and are mostly old Voyager and Viking mosaics, from before Galileo and Cassini. The descriptions below are quoted from each map's page at <https://science.nasa.gov/3d-resources/>.
 - **NASA/JPL Photojournal**, PIA18668 *Map of Triton* <https://www.jpl.nasa.gov/images/pia18668-map-of-triton/> (Paul Schenk, Lunar and Planetary Institute, 2014), from Voyager 2 images. Public domain.
+- **NASA/JPL Photojournal**, PIA18434–PIA18439 *Color Maps of* Dione, Enceladus, Iapetus, Mimas, Rhea and Tethys (Paul Schenk, Lunar and Planetary Institute, 2014), global maps from Cassini images: <https://photojournal.jpl.nasa.gov/catalog/PIA18437> (Mimas; the others are PIA18434 Dione, PIA18435 Enceladus, PIA18436 Iapetus, PIA18438 Rhea, PIA18439 Tethys). Credit: NASA/JPL-Caltech/Space Science Institute/Lunar and Planetary Institute. Their colours are enhanced beyond human vision (into the ultraviolet and infrared), so the app uses them in black-and-white.
+- **USGS Astrogeology**, *Callisto Voyager/Galileo SSI global mosaic*, 1 km per pixel <https://planetarymaps.usgs.gov/mosaic/Callisto_Voyager_GalileoSSI_global_mosaic_1km.tif>. Public domain.
 - **DLR Dawn mosaics** <https://dawngis.dlr.de/>: global clear-filter mosaics from Dawn's framing camera, made by the German Aerospace Center (DLR). Credit: NASA/JPL-Caltech/UCLA/MPS/DLR/IDA.
 
 ### Every map, with its coverage
@@ -232,11 +234,11 @@ Bodies with a surface map in `textures/` are drawn with it. All others keep a si
 | Ceres | DLR, *Ceres HAMO mosaic* (Dawn) | 2048 × 1024 | Global map from Dawn's high-altitude mapping orbit | Black-and-white; thin strips at the poles |
 | Vesta | DLR, *Vesta HAMO mosaic* (Dawn) | 2048 × 1024 | Global map from Dawn's high-altitude mapping orbit | Black-and-white. The far north is dark: it was in winter shadow when Dawn photographed it. The app's Vesta is a generic lumpy shape, so the map is only approximately placed |
 | Phobos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Few visible gaps |
-| Deimos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Roughly a third of the map (one side) is smeared filler (a [known issue](#known-issues)) |
+| Deimos | NASA 3D Resources | 1440 × 720 | Viking images, processed by USGS | Roughly a third of the map (one side) is smeared filler, and no better global map is published (a [limitation of the model](#limitations-of-the-model)) |
 | Io | NASA 3D Resources | 1440 × 720 | USGS mosaic of Voyager images; "data gaps near the poles" | The polar gaps (black in the original) are filled in the app with the painted texture (a [limitation of the model](#limitations-of-the-model)) |
 | Europa, Ganymede | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; some smeared filler near the poles |
-| Callisto | NASA 3D Resources | 1440 × 720 | USGS mosaic with Voyager images | Black-and-white; a band of longitude and the south polar region are filled with flat white, which is wrong for dark Callisto (a [known issue](#known-issues)) |
-| Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus | NASA 3D Resources | 1440 × 720 | "Mosaic from the Voyager imagery" (before Cassini) | Black-and-white. Unmapped areas are filled with flat white or smears: about half of Enceladus and Mimas, a third of Dione, the south of Tethys and Iapetus, and both sides of Rhea (a [known issue](#known-issues)) |
+| Callisto | USGS Astrogeology | 2048 × 1024 | Global mosaic of Voyager and Galileo images | About 3% has no images (a wedge near the south pole and a corner of the north): the app fills it with the painted texture |
+| Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus | NASA/JPL PIA18434–PIA18439 (Cassini) | 2048 × 1024 | Global maps from Cassini images, shown in black-and-white | Complete; the published colours are enhanced, so the app uses brightness only |
 | Miranda, Ariel, Umbriel, Titania, Oberon | NASA 3D Resources | 1440 × 720 | USGS (Tammy Becker) mosaic of Voyager 2 images | Black-and-white. Voyager 2 saw only the southern hemispheres; the app fills the north (about 60% of each map) with the painted texture (a [limitation of the model](#limitations-of-the-model)) |
 | Triton | NASA/JPL PIA18668 (Paul Schenk, 2014) | 2048 × 1024 | Voyager 2 images, enhanced colour | About half of Triton, mostly the southern hemisphere; the north was in polar night during the 1989 flyby. The app fills the unseen part with the painted texture, so a seam is visible (a [limitation of the model](#limitations-of-the-model)) |
 
@@ -252,6 +254,8 @@ All of the steps below are done by [`tools/build_textures.py`](../tools/build_te
 - The NASA maps are recompressed to JPEG quality 85.
 - For Io, the Uranian moons and Triton, the unmapped area (black in the originals) is made transparent and saved as WebP. In the app it is filled with the painted texture, so a seam is visible where they meet.
 - The Ceres and Vesta mosaics (21093 and 26703 pixels wide) and the Triton map (14138 pixels wide) are scaled down to 2048 × 1024.
+- The Cassini maps of Saturn's six icy moons (11741 to 15960 pixels wide) are converted to black-and-white and scaled down to 2048 × 1024.
+- The USGS Callisto mosaic (15138 pixels wide) is scaled down to 2048 × 1024; its no-data area is made transparent and saved as WebP, so the app fills it with the painted texture.
 
 ### How they load
 
@@ -284,7 +288,7 @@ The logic is in `index.html`, next to the comment `surface maps`.
 The app turns **68 bodies** so that their prime meridian (longitude 0°) points where the IAU says it does at that moment: the Sun, the eight planets, the Moon, Pluto and Charon, 49 moons of the planets (all of Mars's, Jupiter's four large moons and four inner ones, Saturn's seven main moons, Phoebe and nine small inner ones, Uranus's five major and ten inner moons, Triton and Neptune's six inner moons), and Ceres, Pallas, Lutetia, Eros, Itokawa, 9P/Tempel 1 and 67P/Churyumov-Gerasimenko.
 
 - **Source:** IAU 2015 rotational elements ([Archinal et al. 2018](https://doi.org/10.1007/s10569-017-9805-5)) as given in NAIF's [`pck00011.tpc`](https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc): W = W₀ + Ẇ·d (+ Ẅ·d²), plus the periodic terms that the IAU gives for many bodies, such as the Moon's libration terms. d is days from J2000.
-- **Maps:** to place the prime meridian, the app needs each map's longitude layout. Every map has 0° at its centre and east to the right, checked against landmarks at known longitudes: Greenwich (Earth), Mare Crisium (the Moon), Olympus Mons and Syrtis Major (Mars), the Caloris basin and Kuiper crater (Mercury), Valhalla (Callisto), Cassini Regio (Iapetus), Herschel crater (Mimas), Pele and Loki (Io). The exception is **Ceres**, whose Dawn mosaic has 180° at its centre (checked with Occator crater at 239°E).
+- **Maps:** to place the prime meridian, the app needs each map's longitude layout. Every map has 0° at its centre and east to the right, checked against landmarks at known longitudes: Greenwich (Earth), Mare Crisium (the Moon), Olympus Mons and Syrtis Major (Mars), the Caloris basin and Kuiper crater (Mercury), Valhalla (Callisto), Cassini Regio (Iapetus), Herschel crater (Mimas), Pele and Loki (Io). The exceptions have 180° at their centre: **Ceres**'s Dawn mosaic (checked with Occator crater at 239°E), the Cassini maps of Saturn's icy moons (Herschel on Mimas, Odysseus on Tethys, Cassini Regio on Iapetus, the bright wisps on Dione and Rhea) and the USGS Callisto mosaic (Valhalla).
 - **Checked** with the app's own code: on 21 June 2026 at 12:00 UTC the Sun is overhead at 0.6°E on Earth (expected about 0.4°E); the Moon faces Earth within 8°, its real libration; the other tidally locked moons face their planet within 1–7°, including the backward-spinning ones (Uranus's moons within 2°, Triton within 6°). Mimas is off by up to about 20°: the IAU's model for it has a 45° libration term, from its resonance with Tethys, that is not quite in step with the app's fitted orbit.
 - **Not aligned** (a [limitation of the model](#limitations-of-the-model)): Vesta, whose Dawn mosaic does not say which of Vesta's two longitude systems it uses (the Dawn team's or the IAU's), and every body without IAU rotational elements (most small moons and small bodies). These spin at their true rate from an arbitrary starting angle. On the giant planets, Venus and the Sun the surfaces are clouds or gas that move, so the map shows a representative view.
 
@@ -298,16 +302,16 @@ Each object's card in the app has a short note under its type saying what its su
 
 | Note | Used for |
 |---|---|
-| Surface: real spacecraft photos | Ceres, Vesta, Phobos |
+| Surface: real spacecraft photos | Ceres, Vesta, Phobos, Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus |
 | Surface: based on real spacecraft photos | Mercury, Earth, the Moon, Mars (Solar System Scope: colours tuned and any gaps filled by the publisher) |
 | Clouds: based on real photos, but they change constantly | Venus, Jupiter, Saturn, Uranus, Neptune |
 | Representative image: the Sun has no fixed surface | The Sun |
-| Surface: real photos; gaps filled in by map makers | Deimos, Europa, Ganymede, Callisto, Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus |
-| Surface: real photos, partial; the rest is painted | Io, Miranda, Ariel, Umbriel, Titania, Oberon, Triton |
+| Surface: real photos; gaps filled in by map makers | Deimos, Europa, Ganymede |
+| Surface: real photos, partial; the rest is painted | Io, Callisto, Miranda, Ariel, Umbriel, Titania, Oberon, Triton |
 | Surface: painted illustration, not a real image | Every other body drawn as a sphere or lumpy shape, including Pluto, Charon and Titan |
 | Plain shape; no surface image | The small moons, including the moons of dwarf planets, candidates and asteroids, drawn as plain-coloured shapes |
 
-Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden", Neptune "Dark spot of 1989, now gone", Vesta "Far north in shadow", Io "Small polar gaps", Triton "Voyager 2 saw half", and the five Uranian moons "Only the south was seen". If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
+Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden", Neptune "Dark spot of 1989, now gone", Vesta "Far north in shadow", Io "Small polar gaps", Callisto "Small gap near the south pole", Triton "Voyager 2 saw half", and the five Uranian moons "Only the south was seen". If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
 
 ## In the app
 
@@ -361,11 +365,7 @@ The app remembers its settings on the device (in the browser's local storage): t
 
 ## Known issues
 
-Things that are wrong compared with official NASA, JPL or IAU data, found in a November 2026 check of every value. They are not fixed yet.
-
-- **Gaps in some moon maps that could be filled with better data.** Callisto's map has a band of longitude and its south polar region filled with flat white, which is wrong for dark Callisto. About a third of Deimos's map is smeared filler. The Voyager-era maps of Mimas, Enceladus, Tethys, Dione, Rhea and Iapetus have large areas filled with white or smears, although Cassini later mapped these moons. Details in the [map table](#every-map-with-its-coverage).
-
-All of these will be fixed, with every value checked against JPL Horizons and the IAU before it replaces the current one.
+Things that are wrong compared with official NASA, JPL or IAU data. Every issue found in the November 2026 check of every value has been fixed, each checked against JPL Horizons, the IAU or the mission's own data before it replaced the old value. What remains are deliberate simplifications or gaps in the published data, listed under [Limitations of the model](#limitations-of-the-model).
 
 ## Limitations of the model
 
@@ -381,7 +381,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
   - seven irregular moons keep a visible bend in their path, and so in their trail, where two of their fitted time windows meet ([Moon orbits](#moon-orbits)). Neighbouring windows are blended, which removes the jumps and the sharp turns elsewhere, but these moons' windows disagree too much on the direction of motion for the blend to hide it. A 250-year trail held on the parent planet shows: Margaret (Uranus) about 22° in 2032; Psamathe (Neptune) about 9° in 1814; S/2023 S 18 (Saturn) about 9° in 2007; Neso (Neptune) about 8° in 2050; S/2020 S 38 (Saturn) about 7° in 2027; S/2023 S 33 (Saturn) about 6° in 1999. S/2023 S 38 (Saturn) also turns sharply, mostly for a real reason: its orbit is extremely elongated (eccentricity about 0.9), so it swings round Saturn at each closest approach. The positions themselves stay within these moons' usual accuracy;
   - moons of dwarf planets and asteroids use two-body orbits, so their positions drift slowly, and the published orbits of Selam and Xiangliu leave their orientation uncertain.
 - **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon and Ida's moon Dactyl, and others listed in [What's not included](#whats-not-included). The main asteroid belt, Jupiter trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
-- **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).
+- **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest (and Callisto's small unmapped area); about a third of Deimos's map and parts of Europa's and Ganymede's are filler from their map makers; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).
 - **One fixed rotation period per body:** comets' spins change at each pass near the Sun. 67P/Churyumov-Gerasimenko uses its last measured period (12.055 h, 2016), so its spin is only approximate at other dates ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Random spin axes for fifteen small bodies:** those with no published pole the app can use, listed under [Dwarf planets, candidates, asteroids, centaurs and comets](#dwarf-planets-candidates-asteroids-centaurs-and-comets-38-plus-pluto). Their spin axes are random, for display only.
 - **Which side faces you is not set for every body:** Vesta and bodies without IAU rotational elements spin from an arbitrary starting angle, and tidally locked moons face their planet within a few degrees (Mimas within about 20°); see [Which side faces you](#which-side-faces-you).

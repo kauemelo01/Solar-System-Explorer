@@ -26,7 +26,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 1 | <a id="m-io"></a>**Io** | 421,800 | 0.004 | 0 | 1.7627 | 1,821.6 | 501 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27501%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/jupiter/jupiter-moons/io/) | Real photos, partial; rest painted |
 | 2 | <a id="m-europa"></a>**Europa** | 671,100 | 0.009 | 0.5 | 3.5255 | 1,560.8 | 502 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27502%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/jupiter/jupiter-moons/europa/) | Real photos, gaps filled |
 | 3 | <a id="m-ganymede"></a>**Ganymede** | 1,070,400 | 0.001 | 0.2 | 7.1556 | 2,634.1 | 503 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27503%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/jupiter/jupiter-moons/ganymede/) | Real photos, gaps filled |
-| 4 | <a id="m-callisto"></a>**Callisto** | 1,882,700 | 0.007 | 0.3 | 16.6904 | 2,410.3 | 504 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27504%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/jupiter/jupiter-moons/callisto/) | Real photos, gaps filled |
+| 4 | <a id="m-callisto"></a>**Callisto** | 1,882,700 | 0.007 | 0.3 | 16.6904 | 2,410.3 | 504 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27504%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/jupiter/jupiter-moons/callisto/) | Real photos, partial; rest painted |
 
 ## Inner (Amalthea) (4)
 
