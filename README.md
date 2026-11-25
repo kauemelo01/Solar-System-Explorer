@@ -71,7 +71,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | Quick views | *Show* → **Show everything** or **Planets only** |
 | Show the belts | *Show → Belts*: **Main asteroid belt**, **Jupiter trojans**, **Kuiper belt** (statistical clouds, not catalogued objects) |
 | Sky layers | *Beyond the solar system*: **Milky Way & faint stars**, **Nebulae, clusters & galaxies**, **Bright star names**, **Stars with known planets** |
-| Trails, outlines and labels | *Trails → Show trails* and *Trail length* (1 to 250 years); *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
+| Trails, outlines and labels | *Trails*: a length slider (off at the far left, up to 250 years) for each group (planets, major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, comets), plus *Everything* to set them all at once; minor moons are off by default; *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
 | Frame the view | *View* → **Inner planets** or **Whole system** |
 | Time | The time bar: play / pause, reverse, the speed slider (also `Space`, `R`, `←` `→`), a date box to jump to any date between 1000 and 3000 AD, and **Today** |
 | Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |

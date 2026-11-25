@@ -20,7 +20,8 @@ for f in sorted(glob.glob('fits1800/*.json')):
     else:
         W=v['windows']
         if not W:continue
-        e={'w':[[r(w['t0'],9),r(w['t1'],9)]+[r(w['p'][k],15 if k==1 else 12) for k in range(6)]+[r(w['p'][6],8)]+[r(w['shape'][0],9),r(w['shape'][1],6),r(w['shape'][2],7)] for w in W],'t':t}
+        # precision: enough that rounding moves no moon by more than ~0.001 deg over 1800-2050 (checked by validate.js)
+        e={'w':[[round(w['t0'],1),round(w['t1'],1),r(w['p'][0],11),r(w['p'][1],14),r(w['p'][2],9),r(w['p'][3],9),r(w['p'][4],9),r(w['p'][5],9),r(w['p'][6],6),r(w['shape'][0],7),r(w['shape'][1],5),r(w['shape'][2],6)] for w in W],'t':t}
         stats[name]=dict(kind='w',rms=max(w['rms'] for w in W),mx=max(w['mx'] for w in W),n=len(W))
     out[name]=e
 NAMES=json.load(open('names.json'))   # file stem -> moon name as in the app

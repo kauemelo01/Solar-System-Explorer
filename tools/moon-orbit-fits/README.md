@@ -18,6 +18,10 @@ These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted t
    - `refitA.py`: fast inner moons, with a dense series near 2000 (Janus and Epimetheus in daily windows);
    - `phasetab.py`: along-track correction tables for moons in co-orbital resonances (Janus, Epimetheus, Helene, Polydeuces);
    - `refitB.py`: irregular moons, with windows split down to 2.5 years.
+6. Distances, then step 4 again. The fits above match directions only, which leaves an orbit's size free (and, for windows, drifting); the check reports distance errors (`dmax`, `drms`) as well as angles:
+   - `fixscale_g.py`: single-orbit fits with a fitted shape get their semi-major axis scaled to Horizons' distances;
+   - `fixscale.py`, then `fitdist.py`: windows are scaled to Horizons' distances, then refitted on direction and distance together (about 20 minutes with 8 cores).
+7. Smoothness, with the app's own code: `node jumps.js <repo>/index.html <repo>/data/moon-orbits.js` (no moon should jump at a window boundary) and `node bends.js <repo>/index.html <repo>/data/moon-orbits.js` (sharp turns in each moon's path, sampled like a 250-year trail; add a moon's name to check one). The app blends neighbouring windows (`ell()` in `index.html`); the moons that keep a bend are listed in docs/sources.md, *Limitations of the model*.
 
 S/2009 S 2 is fitted in Saturn's equatorial plane (IAU pole 40.589°, 83.537°), which the JPL table does not give. S/2025 U 1 is not in Horizons (its NAIF number matches an asteroid there), so it has no fit.
 

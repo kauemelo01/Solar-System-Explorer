@@ -131,6 +131,9 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 .lbl.sky[data-k=con]::before{display:none}
 .conopts{margin:2px 0 4px 50px}
 .conopts[aria-disabled=true]{opacity:.45;pointer-events:none}
+.tlrow{display:grid;grid-template-columns:10em minmax(0,1fr) 5.4em;align-items:center;gap:10px;min-height:40px}
+.tlrow>span small{display:block;color:var(--mute);font-size:12px}.tlrow[aria-disabled=true]>span{opacity:.55}
+.tlrow output{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}.tlrow.all{border-bottom:1px solid var(--line);margin-bottom:4px;font-weight:600}.tlrow.all output{color:var(--ink)}
 .conopts .seg{margin:4px 0}
 .lbl.sky.on{background:rgba(20,28,46,.9);outline:1px solid #8fb0ff}
 #sky{top:16px;right:16px;width:284px;padding:16px 18px;display:none}
@@ -147,14 +150,14 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 #focus .lk a{display:inline-flex;align-items:center;min-height:32px;padding:0 10px;border:1px solid var(--line);border-radius:999px;color:var(--accent);text-decoration:none;font-size:13px;white-space:nowrap}
 #focus .lk a:hover,#focus .lk a:focus-visible{background:var(--hi);border-color:var(--accent)}
 #timebar{left:50%;bottom:16px;transform:translateX(-50%);width:min(820px,calc(100% - 32px));display:flex;align-items:center;gap:10px;padding:10px 12px;flex-wrap:wrap}
-#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1;flex:0 0 auto;text-align:left;margin-right:auto}
+#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1;flex:0 0 auto;text-align:right;margin-right:auto}
 #date small{display:block;font-size:13px;font-weight:400;color:var(--mute);margin-top:3px}
 /* the slider and the date form one group, centred between the play button and the date picker (auto margins take the spare space) */
 .spd{flex:1 1 150px;max-width:240px;display:flex;flex-direction:column;min-width:0;margin-left:auto}
 .spd output{font-size:13px}
 /* outside 1800-2050 positions are estimates: the time bar turns amber and a note shows (in the speed row on wide screens, after the clock on phones).
    The note keeps its space when hidden, and the date box has a fixed width (fitDate), so the speed slider never changes length */
-.spdrow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;white-space:nowrap;align-items:baseline}
+.spdrow{display:grid;grid-template-columns:auto 1fr;gap:8px;white-space:nowrap;align-items:baseline}
 .spdrow .est{text-align:center}
 .est{color:var(--warn);font-size:13px;visibility:hidden}
 #dsub .est{display:none}
@@ -174,7 +177,7 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
  #focus dl{margin-top:6px}
  #hold{min-height:40px;margin-top:8px}
  #timebar{bottom:8px;width:calc(100% - 16px);gap:8px}
- #date{font-size:18px;order:-1;flex:1 1 100%;min-width:0!important;margin-right:0}
+ #date{font-size:18px;order:-1;flex:1 1 100%;min-width:0!important;margin-right:0;text-align:left}
  #jump{display:none}
  .spd{flex:1 1 80px;max-width:none;margin-left:0}
  .spdrow .est{display:none}
@@ -247,13 +250,8 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
    <p class="note">Click a label for details. Hold Neptune still and the sky does not move: the stars are that far away.</p>
   </details>
   <details class="sec" open><summary>Trails</summary>
-   <label class="sw"><input type="checkbox" id="trails" checked> Show trails</label>
-   <label class="row"><span>Trail length</span>
-    <select id="tlen">
-     <option value="1">1 year</option><option value="5">5 years</option><option value="12">12 years</option>
-     <option value="30" selected>30 years</option><option value="100">100 years</option><option value="250">250 years</option>
-    </select>
-   </label>
+   <div class="tlset" id="tlSet"></div>
+   <p class="note">Slide to the left to turn a trail off. <i>Everything</i> sets all of them at once.</p>
   </details>
   <details class="sec" open><summary>View</summary>
    <label class="sw"><input type="checkbox" id="lbls" checked> Labels</label>
@@ -431,13 +429,24 @@ function moonGeo(jd,o){
 // (J2000 ecliptic if none), with an optional table 'c' of along-track corrections for moons in resonances; 'w': consecutive time windows in the J2000 ecliptic frame, each with its own ellipse [t0,t1,M0,n,w0,w',node0,node',M'',a km,e,i].
 // Outside a moon's fitted span the single orbit, or the nearest window, is extended: positions there are estimates. Moons without a fit keep JPL's mean elements.
 const _mo={P:null,Q:null,M:0,a:0,e:0,b:0};
-function moonOrbit(o,jd){const f=o.fit,t=jd-J2000;let q,a=o.a,e=o.e,inc=o.inc,ra=f.f?f.f[0]:null,dec=f.f?f.f[1]:null;
- if(f.w){const W=f.w;let k=0;while(k<W.length-1&&t>W[k][1])k++;q=W[k].slice(2);a=q[7]*KM;e=q[8];inc=q[9];ra=dec=null}else q=f.g;
+const winOf=(W,t)=>{let k=0;while(k<W.length-1&&t>W[k][1])k++;return k};
+function moonOrbit(o,jd,kw){const f=o.fit,t=jd-J2000;let q,a=o.a,e=o.e,inc=o.inc,ra=f.f?f.f[0]:null,dec=f.f?f.f[1]:null;
+ if(f.w){const W=f.w,k=kw==null?winOf(W,t):kw;q=W[k].slice(2);a=q[7]*KM;e=q[8];inc=q[9];ra=dec=null}else q=f.g;
  let M=q[0]+q[1]*t+.5*q[6]*t*t;if(!f.w)for(let k=7;k+2<q.length;k+=3)M+=q[k]*Math.sin(q[k+1]*t+q[k+2]);
  if(f.c){const c=f.c,nv=c.length-2,x=Math.min(Math.max((t-c[0])/c[1],0),nv-1),k=Math.min(nv-2,Math.floor(x));M+=c[k+2]+(c[k+3]-c[k+2])*(x-k)} // along-track corrections (resonant moons)
  [_mo.P,_mo.Q]=PQ(q[4]+q[5]*t,inc,q[2]+q[3]*t,ra,dec);_mo.M=M;_mo.a=a;_mo.e=e;_mo.b=a*Math.sqrt(1-e*e);return _mo}
-function ell(o,jd,out){let M,P,Q,a=o.a,e=o.e,b=o.b;
- if(o.fit){const m=moonOrbit(o,jd);M=m.M;P=m.P;Q=m.Q;a=m.a;e=m.e;b=m.b}else{M=o.M0+o.n*(jd-o.ep);P=o.Pv;Q=o.Qv}
+// windowed fits: near a boundary, blend the two windows' positions smoothly so the moon never jumps or turns sharply;
+// the blend lasts 120 days each side, or 15% of the orbital period for slow moons (up to half a window)
+const _wb=[0,0,0];
+function blendB(W,i,j){const L=Math.min(W[i][1]-W[i][0],W[j][1]-W[j][0]),P=360/Math.abs(W[i][3]);return Math.min(.5*L,Math.max(Math.min(120,.1*L),.15*P))}
+function ell(o,jd,out){const W=o.fit&&o.fit.w;if(!W||W.length<2)return ell1(o,jd,out);
+ const t=jd-J2000,k=winOf(W,t);let j=-1,x=1;
+ if(k>0){const B=blendB(W,k,k-1),d=t-W[k][0];if(d<B){j=k-1;x=Math.max(0,d)/B}}
+ if(j<0&&k<W.length-1){const B=blendB(W,k,k+1),d=W[k][1]-t;if(d<B){j=k+1;x=Math.max(0,d)/B}}
+ ell1(o,jd,out,k);if(j<0)return out;
+ const w=.5+.5*x*x*(3-2*x);ell1(o,jd,_wb,j);for(let i=0;i<3;i++)out[i]=w*out[i]+(1-w)*_wb[i];return out}
+function ell1(o,jd,out,kw){let M,P,Q,a=o.a,e=o.e,b=o.b;
+ if(o.fit){const m=moonOrbit(o,jd,kw);M=m.M;P=m.P;Q=m.Q;a=m.a;e=m.e;b=m.b}else{M=o.M0+o.n*(jd-o.ep);P=o.Pv;Q=o.Qv}
  const E=solveE(wrapPi(M*DEG),e),c=a*(Math.cos(E)-e),s=b*Math.sin(E);
  out[0]=P[0]*c+Q[0]*s;out[1]=P[1]*c+Q[1]*s;out[2]=P[2]*c+Q[2]*s;return out}
 const MU=0.0121505,_m=[0,0,0],_s=[0,0,0];
@@ -481,10 +490,14 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
-const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,trails:true,tlen:30,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
 try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,trojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
-const save=()=>{try{S.mg=[...MG];const{center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,trails,tlen,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
+// trail lengths in days: p planets (and dwarf planets, asteroids, comets), m major moons, s minor moons; older prefs kept one length in years
+{const p0=S.tlen?S.tlen*365.25:10957.5,o=S.tl||{},b=o.b!=null?o.b:o.p!=null?o.p:p0;
+ S.tl=Object.assign({p:p0,m:365.25,s:0,dwarf:b,candidate:b,asteroid:b,comet:b},o);delete S.tl.b;
+ if(S.trails===false)for(const k in S.tl)S.tl[k]=0;delete S.trails;delete S.tlen;delete S.tset}
+const save=()=>{try{S.mg=[...MG];const{center,speed,tl,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,tl,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
 const parOn=p=>p.grp==='core'||!!S.cat[p.grp];
 function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&parOn(o.par);return!!S.cat[o.grp]}
 const sizeF=()=>Math.round(Math.pow(10,S.sizeV/100*Math.log10(3000)));
@@ -780,12 +793,28 @@ const _a=[0,0,0],_c=[0,0,0],_pp=[0,0,0];
 function sample(o,jd,arr,i){const C=byId[S.center];helio(o,jd,_a);helio(C,jd,_c);let x=_a[0]-_c[0],y=_a[1]-_c[1],z=_a[2]-_c[2],k=1;
  if(S.mode==='log'){if(anch(o)){helio(o.par,jd,_pp);k=kf(Math.hypot(_pp[0]-_c[0],_pp[1]-_c[1],_pp[2]-_c[2]))}else k=kf(Math.hypot(x,y,z))}
  arr[i*3]=x*k;arr[i*3+1]=z*k;arr[i*3+2]=-y*k}
-function wantTrail(o){return S.trails&&o.major&&vis(o)&&o.id!==S.center&&(o.cat!=='moon'||LOD[o.parent]||inCenterSys(o))&&!(o.cat==='moon'&&SPEEDS[S.speed][1]>o.P*15)}
-function syncTrails(force){const L=S.tlen*365.25,C=byId[S.center];
- OBJ.forEach(o=>{if(!o.major)return;
+// trails per group, each with its own length in days (0 = off)
+const TLEN=[[0,'Off'],[7,'1 week'],[30,'1 month'],[91,'3 months'],[365.25,'1 year'],[1826.25,'5 years'],[4383,'12 years'],[10957.5,'30 years'],[36525,'100 years'],[91312.5,'250 years']];
+const TLG=[['p','Planets'],['m','Major moons'],['s','Minor moons'],['dwarf','Dwarf planets'],['candidate','Candidates'],['asteroid','Asteroids & centaurs'],['comet','Comets']];
+const tlKey=o=>o.cat==='moon'?(o.major?'m':'s'):o.cat==='planet'||o.cat==='star'?'p':o.grp;
+const tlIdx=d=>{let b=0;TLEN.forEach(([v],i)=>{if(Math.abs(v-d)<Math.abs(TLEN[b][0]-d))b=i});return b};
+let tlPrev=null;
+function trailAvail(){const a={p:true};for(const o of OBJ)if(o.id!==S.center&&vis(o))a[tlKey(o)]=true;return a}
+$('tlSet').innerHTML=[['all','Everything'],...TLG].map(([k,l])=>`<div class="tlrow${k==='all'?' all':''}" data-tlrow="${k}"><span>${l}<small></small></span><input type="range" min="0" max="${TLEN.length-1}" step="1" aria-label="${l} trail length"><output></output></div>`).join('');
+function syncTrailUI(){const a=trailAvail(),ix=TLG.map(([k])=>tlIdx(S.tl[k])),mx=Math.max(...ix),same=ix.every(i=>i===ix[0]);
+ document.querySelectorAll('[data-tlrow]').forEach(r=>{const k=r.dataset.tlrow,i=k==='all'?mx:tlIdx(S.tl[k]),inp=r.querySelector('input');
+  if(document.activeElement!==inp)inp.value=i;r.querySelector('output').textContent=k==='all'&&!same?'Mixed':TLEN[i][1];
+  if(k!=='all'){const on=!!a[k];r.setAttribute('aria-disabled',!on);r.querySelector('small').textContent=on?'':'None shown'}})}
+document.querySelectorAll('[data-tlrow]').forEach(r=>{const k=r.dataset.tlrow,inp=r.querySelector('input');
+ inp.oninput=()=>{const d=TLEN[+inp.value][0];if(k==='all')TLG.forEach(([g])=>S.tl[g]=d);else S.tl[k]=d;tlPrev=null;syncTrailUI()};
+ inp.onchange=()=>{syncTrails(true);save()}});
+function toggleTrails(){if(TLG.some(([k])=>S.tl[k]>0)){tlPrev={...S.tl};TLG.forEach(([k])=>S.tl[k]=0)}else if(tlPrev)S.tl=tlPrev;else Object.assign(S.tl,{p:10957.5,m:365.25,dwarf:10957.5,candidate:10957.5,asteroid:10957.5,comet:10957.5});syncTrailUI();syncTrails(true)}
+function wantTrail(o){return S.tl[tlKey(o)]>0&&vis(o)&&o.id!==S.center&&(o.cat!=='moon'||LOD[o.parent]||inCenterSys(o))&&!(o.cat==='moon'&&SPEEDS[S.speed][1]>o.P*15)}
+function syncTrails(force){const C=byId[S.center];
+ OBJ.forEach(o=>{const L=S.tl[tlKey(o)];
   if(!wantTrail(o)){if(o.line){scene.remove(o.line);o.line.geometry.dispose();o.line=null;o.tr=null}return}
   let step=Math.min(Math.min(effP(o,C),effP(C,o))/180,L/240);if(o.cat==='comet')step=Math.min(step,3);step=Math.min(Math.max(step,SPEEDS[S.speed][1]/1200),L/240);
-  const N=Math.min(6000,Math.ceil(L/step)),key=[S.center,S.mode,step,N].join('|');
+  const N=Math.min(o.major?6000:2000,Math.ceil(L/step)),key=[S.center,S.mode,step,N].join('|');
   if(o.tr&&o.tr.key===key&&!force)return;
   if(o.line){scene.remove(o.line);o.line.geometry.dispose()}
   const arr=new Float32Array((N+1)*3),col=new Float32Array((N+1)*4),c=new THREE.Color(o.color),al=o.cat==='moon'?.6:.86;
@@ -920,7 +949,7 @@ $('find').addEventListener('change',e=>{const v=e.target.value.trim().toLowerCas
 function applyVis(){
  if(!vis(byId[S.focus]))setFocus(S.center,false);
  document.querySelectorAll('[data-cat]').forEach(i=>i.checked=!!S.cat[i.dataset.cat]);
- for(const k in FIELDS)FIELDS[k].pts.visible=!!S.cat[k];syncTrails()}
+ for(const k in FIELDS)FIELDS[k].pts.visible=!!S.cat[k];syncTrails();syncTrailUI()}
 const fmtD=u=>{const km=u*1e6;return km<2e7?Math.round(km).toLocaleString('en-US')+' km':(u/AU).toFixed(u/AU<10?3:u/AU<100?2:1)+' AU'};
 const fmtL=u=>{const s=u*1e6/CKMS;return s<120?s.toFixed(2)+' s':s<7200?(s/60).toFixed(1)+' min':s<172800?(s/3600).toFixed(2)+' h':(s/86400).toFixed(1)+' days'};
 const fmtT=d=>d<2?(d*24).toFixed(1)+' hours':d<1000?d.toFixed(d<100?2:1)+' days':(d/365.25).toFixed(d<36525?2:0)+' years';
@@ -942,7 +971,7 @@ function renderUI(){
  $('speedOut').textContent=(S.dir<0?'−':'')+SPEEDS[S.speed][0];$('speed').value=S.speed;
  $('rev').setAttribute('aria-pressed',S.dir<0);$('playIco').innerHTML=S.playing?'<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>':'<path d="M7 5l12 7-12 7z"/>';
  $('play').setAttribute('aria-label',S.playing?'Pause':'Play');
- $('trails').checked=S.trails;$('tlen').value=S.tlen;$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
+ syncTrailUI();$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
  $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
 function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
@@ -979,8 +1008,6 @@ function peek(){if(!document.body.classList.contains('fs'))return;document.body.
 $('fsBtn').onclick=()=>setFS(true);$('fsExit').onclick=()=>setFS(false);
 addEventListener('pointermove',peek);
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&document.body.classList.contains('fs'))setFS(false)});
-$('trails').onchange=e=>{S.trails=e.target.checked;syncTrails(true);save()};
-$('tlen').onchange=e=>{S.tlen=+e.target.value;syncTrails(true);save()};
 $('lbls').onchange=e=>{S.labels=e.target.checked;save()};
 $('rings').onchange=e=>{S.rings=e.target.checked;renderUI();save()};
 $('realTex').onchange=e=>{S.realTex=e.target.checked;applyTextures();renderUI();save()};
@@ -1006,7 +1033,7 @@ $('jump').onkeydown=e=>{if(e.key==='Enter')jumpTo(e.target,true)};
 addEventListener('keydown',e=>{if(e.target.matches&&e.target.matches('input,select'))return;const k=e.key;
  if(k==='f'||k==='F'){setFS(!document.body.classList.contains('fs'));return}if(k==='Escape'&&document.body.classList.contains('fs')){setFS(false);return}
  if(k===' '){e.preventDefault();S.playing=!S.playing}else if(k==='ArrowRight')S.speed=Math.min(10,S.speed+1);else if(k==='ArrowLeft')S.speed=Math.max(0,S.speed-1);
- else if(k==='r'||k==='R')S.dir=-S.dir;else if(k==='t'||k==='T'){S.trails=!S.trails;syncTrails(true)}else if((k==='c'||k==='C')&&S.focus!==S.center){setCenter(S.focus);return}else if(k==='/'){e.preventDefault();$('panel').classList.add('open');$('find').focus();return}else if(k==='Backspace'){e.preventDefault();goBack();return}else return;renderUI();syncTrails();save()});
+ else if(k==='r'||k==='R')S.dir=-S.dir;else if(k==='t'||k==='T')toggleTrails();else if((k==='c'||k==='C')&&S.focus!==S.center){setCenter(S.focus);return}else if(k==='/'){e.preventDefault();$('panel').classList.add('open');$('find').focus();return}else if(k==='Backspace'){e.preventDefault();goBack();return}else return;renderUI();syncTrails();save()});
 function resize(){W=innerWidth;H=innerHeight;renderer.setSize(W,H,false);camera.aspect=starCam.aspect=W/H;camera.updateProjectionMatrix();starCam.updateProjectionMatrix();PXR=(H/2)/Math.tan(25*DEG)}
 const ro=new ResizeObserver(resize);ro.observe(document.body);
 
@@ -1099,6 +1126,7 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
  // small moons (instanced)
  for(const o of SMALL){const show=vis(o)&&moonOn(o);
   if(show){pv.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);const r=dispR(o);sv.set(r,r,r)}else{pv.set(0,0,0);sv.set(0,0,0)}
+  if(o.line){o.line.visible=show;if(show){o.line.position.set(-fv[0],-fv[1],-fv[2]);updateTrail(o,jd)}}
   mtx.compose(pv,qI,sv);inst.setMatrixAt(o.j,mtx)}
  inst.instanceMatrix.needsUpdate=true;
  // markers

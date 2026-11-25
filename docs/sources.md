@@ -52,14 +52,14 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 - **Count:** 459 moons as of November 2026 (Mars 2, Jupiter 115, Saturn 292, Uranus 29, Neptune 16, Pluto 5). Earth's Moon is counted with the planets. With the 8 moons of other dwarf planets, candidates and asteroids below, the app has 467 moons.
 - **Naming differences:** *S/2009 S 2* (NAIF 65304) follows JPL Horizons. *Megaclite* and *Philophrosyne* follow JPL Horizons; the JPL mean-elements table spells them `Magaclite` and `Philophrosyn`.
 - **Pluto's moons** use JPL's mean equatorial elements, referred to Pluto's equator with the IAU 2015 pole (RA 132.993°, Dec −6.163°), and are fitted to Horizons like the other moons: Charon to 0.06°, the four small moons to 1.4–2.8°.
-- **Positions:** fitted to JPL Horizons over 1800–2050; see [Moon orbits](#moon-orbits) below. The fits replace the mean elements' epochs (JPL gives most for 2000-01-01, some groups for 2009, 2020 or 2025), which Release 2 treated as 2000.
+- **Positions:** fitted to JPL Horizons over 1800–2050; see [Moon orbits](#moon-orbits) below. The fits replace the mean elements' epochs (JPL gives most for 2000-01-01, some groups for 2009, 2020 or 2025), which the app used to treat as 2000.
 
 ### Moon orbits
 
-Since Release 3 the app places every planetary moon with an orbit fitted to its **JPL Horizons ephemeris** <https://ssd.jpl.nasa.gov/horizons/>, from 4 January 1800 to 1 January 2051, or the part of that range Horizons covers. The fits are in `data/moon-orbits.js` and are built by the scripts in [`tools/moon-orbit-fits/`](../tools/moon-orbit-fits/) (how to rerun them: its README). Each moon has one of two kinds of fit:
+The app places every planetary moon with an orbit fitted to its **JPL Horizons ephemeris** <https://ssd.jpl.nasa.gov/horizons/>, from 4 January 1800 to 1 January 2051, or the part of that range Horizons covers. The fits are in `data/moon-orbits.js` and are built by the scripts in [`tools/moon-orbit-fits/`](../tools/moon-orbit-fits/) (how to rerun them: its README). Each moon has one of two kinds of fit:
 
 - **One orbit for the whole range (113 moons, most regular moons).** JPL's orbit shape, with its phase, mean motion, apsidal and nodal precession, a slow drift and up to two periodic terms fitted to Horizons. For the four moons in co-orbital resonances (Janus and Epimetheus, which swap orbits every four years, and Dione's companions Helene and Polydeuces) a table of along-track corrections every 5 or 10 days, taken from Horizons, is added.
-- **Time windows (345 moons, mostly irregular).** The Sun disturbs these orbits too much for one ellipse, so each moon has consecutive windows of 10 years, split down to 2.5 years where needed, each with its own fitted ellipse.
+- **Time windows (345 moons, mostly irregular).** The Sun disturbs these orbits too much for one ellipse, so each moon has consecutive windows of 10 years, split down to 2.5 years where needed, each with its own fitted ellipse. Each window is fitted to both the direction and the distance of the Horizons positions, and the app blends neighbouring windows across each boundary (over 120 days either side, or 15% of the orbital period for slow moons such as Neso), so a moon never jumps from one window's orbit to the next, and its path (and its trail) bends smoothly there. Seven moons keep a visible bend; see [Limitations of the model](#limitations-of-the-model).
 
 The fits use Horizons positions every 60 days, plus a dense stretch near 2000 for the fast inner moons, so that their speed is not mistaken for another one that fits the same 60-day samples. S/2009 S 2 is fitted in Saturn's equatorial plane, which the JPL table does not give.
 
@@ -68,13 +68,15 @@ The fits use Horizons positions every 60 days, plus a dense stretch near 2000 fo
 | Moons of | Moons | Typical error | Least accurate |
 |---|---|---|---|
 | Mars | 2 | 1.0° | Phobos, 1.9° |
-| Jupiter | 115 | 1.5° | Carpo, 3.7° |
-| Saturn | 292 | 1.5° | S/2023 S 38, 8.1° |
-| Uranus | 28 | 0.9° | Desdemona, 2.9° |
-| Neptune | 16 | 0.4° | Naiad, 3.4° |
+| Jupiter | 115 | 1.5° | Carpo, 3.6° |
+| Saturn | 292 | 1.5° | Methone, 3.4° |
+| Uranus | 28 | 0.8° | Desdemona, 2.9° |
+| Neptune | 16 | 0.3° | Naiad, 3.4° |
 | Pluto | 5 | 1.7° | Styx, 2.8° |
 
-Over all 458 fitted moons the typical error is 1.5°, and 90% of moons are within 2.5°. The major moons are within a fraction of a degree (Io 0.03°, Titan 0.03°, Triton 0.29°, Charon 0.06°; Mimas, in resonance with Tethys, 2.8°). In Release 2 the same check gave a typical error of 92°. The largest single errors come from very eccentric orbits near their closest approach: S/2023 S 38 up to 123°, Nereid up to 25°.
+Over all 458 fitted moons the typical error is 1.5°, and 90% of moons are within 2.4°; no moon's typical error is above 3.6°. The major moons are within a fraction of a degree (Io 0.03°, Titan 0.03°, Triton 0.29°, Charon 0.06°; Mimas, in resonance with Tethys, 2.8°). Before these fits, with JPL's mean elements alone, the same check gave a typical error of 92°. The largest single errors come from eccentric irregular orbits near their closest approach to the planet: S/2023 S 5 up to 24°, S/2023 S 38 and Pasiphae up to 21°.
+
+**Distances** are checked the same way: the distance from the planet is typically within 1.6% of Horizons, and every moon is within 5% on average (root-mean-square over 1800–2050).
 
 **Where Horizons covers less than 1800–2050**, the moon's card says *Estimated position* outside its own range: Uranus's 13 inner moons from Cordelia to Cupid (Horizons from 1900), Saturn's Janus, Epimetheus, Atlas, Prometheus, Pandora, Pan, Pallene, Anthe, Aegaeon and S/2009 S 2 (1950–2050), and Daphnis (1990–2018). **S/2025 U 1** is not yet in Horizons: it keeps JPL's mean elements, at their 2025 epoch, and its card says so.
 
@@ -251,7 +253,7 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 | Planets | Standish Keplerian elements + secular rates | ~arc-minutes, 1800–2050 |
 | The Moon | Mean elements (no periodic perturbations) | within a few degrees in longitude |
 | Regular moons | One orbit fitted to JPL Horizons over 1800–2050 ([Moon orbits](#moon-orbits)) | Major moons within a fraction of a degree; small inner moons typically 1–3° |
-| Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°; S/2023 S 38 8° |
+| Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°, at most 3.6°; distance typically within 2% |
 | Asteroids, dwarf planets | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it |
 | Comets | Two-body orbit from the SBDB solution for the latest perihelion | Good near perihelion; drifts faster than asteroids (Jupiter encounters, outgassing), up to several degrees within a decade (a [limitation of the model](#limitations-of-the-model)) |
 | Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain (a [limitation of the model](#limitations-of-the-model)) |
@@ -280,6 +282,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
   - the Moon uses mean elements without periodic terms, good to a few degrees;
   - small bodies use a single two-body orbit. Asteroids stay close for years, but comets drift faster, because Jupiter and their own outgassing change their orbits (in November 2026, 9P/Tempel 1 is about 7° off and 1P/Halley about 0.3 AU off);
   - planetary moons are fitted to JPL Horizons over 1800–2050; outside that range, and outside the shorter range Horizons covers for 24 of them, their positions are estimates, and S/2025 U 1, not yet in Horizons, uses JPL's mean elements ([Moon orbits](#moon-orbits));
+  - seven irregular moons keep a visible bend in their path, and so in their trail, where two of their fitted time windows meet ([Moon orbits](#moon-orbits)). Neighbouring windows are blended, which removes the jumps and the sharp turns elsewhere, but these moons' windows disagree too much on the direction of motion for the blend to hide it. A 250-year trail held on the parent planet shows: Margaret (Uranus) about 22° in 2032; Psamathe (Neptune) about 9° in 1814; S/2023 S 18 (Saturn) about 9° in 2007; Neso (Neptune) about 8° in 2050; S/2020 S 38 (Saturn) about 7° in 2027; S/2023 S 33 (Saturn) about 6° in 1999. S/2023 S 38 (Saturn) also turns sharply, mostly for a real reason: its orbit is extremely elongated (eccentricity about 0.9), so it swings round Saturn at each closest approach. The positions themselves stay within these moons' usual accuracy;
   - moons of dwarf planets and asteroids use two-body orbits, so their positions drift slowly, and the published orbits of Selam and Xiangliu leave their orientation uncertain.
 - **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon and Ida's moon Dactyl. The main asteroid belt, Jupiter trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
 - **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).
