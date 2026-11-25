@@ -2,7 +2,7 @@
 # index.html (the app) has no front matter, so Jekyll copies it unchanged.
 title: Solar System Explorer
 description: >-
-  Interactive 3D orrery where any planet, moon or comet can be the centre, with NASA/JPL data, the real night sky and the 88 constellations.
+  Interactive 3D orrery where any planet, moon or comet can be the centre, with NASA/JPL data, spacecraft surface maps, the real night sky and the 88 constellations.
 url: https://kauemelo01.github.io
 baseurl: /Solar-System-Explorer
 lang: en_US
@@ -24,13 +24,13 @@ defaults:
   - scope:
       path: "docs/catalogue/sun-planets.md"
     values:
-      title: "Sun, planets, the Moon and Pluto"
-      description: "The Sun, the eight planets, the Moon and Pluto in Solar System Explorer, with NAIF IDs and links to JPL Horizons and NASA fact sheets."
+      title: "Sun, planets and the Moon"
+      description: "The Sun, the eight planets and the Moon in Solar System Explorer, with NAIF IDs and links to JPL Horizons and NASA fact sheets."
   - scope:
       path: "docs/catalogue/small-bodies.md"
     values:
-      title: "Dwarf planets, asteroids, centaurs and comets"
-      description: "Dwarf planets, asteroids, centaurs and comets in Solar System Explorer, with orbital elements and links to the JPL Small-Body Database."
+      title: "Dwarf planets, candidates, asteroids, centaurs and comets"
+      description: "Dwarf planets (Pluto among them), dwarf planet candidates, asteroids, centaurs and comets in Solar System Explorer, with orbital elements and links to the JPL Small-Body Database."
   - scope:
       path: "docs/catalogue/moons-mars.md"
     values:
@@ -61,6 +61,16 @@ defaults:
     values:
       title: "Moons of Pluto"
       description: "Charon, Styx, Nix, Kerberos and Hydra in Solar System Explorer, with JPL mean orbital elements and links to JPL Horizons and NASA."
+  - scope:
+      path: "docs/catalogue/moons-small-bodies.md"
+    values:
+      title: "Moons of dwarf planets and asteroids"
+      description: "Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu, Dimorphos and Selam in Solar System Explorer, with orbits from JPL Horizons and published papers."
+  - scope:
+      path: "docs/catalogue/rings.md"
+    values:
+      title: "Ring systems"
+      description: "The rings of Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo in Solar System Explorer, with radii, widths and sources."
   - scope:
       path: "docs/catalogue/sky.md"
     values:

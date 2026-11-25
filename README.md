@@ -168,6 +168,11 @@ Distances and body sizes are always to true scale. A few visual aids are not; th
 
 New moons are announced every year. To add or update an object, open an issue or pull request that cites its JPL Horizons/SBDB record or its Minor Planet Electronic Circular, and update the matching page in [`docs/catalogue/`](docs/catalogue/).
 
+## Releases
+
+- **Release 2** (current, branch `main`, tag `release-2`): real spacecraft surface maps, Earth's clouds, the moons menu grouped by parent body, 22 more bodies and 7 ring systems, the *Images* panel, data corrected against NASA/JPL/IAU, and the documentation's *Known issues* and *Limitations* lists.
+- **Release 1** (tag `release-1`, branch `release-1`): the first published version, kept unchanged. To view it: `git checkout release-1`. To make it the published app again, point `main` back to it: `git push --force origin release-1:main` (GitHub Pages publishes `main`).
+
 ## License
 
 The code is released under the [GNU General Public License v3](LICENSE). Data and images keep the terms of their sources (NASA, JPL, CDS, the IAU and the papers cited), listed in [docs/sources.md](docs/sources.md).
