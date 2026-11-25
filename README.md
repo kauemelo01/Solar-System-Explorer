@@ -170,8 +170,8 @@ New moons are announced every year. To add or update an object, open an issue or
 
 ## Releases
 
-- **Release 2** (current, branch `main`, tag `release-2`): real spacecraft surface maps, Earth's clouds, the moons menu grouped by parent body, 22 more bodies and 7 ring systems, the *Images* panel, data corrected against NASA/JPL/IAU, and the documentation's *Known issues* and *Limitations* lists.
-- **Release 1** (tag `release-1`, branch `release-1`): the first published version, kept unchanged. To view it: `git switch release-1`. To make it the published app again, point `main` back to it: `git push --force origin refs/heads/release-1:refs/heads/main` (GitHub Pages publishes `main`). The `release-1` branch is locked on GitHub so it cannot change.
+- **Release 2** (current, branch `main`, tag `v2`): real spacecraft surface maps, Earth's clouds, the moons menu grouped by parent body, 22 more bodies and 7 ring systems, the *Images* panel, data corrected against NASA/JPL/IAU, and the documentation's *Known issues* and *Limitations* lists.
+- **Release 1** (tag `v1`, branch `release-1`): the first published version, kept unchanged. To view it: `git switch release-1`. To make it the published app again, point `main` back to it: `git push --force origin refs/heads/release-1:refs/heads/main` (GitHub Pages publishes `main`). The `release-1` branch is locked on GitHub so it cannot change.
 
 ## License
 
