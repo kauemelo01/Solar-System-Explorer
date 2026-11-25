@@ -892,7 +892,7 @@ const LINKS={"sun":["sun-planets",10,"sun/"],"mercury":["sun-planets",199,"mercu
 const DOCS='https://github.com/kauemelo01/Solar-System-Explorer/blob/main/docs/catalogue/';
 function linksHTML(id){const l=LINKS[id];if(!l)return'';const[pg,ref,nasa]=l,a=(h,t,ti)=>`<a href="${h}" target="_blank" rel="noopener" title="${ti}">${t}</a>`;let h=a(DOCS+pg+'.md#'+id,'Details','Catalogue entry and sources');if(RINGSYS[id]||id==='saturn')h+=a(DOCS+'rings.md#'+id,'Rings','Ring system: sizes and sources');
  if(typeof ref==='string')h+=a('https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr='+ref.slice(1),'JPL SBDB','JPL Small-Body Database record');
- else if(ref)h+=a("https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27"+ref+"%27&OBJ_DATA=YES&MAKE_EPHEM=NO",'JPL Horizons','JPL Horizons object record');
+ else if(ref)h+=a("https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27"+ref+"%27&OBJ_DATA=YES&MAKE_EPHEM=NO",'JPL','JPL Horizons object record');
  if(nasa)h+=a('https://science.nasa.gov/'+nasa,'NASA','NASA Science page');return h}
 let _lkId=null;
 function renderUI(){
