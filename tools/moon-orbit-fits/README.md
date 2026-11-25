@@ -22,7 +22,7 @@ These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted t
 3. `python checkfetch.py`: independent check positions on other dates (`check.json`).
 4. `python writefits2.py <repo>/data/moon-orbits.js` (also writes the training errors to `fitstats1800.json`), then `node validate.js <repo>/index.html <repo>/data/moon-orbits.js check.json`: the check, with the app's own code (`validate.json`).
 5. Fixes for moons the check finds poor, in this order, then step 4 again:
-   - `refitA.py`: fast inner moons get a single orbit fitted with the dense series near 2000 added; Janus and Epimetheus get 2-year windows fitted to a daily series (replaced by `phasetab.py` below);
+   - `refitA.py`: the moons in its list `GLOB` (fast inner moons, plus S/2009 S 2 and S/2025 U 1) get a single orbit fitted with the dense series near 2000 added; Janus and Epimetheus get 2-year windows fitted to a daily series (replaced by `phasetab.py` below);
    - `phasetab.py`: a single orbit plus a table of along-track corrections every 5 or 10 days, for the moons in co-orbital resonances (Janus, Epimetheus, Helene, Polydeuces). It overwrites their fit files, so it runs after `refitA.py`. Its list `K` also names S/2009 S 2 and S/2025 U 1: remove both before running it, as the published data has no table for S/2009 S 2, and S/2025 U 1 has no Horizons data (see below);
    - `refitB.py`: moons still more than 3° off in `validate.json` (irregular moons), refitted with 10-year windows split down to 2.5 years; the new fit is kept only if it is better.
 6. Distances, then step 4 again. The fits above match directions only, which leaves an orbit's size free (and, for windows, drifting); the check reports distance errors (`dmax`, `drms`) as well as angles:
@@ -32,7 +32,7 @@ These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted t
 
 ## Special cases
 
-- **S/2009 S 2** is fitted in Saturn's equatorial plane (IAU pole RA 40.589°, Dec 83.537°), which the JPL table does not give. The scripts do not set this pole: `POLES` in `moonmodel.py` has Uranus, Neptune and Pluto only. Without it the moon is fitted in the J2000 ecliptic. To reproduce the published fit, add `'saturn':(40.589,83.537)` to `POLES` for this moon's fit only: `POLES` applies to every moon of that planet for which the JPL table gives no plane.
+- **S/2009 S 2** is fitted in Saturn's equatorial plane (IAU pole RA 40.589°, Dec 83.537°), which the JPL table does not give. The scripts do not set this pole: `POLES` in `moonmodel.py` has Uranus, Neptune and Pluto only. Without it the moon is fitted in the J2000 ecliptic. To reproduce the published fit, add `'saturn':(40.589,83.537)` to `POLES` for this moon's fit only, which is the `refitA.py` run (its final fit; remove the pole again afterwards): `POLES` applies to every moon of that planet for which the JPL table gives no plane.
 - **S/2025 U 1** is not in Horizons (its NAIF number matches an asteroid there), so it has no fit. `refitA.py` lists it and prints an error for it, which is harmless.
 
 ## Files
