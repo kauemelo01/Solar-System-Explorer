@@ -15,6 +15,8 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Io, Europa, Ganymede, Callisto, Amalthea, Thebe, Adrastea, Metis, Himalia; from the moon's JPL Horizons record (linked in its row): Elara, Lysithea, Leda, Ananke, Carme, Pasiphae, Sinope; from Jewitt, Sheppard & Porco (2004), *Jupiter's Outer Satellites and Trojans*, Table 12.1 (half the diameter): Themisto, Callirrhoe. The other 97 have no published radius and use a placeholder, marked *est.*; see [Moon sizes](../sources.md#moon-sizes).
+
 ## Galilean (4)
 
 *Galilean moon*
@@ -43,10 +45,10 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-himalia"></a>**Himalia** | 11,439,000 | 0.16 | 28.4 | 249.909 | 69.8 | 506 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27506%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
-| 2 | <a id="m-elara"></a>**Elara** | 11,710,700 | 0.212 | 27.8 | 258.8861 | 43 | 507 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27507%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
-| 3 | <a id="m-lysithea"></a>**Lysithea** | 11,699,100 | 0.117 | 27.7 | 258.5035 | 21 | 510 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27510%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
-| 4 | <a id="m-leda"></a>**Leda** | 11,145,200 | 0.162 | 28.2 | 240.3264 | 10.8 | 513 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27513%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 1 | <a id="m-himalia"></a>**Himalia** | 11,439,000 | 0.16 | 28.4 | 249.909 | 85 | 506 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27506%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 2 | <a id="m-elara"></a>**Elara** | 11,710,700 | 0.212 | 27.8 | 258.8861 | 40 | 507 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27507%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 3 | <a id="m-lysithea"></a>**Lysithea** | 11,699,100 | 0.117 | 27.7 | 258.5035 | 12 | 510 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27510%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 4 | <a id="m-leda"></a>**Leda** | 11,145,200 | 0.162 | 28.2 | 240.3264 | 5 | 513 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27513%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 5 | <a id="m-dia"></a>**Dia** | 12,257,900 | 0.232 | 29.1 | 277.2472 | *est.* | 553 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27553%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 6 | <a id="m-pandia"></a>**Pandia** | 11,479,600 | 0.178 | 28.9 | 251.2319 | *est.* | 565 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27565%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 7 | <a id="m-ersa"></a>**Ersa** | 11,399,400 | 0.117 | 29 | 248.6153 | *est.* | 571 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27571%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
@@ -61,7 +63,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-themisto"></a>**Themisto** | 7,397,000 | 0.257 | 44.3 | 129.9681 | 4.5 | 518 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27518%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 1 | <a id="m-themisto"></a>**Themisto** | 7,397,000 | 0.257 | 44.3 | 129.9681 | 4 | 518 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27518%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 2 | <a id="m-carpo"></a>**Carpo** | 17,039,500 | 0.415 | 53.3 | 454.4 | *est.* | 546 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27546%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 3 | <a id="m-valetudo"></a>**Valetudo** | 18,690,100 | 0.217 | 34.5 | 522.0743 | *est.* | 562 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27562%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 4 | <a id="m-s-2018-j-4"></a>**S/2018 J 4** | 16,328,500 | 0.177 | 50.2 | 426.2646 | *est.* | 55520 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2755520%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
@@ -72,7 +74,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-ananke"></a>**Ananke** | 21,029,500 | 0.238 | 147.6 | 623.1097 | 14 | 512 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27512%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 1 | <a id="m-ananke"></a>**Ananke** | 21,029,500 | 0.238 | 147.6 | 623.1097 | 10 | 512 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27512%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 2 | <a id="m-harpalyke"></a>**Harpalyke** | 20,887,500 | 0.239 | 147.8 | 616.7833 | *est.* | 522 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27522%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 3 | <a id="m-iocaste"></a>**Iocaste** | 21,062,300 | 0.223 | 148.7 | 624.5479 | *est.* | 524 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27524%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 4 | <a id="m-praxidike"></a>**Praxidike** | 20,931,100 | 0.245 | 148.2 | 618.7229 | *est.* | 527 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27527%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
@@ -108,7 +110,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-carme"></a>**Carme** | 23,139,200 | 0.261 | 164.6 | 719.2806 | 23 | 511 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27511%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 1 | <a id="m-carme"></a>**Carme** | 23,139,200 | 0.261 | 164.6 | 719.2806 | 15 | 511 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27511%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 2 | <a id="m-taygete"></a>**Taygete** | 23,103,400 | 0.257 | 164.7 | 717.5917 | *est.* | 520 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27520%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 3 | <a id="m-chaldene"></a>**Chaldene** | 22,926,300 | 0.261 | 164.7 | 709.3625 | *est.* | 521 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27521%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 4 | <a id="m-kalyke"></a>**Kalyke** | 23,298,000 | 0.261 | 164.7 | 726.7007 | *est.* | 523 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27523%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
@@ -156,9 +158,9 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-pasiphae"></a>**Pasiphae** | 23,463,200 | 0.412 | 148.3 | 734.4215 | 30 | 508 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27508%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
-| 2 | <a id="m-sinope"></a>**Sinope** | 23,679,300 | 0.262 | 157.3 | 744.5951 | 19 | 509 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27509%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
-| 3 | <a id="m-callirrhoe"></a>**Callirrhoe** | 23,789,400 | 0.29 | 144.9 | 749.791 | 4.8 | 517 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27517%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 1 | <a id="m-pasiphae"></a>**Pasiphae** | 23,463,200 | 0.412 | 148.3 | 734.4215 | 18 | 508 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27508%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 2 | <a id="m-sinope"></a>**Sinope** | 23,679,300 | 0.262 | 157.3 | 744.5951 | 14 | 509 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27509%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 3 | <a id="m-callirrhoe"></a>**Callirrhoe** | 23,789,400 | 0.29 | 144.9 | 749.791 | 3.5 | 517 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27517%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 4 | <a id="m-megaclite"></a>**Megaclite** <sup>[note](#notes)</sup> | 23,640,100 | 0.421 | 149.9 | 742.7715 | *est.* | 519 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27519%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 5 | <a id="m-autonoe"></a>**Autonoe** | 23,785,200 | 0.326 | 150.7 | 749.6097 | *est.* | 528 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27528%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 6 | <a id="m-eurydome"></a>**Eurydome** | 22,894,500 | 0.287 | 148.9 | 707.8569 | *est.* | 532 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27532%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |

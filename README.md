@@ -94,7 +94,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 |---|---|
 | Planet orbits | JPL SSD, [*Approximate Positions of the Planets*](https://ssd.jpl.nasa.gov/planets/approx_pos.html) (Standish; best 1800–2050 AD) |
 | Moon orbits | Positions: orbits fitted to [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) over 1800–2050 AD ([`data/moon-orbits.js`](data/moon-orbits.js); [method and accuracy](docs/sources.md#moon-orbits)). Orbit shapes listed in the catalogue: JPL SSD, [*Planetary Satellite Mean Elements*](https://ssd.jpl.nasa.gov/sats/elem/) |
-| Moon sizes | JPL SSD, [*Planetary Satellite Physical Parameters*](https://ssd.jpl.nasa.gov/sats/phys_par/) |
+| Moon sizes | JPL SSD, [*Planetary Satellite Physical Parameters*](https://ssd.jpl.nasa.gov/sats/phys_par/), then each moon's JPL Horizons record, then NASA Science pages and published surveys ([which source for each moon](docs/sources.md#moon-sizes)) |
 | Asteroids, dwarf planets, comets | [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html) |
 | Moons of dwarf planets and asteroids | [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) satellite solutions; Ragozzine & Brown (2009), Kiss et al. (2019), Levison et al. (2024) |
 | Ring systems | NASA NSSDCA ring fact sheets; occultation studies (Ortiz et al. 2017, Morgado et al. and Pereira et al. 2023, Braga-Ribas et al. 2014) |

@@ -15,6 +15,8 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Triton, Naiad, Thalassa, Despina, Galatea, Larissa, Proteus, Nereid; from its NASA Science page (linked in its row): Hippocamp; from Sheppard, Jewitt & Kleyna (2006), *AJ* 132, 171, Table 3 ([arXiv:astro-ph/0604552](https://arxiv.org/abs/astro-ph/0604552)): Halimede, Psamathe, Sao, Laomedeia, Neso. The other 2 have no published radius and use a placeholder, marked *est.*; see [Moon sizes](../sources.md#moon-sizes).
+
 ## Triton (1)
 
 *captured, retrograde*
@@ -29,12 +31,12 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-naiad"></a>**Naiad** | 48,300 | 0.001 | 4.7 | 0.2951 | 33 | 803 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27803%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/naiad/) | Plain shape |
-| 2 | <a id="m-thalassa"></a>**Thalassa** | 50,100 | 0.001 | 0.2 | 0.3118 | 41 | 804 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27804%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/thalassa/) | Plain shape |
-| 3 | <a id="m-despina"></a>**Despina** | 52,600 | 0.001 | 0 | 0.3347 | 75 | 805 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27805%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/despina/) | Plain shape |
-| 4 | <a id="m-galatea"></a>**Galatea** | 62,000 | 0.001 | 0 | 0.4292 | 88 | 806 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27806%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/galatea/) | Plain shape |
-| 5 | <a id="m-larissa"></a>**Larissa** | 73,600 | 0.001 | 0.2 | 0.5549 | 97 | 807 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27807%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/larissa/) | Plain shape |
-| 6 | <a id="m-proteus"></a>**Proteus** | 117,700 | 0.001 | 0.6 | 1.1229 | 210 | 808 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27808%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/proteus/) | Plain shape |
+| 1 | <a id="m-naiad"></a>**Naiad** | 48,300 | 0.001 | 4.7 | 0.2951 | 29 | 803 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27803%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/naiad/) | Plain shape |
+| 2 | <a id="m-thalassa"></a>**Thalassa** | 50,100 | 0.001 | 0.2 | 0.3118 | 40 | 804 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27804%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/thalassa/) | Plain shape |
+| 3 | <a id="m-despina"></a>**Despina** | 52,600 | 0.001 | 0 | 0.3347 | 74 | 805 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27805%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/despina/) | Plain shape |
+| 4 | <a id="m-galatea"></a>**Galatea** | 62,000 | 0.001 | 0 | 0.4292 | 79 | 806 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27806%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/galatea/) | Plain shape |
+| 5 | <a id="m-larissa"></a>**Larissa** | 73,600 | 0.001 | 0.2 | 0.5549 | 96 | 807 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27807%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/larissa/) | Plain shape |
+| 6 | <a id="m-proteus"></a>**Proteus** | 117,700 | 0.001 | 0.6 | 1.1229 | 208 | 808 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27808%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/proteus/) | Plain shape |
 | 7 | <a id="m-hippocamp"></a>**Hippocamp** | 105,300 | 0.001 | 0.3 | 0.9507 | 17 | 814 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27814%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/hippocamp/) | Plain shape |
 
 ## Irregular (8)

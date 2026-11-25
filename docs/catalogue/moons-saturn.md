@@ -15,6 +15,8 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Mimas, Enceladus, Tethys, Dione, Rhea, Titan, Hyperion, Iapetus, Janus, Epimetheus, Atlas, Prometheus, Pandora, Pan, Helene, Phoebe; from the moon's JPL Horizons record (linked in its row): Daphnis, Aegaeon, Methone, Pallene, Anthe, Telesto, Calypso, Polydeuces; from its NASA Science page (linked in its row): Paaliaq, Ijiraq, Kiviuq, Siarnaq, Tarvos, Albiorix, Ymir, Skathi. The other 260 have no published radius and use a placeholder, marked *est.*; see [Moon sizes](../sources.md#moon-sizes).
+
 ## Major (8)
 
 *major moon*
@@ -41,8 +43,8 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 3 | <a id="m-atlas"></a>**Atlas** | 137,700 | 0.001 | 0 | 0.6046 | 15.1 | 615 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27615%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/atlas/) | Plain shape |
 | 4 | <a id="m-prometheus"></a>**Prometheus** | 139,400 | 0.002 | 0 | 0.6159 | 43.1 | 616 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27616%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/prometheus/) | Plain shape |
 | 5 | <a id="m-pandora"></a>**Pandora** | 141,700 | 0.004 | 0 | 0.6314 | 40.7 | 617 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27617%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pandora/) | Plain shape |
-| 6 | <a id="m-pan"></a>**Pan** | 133,600 | 0 | 0 | 0.5751 | 14.1 | 618 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27618%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pan/) | Plain shape |
-| 7 | <a id="m-daphnis"></a>**Daphnis** | 136,500 | 0 | 0 | 0.5941 | 3.8 | 635 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27635%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/daphnis/) | Plain shape |
+| 6 | <a id="m-pan"></a>**Pan** | 133,600 | 0 | 0 | 0.5751 | 14 | 618 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27618%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pan/) | Plain shape |
+| 7 | <a id="m-daphnis"></a>**Daphnis** | 136,500 | 0 | 0 | 0.5941 | 3.87 | 635 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27635%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/daphnis/) | Plain shape |
 | 8 | <a id="m-aegaeon"></a>**Aegaeon** | 167,500 | 0 | 0 | 0.8081 | 0.33 | 653 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27653%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/aegaeon/) | Plain shape |
 | 9 | <a id="m-s-2009-s-2"></a>**S/2009 S 2** <sup>[note](#notes)</sup> | 117,061 | 0 | 0 | 0.473 | *est.* | 65304 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765304%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 
@@ -52,9 +54,9 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-methone"></a>**Methone** | 194,700 | 0.002 | 0 | 1.0095 | 1.6 | 632 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27632%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/methone/) | Plain shape |
+| 1 | <a id="m-methone"></a>**Methone** | 194,700 | 0.002 | 0 | 1.0095 | 1.45 | 632 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27632%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/methone/) | Plain shape |
 | 2 | <a id="m-pallene"></a>**Pallene** | 212,300 | 0.004 | 0.2 | 1.1561 | 2.2 | 633 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27633%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pallene/) | Plain shape |
-| 3 | <a id="m-anthe"></a>**Anthe** | 198,100 | 0.002 | 0 | 1.0389 | 0.9 | 649 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27649%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/anthe/) | Plain shape |
+| 3 | <a id="m-anthe"></a>**Anthe** | 198,100 | 0.002 | 0 | 1.0389 | 0.5 | 649 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27649%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/anthe/) | Plain shape |
 
 ## Trojans (4)
 
@@ -64,8 +66,8 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-helene"></a>**Helene** | 377,600 | 0.007 | 0.2 | 2.7369 | 18 | 612 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27612%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/helene/) | Plain shape |
 | 2 | <a id="m-telesto"></a>**Telesto** | 295,000 | 0.001 | 1.2 | 1.8878 | 12.4 | 613 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27613%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/telesto/) | Plain shape |
-| 3 | <a id="m-calypso"></a>**Calypso** | 295,000 | 0.001 | 1.5 | 1.8878 | 10.7 | 614 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27614%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/calypso/) | Plain shape |
-| 4 | <a id="m-polydeuces"></a>**Polydeuces** | 377,600 | 0.019 | 0.2 | 2.7369 | 1.3 | 634 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27634%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/polydeuces/) | Plain shape |
+| 3 | <a id="m-calypso"></a>**Calypso** | 295,000 | 0.001 | 1.5 | 1.8878 | 9.64 | 614 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27614%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/calypso/) | Plain shape |
+| 4 | <a id="m-polydeuces"></a>**Polydeuces** | 377,600 | 0.019 | 0.2 | 2.7369 | 1.22 | 634 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27634%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/polydeuces/) | Plain shape |
 
 ## Inuit group (38)
 
@@ -76,7 +78,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 1 | <a id="m-paaliaq"></a>**Paaliaq** | 14,997,700 | 0.378 | 48.5 | 685.7153 | 11 | 620 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27620%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/paaliaq/) | Plain shape |
 | 2 | <a id="m-ijiraq"></a>**Ijiraq** | 11,344,700 | 0.293 | 49.2 | 451.1201 | 6 | 622 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27622%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/ijiraq/) | Plain shape |
 | 3 | <a id="m-kiviuq"></a>**Kiviuq** | 11,307,400 | 0.275 | 48 | 448.9076 | 8 | 624 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27624%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/kiviuq/) | Plain shape |
-| 4 | <a id="m-siarnaq"></a>**Siarnaq** | 17,881,100 | 0.308 | 47.8 | 892.6799 | 19.7 | 629 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27629%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/siarnaq/) | Plain shape |
+| 4 | <a id="m-siarnaq"></a>**Siarnaq** | 17,881,100 | 0.308 | 47.8 | 892.6799 | 20 | 629 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27629%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/siarnaq/) | Plain shape |
 | 5 | <a id="m-tarqeq"></a>**Tarqeq** | 17,751,000 | 0.144 | 48.7 | 882.8514 | *est.* | 652 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27652%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/tarqeq/) | Plain shape |
 | 6 | <a id="m-s-2004-s-31"></a>**S/2004 S 31** | 17,497,100 | 0.159 | 48 | 863.9229 | *est.* | 65067 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765067%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | 7 | <a id="m-s-2019-s-1"></a>**S/2019 S 1** | 11,245,400 | 0.383 | 49.5 | 445.1701 | *est.* | 65093 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2765093%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
@@ -119,7 +121,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-tarvos"></a>**Tarvos** | 18,216,600 | 0.522 | 37.8 | 917.984 | 7.5 | 621 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27621%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/tarvos/) | Plain shape |
-| 2 | <a id="m-albiorix"></a>**Albiorix** | 16,329,200 | 0.482 | 36.8 | 779.0701 | 14.3 | 626 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27626%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/albiorix/) | Plain shape |
+| 2 | <a id="m-albiorix"></a>**Albiorix** | 16,329,200 | 0.482 | 36.8 | 779.0701 | 16 | 626 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27626%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/albiorix/) | Plain shape |
 | 3 | <a id="m-erriapus"></a>**Erriapus** | 17,506,900 | 0.475 | 37.1 | 864.9236 | *est.* | 628 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27628%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/erriapus/) | Plain shape |
 | 4 | <a id="m-bebhionn"></a>**Bebhionn** | 17,027,300 | 0.459 | 38.6 | 829.6437 | *est.* | 637 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27637%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/bebhionn/) | Plain shape |
 | 5 | <a id="m-s-2004-s-29"></a>**S/2004 S 29** | 17,063,900 | 0.485 | 38.6 | 832.2736 | *est.* | 660 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27660%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |

@@ -14,6 +14,8 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Phobos, Deimos. See [Moon sizes](../sources.md#moon-sizes).
+
 ## Phobos & Deimos (2)
 
 *major moon*

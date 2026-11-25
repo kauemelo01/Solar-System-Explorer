@@ -14,6 +14,8 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Charon, Styx, Nix, Kerberos, Hydra. See [Moon sizes](../sources.md#moon-sizes).
+
 ## Charon (1)
 
 *binary companion*
@@ -28,9 +30,9 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 | # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | <a id="m-styx"></a>**Styx** | 43,200 | 0.025 | 0 | 20.1600 | 6 | 905 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27905%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/styx/) | Plain shape |
-| 2 | <a id="m-nix"></a>**Nix** | 49,300 | 0.015 | 0 | 24.8500 | 25 | 902 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27902%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/nix/) | Plain shape |
+| 1 | <a id="m-styx"></a>**Styx** | 43,200 | 0.025 | 0 | 20.1600 | 5.2 | 905 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27905%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/styx/) | Plain shape |
+| 2 | <a id="m-nix"></a>**Nix** | 49,300 | 0.015 | 0 | 24.8500 | 18 | 902 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27902%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/nix/) | Plain shape |
 | 3 | <a id="m-kerberos"></a>**Kerberos** | 58,300 | 0.01 | 0.4 | 32.1700 | 6 | 904 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27904%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/kerberos/) | Plain shape |
-| 4 | <a id="m-hydra"></a>**Hydra** | 65,200 | 0.009 | 0.3 | 38.2000 | 26 | 903 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27903%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/hydra/) | Plain shape |
+| 4 | <a id="m-hydra"></a>**Hydra** | 65,200 | 0.009 | 0.3 | 38.2000 | 18.5 | 903 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27903%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/hydra/) | Plain shape |
 
-Charon's position matches JPL Horizons to about 0.1° (0.06° typical); the four small moons to 1.4–2.8° typical (Hydra 1.4°, Kerberos 1.7°, Nix 2.1°, Styx 2.8°). Radii are under review; see [Known issues](../sources.md#known-issues).
+Charon's position matches JPL Horizons to about 0.1° (0.06° typical); the four small moons to 1.4–2.8° typical (Hydra 1.4°, Kerberos 1.7°, Nix 2.1°, Styx 2.8°). Radii are JPL's current values (Nix 18 km, Hydra 18.5 km, Styx 5.2 km; earlier versions had 25, 26 and 6 km).

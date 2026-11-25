@@ -83,13 +83,28 @@ A mean-element lunar orbit (node and perigee regressing and precessing at their 
 ## Natural satellites of the planets and Pluto (459)
 
 - **Elements:** JPL SSD, *Planetary Satellite Mean Elements*. <https://ssd.jpl.nasa.gov/sats/elem/>. Regular moons use elements referred to their local Laplace plane (pole RA/Dec given in the table). Distant irregular moons use elements referred to the ecliptic.
-- **Sizes:** JPL SSD, *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/> lists 46 moons; the other radii come from earlier compilations whose sources are not yet documented, and a few differ from JPL's values (see [Known issues](#known-issues)). Where no radius is published, the app uses a small placeholder (marked *est.* in the catalogue).
+- **Sizes:** from JPL first, then from NASA and published surveys; 363 moons with no published radius use a placeholder. See [Moon sizes](#moon-sizes) below.
 - **Identifiers:** NAIF integer IDs, cross-checked in JPL Horizons. <https://ssd.jpl.nasa.gov/horizons/>
 - **Discoveries and families:** JPL *Satellite Discovery Circumstances* <https://ssd.jpl.nasa.gov/sats/discovery.html>; S. S. Sheppard (Carnegie Science) moon pages <https://sites.google.com/carnegiescience.edu/sheppard/moons>; IAU Minor Planet Center electronic circulars <https://minorplanetcenter.net/mpec/RecentMPECs.html>.
 - **Count:** 459 moons as of November 2026 (Mars 2, Jupiter 115, Saturn 292, Uranus 29, Neptune 16, Pluto 5). Earth's Moon is counted with the planets. With the 8 moons of other dwarf planets, candidates and asteroids below, the app has 467 moons.
 - **Naming differences:** *S/2009 S 2* (NAIF 65304) follows JPL Horizons. *Megaclite* and *Philophrosyne* follow JPL Horizons; the JPL mean-elements table spells them `Magaclite` and `Philophrosyn`.
 - **Pluto's moons** use JPL's mean equatorial elements, referred to Pluto's equator with the IAU 2015 pole (RA 132.993°, Dec −6.163°), and are fitted to Horizons like the other moons: Charon to 0.06°, the four small moons to 1.4–2.8°.
 - **Positions:** fitted to JPL Horizons over 1800–2050 AD; see [Moon orbits](#moon-orbits) below. The fits replace the mean elements' epochs (JPL gives most for 2000-01-01, some groups for 2009, 2020 or 2025), which the app used to treat as 2000.
+
+### Moon sizes
+
+Each moon's radius comes from the first of these sources that gives one, checked in November 2026:
+
+1. **JPL SSD, *Planetary Satellite Physical Parameters*** <https://ssd.jpl.nasa.gov/sats/phys_par/>: 45 moons (46 with Earth's Moon), with measured mean radii.
+2. **The moon's JPL Horizons record** <https://ssd.jpl.nasa.gov/horizons/>: 27 more. Where Horizons gives three axes (for example Pan, 17.2 × 15.4 × 10.4 km), the app uses the radius of a sphere of the same volume, as JPL's table does.
+3. **Published elsewhere**: 24 more, all small irregular or ring moons whose size is estimated from their brightness, assuming a dark surface (geometric albedo 0.04 to 0.06):
+   - NASA Science moon pages: Ymir, Paaliaq, Tarvos, Ijiraq, Kiviuq, Albiorix, Skathi and Siarnaq (Saturn), Perdita (Uranus) and Hippocamp (Neptune);
+   - Sheppard, Jewitt & Kleyna (2005), *AJ* 129, 518, Table 3 ([arXiv:astro-ph/0410059](https://arxiv.org/abs/astro-ph/0410059)): Uranus's Prospero, Setebos, Stephano, Trinculo, Francisco, Ferdinand and Margaret;
+   - Sheppard, Jewitt & Kleyna (2006), *AJ* 132, 171, Table 3 ([arXiv:astro-ph/0604552](https://arxiv.org/abs/astro-ph/0604552)): Neptune's Halimede, Sao, Laomedeia, Psamathe and Neso;
+   - Jewitt, Sheppard & Porco (2004), *Jupiter's Outer Satellites and Trojans*, Table 12.1: Jupiter's Themisto and Callirrhoe (half the listed diameter).
+4. **None of these**: the other 363 moons have no published radius, so the app gives them a small placeholder size for display, marked *est.* in the app and the catalogue ([What is not to scale](#what-is-not-to-scale)). Mab and Cupid are among them: their discovery paper gives sizes, but it is not openly available to check.
+
+Each moon page in the catalogue lists which source each radius comes from. Earlier versions used radii from compilations whose sources were not documented; 35 of them differed from JPL's current values (for example Leda 10.8 km, now 5; Sycorax 78.5 km, now 60; Nix 25 km, now 18).
 
 ### Moon orbits
 
@@ -339,7 +354,6 @@ The app remembers its settings on the device (in the browser's local storage): t
 
 Things that are wrong compared with official NASA, JPL or IAU data, found in a November 2026 check of every value. They are not fixed yet; work in progress is on the `audit-fixes-wip` branch.
 
-- **Moon sizes.** Only 46 moon radii can be traced to JPL's *Planetary Satellite Physical Parameters*, and 12 of those differ slightly from JPL's current values (for example Nix 25 km in the app, 18 km at JPL). The remaining radii have no documented source yet.
 - **Spin axes of small bodies.** All but fifteen small bodies have a random spin axis. Published axes exist for some others, for example Arrokoth, Didymos and Apophis.
 - **Which side of a body faces you.** The app spins every body at its true rate, but does not set where its prime meridian points, so the side facing you at a given moment is not the real one. The IAU publishes this for every planet and major moon.
 - **Gaps in some moon maps that could be filled with better data.** Callisto's map has a band of longitude and its south polar region filled with flat white, which is wrong for dark Callisto. About a third of Deimos's map is smeared filler. The Voyager-era maps of Mimas, Enceladus, Tethys, Dione, Rhea and Iapetus have large areas filled with white or smears, although Cassini later mapped these moons. Details in the [map table](#every-map-with-its-coverage).
