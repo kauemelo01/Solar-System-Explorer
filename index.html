@@ -147,9 +147,10 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 #focus .lk a{display:inline-flex;align-items:center;min-height:32px;padding:0 10px;border:1px solid var(--line);border-radius:999px;color:var(--accent);text-decoration:none;font-size:13px;white-space:nowrap}
 #focus .lk a:hover,#focus .lk a:focus-visible{background:var(--hi);border-color:var(--accent)}
 #timebar{left:50%;bottom:16px;transform:translateX(-50%);width:min(820px,calc(100% - 32px));display:flex;align-items:center;gap:10px;padding:10px 12px;flex-wrap:wrap}
-#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1;flex:1 0 auto;text-align:left}
+#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1;flex:0 0 auto;text-align:left;margin-right:auto}
 #date small{display:block;font-size:13px;font-weight:400;color:var(--mute);margin-top:3px}
-.spd{flex:1 1 150px;max-width:240px;display:flex;flex-direction:column;min-width:0}
+/* the slider and the date form one group, centred between the play button and the date picker (auto margins take the spare space) */
+.spd{flex:1 1 150px;max-width:240px;display:flex;flex-direction:column;min-width:0;margin-left:auto}
 .spd output{font-size:13px}
 /* outside 1800-2050 positions are estimates: the time bar turns amber and a note shows (in the speed row on wide screens, after the clock on phones).
    The note keeps its space when hidden, and the date box has a fixed width (fitDate), so the speed slider never changes length */
@@ -173,9 +174,9 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
  #focus dl{margin-top:6px}
  #hold{min-height:40px;margin-top:8px}
  #timebar{bottom:8px;width:calc(100% - 16px);gap:8px}
- #date{font-size:18px;order:-1;flex:1 1 100%;min-width:0!important}
+ #date{font-size:18px;order:-1;flex:1 1 100%;min-width:0!important;margin-right:0}
  #jump{display:none}
- .spd{flex:1 1 80px}
+ .spd{flex:1 1 80px;max-width:none;margin-left:0}
  .spdrow .est{display:none}
  #dsub .est{display:inline}
 }
@@ -959,7 +960,7 @@ $('pmin').onclick=()=>{setMin(!S.pmin);save()};setMin(!!S.pmin);
 function fitTitle(){const h=$('panel').querySelector('h1');h.style.fontSize='';if(!matchMedia('(min-width:601px)').matches)return;let f=22;while(h.scrollWidth>h.clientWidth+1&&f>15){f-=.5;h.style.fontSize=f+'px'}}
 fitTitle();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTitle);addEventListener('resize',fitTitle);
 // give the date box at least the width of the longest date it can show, so the speed slider does not change length as the date changes (wide screens only).
-// It is a minimum, not a fixed width, so the date can never spill over the date picker; the time bar's spare space also goes to the date box.
+// It is a minimum, not a fixed width, so the date can never spill over the date picker.
 function fitDate(){const d=$('date');d.style.minWidth='';if(!matchMedia('(min-width:601px)').matches)return;const m=document.createElement('span'),cs=getComputedStyle(d);
  m.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font-variant-numeric:tabular-nums';
  m.style.fontFamily=cs.fontFamily;m.style.fontSize=cs.fontSize;m.style.fontWeight=cs.fontWeight;m.style.letterSpacing=cs.letterSpacing;document.body.appendChild(m);let w=0;
