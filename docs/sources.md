@@ -32,7 +32,7 @@ Left out on purpose, and why:
 - **Moons of small bodies that are not in the app.** Many asteroids and Kuiper belt objects have moons; only those of bodies in the app are shown.
 - **Most small bodies.** More than a million asteroids and thousands of comets are known. The app shows a selection (see above), and the belts show where the rest are, as statistical clouds.
 - **Interstellar objects,** such as 1I/ʻOumuamua and 2I/Borisov.
-- **Spacecraft.**
+- **Spacecraft.** No spacecraft are drawn, such as the Voyagers, New Horizons or the James Webb Space Telescope, although many of the bodies they visited are in the app.
 - **Planets of other stars.** Their host stars are labelled, but the planets themselves are not drawn.
 - **Names for most stars.** All 9,096 catalogue stars are drawn, but only 30 have a name label; other bright stars, such as Adhara (ε Canis Majoris), are drawn without one.
 - **Fainter stars as individual objects.** Stars fainter than about magnitude 6.5 appear only in the Milky Way background image.
