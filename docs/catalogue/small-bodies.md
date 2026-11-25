@@ -1,6 +1,6 @@
 [← Documentation index](../README.md) · [Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme)
 
-# Dwarf planets, asteroids, centaurs and comets
+# Dwarf planets, candidates, asteroids, centaurs and comets
 
 39 named bodies. Moons of dwarf planets and asteroids are on [their own page](moons-small-bodies.md), Pluto's moons on [Moons of Pluto](moons-pluto.md), and the rings of Haumea, Quaoar and Chariklo on the [rings page](rings.md). Orbital elements are osculating heliocentric elements taken from the **JPL Small-Body Database (SBDB)**, except Pluto's (see the note under the dwarf planets); most use epoch JD 2461200.5 (2026-Jun-09 TDB). Comet orbits use the elements of their most recent perihelion passage in the SBDB. Each row links to the live SBDB record, so values can be re-checked at any time.
 
