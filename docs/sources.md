@@ -2,6 +2,43 @@
 
 # Sources, methodology and accuracy
 
+## What's included
+
+Each group of objects follows its own rule:
+
+| Group | What is included | Rule |
+|---|---|---|
+| The Sun, the planets and the Moon | All of them | — |
+| Moons of the planets and Pluto (459) | **Every moon in JPL's *Planetary Satellite Mean Elements* table** <https://ssd.jpl.nasa.gov/sats/elem/>, as of November 2026 | Complete: a moon is added when JPL lists it. S/2025 U 1 is in that table but not yet in JPL Horizons, so it keeps JPL's mean elements ([Moon orbits](#moon-orbits)) |
+| Moons of dwarf planets and asteroids (8) | Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu, Dimorphos and Selam | A moon of a body in the app, with an orbit published in JPL Horizons or a peer-reviewed paper |
+| Dwarf planets and candidates (5 + 4) | All five IAU dwarf planets (Ceres, Pluto, Eris, Haumea, Makemake), and four well-studied candidates (Gonggong, Quaoar, Sedna, Orcus) | A selection of candidates, not every proposed one |
+| Asteroids, centaurs and Kuiper belt objects (21) | The first asteroids discovered after Ceres (Pallas, Juno, Vesta) and Hygiea, the fourth largest; bodies visited or targeted by spacecraft (Psyche, Lutetia, Ida, Eros, Bennu, Ryugu, Itokawa, Didymos, Dinkinesh, Donaldjohanson, Eurybates, Arrokoth); and notable others (Apophis, Earth flyby in 2029; Phaethon, parent of the Geminids; Hektor, the largest Jupiter trojan; Chiron, the first centaur found; Chariklo, the first small body found with rings) | A selection |
+| Comets (9) | Comets visited by spacecraft (1P/Halley, 9P/Tempel 1, 67P/Churyumov-Gerasimenko, 81P/Wild 2); parents of meteor showers (109P/Swift-Tuttle, Perseids; 55P/Tempel-Tuttle, Leonids); 2P/Encke, with one of the shortest periods known (3.3 years); and two great comets (C/1995 O1 Hale-Bopp, C/2020 F3 NEOWISE) | A selection |
+| Ring systems (7) | Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo | Rings with measured radii ([catalogue/rings.md](catalogue/rings.md)) |
+| Belts | The main asteroid belt, the Jupiter trojans and the Kuiper belt | As statistical clouds, not catalogued objects ([Belts](#belts)) |
+| Stars | All 9,096 stars of the *Yale Bright Star Catalogue* with a position and magnitude: essentially every star brighter than magnitude 6.5, about the naked-eye limit | Complete for that catalogue |
+| Milky Way and faint stars | NASA's all-sky star map, built from over 100 million stars | Complete as a background image |
+| Named bright stars (30) | The 21 brightest stars in the sky, down to Regulus (magnitude 1.35), plus well-known stars of familiar patterns (Castor, Polaris, Bellatrix, Orion's Belt, Mizar, Dubhe, Alcyone in the Pleiades) | A selection |
+| Stars with known planets (5) | Proxima Centauri (the nearest), TRAPPIST-1 (seven planets), 51 Pegasi (first planet found around a Sun-like star), Kepler-186 and Kepler-452 (planets near Earth's size in the habitable zone) | A selection |
+| Nebulae, clusters, galaxies and deep fields (29) | Well-known showpieces and famous NASA, Hubble and Webb images, such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the deep fields | A selection ([catalogue/sky.md](catalogue/sky.md)) |
+| Constellations | All 88 IAU constellations | Complete |
+| Surface maps | Bodies with a map made from spacecraft images: the Sun, the planets, the Moon, Saturn's rings, Ceres, Vesta and 18 major moons | Real images only ([Surface maps](#surface-maps)) |
+
+## What's not included
+
+Left out on purpose, and why:
+
+- **Moons without a verifiable published orbit,** such as Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded) and Ida's moon Dactyl. They are added when an orbit is published.
+- **Moons of small bodies that are not in the app.** Many asteroids and Kuiper belt objects have moons; only those of bodies in the app are shown.
+- **Most small bodies.** More than a million asteroids and thousands of comets are known. The app shows a selection (see above), and the belts show where the rest are, as statistical clouds.
+- **Interstellar objects,** such as 1I/ʻOumuamua and 2I/Borisov.
+- **Spacecraft.**
+- **Planets of other stars.** Their host stars are labelled, but the planets themselves are not drawn.
+- **Names for most stars.** All 9,096 catalogue stars are drawn, but only 30 have a name label; other bright stars, such as Adhara (ε Canis Majoris), are drawn without one.
+- **Fainter stars as individual objects.** Stars fainter than about magnitude 6.5 appear only in the Milky Way background image.
+- **Reference images in the sky.** The NASA images of nebulae, clusters and galaxies are linked from their cards and the catalogue, not drawn in the sky.
+- **Invented surface maps.** Earlier versions used maps of Pluto, Charon and Titan that NASA calls "Fictional"; they were removed ([Surface maps](#every-map-with-its-coverage)). Bodies with no real map get a painted texture instead.
+
 ## Naming convention
 
 Object names follow **NASA/JPL**: the JPL Horizons record for planets and moons, and the JPL Small-Body Database plus NASA Science for small bodies. Comets therefore carry their full IAU designation (*1P/Halley*, *2P/Encke*, *67P/Churyumov-Gerasimenko*, *C/1995 O1 (Hale-Bopp)*). Numbered asteroids and dwarf planets appear by name only (*Ceres* for SBDB `1 Ceres`); their number and provisional designation are in the catalogue's *Designation (JPL)* column. Provisional moon designations use the IAU form *S/2023 S 1*, which Horizons stores as `S2023_S01`.
@@ -91,7 +128,7 @@ Orbit outlines follow the fits, so they turn as the orbits precess.
   - Hiʻiaka and Namaka (Haumea): Ragozzine & Brown 2009, *AJ*, [arXiv:0903.4213](https://arxiv.org/abs/0903.4213).
   - Xiangliu (Gonggong): Kiss et al. 2019, *Icarus*, [arXiv:1903.05439](https://arxiv.org/abs/1903.05439); prograde solution, orientation uncertain ([limitation of the model](#limitations-of-the-model)).
   - Selam (Dinkinesh): Levison et al. 2024, *Nature*, [arXiv:2406.19337](https://arxiv.org/abs/2406.19337); distance and period only.
-- **Left out:** moons without a verifiable published orbit, such as Makemake's moon (orbit only bounded) and Ida's moon Dactyl (a [limitation of the model](#limitations-of-the-model)).
+- **Left out:** moons without a verifiable published orbit, such as Makemake's moon (orbit only bounded) and Ida's moon Dactyl (a [limitation of the model](#limitations-of-the-model); see [What's not included](#whats-not-included)).
 - **In the app:** listed in the moons menu under *Dwarf planets & candidates* or *Asteroids*; switching one on also shows its parent's group.
 - Details per moon: [catalogue/moons-small-bodies.md](catalogue/moons-small-bodies.md).
 
@@ -121,7 +158,7 @@ The main asteroid belt, Jupiter trojans and Kuiper belt are **statistical point 
 - **Stars:** *Yale Bright Star Catalogue*, 5th revised ed. (D. Hoffleit & W. H. Warren Jr., 1991; CDS V/50), via the NASA HEASARC table `bsc5p` <https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html>. All 9,096 entries with a position and V magnitude are drawn; colour comes from B−V.
 - **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app ships two sizes; see [Sky map loading](#sky-map-loading).
 - **Deep-sky positions:** CDS SIMBAD and the Sesame name resolver (J2000).
-- **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky). Credits are listed in [catalogue/sky.md](catalogue/sky.md).
+- **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky; see [What's not included](#whats-not-included)). Credits are listed in [catalogue/sky.md](catalogue/sky.md).
 - **Planet-hosting stars:** NASA Exoplanet Archive, `pscomppars` table <https://exoplanetarchive.ipac.caltech.edu/>.
 - **Star names:** IAU Working Group on Star Names.
 - **Constellations:** boundaries from Delporte (1930) via Roman (1987, CDS VI/42) and Davenhall & Leggett (1989, CDS VI/49), precessed from B1875 to J2000 (IAU 1976 model). Stick figures from NASA/Goddard SVS *Deep Star Maps* (figures after Sky & Telescope for the IAU). Off by default. Details and checks: [catalogue/constellations.md](catalogue/constellations.md).
@@ -188,9 +225,9 @@ Bodies with a surface map in `textures/` are drawn with it. All others keep a si
 | Miranda, Ariel, Umbriel, Titania, Oberon | NASA 3D Resources | 1440 × 720 | USGS (Tammy Becker) mosaic of Voyager 2 images | Black-and-white. Voyager 2 saw only the southern hemispheres; the app fills the north (about 60% of each map) with the painted texture (a [limitation of the model](#limitations-of-the-model)) |
 | Triton | NASA/JPL PIA18668 (Paul Schenk, 2014) | 2048 × 1024 | Voyager 2 images, enhanced colour | About half of Triton, mostly the southern hemisphere; the north was in polar night during the 1989 flyby. The app fills the unseen part with the painted texture, so a seam is visible (a [limitation of the model](#limitations-of-the-model)) |
 
-Bodies with no map keep the painted texture (a [limitation of the model](#limitations-of-the-model)): Hyperion, all dwarf planets and candidates except Ceres, the asteroids except Vesta, and the comets.
+Bodies with no map keep the painted texture (a [limitation of the model](#limitations-of-the-model); see [What's not included](#whats-not-included)): Hyperion, all dwarf planets and candidates except Ceres, the asteroids except Vesta, and the comets.
 
-**Removed maps.** Earlier versions used NASA 3D Resources maps for Pluto, Charon and Titan. NASA's own pages call all three "Fictional": Pluto was stitched from a painting by Pat Rawlings, Charon was "faked from some Magellan images", and Titan is a "concept". They were dropped, and these bodies use the painted texture again. Real maps exist for Pluto and Charon (New Horizons, 2015) and Titan (Cassini radar and infrared) and could be added later.
+**Removed maps** (see [What's not included](#whats-not-included)). Earlier versions used NASA 3D Resources maps for Pluto, Charon and Titan. NASA's own pages call all three "Fictional": Pluto was stitched from a painting by Pat Rawlings, Charon was "faked from some Magellan images", and Titan is a "concept". They were dropped, and these bodies use the painted texture again. Real maps exist for Pluto and Charon (New Horizons, 2015) and Titan (Cassini radar and infrared) and could be added later.
 
 ### Processing
 
@@ -322,7 +359,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
   - planetary moons are fitted to JPL Horizons over 1800–2050 AD; outside that range, and outside the shorter range Horizons covers for 24 of them, their positions are estimates, and S/2025 U 1, not yet in Horizons, uses JPL's mean elements ([Moon orbits](#moon-orbits));
   - seven irregular moons keep a visible bend in their path, and so in their trail, where two of their fitted time windows meet ([Moon orbits](#moon-orbits)). Neighbouring windows are blended, which removes the jumps and the sharp turns elsewhere, but these moons' windows disagree too much on the direction of motion for the blend to hide it. A 250-year trail held on the parent planet shows: Margaret (Uranus) about 22° in 2032; Psamathe (Neptune) about 9° in 1814; S/2023 S 18 (Saturn) about 9° in 2007; Neso (Neptune) about 8° in 2050; S/2020 S 38 (Saturn) about 7° in 2027; S/2023 S 33 (Saturn) about 6° in 1999. S/2023 S 38 (Saturn) also turns sharply, mostly for a real reason: its orbit is extremely elongated (eccentricity about 0.9), so it swings round Saturn at each closest approach. The positions themselves stay within these moons' usual accuracy;
   - moons of dwarf planets and asteroids use two-body orbits, so their positions drift slowly, and the published orbits of Selam and Xiangliu leave their orientation uncertain.
-- **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon and Ida's moon Dactyl. The main asteroid belt, Jupiter trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
+- **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon and Ida's moon Dactyl, and others listed in [What's not included](#whats-not-included). The main asteroid belt, Jupiter trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
 - **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).
 - **One fixed rotation period per body:** comets' spins change at each pass near the Sun. 67P/Churyumov-Gerasimenko uses its last measured period (12.055 h, 2016), so its spin is only approximate at other dates ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **One shared pole:** Uranus's five moons use Uranus's pole; their own IAU poles differ by about 0.1°.

@@ -87,6 +87,7 @@ Proper names follow the IAU Working Group on Star Names ([IAU-CSN list](https://
 | <a id="star-pollux"></a>**Pollux** | Bet Gem | 2990 | 07h 45m 18.9s | +28° 01′ 34″ | 1.14 | K0IIIb | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%202990) |
 | <a id="star-fomalhaut"></a>**Fomalhaut** | Alp PsA | 8728 | 22h 57m 39.1s | −29° 37′ 20″ | 1.16 | A3V | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%208728) |
 | <a id="star-deneb"></a>**Deneb** | Alp Cyg | 7924 | 20h 41m 25.9s | +45° 16′ 49″ | 1.25 | A2Ia | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%207924) |
+| <a id="star-mimosa"></a>**Mimosa** | Bet Cru | 4853 | 12h 47m 43.2s | −59° 41′ 19″ | 1.25 | B0.5III | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%204853) |
 | <a id="star-regulus"></a>**Regulus** | Alp Leo | 3982 | 10h 08m 22.3s | +11° 58′ 02″ | 1.35 | B7V | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%203982) |
 | <a id="star-castor"></a>**Castor** | Alp Gem | 2891 | 07h 34m 36.0s | +31° 53′ 18″ | 1.98 | A1V | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%202891) |
 | <a id="star-polaris"></a>**Polaris** | Alp UMi | 424 | 02h 31m 48.7s | +89° 15′ 51″ | 2.02 | F7:Ib-II | [SIMBAD](https://simbad.harvard.edu/simbad/sim-id?Ident=HR%20424) |

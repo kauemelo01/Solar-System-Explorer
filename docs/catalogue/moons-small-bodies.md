@@ -6,7 +6,7 @@
 
 The *Surface image* column says what the app draws on each body; these moons are drawn as plain shapes. Details: [Surface maps](../sources.md#surface-maps). Where JPL Horizons has a satellite solution, the orbit comes from it; otherwise it comes from the peer-reviewed discovery or orbit paper listed. The *a*, *e*, *i* and *P* columns are the values used by the app. The JPL IDs are Horizons SPK IDs.
 
-Moons whose orbit could not be found in a verifiable published source are not included (a [limitation of the model](../sources.md#limitations-of-the-model)); this is why Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded) and Ida's moon Dactyl are absent.
+Moons whose orbit could not be found in a verifiable published source are not included (a [limitation of the model](../sources.md#limitations-of-the-model); see [What's not included](../sources.md#whats-not-included)); this is why Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded) and Ida's moon Dactyl are absent.
 
 | Moon | Parent | a (km) | e | i (°) | Period | Radius (km) | JPL ID | Orbit source | References | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|---|

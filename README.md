@@ -42,11 +42,12 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 - **Moons menu by parent body**: the planets' moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…), then *Dwarf planets & candidates* (Pluto, Eris, Haumea, Quaoar, Orcus, Gonggong) and *Asteroids* (Didymos, Dinkinesh), each with All / None, so you can switch moons on one group at a time
 - Separate switches for **dwarf planets**, **dwarf planet candidates**, **asteroids & centaurs** and **comets**
 - Statistical belts (main asteroid belt, Jupiter trojans, Kuiper belt) to show where those populations live
+- **What is and is not included, and why:** [What's included](docs/sources.md#whats-included) and [What's not included](docs/sources.md#whats-not-included)
 - **The real sky behind it all**:
   - 9,096 stars from the Yale Bright Star Catalogue
   - NASA's all-sky star map (Milky Way and faint stars), up to 8192 × 4096
   - 29 nebulae, clusters, galaxies and deep fields, such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the Hubble and Webb deep fields
-  - 29 named bright stars and 5 stars with known planets (including Proxima Centauri and TRAPPIST-1)
+  - 30 named bright stars and 5 stars with known planets (including Proxima Centauri and TRAPPIST-1)
   - the **88 IAU constellations** (off by default): official boundaries, stick figures and names, with a **Zodiac** filter showing the 13 constellations the Sun actually passes through, Ophiuchus included
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
@@ -123,7 +124,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 - [Moons of Pluto](docs/catalogue/moons-pluto.md) (5)
 - [Moons of dwarf planets and asteroids](docs/catalogue/moons-small-bodies.md) (8)
 - [Ring systems](docs/catalogue/rings.md) (7)
-- [The sky beyond the solar system](docs/catalogue/sky.md): stars, the Milky Way, deep-sky objects and planet-hosting stars (63 named objects)
+- [The sky beyond the solar system](docs/catalogue/sky.md): stars, the Milky Way, deep-sky objects and planet-hosting stars (64 named objects)
 - [The 88 constellations](docs/catalogue/constellations.md), with the 13 of the zodiac and the dates the Sun passes through them
 
 The full methodology, accuracy notes and bibliography are in [docs/sources.md](docs/sources.md).
@@ -171,7 +172,7 @@ Distances and body sizes are always to true scale. A few visual aids are not; th
 
 ## Contributing
 
-New moons are announced every year. To add or update an object, open an issue or pull request that cites its JPL Horizons/SBDB record or its Minor Planet Electronic Circular, and update the matching page in [`docs/catalogue/`](docs/catalogue/).
+New moons are announced every year; the rules for adding objects are in [What's included](docs/sources.md#whats-included). To add or update an object, open an issue or pull request that cites its JPL Horizons/SBDB record or its Minor Planet Electronic Circular, and update the matching page in [`docs/catalogue/`](docs/catalogue/).
 
 ## Releases
 
