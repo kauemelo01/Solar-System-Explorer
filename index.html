@@ -147,16 +147,17 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 #focus .lk a{display:inline-flex;align-items:center;min-height:32px;padding:0 10px;border:1px solid var(--line);border-radius:999px;color:var(--accent);text-decoration:none;font-size:13px;white-space:nowrap}
 #focus .lk a:hover,#focus .lk a:focus-visible{background:var(--hi);border-color:var(--accent)}
 #timebar{left:50%;bottom:16px;transform:translateX(-50%);width:min(820px,calc(100% - 32px));display:flex;align-items:center;gap:10px;padding:10px 12px;flex-wrap:wrap}
-#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1}
+#date{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1;flex:1 0 auto;text-align:left}
 #date small{display:block;font-size:13px;font-weight:400;color:var(--mute);margin-top:3px}
-.spd{flex:1 1 180px;display:flex;flex-direction:column;min-width:0}
+.spd{flex:1 1 150px;max-width:240px;display:flex;flex-direction:column;min-width:0}
 .spd output{font-size:13px}
 /* outside 1800-2050 positions are estimates: the time bar turns amber and a note shows (in the speed row on wide screens, after the clock on phones).
    The note keeps its space when hidden, and the date box has a fixed width (fitDate), so the speed slider never changes length */
-.spdrow{display:flex;justify-content:space-between;gap:8px;white-space:nowrap}
+.spdrow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;white-space:nowrap;align-items:baseline}
+.spdrow .est{text-align:center}
 .est{color:var(--warn);font-size:13px;visibility:hidden}
 #dsub .est{display:none}
-#timebar.estm{border-color:var(--warn)}#timebar.estm #date{color:var(--warn)}#timebar.estm .est{visibility:visible}
+#timebar.estm{border-color:var(--warn)}#timebar.estm input[type=range]{accent-color:var(--warn)}#timebar.estm #date{color:var(--warn)}#timebar.estm .est{visibility:visible}
 #jump{font:15px Jost,sans-serif;background:#151b29;color:var(--ink);border:1px solid var(--line);border-radius:8px;min-height:44px;padding:0 8px;color-scheme:dark}
 #err{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:var(--mute)}
 @media(max-width:600px){
@@ -172,7 +173,7 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
  #focus dl{margin-top:6px}
  #hold{min-height:40px;margin-top:8px}
  #timebar{bottom:8px;width:calc(100% - 16px);gap:8px}
- #date{font-size:18px;order:-1;flex:1 1 100%;width:auto!important}
+ #date{font-size:18px;order:-1;flex:1 1 100%;min-width:0!important}
  #jump{display:none}
  .spd{flex:1 1 80px}
  .spdrow .est{display:none}
@@ -946,6 +947,8 @@ function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center
  const dt=new Date((S.jd-2440587.5)*864e5);
  $('date').firstChild.nodeValue=dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
  const y=dt.getUTCFullYear(),out=y<1800||y>2050;$('clock').textContent=dt.toISOString().slice(11,16)+' UTC';$('timebar').classList.toggle('estm',out);
+ // the date picker shows the current date (day and month already filled in), except while the user is editing it
+ const jp=$('jump'),iso=dt.toISOString().slice(0,10);if(document.activeElement!==jp&&jp.value!==iso)jp.value=iso;
  // a moon whose Horizons ephemeris covers less than 1800-2050 is an estimate outside its own span too (docs/sources.md#moon-orbits)
  const sp=f.span,t=S.jd-J2000,fe=$('fEst'),yr=x=>new Date((x+J2000-2440587.5)*864e5).getUTCFullYear(),ex=!!sp&&!out&&(t<sp[0]||t>sp[1]);fe.hidden=!ex;
  if(ex)fe.textContent='Estimated position: fitted to JPL Horizons for '+yr(sp[0])+'–'+yr(sp[1])+' only'}
@@ -955,11 +958,13 @@ $('pmin').onclick=()=>{setMin(!S.pmin);save()};setMin(!!S.pmin);
 // keep the menu title on one line at its full size when it fits; shrink it only as much as needed when it does not
 function fitTitle(){const h=$('panel').querySelector('h1');h.style.fontSize='';if(!matchMedia('(min-width:601px)').matches)return;let f=22;while(h.scrollWidth>h.clientWidth+1&&f>15){f-=.5;h.style.fontSize=f+'px'}}
 fitTitle();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTitle);addEventListener('resize',fitTitle);
-// fix the date box to the width of the longest date it can show, so the time bar's layout does not shift as the date changes (wide screens only)
-function fitDate(){const d=$('date');d.style.width='';if(!matchMedia('(min-width:601px)').matches)return;const m=document.createElement('span'),cs=getComputedStyle(d);
- m.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font:'+cs.font+';font-variant-numeric:tabular-nums';document.body.appendChild(m);let w=0;
+// give the date box at least the width of the longest date it can show, so the speed slider does not change length as the date changes (wide screens only).
+// It is a minimum, not a fixed width, so the date can never spill over the date picker; the time bar's spare space also goes to the date box.
+function fitDate(){const d=$('date');d.style.minWidth='';if(!matchMedia('(min-width:601px)').matches)return;const m=document.createElement('span'),cs=getComputedStyle(d);
+ m.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font-variant-numeric:tabular-nums';
+ m.style.fontFamily=cs.fontFamily;m.style.fontSize=cs.fontSize;m.style.fontWeight=cs.fontWeight;m.style.letterSpacing=cs.letterSpacing;document.body.appendChild(m);let w=0;
  for(let k=0;k<12;k++){m.textContent=new Date(Date.UTC(2888,k,28)).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});w=Math.max(w,m.getBoundingClientRect().width)}
- m.remove();d.style.width=Math.ceil(w+2)+'px'}
+ m.remove();d.style.minWidth=Math.ceil(w+4)+'px'}
 fitDate();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitDate);addEventListener('resize',fitDate);
 // fullscreen mode: hides menus, cards and the time bar; also asks the browser for full screen when allowed
 let peekT=0;
