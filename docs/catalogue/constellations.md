@@ -1,6 +1,6 @@
 [← Documentation index](../README.md) · [Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme)
 
-# The 88 constellations and the 13 of the zodiac
+# The 88 constellations
 
 The International Astronomical Union (IAU) divides the whole sky into **88 constellations**: regions with official boundaries, not just star patterns. In the app they are **off by default**. Turn them on under *Beyond the solar system → Constellations (IAU)*, then choose **All 88** or **Zodiac (13)**, and whether to show the stick figures and the boundaries. Click a constellation's name for its card. Boundaries are drawn as soft dashed lines, so they are not confused with the solid orbit trails; the selected constellation's outline is brighter.
 

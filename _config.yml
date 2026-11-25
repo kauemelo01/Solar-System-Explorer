@@ -14,7 +14,7 @@ defaults:
   - scope:
       path: "docs/README.md"
     values:
-      title: "Documentation and object catalogue"
+      title: "Solar System Explorer: documentation"
       description: "Documentation for Solar System Explorer: every object in the 3D orrery with the NASA/JPL record each value comes from, plus sources and accuracy."
   - scope:
       path: "docs/sources.md"
@@ -29,7 +29,7 @@ defaults:
   - scope:
       path: "docs/catalogue/small-bodies.md"
     values:
-      title: "Dwarf planets, candidates, asteroids, centaurs and comets"
+      title: "Dwarf planets, asteroids, centaurs and comets"
       description: "Dwarf planets (Pluto among them), dwarf planet candidates, asteroids, centaurs and comets in Solar System Explorer, with orbital elements and links to the JPL Small-Body Database."
   - scope:
       path: "docs/catalogue/moons-mars.md"
@@ -79,5 +79,5 @@ defaults:
   - scope:
       path: "docs/catalogue/constellations.md"
     values:
-      title: "The 88 constellations and the 13 of the zodiac"
+      title: "The 88 constellations"
       description: "The 88 IAU constellations with official boundaries, areas and the 13 zodiac constellations the Sun passes through, Ophiuchus included."
