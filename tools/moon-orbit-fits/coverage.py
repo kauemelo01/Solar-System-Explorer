@@ -1,6 +1,6 @@
 import sys,json,re,urllib.request,urllib.parse,os
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-exec(open('fitall.py').read().split('t0=time.time()')[0])
+exec(open('fitlib.py').read())
 from concurrent.futures import ThreadPoolExecutor
 def q(code,prim,start,stop):
     p=dict(format='json',COMMAND=f"'{code}'",EPHEM_TYPE='VECTORS',CENTER=f"'@{prim}'",START_TIME=f"'{start}'",STOP_TIME=f"'{stop}'",STEP_SIZE="'1 d'",VEC_TABLE="'1'")

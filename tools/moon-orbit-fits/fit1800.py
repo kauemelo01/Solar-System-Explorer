@@ -1,7 +1,7 @@
 # Fit every planetary moon to JPL Horizons over 1800-2051 (or the part of it Horizons covers); resumable, one JSON per moon in fits1800/
 import sys,os,json,time,re
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-exec(open('runfits3.py').read().rsplit("\nif __name__=='__main__':",1)[0])
+exec(open('fitlib.py').read())
 COV=json.load(open('coverage.json'))
 MON={'JAN':1,'FEB':2,'MAR':3,'APR':4,'MAY':5,'JUN':6,'JUL':7,'AUG':8,'SEP':9,'OCT':10,'NOV':11,'DEC':12}
 def iso(s,shift):
