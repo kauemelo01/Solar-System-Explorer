@@ -357,15 +357,66 @@ The app remembers its settings on the device (in the browser's local storage): t
 | The Moon | Mean elements (no periodic perturbations) | within a few degrees in longitude |
 | Regular moons | One orbit fitted to JPL Horizons over 1800–2050 AD ([Moon orbits](#moon-orbits)) | Major moons within a fraction of a degree; small inner moons typically 1–3° |
 | Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°, at most 3.6°; distance typically within 2% |
-| Asteroids, dwarf planets | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it |
+| Asteroids, dwarf planets | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it; planetary encounters are missed ([Error and drift over time](#error-and-drift-over-time)) |
 | Comets | Two-body orbit from the SBDB solution for the latest perihelion | Good near perihelion; drifts faster than asteroids (Jupiter encounters, outgassing), up to several degrees within a decade (a [limitation of the model](#limitations-of-the-model)) |
 | Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain (a [limitation of the model](#limitations-of-the-model)) |
+
+### Error and drift over time
+
+Each orbit model is accurate in its best period and drifts away from it. Measured in November 2026 with the app's own code, against JPL Horizons positions every 10 days from 1800 to 2050 AD and the JPL [Small-Body Database close-approach data](https://ssd-api.jpl.nasa.gov/doc/cad.html); where a figure is taken from a source rather than measured, the table says so.
+
+| Objects | Model | Best period | Error there | Away from it |
+|---|---|---|---|---|
+| Planets and Pluto | Standish Keplerian elements | 1800–2050 AD | about arc-minutes (JPL's figure) | grows; the time bar shows *Estimated positions* (not measured here) |
+| The Moon | Mean elements | — | within a few degrees | no long-term drift measured |
+| Planets' moons, one orbit (113) | Fitted to JPL Horizons ([Moon orbits](#moon-orbits)) | 1800–2050 AD | typically 1.5° (all fitted moons), distance 1.6% | within about 0.5° 150 years beyond (Io 0.06°, Titan 0.16°) |
+| Planets' moons, time windows (345) | Fitted to JPL Horizons | 1800–2050 AD | as above | orbit size, shape and direction stay right; the position along the orbit is meaningless within a few decades |
+| S/2025 U 1 | JPL mean elements, 2025 epoch | near 2025 | not measured | drifts |
+| Moons of dwarf planets and asteroids | Two-body orbit about the primary | — | orbit size and period right | phases drift |
+| Asteroids and dwarf planets | One two-body orbit, epoch 2026-Jun-09 | near 2026 | very good | slow drift, and planetary encounters are missed (below) |
+| Comets | One two-body orbit from the latest perihelion | near that perihelion | good | faster drift; Jupiter encounters are missed (below) |
+
+**Encounters that change an orbit, 1800–2050 AD.** Found from each small body's orbit history in JPL Horizons (a sudden change in its orbit, with a planet nearby), so they are ranked by their effect, not only by distance. A planet's *Hill sphere* is the region where its gravity outweighs the Sun's.
+
+| Kind | Encounters |
+|---|---|
+| Strong flybys, well inside a planet's Hill sphere | **81P/Wild 2** passed Jupiter at 989,000 km on 10 Sep 1974 (period 49 → 6.1 yr, perihelion 4.96 → 1.47 AU); **67P/Churyumov-Gerasimenko** passed Jupiter at 7.7 million km on 4 Feb 1959 (period 9.0 → 6.5 yr, perihelion 2.74 → 1.28 AU, inclination 23° → 7°); **Apophis** passes Earth at 38,000 km on 13 Apr 2029 (period 0.886 → 1.159 yr) and the Moon at 96,000 km the next day |
+| Distant passes by Jupiter that still change the orbit | **Hale-Bopp** at 0.77 AU on 5 Apr 1996 (period about 4,260 → 2,400 yr); **9P/Tempel 1** at 0.36–0.91 AU in 1870, 1881, 1941, 1953, 2024 and 2036 (each shifts its period by 0.3–0.7 yr; after 1881 it was lost until 1967); **67P** at 0.37–0.93 AU in 1840, 1876, 1923 and 2018 |
+| Passes through the planetary region (the sum of many planets' pulls) | **NEOWISE** in 2020 (period 4,480 → 6,800 yr); **1P/Halley** in 1835, 1910 and 1986 (period 76.7 → 74.5 → 75.9 → 75.5 yr); **109P/Swift-Tuttle** in 1862 and 1992 (125 → 130 → 134 yr); **55P/Tempel-Tuttle** (about 0.4 yr per pass) |
+| Weak passes by Earth (1.4–3 Hill radii; each changes the orbit by less than 0.5%) | Apophis 1823, 1866, 1907, 1998; Itokawa 1858, 1905, 2004; Bennu 1911, 1970, 1999; and Chiron passed Saturn at 1.9 AU in 1899 (about 1%) |
+| None that matter | between two small bodies (the closest pair, Bennu and Itokawa, pass about 1.75 million km apart; even Vesta changes 67P's speed by only about 1 mm/s); the main-belt asteroids, Jupiter trojans, Kuiper belt objects, Sedna and Chariklo; and between planets or moons. A small body's pull on a planet is always negligible |
+
+**How the app shows these encounters**, compared with JPL (closest distance from the planet's centre, and its time):
+
+| Encounter | JPL | App | Difference |
+|---|---|---|---|
+| Apophis – Earth, 13 Apr 2029 | 37,998 km at 21:46 UTC | 194,303 km | 2.3 h late, five times too far |
+| Apophis – Moon, 14 Apr 2029 | 95,743 km | 254,988 km | 14.7 h late |
+| 81P/Wild 2 – Jupiter, 10 Sep 1974 | 988,842 km | 36 million km, in July 1975 | the flyby does not happen |
+| 67P – Jupiter, 4 Feb 1959 | 7.7 million km | 288 million km | the flyby does not happen |
+| 9P/Tempel 1 – Jupiter, 1941 | 62 million km | 132 million km | 23 days late |
+| Bennu – Earth, 1999 / 1911 | 2.2 / 2.1 million km | 17 / 284 million km | 48 days late / no approach |
+| Itokawa – Earth, 1905 | 1.7 million km | 7.9 million km | |
+| Apophis – Earth, 1907 | 4.3 million km | 204 million km | no approach |
+| 1P/Halley – Earth, 1910 | 22.7 million km | 23.8 million km | 25 days early |
+| Hale-Bopp – Jupiter, 1996; 67P – Jupiter, 2018; 9P – Jupiter, 2024 | 115 / 56 / 82 million km | 117 / 59 / 84 million km | 2 / 7 / 3 days off: good |
+
+**Small bodies from worst to best** (the app's perihelion times and positions compared with JPL Horizons):
+
+- **9P/Tempel 1:** each Jupiter pass changes its orbit. Before about 1960 its position is essentially random (perihelion years off); after the 2024 pass it is 31–43° off by 2027–2028.
+- **81P/Wild 2 before 1974 and 67P before 1959:** both are shown on the orbit they only got after their Jupiter flyby, so their positions are random (up to 180° off) and their perihelia years off. 67P drifts again after its 2018 pass: 18° off at the 2021 perihelion, about 60° near 2028.
+- **Apophis:** good from about 1990 until April 2029, then it stays on its old orbit; in the 2030s it is on the other side of the Sun from its real position.
+- **1P/Halley:** perihelion 1.6 years early in 1835, 40 days early in 1910, within a day in 1986. **2P/Encke:** 116 days early in 1803, right from about 2000. **Chiron:** years off in the 1800s, months before 2000. **55P and 109P:** about 1 and 3 years off before 1900, right since the 1960s. **Bennu and Itokawa:** weeks to months off before about 1990, after many small passes by Earth.
+- **Eros, Didymos, Ryugu, Phaethon:** perihelia within about 2–24 days over the whole range. Phaethon and Ryugu can still look tens of degrees off near perihelion, where they move fastest.
+- **Hale-Bopp and NEOWISE:** within a few degrees throughout; they are far out and slow for most of the period.
 
 **Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. **Outside 1800–2050 AD: positions are estimates.** That is the range in which the planets' elements are valid. Outside it the time bar turns amber and shows *Estimated positions* (next to the speed on wide screens, after the clock on phones); the further from that range, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Estimated positions outside 1800–2050 AD are a [limitation of the model](#limitations-of-the-model).
 
 ## Known issues
 
-Things that are wrong compared with official NASA, JPL or IAU data. Every issue found in the November 2026 check of every value has been fixed, each checked against JPL Horizons, the IAU or the mission's own data before it replaced the old value. What remains are deliberate simplifications or gaps in the published data, listed under [Limitations of the model](#limitations-of-the-model).
+Things that are wrong compared with official NASA, JPL or IAU data. Every issue found in the November 2026 check of every value has been fixed, each checked against JPL Horizons, the IAU or the mission's own data before it replaced the old value. Deliberate simplifications and gaps in the published data are listed under [Limitations of the model](#limitations-of-the-model). Found since:
+
+- **Small-body orbits drift, and miss planetary encounters.** Each asteroid, dwarf planet and comet follows one two-body orbit, fitted near 2026 (comets: at their latest perihelion), so the pulls of the planets are left out. Near that date the app matches JPL Horizons; away from it the error grows, and an encounter that changes an orbit does not happen in the app. For example, Apophis's Earth flyby on 13 April 2029 is shown at 194,000 km instead of 38,000 km and 2.3 hours late, and Apophis keeps its old orbit afterwards; Comet 81P/Wild 2's 1974 and 67P's 1959 flybys of Jupiter do not happen, so both are in the wrong place before them; 9P/Tempel 1 is far off before about 1960 and after its 2024 Jupiter pass. Every case, with measurements: [Error and drift over time](#error-and-drift-over-time).
 
 ## Limitations of the model
 
