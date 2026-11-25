@@ -37,7 +37,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - **467 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5 · other dwarf planets and candidates 6 (Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu) · asteroids 2 (Dimorphos, Selam)
   - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 21 asteroids, centaurs and Kuiper belt objects, 9 comets
 - **7 ring systems** at their true radii: Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo
-- **Real-time positions** computed from JPL Keplerian and mean orbital elements, for any date (forward or backward in time)
+- **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from JPL Keplerian elements, the planets' moons from orbits fitted to JPL Horizons, and small bodies and their moons from JPL orbital elements. Outside 1800–2050 AD the time bar turns amber and shows *Estimated positions*
 - **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
 - **Moons menu by parent body**: the planets' moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…), then *Dwarf planets & candidates* (Pluto, Eris, Haumea, Quaoar, Orcus, Gonggong) and *Asteroids* (Didymos, Dinkinesh), each with All / None, so you can switch moons on one group at a time
 - Separate switches for **dwarf planets**, **dwarf planet candidates**, **asteroids & centaurs** and **comets**
@@ -61,17 +61,18 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | Rotate / zoom | Drag; scroll or pinch |
 | Fly to an object | Click its name, or use **Find** (`/`) |
 | Show constellations | *Beyond the solar system → Constellations (IAU)*; choose **All 88** or **Zodiac (13)**, figures and boundaries |
-| Look at a star, nebula or galaxy | Click its label to open its card, or type its name in **Find** to turn the view towards it |
-| **Make an object the centre** | Double-click it, pick it under *Hold still*, or press **C** for the selected one |
+| Look at a star, nebula or galaxy | Click its label to open its card, or type its name in **Find** to turn the view towards it; the card's **✕** goes back to the selected body |
+| **Make an object the centre** | Double-click it, pick it under *Reference body* (a button for each planet, or type any other object in *Hold any other object still…*), use the **Hold … still** button on its card, or press **C** for the selected one |
 | Pause / speed / reverse | `Space` · `←` `→` · `R` |
 | Toggle trails | `T` |
 | Go back to the previously selected object | `Backspace` (repeat to go further back; bodies and sky objects alike) |
-| Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent |
-| Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets** |
+| Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent. A planet's moons (their dots, labels and trails) appear as you zoom toward it, or when it or one of its moons is selected or held still |
+| Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets**, or **All** / **None** |
 | Quick views | *Show* → **Show everything** or **Planets only** |
-| Show the belts | *Show → Belts*: **Main asteroid belt**, **Jupiter trojans**, **Kuiper belt** (statistical clouds, not catalogued objects) |
+| Show the belts | *Show → Belts*: **Main asteroid belt**, **Jupiter trojans**, **Kuiper belt** (statistical clouds, not catalogued objects), or **All** / **None** |
 | Sky layers | *Beyond the solar system*: **Milky Way & faint stars**, **Nebulae, clusters & galaxies**, **Bright star names**, **Stars with known planets** |
-| Trails, outlines and labels | *Trails*: a length slider (off at the far left, up to 250 years) for each group (planets, major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, comets), plus *Everything* to set them all at once; minor moons are off by default; *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
+| Trails, outlines and labels | *Trails*: a length slider (off at the far left, up to 250 years) for each group (planets, major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, comets), plus *Everything* to set them all at once; minor moons are off by default; trails are drawn relative to the body held still, and `T` turns them all off and back on ([how trails work](docs/sources.md#trails)); *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
+| Read about an object | Click it: its card gives its distance from the body held still, the light travel time, its distance from the Sun, radius and orbital period, with links to its catalogue entry, JPL and NASA ([the object card](docs/sources.md#the-object-card)) |
 | Frame the view | *View* → **Inner planets** or **Whole system** |
 | Time | The time bar: play / pause, reverse, the speed slider (also `Space`, `R`, `←` `→`), a date box to jump to any date between 1000 and 3000 AD, and **Today** |
 | Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |
@@ -82,6 +83,8 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 
 On screens at least 1300 px wide, the menu (360 px) runs the full height of the window and the time bar narrows to stay centred beside it. On smaller screens the menu stops above the time bar; on phones the menu, cards and time bar stack.
 
+Your settings are remembered on the device: the body held still, the speed, trail lengths, labels, distance rings and orbit outlines, which moons, small bodies, belts and sky layers are shown, surface textures, the sky map size and whether the menu is collapsed. The date is not: the app always opens at the current date and time.
+
 ## Data provenance
 
 Everything in the app traces back to public, citable sources, mostly from NASA's Jet Propulsion Laboratory:
@@ -89,7 +92,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 | Data | Source |
 |---|---|
 | Planet orbits | JPL SSD, [*Approximate Positions of the Planets*](https://ssd.jpl.nasa.gov/planets/approx_pos.html) (Standish; best 1800–2050 AD) |
-| Moon orbits | JPL SSD, [*Planetary Satellite Mean Elements*](https://ssd.jpl.nasa.gov/sats/elem/) |
+| Moon orbits | Positions: orbits fitted to [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) over 1800–2050 AD ([`data/moon-orbits.js`](data/moon-orbits.js); [method and accuracy](docs/sources.md#moon-orbits)). Orbit shapes listed in the catalogue: JPL SSD, [*Planetary Satellite Mean Elements*](https://ssd.jpl.nasa.gov/sats/elem/) |
 | Moon sizes | JPL SSD, [*Planetary Satellite Physical Parameters*](https://ssd.jpl.nasa.gov/sats/phys_par/) |
 | Asteroids, dwarf planets, comets | [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html) |
 | Moons of dwarf planets and asteroids | [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) satellite solutions; Ragozzine & Brown (2009), Kiss et al. (2019), Levison et al. (2024) |
@@ -142,7 +145,9 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 | `index.html` | The whole app: page, styles and code |
 | `sky/` | Sky data: star catalogue, NASA star maps, deep-sky objects, constellation boundaries and figures |
 | `textures/` | Surface maps for the Sun, planets, Saturn's rings, Ceres, Vesta and the major moons ([sources](docs/sources.md#surface-maps)) |
+| `data/moon-orbits.js` | The planets' moon orbits fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#moon-orbits)) |
 | `tools/build_textures.py` | Rebuilds `textures/` from the original sources (downloads them; needs Pillow) |
+| `tools/moon-orbit-fits/` | Rebuilds `data/moon-orbits.js` from JPL Horizons and checks it ([how to run](tools/moon-orbit-fits/README.md)) |
 | `docs/` | Documentation and the per-object catalogue |
 | `icon.svg`, `favicon-32.png`, `apple-touch-icon.png` | App icon (browser tab and home-screen versions): an orbit, the Sun, and a planet with its own moon |
 | `social-card.png` | Preview image shown when the link is shared (Open Graph / Twitter card) |
@@ -170,7 +175,7 @@ New moons are announced every year. To add or update an object, open an issue or
 
 ## Releases
 
-- **Release 2** (current, branch `main`, tag `v2`): real spacecraft surface maps, Earth's clouds, the moons menu grouped by parent body, 22 more bodies and 7 ring systems, the *Images* panel, data corrected against NASA/JPL/IAU, and the documentation's *Known issues* and *Limitations* lists.
+- **Release 2** (current, branch `main`, tag `v2`): real spacecraft surface maps, Earth's clouds, the moons menu grouped by parent body, 22 more bodies and 7 ring systems, the *Images* panel, data corrected against NASA/JPL/IAU, and the documentation's *Known issues* and *Limitations* lists. Since then: the planets' moons placed by orbits fitted to JPL Horizons (typically within 1.5°, against about 90° before), a time bar from 1000 to 3000 AD with an *Estimated positions* alert outside 1800–2050 AD, a trail length slider for each group of bodies, and published spin axes for Triton, Iapetus and nine more small bodies.
 - **Release 1** (tag `v1`, branch `release-1`): the first published version, kept unchanged. To view it: `git switch release-1`. To make it the published app again, point `main` back to it: `git push --force origin refs/heads/release-1:refs/heads/main` (GitHub Pages publishes `main`). The `release-1` branch is locked on GitHub so it cannot change.
 
 ## License

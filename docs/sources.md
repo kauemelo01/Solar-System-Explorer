@@ -14,7 +14,7 @@ All positions are computed in the **heliocentric ecliptic J2000** frame, the sta
 
 Distances and body sizes are always drawn to true scale. Bodies are therefore tiny compared with their orbits, as they really are, and you zoom in (or click a name to fly to it) to see them.
 
-**To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,500–136,780 km), the orbit trails and the distance rings in AU.
+**To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,658–136,780 km), the orbit trails and the distance rings in AU.
 
 ### What is not to scale
 
@@ -24,7 +24,7 @@ These are visual aids drawn on top of the true-scale model; each is a [limitatio
 |---|---|
 | Coloured dots and labels marking bodies | A fixed 3.5–6 pixels on screen whatever the zoom, so bodies smaller than a pixel can still be found |
 | The Sun's glow | A glow 7 times the Sun's radius, plus a halo of fixed screen size. The Sun's sphere itself is true size |
-| Comet tails and comas | Illustrative length: the shorter of 0.6 AU and 0.3 / r² AU, where r is the comet's distance from the Sun in AU. Real tails vary widely and can exceed 1 AU |
+| Comet tails and comas | Drawn only while the comet is within 5 AU of the Sun. Illustrative length: the shorter of 0.6 AU and 0.3 / r² AU, where r is the comet's distance from the Sun in AU. Real tails vary widely and can exceed 1 AU |
 | Bodies with no published radius | Placeholder radii, marked *est.* in the app and the catalogue: 1.5–40 km for moons, plus Arrokoth (≈ 9 km, a 36 km-long contact binary) and comet C/2020 F3 (NEOWISE) (2.5 km) |
 | Irregular asteroids and small moons | Mean radius is correct; the lumpy shape is computer-generated, not the real shape |
 | Main asteroid belt, Jupiter trojans, Kuiper belt | Statistical clouds of fixed-size points, not individual catalogued objects (see [Belts](#belts)) |
@@ -247,6 +247,42 @@ Each object's card in the app has a short note under its type saying what its su
 | Plain shape; no surface image | The small moons, including the moons of dwarf planets, candidates and asteroids, drawn as plain-coloured shapes |
 
 Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden", Neptune "Dark spot of 1989, now gone", Vesta "Far north in shadow", Io "Small polar gaps", Triton "Voyager 2 saw half", and the five Uranian moons "Only the south was seen". If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
+
+## In the app
+
+### The object card
+
+Clicking an object, or finding it with *Find*, opens its card:
+
+- its name and type, for example *Moon of Saturn · Norse group · retrograde irregular*;
+- the [surface note](#card-notes), and for a moon outside its fitted range an *Estimated position* note ([Moon orbits](#moon-orbits));
+- **From** the body held still: the distance, in kilometres below 20 million km and in AU above;
+- **Light time:** how long light takes to cover that distance;
+- **From the Sun**, **Radius** (with ≈ and *est.* for a [placeholder size](#what-is-not-to-scale)) and **Orbital period** (in hours, days or years; *retrograde* for moons that orbit backwards);
+- links: **Details** (its catalogue entry), **Rings** (for ringed bodies), **JPL** (its JPL Horizons record) or **JPL SBDB** (small bodies), and **NASA** (its NASA Science page, for 139 objects);
+- a **Hold … still** button, which makes it the reference body.
+
+On phones the card is shorter: it leaves out the type, the distance from the Sun, the radius and the period.
+
+Objects in the sky have their own card: deep-sky objects give their distance, constellation and apparent size; named stars their magnitude and spectral type; stars with planets their distance and number of planets; all three their position (RA and Dec). Constellations give their abbreviation, area, size rank and, for the zodiac, the dates the Sun passes through. Links go to the catalogue entry and SIMBAD, plus the NASA image or the NASA Exoplanet Archive where there is one. The card's **✕** goes back to the selected body.
+
+### Trails
+
+A trail is the path a body has followed **as seen from the body held still**. With the Sun held still, planets trace their orbits; with Earth held still, Mars traces its loops in the sky; and a moon's trail combines its orbit with its planet's path.
+
+- **One slider per group** under *Trails*: planets (and the Sun, when another body is held still), major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, and comets. Each runs from off (far left) through 1 week, 1 month, 3 months, 1 year, 5, 12, 30 and 100 years to 250 years. **Everything** sets them all at once, and reads *Mixed* when they differ. A group with nothing on screen says *None shown*; its slider still works.
+- **Defaults:** 30 years for planets and small bodies, 1 year for major moons, off for minor moons.
+- **`T`** turns all trails off, and back to the previous lengths.
+- **When a trail is drawn:** only for bodies that are shown. A moon's trail appears only when its planet's moons are visible (see below), and is dropped when time runs so fast that the moon would go round more than 15 times a second.
+- **Detail:** a trail is sampled about 180 times per orbit and keeps at most 6,000 points (2,000 for minor moons), so a long trail of a fast moon shows only its most recent part. Older parts fade out.
+
+### When moons appear
+
+A planet's moons (their dots, labels and trails) appear as you zoom toward the planet: once its moon system is a few dozen pixels across on screen. They also appear when the planet or one of its moons is selected or held still.
+
+### Saved settings
+
+The app remembers its settings on the device (in the browser's local storage): the body held still, the speed, trail lengths, labels, distance rings and moon orbit outlines, which moons, small bodies, belts and sky layers are shown (constellation options included), realistic surface textures, the sky map size and whether the menu is collapsed. The date is not saved: the app always opens at the current date and time.
 
 ## Accuracy
 
