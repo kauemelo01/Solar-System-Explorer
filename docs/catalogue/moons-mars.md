@@ -2,7 +2,7 @@
 
 # Moons of Mars
 
-**2 moons.** Positions along the orbits are **fitted to JPL Horizons over 1800–2050** ([Moon orbits](../sources.md#moon-orbits)): checked against Horizons on other dates, the typical error for this planet's moons is 1.0° (median), and the least accurate is Phobos at 1.9°. The *a*, *e*, *i* and *P* columns below are the **JPL mean orbital elements** (Laplace-plane or ecliptic, as published by JPL SSD); the fitted orbits keep these shapes, or refine them where Horizons shows they change. Every moon links to its **JPL Horizons** object record by NAIF ID, and to its NASA Science page where NASA has published one.
+**2 moons.** Positions along the orbits are **fitted to JPL Horizons over 1800–2050 AD** ([Moon orbits](../sources.md#moon-orbits)): checked against Horizons on other dates, the typical error for this planet's moons is 1.0° (median), and the least accurate is Phobos at 1.9°. The *a*, *e*, *i* and *P* columns below are the **JPL mean orbital elements** (Laplace-plane or ecliptic, as published by JPL SSD); the fitted orbits keep these shapes, or refine them where Horizons shows they change. Every moon links to its **JPL Horizons** object record by NAIF ID, and to its NASA Science page where NASA has published one.
 
 The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
 

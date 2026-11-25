@@ -265,7 +265,7 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
    <div class="seg seg3" id="skyRes"><button data-v="auto" aria-pressed="true">Auto</button><button data-v="4k" aria-pressed="false">4K</button><button data-v="8k" aria-pressed="false">8K</button></div>
   </details>
   <p class="hint">Drag to orbit, scroll or pinch to zoom, click a name to fly to it, double-click to hold it still. Keys: space pause, ← → speed, R reverse, T trails, C hold selected still, Backspace back to the previous selection, / find, F fullscreen.</p>
-  <p class="src">Planets and Pluto: JPL Keplerian elements (best 1800–2050). Moons: 467 as of Nov 2026; the planets’ moons are fitted to JPL Horizons over 1800–2050 (typically within 1.5°), the others use JPL Horizons or published orbits. Rings: NASA fact sheets and occultation studies, radii true, opacity exaggerated. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
+  <p class="src">Planets and Pluto: JPL Keplerian elements (best 1800–2050 AD). Moons: 467 as of Nov 2026; the planets’ moons are fitted to JPL Horizons over 1800–2050 AD (typically within 1.5°), the others use JPL Horizons or published orbits. Rings: NASA fact sheets and occultation studies, radii true, opacity exaggerated. Small bodies: JPL Small-Body Database. Belts are drawn from typical orbit statistics, not real catalogue entries. Distances and sizes are always true to scale, so most bodies are specks: zoom in, or click a name to fly to it.</p>
  </div>
 </aside>
 
@@ -294,8 +294,8 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
 <footer id="timebar" class="card">
  <button class="btn ib" id="rev" aria-pressed="false" title="Reverse time (R)" aria-label="Reverse time"><svg viewBox="0 0 24 24"><path d="M11 6v12L2 12zM21 6v12l-9-6z"/></svg></button>
  <button class="btn ib" id="play" title="Pause (space)" aria-label="Pause"><svg viewBox="0 0 24 24" id="playIco"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
- <div class="spd"><input type="range" id="speed" min="0" max="10" step="1" value="5" aria-label="Simulation speed"><div class="spdrow"><output id="speedOut">1 month / s</output><span class="est" title="Outside 1800–2050: positions are estimates (see the documentation’s Accuracy section)">Estimated positions</span></div></div>
- <div id="date">—<small id="dsub"><span id="clock">—</span><span class="est" title="Outside 1800–2050: positions are estimates (see the documentation’s Accuracy section)"> · Estimated positions</span></small></div>
+ <div class="spd"><input type="range" id="speed" min="0" max="10" step="1" value="5" aria-label="Simulation speed"><div class="spdrow"><output id="speedOut">1 month / s</output><span class="est" title="Outside 1800–2050 AD: positions are estimates (see the documentation’s Accuracy section)">Estimated positions</span></div></div>
+ <div id="date">—<small id="dsub"><span id="clock">—</span><span class="est" title="Outside 1800–2050 AD: positions are estimates (see the documentation’s Accuracy section)"> · Estimated positions</span></small></div>
  <input type="date" id="jump" aria-label="Jump to date">
  <button class="btn" id="today">Today</button>
 </footer>
@@ -984,7 +984,7 @@ function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center
  const jp=$('jump'),iso=dt.toISOString().slice(0,10);if(document.activeElement!==jp&&jp.value!==iso)jp.value=iso;
  // a moon whose Horizons ephemeris covers less than 1800-2050 is an estimate outside its own span too (docs/sources.md#moon-orbits)
  const sp=f.span,t=S.jd-J2000,fe=$('fEst'),yr=x=>new Date((x+J2000-2440587.5)*864e5).getUTCFullYear(),ex=(!!sp&&!out&&(t<sp[0]||t>sp[1]))||(!!f.nohz&&!out);fe.hidden=!ex;
- if(ex)fe.textContent=f.nohz?'Estimated position: not yet in JPL Horizons; JPL mean elements':'Estimated position: fitted to JPL Horizons for '+yr(sp[0])+'–'+yr(sp[1])+' only'}
+ if(ex)fe.textContent=f.nohz?'Estimated position: not yet in JPL Horizons; JPL mean elements':'Estimated position: fitted to JPL Horizons for '+yr(sp[0])+'–'+yr(sp[1])+' AD only'}
 $('ptog').onclick=()=>{const o=$('panel').classList.toggle('open');$('ptog').setAttribute('aria-expanded',o)};
 function setMin(m){S.pmin=m;$('panel').classList.toggle('min',m);const b=$('pmin');b.setAttribute('aria-expanded',!m);b.title=b.ariaLabel=m?'Expand menu':'Collapse menu'}
 $('pmin').onclick=()=>{setMin(!S.pmin);save()};setMin(!!S.pmin);

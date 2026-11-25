@@ -1,6 +1,6 @@
 # Moon orbit fits
 
-These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted to its JPL Horizons ephemeris over 1800–2050. The method and the accuracy are described in [docs/sources.md, Moon orbits](../../docs/sources.md#moon-orbits).
+These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted to its JPL Horizons ephemeris over 1800–2050 AD. The method and the accuracy are described in [docs/sources.md, Moon orbits](../../docs/sources.md#moon-orbits).
 
 ## Setup
 
@@ -10,7 +10,7 @@ These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted t
 
 ## Steps (run in the work folder)
 
-1. `python coverage.py`: which part of 1800–2051 Horizons covers for each moon (`coverage.json`).
+1. `python coverage.py`: which part of 1800–2051 AD Horizons covers for each moon (`coverage.json`).
 2. `python fit1800.py`: fit every moon (one JSON per moon in `fits1800/`; resumable, about an hour with 8 cores).
 3. `python checkfetch.py`: independent check positions on other dates (`check.json`).
 4. `python writefits2.py <repo>/data/moon-orbits.js`, then `node validate.js <repo>/index.html <repo>/data/moon-orbits.js check.json`: the check, with the app's own code (`validate.json`).
@@ -25,4 +25,4 @@ These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted t
 
 S/2009 S 2 is fitted in Saturn's equatorial plane (IAU pole 40.589°, 83.537°), which the JPL table does not give. S/2025 U 1 is not in Horizons (its NAIF number matches an asteroid there), so it has no fit.
 
-`moonmodel.py` holds the orbit model and the Horizons downloads; `appdata.py` reads the moon list from `index.html`; `fitlib.py` builds the list of moons to fit (with their NAIF IDs) and holds the fitting rule (one orbit if it fits within 0.5°, otherwise time windows). The other scripts load `fitlib.py`, or `fit1800.py`, which adds the 1800–2051 span.
+`moonmodel.py` holds the orbit model and the Horizons downloads; `appdata.py` reads the moon list from `index.html`; `fitlib.py` builds the list of moons to fit (with their NAIF IDs) and holds the fitting rule (one orbit if it fits within 0.5°, otherwise time windows). The other scripts load `fitlib.py`, or `fit1800.py`, which adds the 1800–2051 AD span.
