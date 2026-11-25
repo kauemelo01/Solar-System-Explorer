@@ -10,12 +10,12 @@ This folder documents **every object** in Solar System Explorer: the values the 
 |---|---:|---|
 | [Sun, planets and the Moon](catalogue/sun-planets.md) | 10 | JPL Keplerian elements · NASA fact sheets |
 | [Dwarf planets, candidates, asteroids, centaurs and comets](catalogue/small-bodies.md) | 39 | JPL Small-Body Database; Pluto from the JPL planet table |
-| [Moons of Mars](catalogue/moons-mars.md) | 2 | JPL satellite mean elements |
-| [Moons of Jupiter](catalogue/moons-jupiter.md) | 115 | JPL satellite mean elements |
-| [Moons of Saturn](catalogue/moons-saturn.md) | 292 | JPL satellite mean elements |
-| [Moons of Uranus](catalogue/moons-uranus.md) | 29 | JPL satellite mean elements |
-| [Moons of Neptune](catalogue/moons-neptune.md) | 16 | JPL satellite mean elements |
-| [Moons of Pluto](catalogue/moons-pluto.md) | 5 | JPL satellite mean elements |
+| [Moons of Mars](catalogue/moons-mars.md) | 2 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
+| [Moons of Jupiter](catalogue/moons-jupiter.md) | 115 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
+| [Moons of Saturn](catalogue/moons-saturn.md) | 292 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
+| [Moons of Uranus](catalogue/moons-uranus.md) | 29 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
+| [Moons of Neptune](catalogue/moons-neptune.md) | 16 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
+| [Moons of Pluto](catalogue/moons-pluto.md) | 5 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
 | [Moons of dwarf planets and asteroids](catalogue/moons-small-bodies.md) | 8 | JPL Horizons satellite solutions · peer-reviewed orbit papers |
 | [Ring systems](catalogue/rings.md) | 7 systems | NASA NSSDCA ring fact sheets · occultation papers |
 | [The 88 constellations](catalogue/constellations.md) | 88 | IAU boundaries (Delporte 1930; CDS VI/42, VI/49) · NASA SVS figures |
