@@ -117,14 +117,14 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 **Every object has its own reference entry.** The catalogue lists each body with the values the app uses and links to its JPL Horizons or SBDB record, plus its NASA Science page where one exists:
 
 - [Sun, planets and the Moon](docs/catalogue/sun-planets.md) (10)
-- [Dwarf planets, asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (39)
+- [Dwarf planets, asteroids, centaurs and comets](docs/catalogue/small-bodies.md) (56)
 - [Moons of Mars](docs/catalogue/moons-mars.md) (2)
 - [Moons of Jupiter](docs/catalogue/moons-jupiter.md) (115)
 - [Moons of Saturn](docs/catalogue/moons-saturn.md) (292)
 - [Moons of Uranus](docs/catalogue/moons-uranus.md) (29)
 - [Moons of Neptune](docs/catalogue/moons-neptune.md) (16)
 - [Moons of Pluto](docs/catalogue/moons-pluto.md) (5)
-- [Moons of dwarf planets and asteroids](docs/catalogue/moons-small-bodies.md) (8)
+- [Moons of dwarf planets and asteroids](docs/catalogue/moons-small-bodies.md) (11)
 - [Ring systems](docs/catalogue/rings.md) (7)
 - [The sky beyond the solar system](docs/catalogue/sky.md): stars, the Milky Way, deep-sky objects and planet-hosting stars (64 named objects)
 - [The 88 constellations](docs/catalogue/constellations.md), with the 13 of the zodiac and the dates the Sun passes through them
