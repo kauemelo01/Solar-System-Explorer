@@ -30,7 +30,7 @@ Left out on purpose, and why:
 
 - **Moons without a verifiable published orbit,** such as Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded) and Ida's moon Dactyl. They are added when an orbit is published.
 - **Moons of small bodies that are not in the app.** Many asteroids and Kuiper belt objects have moons; only those of bodies in the app are shown.
-- **Most small bodies.** More than a million asteroids and thousands of comets are known. The app shows a selection (see above), and the belts show where the rest are, as statistical clouds.
+- **Very small bodies, one by one.** More than a million asteroids and thousands of comets are known, most of them very small. The app draws a selection of well-known ones (see above). The rest are not drawn individually but treated as statistics: the belts (main asteroid belt, Jupiter trojans, Kuiper belt) show where they are, as statistical clouds.
 - **Interstellar objects,** such as 1I/ʻOumuamua and 2I/Borisov.
 - **Spacecraft.** No spacecraft are drawn, such as the Voyagers, New Horizons or the James Webb Space Telescope, although many of the bodies they visited are in the app.
 - **Planets of other stars.** Their host stars are labelled, but the planets themselves are not drawn.
