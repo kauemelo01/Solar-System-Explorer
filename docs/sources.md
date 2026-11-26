@@ -99,6 +99,7 @@ These are visual aids drawn on top of the true-scale model; each is a [limitatio
 
 - **Elements:** E. M. Standish, *Keplerian Elements for Approximate Positions of the Major Planets*, JPL SSD. Table 1 (valid 1800 AD – 2050 AD), with linear rates per Julian century. <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
 - The Earth and the Moon are placed around the **Earth–Moon barycentre** (EMB) using the Earth/Moon mass ratio (μ = 0.0121505).
+- **The Moon** relative to the Earth: the lunar theory of J. Meeus, *Astronomical Algorithms* (2nd ed., Willmann-Bell, 1998), chapter 47, which keeps the 60 largest periodic terms of ELP-2000/82 for each of longitude, distance and latitude (tables 47.A and 47.B). It gives the Moon's position against the ecliptic of each date, which the app turns to the J2000 ecliptic with the precession formulas of chapter 21. Checked with the app's own code against JPL Horizons every 3 days from 1800 to 2050 AD: within 0.017° (59″) of the true direction, typically 42 km and at most 103 km from the true position, and at most 2 minutes early or late. Most of what remains is the difference between Universal Time and the Terrestrial Time the theory uses (about a minute today), which the app, like all its other orbit models, does not apply. The Moon's orbit outline is its actual path over one month around the date shown. (Before Release 4 the Moon used fixed average orbital elements, up to 5°, or 8 hours, off.)
 - **Pluto** uses the Pluto row of the original version of Standish's Table 1, which JPL has since removed from its web copy (the page now notes that "the former planet Pluto has also been removed"). Checked against JPL Horizons, it places Pluto within 0.01° (about 0.01 AU) of its true position from 1900 to 2100 AD, much closer than a single osculating orbit from the SBDB would (up to 0.45 AU). Pluto is a dwarf planet and is listed and shown with the dwarf planets.
 - **Physical data:** JPL *Planetary Physical Parameters* <https://ssd.jpl.nasa.gov/planets/phys_par.html>; NASA NSSDCA *Planetary Fact Sheets* <https://nssdc.gsfc.nasa.gov/planetary/planetfact.html>.
 - **Spin poles and rotation periods:** B. A. Archinal et al. (2018), *Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015*, Celestial Mechanics and Dynamical Astronomy 130:22. <https://doi.org/10.1007/s10569-017-9805-5>. Machine-readable form: NAIF PCK `pck00011.tpc` <https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc>.
@@ -387,23 +388,33 @@ The app remembers its settings on the device (in the browser's local storage): t
 | Object type | Model | Typical accuracy |
 |---|---|---|
 | Planets | Standish Keplerian elements + secular rates | ~arc-minutes, 1800–2050 AD |
-| The Moon | Mean elements (no periodic perturbations) | within a few degrees in longitude |
+| The Moon | Lunar theory of Meeus, ch. 47 (main ELP-2000/82 terms) | within 0.02° (2 minutes), 1800–2050 AD |
 | Regular moons | One orbit fitted to JPL Horizons over 1800–2050 AD ([Moon orbits](#moon-orbits)) | Major moons within a fraction of a degree; small inner moons typically 1–3° |
 | Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°, at most 3.6°; distance typically within 2% |
 | Asteroids, dwarf planets | Two-body orbit from SBDB epoch | Very good near the epoch, slowly degrading away from it; planetary encounters are missed ([Error and drift over time](#error-and-drift-over-time)) |
 | Comets | Two-body orbit from the SBDB solution for the latest perihelion | Good near perihelion; drifts faster than asteroids (Jupiter encounters, outgassing): after a pass by Jupiter, tens of degrees within a decade (67P about 60°, 9P/Tempel 1 up to 43°; a [known issue](#known-issues), measured in [Error and drift over time](#error-and-drift-over-time)) |
 | Moons of dwarf planets and asteroids | Two-body orbit about the primary (JPL Horizons or published elements) | Orbit size and period good; phases drift; Selam's plane and Xiangliu's orientation are uncertain (a [limitation of the model](#limitations-of-the-model)) |
 
+### Accuracy targets
+
+What counts as a position the app gets right. Every orbit is measured against these with the app's own code, against JPL Horizons, from 1800 to 2050 AD ([Error and drift over time](#error-and-drift-over-time)).
+
+- **Planets, Pluto, the Moon, dwarf planets, asteroids and comets:** at every date, the body is within **1°** of its true direction (seen from the Sun; the Moon seen from the Earth), **or within 1 day** of its true position along its path (where JPL has it 1 day earlier or later). Both are needed: a slow body, such as Neptune or a comet far from the Sun, covers 1° in months or years, so for it a day is far too strict; a body passing close to the Sun or to a planet can cover several degrees in a day, so for it 1° is too strict.
+- **Close planetary encounters,** within 0.05 AU (7.5 million km) of the Earth, the Moon, Venus or Mars, or inside Jupiter's Hill sphere (about 0.35 AU): the encounter must happen in the app, and its closest point must come **within 3 hours** of JPL's time. Distant passes are covered by the first rule. The distance at the closest point is not a target: Apophis's 2029 Earth flyby, on time but shown five times too far, counts as met.
+- **The planets' moons:** their typical (root-mean-square) error stays within **1% of their orbital period** along the orbit (3.6°); short peaks above that, where two fitted windows meet, are accepted.
+
+Status in November 2026: the planets, Pluto, the Moon, all fitted moons of the planets and eight small bodies (Eris, Haumea, Makemake, Gonggong, Sedna, C/2020 F3 (NEOWISE), C/1996 B2 (Hyakutake) and C/1861 G1 (Thatcher)) meet them. The other 56 small bodies meet them only for some years around the present, and only 2 of 82 close encounters do: Apophis–Earth 2029 and 1998 KY26–Earth 2024. Fixing these is in progress ([Known issues](#known-issues)).
+
 ### Error and drift over time
 
 Each orbit model is accurate in its best period and drifts away from it. Measured in November 2026 with the app's own code, against JPL Horizons positions every 10 days from 1800 to 2050 AD and the JPL [Small-Body Database close-approach data](https://ssd-api.jpl.nasa.gov/doc/cad.html); where a figure is taken from a source rather than measured, the table says so.
 
-Not yet measured: the nine bodies added under the inclusion rule of Release 4 (Braille, Torifune, Kamoʻoalewa, 96P/Machholz 1, 311P/PANSTARRS, C/1861 G1 (Thatcher), 342P/SOHO, P/2008 Y12 and P/1999 J6). Like every small body they follow one two-body orbit, so the same kind of drift applies; the three SOHO comets pass within 0.07 AU of the Sun, where small timing errors become large ones.
+The tables below do not yet include the nine bodies added under the inclusion rule of Release 4 (Braille, Torifune, Kamoʻoalewa, 96P/Machholz 1, 311P/PANSTARRS, C/1861 G1 (Thatcher), 342P/SOHO, P/2008 Y12 and P/1999 J6; they are counted in the [accuracy targets](#accuracy-targets) status above). Like every small body they follow one two-body orbit, so the same kind of drift applies; the three SOHO comets pass within 0.07 AU of the Sun, where small timing errors become large ones.
 
 | Objects | Model | Best period | Error there | Away from it |
 |---|---|---|---|---|
 | Planets and Pluto | Standish Keplerian elements | 1800–2050 AD | about arc-minutes (JPL's figure) | grows; the time bar shows *Estimated positions* (not measured here) |
-| The Moon | Mean elements | — | within a few degrees | no long-term drift measured |
+| The Moon | Lunar theory of Meeus, ch. 47 | 1800–2050 AD | within 0.017° (at most 103 km, 2 minutes) | slowly grows; not measured outside this range |
 | Planets' moons, one orbit (113) | Fitted to JPL Horizons ([Moon orbits](#moon-orbits)) | 1800–2050 AD | typically 1.5° (all fitted moons), distance 1.6% | within about 0.5° 150 years beyond (Io 0.06°, Titan 0.16°) |
 | Planets' moons, time windows (345) | Fitted to JPL Horizons | 1800–2050 AD | as above | orbit size, shape and direction stay right; the position along the orbit is meaningless within a few decades |
 | S/2025 U 1 | JPL mean elements, 2025 epoch | near 2025 | not measured | drifts |
@@ -479,7 +490,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
 - **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; fourteen small bodies with no published rotation period we could verify spin at an illustrative 12 hours ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Orbit models are simple, so precision depends on the date and the body** (see [Accuracy](#accuracy)):
   - planets and Pluto use Keplerian elements valid for 1800–2050 AD; outside that range the time bar shows *Estimated positions*;
-  - the Moon uses mean elements without periodic terms, good to a few degrees;
+  - the Moon uses a shortened lunar theory (Meeus, ch. 47), within 0.02° from 1800 to 2050 AD;
   - small bodies use a single two-body orbit. Asteroids stay close for years, but comets drift faster, because Jupiter and their own outgassing change their orbits (in November 2026, 9P/Tempel 1 is about 6° off and 1P/Halley about 0.2 AU off). How far each one drifts, and the planetary encounters this misses, are a [known issue](#known-issues), measured in [Error and drift over time](#error-and-drift-over-time);
   - planetary moons are fitted to JPL Horizons over 1800–2050 AD; outside that range, and outside the shorter range Horizons covers for 24 of them, their positions are estimates, and S/2025 U 1, not yet in Horizons, uses JPL's mean elements ([Moon orbits](#moon-orbits));
   - seven irregular moons keep a visible bend in their path, and so in their trail, where two of their fitted time windows meet ([Moon orbits](#moon-orbits)). Neighbouring windows are blended, which removes the jumps and the sharp turns elsewhere, but these moons' windows disagree too much on the direction of motion for the blend to hide it. A 250-year trail held on the parent planet shows: Margaret (Uranus) about 22° in 2032; Psamathe (Neptune) about 9° in 1814; S/2023 S 18 (Saturn) about 9° in 2007; Neso (Neptune) about 8° in 2050; S/2020 S 38 (Saturn) about 7° in 2027; S/2023 S 33 (Saturn) about 6° in 1999. S/2023 S 38 (Saturn) also turns sharply, mostly for a real reason: its orbit is extremely elongated (eccentricity about 0.9), so it swings round Saturn at each closest approach. The positions themselves stay within these moons' usual accuracy;

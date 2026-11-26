@@ -2,7 +2,7 @@
 
 # Sun, planets and the Moon
 
-10 bodies. Their positions are computed from the JPL *Approximate Positions of the Planets* Keplerian elements (E. M. Standish, valid 1800–2050 AD), except the Moon, which uses a mean-element lunar orbit around the Earth–Moon barycentre. Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
+10 bodies. Their positions are computed from the JPL *Approximate Positions of the Planets* Keplerian elements (E. M. Standish, valid 1800–2050 AD), except the Moon, which is placed around the Earth–Moon barycentre by the lunar theory of Meeus, *Astronomical Algorithms*, ch. 47 ([details](../sources.md#planets)). Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
 
 Pluto, whose orbit also comes from this JPL table, is listed with the [dwarf planets](small-bodies.md#pluto). The ring systems of Jupiter, Saturn, Uranus and Neptune are listed with their radii and sources on the [rings page](rings.md).
 
