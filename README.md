@@ -32,17 +32,17 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 
 ## What's inside
 
-- **516 real objects**, each with orbital elements from NASA/JPL or peer-reviewed orbit papers:
+- **536 real objects**, each with orbital elements from NASA/JPL or peer-reviewed orbit papers:
   - the Sun, 8 planets and the Moon
-  - **467 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5 · other dwarf planets and candidates 6 (Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu) · asteroids 2 (Dimorphos, Selam)
-  - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 21 asteroids, centaurs and Kuiper belt objects, 9 comets
+  - **470 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5 · other dwarf planets and candidates 6 (Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu) · asteroids 5 (Dimorphos, Selam, Skamandrios, Queta, Menoetius)
+  - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 32 asteroids, centaurs and Kuiper belt objects, 15 comets
 - **7 ring systems** at their true radii: Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo
 - **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from JPL Keplerian elements, the planets' moons from orbits fitted to JPL Horizons, and small bodies and their moons from JPL orbital elements. Outside 1800–2050 AD the time bar turns amber and shows *Estimated positions*
 - **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
-- **Moons menu by parent body**: the planets' moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…), then *Dwarf planets & candidates* (Pluto, Eris, Haumea, Quaoar, Orcus, Gonggong) and *Asteroids* (Didymos, Dinkinesh), each with All / None, so you can switch moons on one group at a time
+- **Moons menu by parent body**: the planets' moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…), then *Dwarf planets & candidates* (Pluto, Eris, Haumea, Quaoar, Orcus, Gonggong) and *Asteroids* (Didymos, Dinkinesh, Hektor, Eurybates, Patroclus), each with All / None, so you can switch moons on one group at a time
 - Separate switches for **dwarf planets**, **dwarf planet candidates**, **asteroids & centaurs** and **comets**
-- Statistical belts (main asteroid belt, Jupiter trojans, Kuiper belt) to show where those populations live
-- **What is and is not included, and why:** [What's included](docs/sources.md#whats-included) and [What's not included](docs/sources.md#whats-not-included)
+- Statistical belts (main asteroid belt, Hilda asteroids, Jupiter trojans, Neptune trojans, Kuiper belt) to show where those populations live; the Hildas form the triangle that turns with Jupiter
+- **What is and is not included, and why:** [What's included](docs/sources.md#whats-included), [What's not included](docs/sources.md#whats-not-included), and the [Watchlist](docs/sources.md#watchlist) of objects waiting for published data
 - **The real sky behind it all**:
   - 9,096 stars from the Yale Bright Star Catalogue
   - NASA's all-sky star map (Milky Way and faint stars), up to 8192 × 4096
@@ -70,7 +70,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 | Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent. A planet's moons (their dots, labels and trails) appear as you zoom toward it, or when it or one of its moons is selected or held still |
 | Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets**, or **All** / **None** |
 | Quick views | *Show* → **Show everything** or **Planets only** |
-| Show the belts | *Show → Belts*: **Main asteroid belt**, **Jupiter trojans**, **Kuiper belt** (statistical clouds, not catalogued objects), or **All** / **None** |
+| Show the belts | *Show → Belts*: **Main asteroid belt**, **Hilda asteroids**, **Jupiter trojans**, **Neptune trojans**, **Kuiper belt** (statistical clouds, not catalogued objects), or **All** / **None** |
 | Sky layers | *Beyond the solar system*: **Milky Way & faint stars**, **Nebulae, clusters & galaxies**, **Bright star names**, **Stars with known planets** |
 | Trails, outlines and labels | *Trails*: a length slider (off at the far left, up to 250 years) for each group (planets, major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, comets), plus *Everything* to set them all at once; minor moons are off by default; trails are drawn relative to the body held still, and `T` turns them all off and back on ([how trails work](docs/sources.md#trails)); *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
 | Read about an object | Click it: its card gives its distance from the body held still, the light travel time, its distance from the Sun, radius and orbital period, with links to its catalogue entry, JPL and NASA ([the object card](docs/sources.md#the-object-card)) |
@@ -178,6 +178,7 @@ New moons are announced every year; the rules for adding objects are in [What's 
 
 ## Releases
 
+- **Release 4** (in progress, branch `wip-release-4`): every inclusion rule applied in full, among objects with a published size and orbit: 17 more small bodies (spacecraft targets Gaspra, Mathilde, Annefrank, Šteins, Toutatis, Polymele, Leucus, Orus, Patroclus, 1998 KY26, 19P/Borrelly, 21P/Giacobini-Zinner, 26P/Grigg-Skjellerup and 103P/Hartley 2; meteor-shower parents 2003 EH1 and 8P/Tuttle; the great comet C/1996 B2 Hyakutake); the asteroid moons Skamandrios, Queta and Menoetius; the Hilda asteroids and Neptune trojans as statistical belts; the Jupiter trojans gathered at L4 and L5 again (they had spread round Jupiter's whole orbit); new *What's not included* entries; and a *Watchlist* of objects waiting for data.
 - **Release 3** (current, branch `main`, tag `v3`): the planets' moons placed by orbits fitted to JPL Horizons over 1800–2050 AD (typically within 1.5° and 2% in distance, against about 90° before), with smooth paths between fitted time windows; a time bar from 1000 to 3000 AD with an *Estimated positions* alert outside 1800–2050 AD; a trail length slider for each group of bodies, with trails for the small moons; published spin axes for Triton, Iapetus and seventeen more small bodies, and measured rotation periods for 67P and Donaldjohanson; every published moon radius from JPL or a cited publication (the rest keep placeholder sizes); the planets, the Sun, the Moon and 58 other bodies turned so the side facing you is the real one (IAU prime meridians); Cassini maps of Saturn's six icy moons and a new Callisto map; a name label for Mimosa; and documentation checked against the app, with *What's included* and *What's not included* sections, a guide to the object card, trails and saved settings, and a section on how each orbit model's error grows over time, including the planetary flybys the app misses (its one known issue).
 - **Release 2** (tag `v2`, branch `release-2`): real spacecraft surface maps, Earth's clouds, the moons menu grouped by parent body, 22 more bodies and 7 ring systems, the *Images* panel, data corrected against NASA/JPL/IAU, and the documentation's *Known issues* and *Limitations* lists. To view it: `git switch release-2`.
 - **Release 1** (tag `v1`, branch `release-1`): the first published version, kept unchanged. To view it: `git switch release-1`. To make it the published app again, point `main` back to it: `git push --force origin refs/heads/release-1:refs/heads/main` (GitHub Pages publishes `main`). The `release-1` branch is locked on GitHub so it cannot change.
