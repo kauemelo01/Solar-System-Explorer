@@ -4,12 +4,12 @@
 
 This folder documents **every object** in Solar System Explorer: the values the app uses and the public NASA/JPL record each value comes from.
 
-## Object catalogue (536 solar-system objects, 7 ring systems + the sky)
+## Object catalogue (545 solar-system objects, 7 ring systems + the sky)
 
 | Page | Objects | Primary reference |
 |---|---:|---|
 | [Sun, planets and the Moon](catalogue/sun-planets.md) | 10 | JPL Keplerian elements · NASA fact sheets |
-| [Dwarf planets, asteroids, centaurs and comets](catalogue/small-bodies.md) | 56 | JPL Small-Body Database; Pluto from the JPL planet table |
+| [Dwarf planets, asteroids, centaurs and comets](catalogue/small-bodies.md) | 65 | JPL Small-Body Database; Pluto from the JPL planet table |
 | [Moons of Mars](catalogue/moons-mars.md) | 2 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
 | [Moons of Jupiter](catalogue/moons-jupiter.md) | 115 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
 | [Moons of Saturn](catalogue/moons-saturn.md) | 292 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
