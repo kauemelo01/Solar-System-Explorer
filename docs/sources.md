@@ -10,12 +10,12 @@ Each group of objects follows its own rule:
 |---|---|---|
 | The Sun, the planets and the Moon | All of them | — |
 | Moons of the planets and Pluto (459) | **Every moon in JPL's *Planetary Satellite Mean Elements* table** <https://ssd.jpl.nasa.gov/sats/elem/>, as of November 2026 | Complete: a moon is added when JPL lists it. S/2025 U 1 is in that table but not yet in JPL Horizons, so it keeps JPL's mean elements ([Moon orbits](#moon-orbits)) |
-| Moons of dwarf planets and asteroids (8) | Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu, Dimorphos and Selam | A moon of a body in the app, with an orbit published in JPL Horizons or a peer-reviewed paper |
-| Dwarf planets and candidates (5 + 4) | All five IAU dwarf planets (Ceres, Pluto, Eris, Haumea, Makemake), and four well-studied candidates (Gonggong, Quaoar, Sedna, Orcus) | A selection of candidates, not every proposed one |
-| Asteroids, centaurs and Kuiper belt objects (21) | The first asteroids discovered after Ceres (Pallas, Juno, Vesta) and Hygiea, the fourth largest; bodies visited or targeted by spacecraft (Psyche, Lutetia, Ida, Eros, Bennu, Ryugu, Itokawa, Didymos, Dinkinesh, Donaldjohanson, Eurybates, Arrokoth); and notable others (Apophis, Earth flyby in 2029; Phaethon, parent of the Geminids; Hektor, the largest Jupiter trojan; Chiron, the first centaur found; Chariklo, the first small body found with rings) | A selection |
-| Comets (9) | Comets visited by spacecraft (1P/Halley, 9P/Tempel 1, 67P/Churyumov-Gerasimenko, 81P/Wild 2); parents of meteor showers (109P/Swift-Tuttle, Perseids; 55P/Tempel-Tuttle, Leonids); 2P/Encke, with one of the shortest periods known (3.3 years); and two great comets (C/1995 O1 Hale-Bopp, C/2020 F3 NEOWISE) | A selection |
+| Moons of dwarf planets and asteroids (11) | Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu, Dimorphos, Selam, Skamandrios (Hektor), Queta (Eurybates) and Menoetius (Patroclus) | Complete: every moon of a body in the app with an orbit published in JPL Horizons or a peer-reviewed paper |
+| Dwarf planets and candidates (5 + 4) | All five IAU dwarf planets (Ceres, Pluto, Eris, Haumea, Makemake), and the four largest candidates by measured diameter (Gonggong, Quaoar, Sedna, Orcus) | The four largest candidates, not every proposed one. A candidate is added when a measured diameter puts it among the four largest |
+| Asteroids, centaurs and Kuiper belt objects (32) | The first asteroids discovered after Ceres (Pallas, Juno, Vesta) and Hygiea, the fourth largest; every body visited, or targeted by a mission already launched (Gaspra, Ida, Mathilde, Eros, Annefrank, Itokawa, Šteins, Lutetia, Toutatis, Bennu, Ryugu, Psyche, Didymos, Dinkinesh, Donaldjohanson, Eurybates, Polymele, Leucus, Orus, Patroclus, 1998 KY26, Arrokoth); parents of major meteor showers (Phaethon, Geminids; 2003 EH1, Quadrantids); and notable others (Apophis, Earth flyby in 2029; Hektor, the largest Jupiter trojan; Chiron, the first centaur found; Chariklo, the first small body found with rings) | Complete for spacecraft targets and shower parents, among bodies with a published size and orbit; a selection otherwise |
+| Comets (15) | Every comet visited, or targeted by a mission already launched (1P/Halley, 9P/Tempel 1, 19P/Borrelly, 21P/Giacobini-Zinner, 26P/Grigg-Skjellerup, 67P/Churyumov-Gerasimenko, 81P/Wild 2, 103P/Hartley 2); parents of major meteor showers (109P/Swift-Tuttle, Perseids; 55P/Tempel-Tuttle, Leonids; 8P/Tuttle, Ursids; 21P/Giacobini-Zinner, Draconids; 1P/Halley, η-Aquariids and Orionids; 2P/Encke, Taurids); 2P/Encke, also one of the shortest periods known (3.3 years); and the great comets since 1990 with a published nucleus size (C/1996 B2 Hyakutake, C/1995 O1 Hale-Bopp), plus C/2020 F3 NEOWISE, kept from earlier releases with a placeholder size (see [Watchlist](#watchlist)) | Complete for spacecraft targets, shower parents and great comets since 1990, among comets with a published size and orbit |
 | Ring systems (7) | Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo | Rings with measured radii ([catalogue/rings.md](catalogue/rings.md)) |
-| Belts | The main asteroid belt, the Jupiter trojans and the Kuiper belt | As statistical clouds, not catalogued objects ([Belts](#belts)) |
+| Belts | The main asteroid belt, the Hilda asteroids, the Jupiter trojans, the Neptune trojans and the Kuiper belt | As statistical clouds, not catalogued objects ([Belts](#belts)) |
 | Stars | All 9,096 stars of the *Yale Bright Star Catalogue* with a position and magnitude: essentially every star brighter than magnitude 6.5, about the naked-eye limit | Complete for that catalogue |
 | Milky Way and faint stars | NASA's all-sky star map, built from over 100 million stars | Complete as a background image |
 | Named bright stars (30) | The 21 brightest stars in the sky, down to Regulus (magnitude 1.35), plus well-known stars of familiar patterns (Castor, Polaris, Bellatrix, Orion's Belt, Mizar, Dubhe, Alcyone in the Pleiades) | A selection |
@@ -31,13 +31,38 @@ Left out on purpose, and why:
 - **Moons without a verifiable published orbit,** such as Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded) and Ida's moon Dactyl. They are added when an orbit is published.
 - **Moons of small bodies that are not in the app.** Many asteroids and Kuiper belt objects have moons; only those of bodies in the app are shown.
 - **Very small bodies, one by one.** More than a million asteroids and thousands of comets are known, most of them very small. The app draws a selection of well-known ones (see above). The rest are not drawn individually but treated as statistics: the belts (main asteroid belt, Jupiter trojans, Kuiper belt) show where they are, as statistical clouds.
-- **Interstellar objects,** such as 1I/ʻOumuamua and 2I/Borisov.
+- **Small bodies without a published size and orbit.** A body that meets an inclusion rule is added only when both its size and its orbit are published in a credible source (JPL, the IAU, a mission team or a peer-reviewed paper). Until then it goes on the [Watchlist](#watchlist).
+- **Candidates beyond the four largest.** Other large trans-Neptunian objects, such as Salacia, 2002 MS4, Varda, Ixion and Varuna, have measured diameters smaller than Orcus (910 km), the smallest of the four candidates shown.
+- **Unconfirmed rings,** such as the material seen around the centaur Chiron in stellar occultations (Sickafoose et al. 2023, *Planetary Science Journal* 4:221, [doi:10.3847/PSJ/ad0632](https://doi.org/10.3847/PSJ/ad0632)). The observations show material around Chiron, but whether it is a stable ring, and what its radius is, are still debated, so Chiron is drawn without rings. Rings are drawn only when they are confirmed and their radii measured ([catalogue/rings.md](catalogue/rings.md)).
+- **Distant views from passing spacecraft.** A body counts as visited only when a spacecraft was sent past it, into orbit around it or onto it. Bodies photographed from far away on the way somewhere else, such as Masursky (Cassini, 1.6 million km, 2000) and 2002 JF56, now 132524 APL (New Horizons, 2006), are not included.
+- **Targets of missions not yet launched,** such as the seven asteroids of the Emirates Mission to the Asteroid Belt. They are added when the mission launches ([Watchlist](#watchlist)).
+- **Comets that no longer exist,** such as C/2011 W3 (Lovejoy), which broke up after its 2011 perihelion, and D/1993 F2 (Shoemaker-Levy 9), which hit Jupiter in 1994. They have no nucleus left to draw and no current orbit.
+- **Interstellar objects,** such as 1I/ʻOumuamua, 2I/Borisov and 3I/ATLAS.
 - **Spacecraft.** No spacecraft are drawn, such as the Voyagers, New Horizons or the James Webb Space Telescope, although many of the bodies they visited are in the app.
 - **Planets of other stars.** Their host stars are labelled, but the planets themselves are not drawn.
 - **Names for most stars.** All 9,096 catalogue stars are drawn, but only 30 have a name label; other bright stars, such as Adhara (ε Canis Majoris), are drawn without one.
 - **Fainter stars as individual objects.** Stars fainter than about magnitude 6.5 appear only in the Milky Way background image.
 - **Reference images in the sky.** The NASA images of nebulae, clusters and galaxies are linked from their cards and the catalogue, not drawn in the sky.
 - **Invented surface maps.** Earlier versions used maps of Pluto, Charon and Titan that NASA calls "Fictional"; they were removed ([Surface maps](#every-map-with-its-coverage)). Bodies with no real map get a painted texture instead.
+
+## Watchlist
+
+Objects that meet an inclusion rule but are missing a piece of published data, or that may meet one soon. Each is added when the data it is waiting for is published. Checked against the JPL Small-Body Database in November 2026.
+
+| Object | Rule it would meet | Waiting for |
+|---|---|---|
+| 9969 Braille | Visited (Deep Space 1 flyby, 1999) | A size we could verify. SBDB lists none, and the published shape (Oberst et al. 2001, *Icarus* 153; Buratti et al. 2004, *Icarus* 167) could not be checked in an open source |
+| 98943 Torifune (2001 CC21) | Targeted (Hayabusa2 flyby, 2026) | A published size, expected from the flyby. SBDB lists none |
+| 469219 Kamoʻoalewa (2016 HO3) | Targeted (Tianwen-2 sample return) | A published size, expected from Tianwen-2. SBDB lists none, and ground-based estimates are only ranges |
+| 311P/PANSTARRS | Targeted (Tianwen-2, after Kamoʻoalewa) | A measured nucleus size; only an upper limit is published |
+| C/1861 G1 (Thatcher) | Parent of the Lyrids | A nucleus size. Its orbit is in SBDB, from the 1861 apparition |
+| C/2006 P1 (McNaught) and C/2023 A3 (Tsuchinshan-ATLAS) | Great comets since 1990 | A published nucleus size. Both are on open (hyperbolic) orbits, which the app would also need a new orbit solver for (`solveE()` handles closed orbits only) |
+| C/2020 F3 (NEOWISE) | Great comets since 1990 (already in the app) | A published nucleus size, to replace the app's placeholder (2.5 km, marked *est.*) |
+| (2026 ED138) | Dwarf planet candidates | A measured diameter. Its brightness (H = 2.85) suggests it could be among the four largest candidates |
+| Makemake's moon (S/2015 (136472) 1) and Ida's moon Dactyl | Moons of bodies in the app | A published orbit |
+| Shaun, Polymele's moon | Moon of a body in the app | A published orbit, expected from Lucy's 2027 flyby |
+| Material around Chiron | Ring systems | Confirmation that it is a ring, with a measured radius |
+| The seven Emirates Mission to the Asteroid Belt targets (269 Justitia, 10253 Westerwald, 623 Chimaera, 13294 Rockox, 88055, 23871 and 59980) | Targeted | The mission's launch, planned for 2028 |
 
 ## Naming convention
 
