@@ -393,7 +393,7 @@ Before Release 4 most of these did not happen in the app, or came months or year
 
 ## Known issues
 
-Things that are wrong compared with official NASA, JPL or IAU data. Every issue found in the November 2026 check of every value has been fixed, each checked against JPL Horizons, the IAU or the mission's own data before it replaced the old value. Deliberate simplifications and gaps in the published data are listed under [Limitations of the model](#limitations-of-the-model). Found since: none at the moment.
+Things that are wrong compared with official NASA, JPL or IAU data. Every issue found in the November 2026 check of every value has been fixed, each checked against JPL Horizons, the IAU or the mission's own data before it replaced the old value. Deliberate simplifications and gaps in the published data are listed under [Limitations of the model](#limitations-of-the-model). Found since: none at the moment. Problems with the controls and cards, rather than the data (for example the camera position card's ecliptic latitude), are listed under [Known issues in the interface](interface.md#known-issues-in-the-interface).
 
 ## Limitations of the model
 
