@@ -20,17 +20,17 @@ defaults:
       path: "docs/sources.md"
     values:
       title: "Sources, methodology and accuracy"
-      description: "Where every number in Solar System Explorer comes from: JPL orbital elements, NASA fact sheets, star catalogues, sky maps and IAU constellation boundaries."
+      description: "Where every number in Solar System Explorer comes from, and how accurate it is: JPL orbits and the ephemerides they are fitted to, the accuracy targets every orbit is checked against, NASA fact sheets, star catalogues, sky maps and IAU constellation boundaries."
   - scope:
       path: "docs/catalogue/sun-planets.md"
     values:
       title: "Sun, planets and the Moon"
-      description: "The Sun, the eight planets and the Moon in Solar System Explorer, with NAIF IDs and links to JPL Horizons and NASA fact sheets."
+      description: "The Sun, the eight planets and the Moon in Solar System Explorer: JPL planetary elements, the Moon from Meeus's lunar theory, NAIF IDs and links to JPL Horizons and NASA fact sheets."
   - scope:
       path: "docs/catalogue/small-bodies.md"
     values:
       title: "Dwarf planets, asteroids, centaurs and comets"
-      description: "Dwarf planets (Pluto among them), dwarf planet candidates, asteroids, centaurs and comets in Solar System Explorer, with orbital elements and links to the JPL Small-Body Database."
+      description: "Dwarf planets (Pluto among them), dwarf planet candidates, asteroids, centaurs and comets in Solar System Explorer, with orbits fitted to JPL Horizons over 1800–2050 AD, SBDB orbital elements, sizes with their sources, and links to the JPL Small-Body Database."
   - scope:
       path: "docs/catalogue/moons-mars.md"
     values:
@@ -65,7 +65,7 @@ defaults:
       path: "docs/catalogue/moons-small-bodies.md"
     values:
       title: "Moons of dwarf planets and asteroids"
-      description: "Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu, Dimorphos and Selam in Solar System Explorer, with orbits from JPL Horizons and published papers."
+      description: "Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu, Dimorphos, Skamandrios, Queta and Menoetius in Solar System Explorer, with orbits fitted to JPL Horizons or to Proudfoot et al. (2024), or taken from published papers."
   - scope:
       path: "docs/catalogue/rings.md"
     values:
@@ -81,3 +81,25 @@ defaults:
     values:
       title: "The 88 constellations"
       description: "The 88 IAU constellations with official boundaries, areas and the 13 zodiac constellations the Sun passes through, Ophiuchus included."
+  - scope:
+      path: "tools/moon-orbit-fits/README.md"
+    values:
+      title: "Moon orbit fits"
+      description: "How Solar System Explorer fits the orbit of every planetary moon to JPL Horizons over 1800–2050 AD: the scripts, the steps and the checks."
+  - scope:
+      path: "tools/small-body-orbit-fits/README.md"
+    values:
+      title: "Small-body orbit fits"
+      description: "How Solar System Explorer fits the orbits of 56 dwarf planets, asteroids and comets, and six of their moons, to JPL Horizons and other reference ephemerides: the scripts, the steps and the checks."
+  # Copies of two JPL pages, kept for the moon-orbit tools. They have no front matter, so Jekyll copies them unchanged and they keep
+  # JPL's own titles; these entries record what they are, and take effect only if front matter is ever added.
+  - scope:
+      path: "tools/moon-orbit-fits/jpl-sat-elements.html"
+    values:
+      title: "JPL Planetary Satellite Mean Elements (copy)"
+      description: "A copy of JPL's Planetary Satellite Mean Elements table, used by Solar System Explorer's moon-orbit tools; the original is at ssd.jpl.nasa.gov/sats/elem/."
+  - scope:
+      path: "tools/moon-orbit-fits/jpl-sat-physical-parameters.html"
+    values:
+      title: "JPL Planetary Satellite Physical Parameters (copy)"
+      description: "A copy of JPL's Planetary Satellite Physical Parameters table, kept for reference by Solar System Explorer's moon-orbit tools; the original is at ssd.jpl.nasa.gov/sats/phys_par/."
