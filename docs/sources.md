@@ -16,7 +16,7 @@
 | Parents of major meteor showers | A shower counts as major when it is established by the IAU and has a peak rate (ZHR) of at least 10 in the International Meteor Organization's [*Meteor Shower Calendar 2026*](https://www.imo.net/files/meteor-shower/cal2026.pdf) (Table 5). Its parent is the body the [IAU Meteor Data Center](https://www.ta3.sk/IAUC22DB/MDC2022/) names: Geminids – Phaethon; Perseids – 109P/Swift-Tuttle; Quadrantids – 2003 EH1; η-Aquariids and Orionids – 1P/Halley; Daytime Arietids – P/1999 J6 (SOHO); Southern δ-Aquariids – 342P/SOHO and P/2008 Y12 (SOHO); April Lyrids – C/1861 G1 (Thatcher); Leonids – 55P/Tempel-Tuttle; Ursids – 8P/Tuttle | Complete for the ten major showers. Also shown: **96P/Machholz 1**, the large comet of the Machholz complex to which the Quadrantids and δ-Aquariids belong (an association, not a named parent), and **2P/Encke**, parent of the Taurids (peak rate below 10) and one of the shortest periods known (3.3 years) |
 | Great comets since 1990 | C/1996 B2 (Hyakutake), C/1995 O1 (Hale-Bopp) and C/2020 F3 (NEOWISE) | Complete for those on closed orbits: McNaught and Tsuchinshan-ATLAS are on open orbits, which the app cannot compute yet ([Watchlist](#watchlist)) |
 | Largest and notable bodies | Pallas, Juno and Vesta (the first asteroids found after Ceres), Hygiea (one of the four largest asteroids), Hektor (the largest Jupiter trojan), Chiron (the first centaur found) and Chariklo (the first small body found with rings) | A selection |
-| Ring systems (7) | Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo | Confirmed rings with measured radii ([catalogue/rings.md](catalogue/rings.md)) |
+| Ring systems (7) | Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo | Confirmed rings with measured radii ([Ring systems](catalogue/rings.md)) |
 | Belts | The main asteroid belt, the Hilda asteroids, the Jupiter trojans, the Neptune trojans and the Kuiper belt | Statistical clouds, not catalogued objects ([Belts](#belts)) |
 
 Outside the solar system the groups are selections or catalogues:
@@ -27,7 +27,7 @@ Outside the solar system the groups are selections or catalogues:
 | Milky Way and faint stars | NASA's all-sky star map, built from over 100 million stars | Complete as a background image |
 | Named bright stars (30) | The 21 brightest stars in the sky, down to Regulus (magnitude 1.35), plus well-known stars of familiar patterns (Castor, Polaris, Bellatrix, Orion's Belt, Mizar, Dubhe, Alcyone in the Pleiades) | A selection |
 | Stars with known planets (5) | Proxima Centauri (the nearest), TRAPPIST-1 (seven planets), 51 Pegasi (first planet found around a Sun-like star), Kepler-186 and Kepler-452 (planets near Earth's size in the habitable zone) | A selection |
-| Nebulae, clusters, galaxies and deep fields (29) | Well-known showpieces and famous NASA, Hubble and Webb images, such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the deep fields | A selection ([catalogue/sky.md](catalogue/sky.md)) |
+| Nebulae, clusters, galaxies and deep fields (29) | Well-known showpieces and famous NASA, Hubble and Webb images, such as the Pleiades, the Orion Nebula, Andromeda, the Pillars of Creation and the deep fields | A selection ([The sky beyond the solar system](catalogue/sky.md)) |
 | Constellations | All 88 IAU constellations | Complete |
 | Surface maps | Bodies with a map made from spacecraft images: the Sun, the planets, the Moon, Saturn's rings, Ceres, Vesta and 18 major moons | Real images only ([Surface maps](#surface-maps)) |
 
@@ -164,7 +164,7 @@ Orbit outlines follow the fits, so they turn as the orbits precess.
   - No independent ephemeris is available to check these four against (Horizons has none; IMCCE's Miriade gives orbits for Queta and Skamandrios that contradict these peer-reviewed solutions), so their accuracy is set by their published uncertainties ([catalogue notes](catalogue/moons-small-bodies.md#notes)).
 - **Left out:** moons without a verifiable published orbit, such as Makemake's moon (orbit only bounded), Ida's moon Dactyl, Polymele's moon Shaun and Dinkinesh's moon Selam (distance and period only) (a [limitation of the model](#limitations-of-the-model); see [What's not included](#whats-not-included)).
 - **In the app:** listed in the moons menu under *Dwarf planets & candidates* or *Asteroids* ([the menu](interface.md#the-menu)).
-- Details per moon: [catalogue/moons-small-bodies.md](catalogue/moons-small-bodies.md).
+- Each moon's orbit, size and references: [Moons of dwarf planets and asteroids](catalogue/moons-small-bodies.md) in the catalogue.
 
 ## Ring systems (7)
 
@@ -172,7 +172,7 @@ Orbit outlines follow the fits, so they turn as the orbits precess.
 - **Haumea:** Ortiz et al. 2017, *Nature*, [arXiv:2006.03113](https://arxiv.org/abs/2006.03113).
 - **Quaoar:** Morgado et al. 2023, *Nature*; Pereira et al. 2023, *A&A*, [arXiv:2304.09237](https://arxiv.org/abs/2304.09237).
 - **Chariklo:** Braga-Ribas et al. 2014, *Nature*, [arXiv:1409.7259](https://arxiv.org/abs/1409.7259).
-- Rings are drawn in the body's equatorial plane at true radii; opacity is exaggerated. Details: [catalogue/rings.md](catalogue/rings.md).
+- Rings are drawn in the body's equatorial plane at true radii; opacity is exaggerated. Each ring's radii and sources: [Ring systems](catalogue/rings.md) in the catalogue.
 
 ## Dwarf planets, candidates, asteroids, centaurs and comets (64, plus Pluto)
 
@@ -208,16 +208,16 @@ The main asteroid belt, the Hilda asteroids, the Jupiter and Neptune trojans and
 - **Stars:** *Yale Bright Star Catalogue*, 5th revised ed. (D. Hoffleit & W. H. Warren Jr., 1991; CDS V/50), via the NASA HEASARC table `bsc5p` <https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html>. All 9,096 entries with a position and V magnitude are drawn; colour comes from B−V.
 - **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app ships two sizes; see [Sky map loading](interface.md#sky-map-loading).
 - **Deep-sky positions:** CDS SIMBAD and the Sesame name resolver (J2000).
-- **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky; see [What's not included](#whats-not-included)). Credits are listed in [catalogue/sky.md](catalogue/sky.md).
+- **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky; see [What's not included](#whats-not-included)). Credits are listed with each object in [the sky catalogue](catalogue/sky.md).
 - **Planet-hosting stars:** NASA Exoplanet Archive, `pscomppars` table <https://exoplanetarchive.ipac.caltech.edu/>.
 - **Star names:** IAU Working Group on Star Names.
-- **Constellations:** boundaries from Delporte (1930) via Roman (1987, CDS VI/42) and Davenhall & Leggett (1989, CDS VI/49), precessed from B1875 to J2000 (IAU 1976 model). Stick figures from NASA/Goddard SVS *Deep Star Maps* (figures after Sky & Telescope for the IAU). Off by default. Details and checks: [catalogue/constellations.md](catalogue/constellations.md).
+- **Constellations:** boundaries from Delporte (1930) via Roman (1987, CDS VI/42) and Davenhall & Leggett (1989, CDS VI/49), precessed from B1875 to J2000 (IAU 1976 model). Stick figures from NASA/Goddard SVS *Deep Star Maps* (figures after Sky & Telescope for the IAU). Off by default. How they were built and checked: [The 88 constellations](catalogue/constellations.md).
 - **Frame:** J2000 equatorial positions are rotated into the ecliptic J2000 frame used for the planets. The sky sphere is centred on the camera, so it behaves as infinitely far away. That is a very good approximation: from Neptune, even Proxima Centauri shifts by less than 25″.
 - **Not modelled:** proper motion (the catalogue is J2000; Barnard's Star, the fastest, moves about 10″ per year) and precession (a [limitation of the model](#limitations-of-the-model)).
 
 ## Surface maps
 
-Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it; how the maps were processed and how the app loads them is in [interface.md](interface.md#surface-map-processing). Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](interface.md#card-notes)). The remaining gaps, where no better published map exists, are [limitations of the model](#limitations-of-the-model).
+Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it; how they were prepared and how the app loads them is under [Surface map processing](interface.md#surface-map-processing) and [How surface maps load](interface.md#how-surface-maps-load). Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](interface.md#card-notes)). The remaining gaps, where no better published map exists, are [limitations of the model](#limitations-of-the-model).
 
 ### Sources
 
@@ -280,10 +280,6 @@ The app turns **70 bodies** so that their prime meridian (longitude 0°) points 
 - **Checked** with the app's own code: on 21 June 2026 at 12:00 UTC the Sun is overhead at 0.6°E on Earth (expected about 0.4°E); the Moon faces Earth within 8°, its real libration; the other tidally locked moons face their planet within 1–7°, including the backward-spinning ones (Uranus's moons within 2°, Triton within 6°). Mimas is off by up to about 20°: the IAU's model for it has a 45° libration term, from its resonance with Tethys, that is not quite in step with the app's fitted orbit.
 - **Not aligned** (a [limitation of the model](#limitations-of-the-model)): Vesta, whose Dawn mosaic does not say which of Vesta's two longitude systems it uses (the Dawn team's or the IAU's), and every body without IAU rotational elements (most small moons and small bodies). These spin at their true rate from an arbitrary starting angle. On the giant planets, Venus and the Sun the surfaces are clouds or gas that move, so the map shows a representative view.
 
-## In the app
-
-The interface (the start-up screen, the menu, the time bar, the object card, the camera position card, trails, when moons appear and the saved settings), and how the app loads the sky and surface maps, are described in [interface.md](interface.md).
-
 ## Accuracy
 
 | Object type | Model | Typical accuracy |
@@ -293,7 +289,7 @@ The interface (the start-up screen, the menu, the time bar, the object card, the
 | Regular moons | One orbit fitted to JPL Horizons over 1800–2050 AD ([Moon orbits](#moon-orbits)) | Major moons within a fraction of a degree; small inner moons typically 1–3° |
 | Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°, at most 3.6°; distance typically within 2% |
 | Dwarf planets, asteroids, centaurs and comets | Orbits fitted to JPL Horizons in time windows, 1800–2050 AD ([Small-body orbits](#small-body-orbits)); eight distant bodies keep one SBDB orbit | Within 1° or 1 day of JPL Horizons on every date (typically within 0.25°); close encounters within 3 hours |
-| Moons of dwarf planets and asteroids | Fitted to JPL Horizons or to Proudfoot et al. 2024 (six moons); published orbits (four) ([details](#moons-of-dwarf-planets-and-asteroids-10)) | Fitted: within 0.004–1.5° typically; published: set by their uncertainties (Queta about ±8° and Skamandrios about ±90° by 2026); Xiangliu's orientation uncertain (a [limitation of the model](#limitations-of-the-model)) |
+| Moons of dwarf planets and asteroids | Fitted to JPL Horizons or to Proudfoot et al. 2024 (six moons); published orbits (four) ([Moons of dwarf planets and asteroids](#moons-of-dwarf-planets-and-asteroids-10)) | Fitted: within 0.004–1.5° typically; published: set by their uncertainties (Queta about ±8° and Skamandrios about ±90° by 2026); Xiangliu's orientation uncertain (a [limitation of the model](#limitations-of-the-model)) |
 
 ### Accuracy targets
 
@@ -303,7 +299,7 @@ What counts as a position the app gets right. Every orbit is measured against th
 - **Close planetary encounters,** within 0.05 AU (7.5 million km) of the Earth, the Moon, Venus or Mars, or inside Jupiter's Hill sphere (about 0.35 AU): the encounter must happen in the app, and its closest point must come **within 3 hours** of JPL's time. Distant passes are covered by the first rule. The distance at the closest point is not a target: Apophis's 2029 Earth flyby, on time but shown five times too far, counts as met.
 - **The planets' moons:** their typical (root-mean-square) error stays within **1% of their orbital period** along the orbit (3.6°); short peaks above that, where two fitted windows meet, are accepted.
 
-Status in November 2026: everything measured meets them, from 1800 to 2050 AD: the planets, Pluto, the Moon, the planets' fitted moons, all 64 small bodies (56 of them with [fitted orbits](#small-body-orbits)) and all 105 close encounters. Of the moons of dwarf planets and asteroids, the six fitted ones and Menoetius meet the targets; Xiangliu, Skamandrios and Queta, and S/2025 U 1 (not in Horizons), have no independent ephemeris to measure them against ([details](#moons-of-dwarf-planets-and-asteroids-10)).
+Status in November 2026: everything measured meets them, from 1800 to 2050 AD: the planets, Pluto, the Moon, the planets' fitted moons, all 64 small bodies (56 of them with [fitted orbits](#small-body-orbits)) and all 105 close encounters. Of the moons of dwarf planets and asteroids, the six fitted ones and Menoetius meet the targets; Xiangliu, Skamandrios and Queta, and S/2025 U 1 (not in Horizons), have no independent ephemeris to measure them against ([Moons of dwarf planets and asteroids](#moons-of-dwarf-planets-and-asteroids-10)).
 
 ### Error and drift over time
 
@@ -362,7 +358,7 @@ Things that are wrong compared with official NASA, JPL or IAU data. Every issue 
 Simplifications kept on purpose. They are listed so you know what the app does and does not show.
 
 - **Visual aids not to scale:** the fixed-size dots and labels, the Sun's glow, comet tails, exaggerated ring opacity and computer-generated lumpy shapes. Each is described in [What is not to scale](interface.md#what-is-not-to-scale).
-- **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; fourteen small bodies with no published rotation period we could verify spin at an illustrative 12 hours ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
+- **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; fourteen small bodies with no published rotation period we could verify spin at an illustrative 12 hours ([notes on sizes and rotation](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Orbit models are simple, so precision depends on the date and the body** (see [Accuracy](#accuracy)):
   - planets and Pluto use Keplerian elements valid for 1800–2050 AD; outside that range the time bar shows *Estimated positions*;
   - the Moon uses a shortened lunar theory (Meeus, ch. 47), within 0.02° from 1800 to 2050 AD;
@@ -373,7 +369,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
   - Patroclus is drawn on the orbit of the centre of mass of the Patroclus–Menoetius pair, and Menoetius is placed relative to it. Both are therefore about 150 km from their true positions (the pair is 692 km apart; Menoetius holds about 22% of the mass).
 - **Objects left out:** moons without a verifiable published orbit, such as Makemake's moon, Ida's moon Dactyl and Polymele's moon Shaun, and others listed in [What's not included](#whats-not-included). The main asteroid belt, Hildas, Jupiter and Neptune trojans and Kuiper belt are statistical clouds, not catalogued objects ([Belts](#belts)).
 - **Surfaces:** bodies with no spacecraft map get a painted texture, and Earth gets painted clouds. Some maps have gaps or filler from their sources: Solar System Scope fills gaps with invented terrain; Voyager 2 saw only part of Uranus's moons and Triton, and the app paints the rest (and Callisto's small unmapped area); about a third of Deimos's map and parts of Europa's and Ganymede's are filler from their map makers; cloud maps (Venus, the giant planets) are snapshots, and Neptune's shows a dark spot that is now gone. See [Surface maps](#surface-maps).
-- **One fixed rotation period per body:** comets' spins change at each pass near the Sun. 67P/Churyumov-Gerasimenko spins at its most recent measured period, 12.055 h (2016), which has probably changed since its 2021 perihelion, so its spin is only approximate at most dates ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
+- **One fixed rotation period per body:** comets' spins change at each pass near the Sun. 67P/Churyumov-Gerasimenko spins at its most recent measured period, 12.055 h (2016), which has probably changed since its 2021 perihelion, so its spin is only approximate at most dates ([notes on sizes and rotation](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Random spin axes for thirty-four small bodies:** those with no published pole the app can use, listed under [Dwarf planets, candidates, asteroids, centaurs and comets](#dwarf-planets-candidates-asteroids-centaurs-and-comets-64-plus-pluto). Their spin axes are random, for display only.
 - **Which side faces you is not set for every body:** Vesta, 67P/Churyumov-Gerasimenko and bodies without IAU rotational elements spin from an arbitrary starting angle, and tidally locked moons face their planet within a few degrees (Mimas within about 20°); see [Which side faces you](#which-side-faces-you).
 - **One shared pole:** Uranus's five moons use Uranus's pole; their own IAU poles differ by about 0.1°.

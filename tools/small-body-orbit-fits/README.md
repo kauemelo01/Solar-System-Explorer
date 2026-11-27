@@ -1,6 +1,6 @@
 # Small-body orbit fits
 
-These scripts build `data/sb-orbits.js`: the orbits of the dwarf planets, asteroids, centaurs and comets fitted to their JPL Horizons ephemerides over 1800–2050 AD, as a series of time windows. The method, the targets and the accuracy are described in [docs/sources.md, Small-body orbits](../../docs/sources.md#small-body-orbits) and [Accuracy targets](../../docs/sources.md#accuracy-targets).
+These scripts build `data/sb-orbits.js`: the orbits of the dwarf planets, asteroids, centaurs and comets fitted to their JPL Horizons ephemerides over 1800–2050 AD, as a series of time windows. The method, the targets and the accuracy are described in the documentation, under [Small-body orbits](../../docs/sources.md#small-body-orbits) and [Accuracy targets](../../docs/sources.md#accuracy-targets).
 
 ## Setup
 
@@ -34,7 +34,7 @@ These scripts build `data/sb-orbits.js`: the orbits of the dwarf planets, astero
 
 ## Moons of dwarf planets and asteroids (`moons/`)
 
-These scripts fit Dysnomia, Weywot, Vanth and Dimorphos to JPL Horizons, and Hiʻiaka and Namaka to the ephemeris of Proudfoot et al. 2024; the fits are written to `data/sb-orbits.js` as `window.SBM_FIT` (same window format, with the span the reference covers in `t`, its name in `src`, and an optional blend length `b` in days). The other moons keep their published orbits ([docs/sources.md](../../docs/sources.md#moons-of-dwarf-planets-and-asteroids-10)). Run them in a work folder, in this order:
+These scripts fit Dysnomia, Weywot, Vanth and Dimorphos to JPL Horizons, and Hiʻiaka and Namaka to the ephemeris of Proudfoot et al. 2024; the fits are written to `data/sb-orbits.js` as `window.SBM_FIT` (same window format, with the span the reference covers in `t`, its name in `src`, and an optional blend length `b` in days). The other moons keep their published orbits ([Moons of dwarf planets and asteroids](../../docs/sources.md#moons-of-dwarf-planets-and-asteroids-10)). Run them in a work folder, in this order:
 
 1. `python hzmoons.py`, then `python hzdense.py`: Horizons positions relative to each primary (400 random dates, plus a dense block of 1.5 orbits every year) over the span Horizons covers.
 2. The Proudfoot et al. 2024 ephemeris, `psjad26e9t3_mrt.txt` (their Table 3, machine-readable, from the journal: <https://doi.org/10.3847/PSJ/ad26e9>), sampled at 1,500 dates into `sky_in.json` as `{"Hiiaka":{"primary":"Haumea","rows":[[JD, dRA, dDec] in mas, …]},"Namaka":…}`; then `node sky.js sky_in.json sky_fit.json`, which adds each date's light-time-corrected time and sky directions from the app's own geometry.

@@ -11,7 +11,7 @@ Everything outside the solar system shown in the app, with its position, distanc
 | Layer | What it is | Source |
 |---|---|---|
 | Milky Way and faint stars | All-sky star map, plate carrée in J2000 RA/Dec, 4096 × 2048 and 8192 × 4096 | NASA/Goddard Space Flight Center Scientific Visualization Studio, [*Deep Star Maps*](https://svs.gsfc.nasa.gov/3895) (2009), files `starmap_4k.jpg` and `starmap_8k.jpg`. Built from the Bright Star, Tycho-2 and UCAC3 catalogues |
-| Constellations (off by default) | The 88 IAU constellations: boundaries, stick figures and names, with a Zodiac (13) filter | See [constellations.md](constellations.md) |
+| Constellations (off by default) | The 88 IAU constellations: boundaries, stick figures and names, with a Zodiac (13) filter | See [The 88 constellations](constellations.md) |
 | Stars | 9,096 stars brighter than about magnitude 6.5, coloured by their B−V index | *Yale Bright Star Catalogue*, 5th revised ed. (Hoffleit & Warren 1991, CDS V/50), via NASA HEASARC table [`bsc5p`](https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html) |
 
 ## Nebulae, clusters and galaxies

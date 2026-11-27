@@ -139,7 +139,7 @@ The app remembers its settings on the device (in the browser's local storage): t
 
 ## How the app loads and draws data
 
-How the app turns the source files into what is on screen: which size of each image it downloads, how the surface maps were prepared, the visual aids drawn on top of the true-scale model, and Earth's clouds. The sources themselves are in [sources.md](sources.md#the-sky-beyond-the-solar-system) (sky) and [sources.md](sources.md#surface-maps) (surface maps).
+How the app turns its source images into what is on screen: which size of each image it downloads, how the surface maps were prepared, the visual aids drawn on top of the true-scale model, and Earth's clouds. Where each image comes from, and what it shows, is under [The sky beyond the solar system](sources.md#the-sky-beyond-the-solar-system) and [Surface maps](sources.md#surface-maps).
 
 ### Sky map loading
 
@@ -163,7 +163,7 @@ In practice:
 
 Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On capable devices the sky appears once the 8K map has arrived, so it takes a little longer to show up than when the 4K map loaded first.
 
-**Choosing the size:** *Images → Sky map detail* ([interface](#the-menu)) overrides the rule above. The logic is in `index.html`, next to the comment `Sky map size`.
+**Choosing the size:** *Images → Sky map detail* ([the menu](#the-menu)) overrides the rule above. The logic is in `index.html`, next to the comment `Sky map size`.
 
 ### Surface map processing
 
@@ -184,7 +184,7 @@ All of the steps below are done by [`tools/build_textures.py`](../tools/build_te
 
 There is no manual choice of size for surface maps: the *Auto / 4K / 8K* buttons under *Images → Sky map detail* apply to the sky map only.
 
-**Turning them off:** *Images → Realistic surface textures* ([interface](#the-menu)) switches every real map off, and no map files are then downloaded.
+**Turning them off:** *Images → Realistic surface textures* ([the menu](#the-menu)) switches every real map off, and no map files are then downloaded.
 
 **Sphere detail.** Bodies with a map are drawn as smoother spheres (64 × 40 segments, as for the planets) so the map does not look faceted; other moons and small bodies use 32 × 20. Sizes and shapes are unchanged, and Vesta, Phobos and Deimos keep their lumpy shapes.
 
@@ -197,7 +197,7 @@ These are visual aids drawn on top of the true-scale model; each is a [limitatio
 | Coloured dots and labels marking bodies | A fixed 3.5–6 pixels on screen whatever the zoom, so bodies smaller than a pixel can still be found |
 | The Sun's glow | A glow 7 times the Sun's radius, plus a halo of fixed screen size. The Sun's sphere itself is true size |
 | Comet tails and comas | Drawn only while the comet is within 5 AU of the Sun. Illustrative length: the shorter of 0.6 AU and 0.3 / r² AU, where r is the comet's distance from the Sun in AU. Real tails vary widely and can exceed 1 AU |
-| Bodies with no published radius | Placeholder radii, marked *est.* in the app and the catalogue: 1.5–40 km for moons, and for small bodies with no published size: Torifune and Kamoʻoalewa from their brightness, 0.5 km for comets with no nucleus measurement (311P, Thatcher and three SOHO comets) and 2.5 km for C/2020 F3 (NEOWISE) ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)) |
+| Bodies with no published radius | Placeholder radii, marked *est.* in the app and the catalogue: 1.5–40 km for moons, and for small bodies with no published size: Torifune and Kamoʻoalewa from their brightness, 0.5 km for comets with no nucleus measurement (311P, Thatcher and three SOHO comets) and 2.5 km for C/2020 F3 (NEOWISE) ([notes on sizes and rotation](catalogue/small-bodies.md#notes-on-sizes-and-rotation)) |
 | Irregular asteroids and small moons | Mean radius is correct; the lumpy shape is computer-generated, not the real shape |
 | Main asteroid belt, Hildas, Jupiter and Neptune trojans, Kuiper belt | Statistical clouds of fixed-size points, not individual catalogued objects (see [Belts](sources.md#belts)) |
 | Ring opacity | Radii are true, but rings are drawn more opaque than they are, so that faint and narrow rings (for example Jupiter's, with optical depths around 10⁻⁶) can be seen |

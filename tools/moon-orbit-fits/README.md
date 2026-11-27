@@ -1,6 +1,6 @@
 # Moon orbit fits
 
-These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted to its JPL Horizons ephemeris over 1800–2050 AD. The method and the accuracy are described in [docs/sources.md, Moon orbits](../../docs/sources.md#moon-orbits).
+These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted to its JPL Horizons ephemeris over 1800–2050 AD. The method and the accuracy are described in the documentation, under [Moon orbits](../../docs/sources.md#moon-orbits).
 
 ## Setup
 
@@ -28,7 +28,7 @@ These scripts build `data/moon-orbits.js`: every planetary moon's orbit fitted t
 6. Distances, then step 4 again. The fits above match directions only, which leaves an orbit's size free (and, for windows, drifting); the check reports distance errors (`dmax`, `drms`) as well as angles:
    - `fixscale_g.py`: single-orbit fits with a fitted shape get their semi-major axis scaled to Horizons' distances;
    - `fixscale.py`, then `fitdist.py`: windows are scaled to Horizons' distances (`fixscale.json`), then refitted on direction and distance together (`fitdist.json`; about 20 minutes with 8 cores).
-7. Smoothness, with the app's own code: `node jumps.js <repo>/index.html <repo>/data/moon-orbits.js` (no moon should jump at a window boundary) and `node bends.js <repo>/index.html <repo>/data/moon-orbits.js` (sharp turns in each moon's path, sampled like a 250-year trail; add a moon's name to check one). The app blends neighbouring windows (`ell()` in `index.html`); the moons that keep a bend are listed in docs/sources.md, *Limitations of the model*.
+7. Smoothness, with the app's own code: `node jumps.js <repo>/index.html <repo>/data/moon-orbits.js` (no moon should jump at a window boundary) and `node bends.js <repo>/index.html <repo>/data/moon-orbits.js` (sharp turns in each moon's path, sampled like a 250-year trail; add a moon's name to check one). The app blends neighbouring windows (`ell()` in `index.html`); the moons that keep a bend are listed under [Limitations of the model](../../docs/sources.md#limitations-of-the-model).
 
 ## Special cases
 
