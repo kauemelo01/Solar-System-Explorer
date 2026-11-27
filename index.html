@@ -874,7 +874,7 @@ if(S.skyRes==='8k'&&!SKY8_OK)S.skyRes='auto';
 let SKY_READY=!S.skyp.mw,SKY_MSG='Loading the sky map…';   // the start-up splash waits for this (docs/interface.md#start-up)
 function loadSky(){const req=++skyReq,want=(S.skyRes==='8k'||(S.skyRes==='auto'&&SKY_AUTO8))?['8k','4k']:['4k'],L=new THREE.TextureLoader();
  const use=(k,t)=>{if(req!==skyReq)return;const old=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(old&&old!==t)old.dispose();mw.visible=S.skyp.mw;mwMat.userData.res=k;SKY_READY=true};
- const next=i=>{const k=want[i];if(!k){SKY_READY=true;return}if(!skyTex[k]&&!SKY_READY){SKY_MSG='Loading the sky map ('+(k==='8k'?'6.9':'2.2')+' MB)…';window.__boot&&__boot.status(SKY_MSG)}if(skyTex[k])return use(k,skyTex[k]);
+ const next=i=>{const k=want[i];if(!k){SKY_READY=true;return}if(!skyTex[k]&&!SKY_READY){SKY_MSG='Loading the sky map ('+(k==='8k'?'8K':'4K')+' resolution)…';window.__boot&&__boot.status(SKY_MSG)}if(skyTex[k])return use(k,skyTex[k]);
   L.load('sky/starmap_'+k+'.jpg',t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;skyTex[k]=t;use(k,t)},undefined,()=>next(i+1))};
  next(0)}
 loadSky();
