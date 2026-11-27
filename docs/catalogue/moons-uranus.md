@@ -15,7 +15,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
-**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Ariel, Umbriel, Titania, Oberon, Miranda; from the moon's JPL Horizons record (linked in its row): Cordelia, Ophelia, Bianca, Cressida, Desdemona, Juliet, Portia, Rosalind, Belinda, Puck, Caliban, Sycorax; from its NASA Science page (linked in its row): Perdita; from Sheppard, Jewitt & Kleyna (2005), *AJ* 129, 518, Table 3 ([arXiv:astro-ph/0410059](https://arxiv.org/abs/astro-ph/0410059)): Prospero, Setebos, Stephano, Trinculo, Francisco, Margaret, Ferdinand. The other 4 have no published radius and use a placeholder, marked *est.*; see [Moon sizes](../sources.md#moon-sizes).
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Ariel, Umbriel, Titania, Oberon, Miranda; from the moon's JPL Horizons record (linked in its row): Cordelia, Ophelia, Bianca, Cressida, Desdemona, Juliet, Portia, Rosalind, Belinda, Puck, Caliban, Sycorax; from its NASA Science page (linked in its row): Perdita; from NASA's [announcement of its discovery](https://science.nasa.gov/blogs/webb/2025/08/19/new-moon-discovered-orbiting-uranus-using-nasas-webb-telescope/) (10 km across): S/2025 U 1; from Molter et al. (2023), *Icarus* 405:115697 ([arXiv:2307.13773](https://arxiv.org/abs/2307.13773); the likelier of its two possible sizes): Mab; from Sheppard et al. (2024), *AJ* 168, 258 ([arXiv:2410.00108](https://arxiv.org/abs/2410.00108)): S/2023 U 1; from Sheppard, Jewitt & Kleyna (2005), *AJ* 129, 518, Table 3 ([arXiv:astro-ph/0410059](https://arxiv.org/abs/astro-ph/0410059)): Prospero, Setebos, Stephano, Trinculo, Francisco, Margaret, Ferdinand. This 1 has no published radius and uses a placeholder, marked *est.*: Cupid; see [Moon sizes](../sources.md#moon-sizes).
 
 ## Major (5)
 
@@ -46,9 +46,9 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 9 | <a id="m-belinda"></a>**Belinda** | 75,258 | 0.002 | 1.4 | 0.6236 | 34 | 714 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27714%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/belinda/) | Plain shape |
 | 10 | <a id="m-puck"></a>**Puck** | 86,007 | 0.009 | 1.1 | 0.7618 | 77 | 715 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27715%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/puck/) | Plain shape |
 | 11 | <a id="m-perdita"></a>**Perdita** | 76,418 | 0.005 | 1.6 | 0.6382 | 15 | 725 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27725%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/perdita/) | Plain shape |
-| 12 | <a id="m-mab"></a>**Mab** | 97,737 | 0.006 | 1.8 | 0.9229 | *est.* | 726 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27726%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/mab/) | Plain shape |
+| 12 | <a id="m-mab"></a>**Mab** | 97,737 | 0.006 | 1.8 | 0.9229 | 6 | 726 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27726%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/mab/) | Plain shape |
 | 13 | <a id="m-cupid"></a>**Cupid** | 74,396 | 0.007 | 2 | 0.6125 | *est.* | 727 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27727%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cupid/) | Plain shape |
-| 14 | <a id="m-s-2025-u-1"></a>**S/2025 U 1** <sup>[note](#notes)</sup> | 57,844 | 0.039 | 4 | 0.4201 | *est.* | 75052 | [JPL table](https://ssd.jpl.nasa.gov/sats/elem/sep.html) | Plain shape |
+| 14 | <a id="m-s-2025-u-1"></a>**S/2025 U 1** <sup>[note](#notes)</sup> | 57,844 | 0.039 | 4 | 0.4201 | 5 | 75052 | [JPL table](https://ssd.jpl.nasa.gov/sats/elem/sep.html) | Plain shape |
 
 ## Irregular (10)
 
@@ -65,7 +65,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 7 | <a id="m-francisco"></a>**Francisco** | 4,275,700 | 0.144 | 146.8 | 267 | 11 | 722 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27722%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/francisco/) | Plain shape |
 | 8 | <a id="m-margaret"></a>**Margaret** | 14,425,000 | 0.642 | 60.5 | 1,655 | 10 | 723 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27723%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/margaret/) | Plain shape |
 | 9 | <a id="m-ferdinand"></a>**Ferdinand** | 20,421,400 | 0.395 | 169.2 | 2,788 | 10 | 724 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27724%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ferdinand/) | Plain shape |
-| 10 | <a id="m-s-2023-u-1"></a>**S/2023 U 1** | 7,976,600 | 0.25 | 143.9 | 681 | *est.* | 75051 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2775051%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 10 | <a id="m-s-2023-u-1"></a>**S/2023 U 1** | 7,976,600 | 0.25 | 143.9 | 681 | 3.5 | 75051 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2775051%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 
 ## Notes
 

@@ -15,7 +15,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 Radius values marked *est.* are not published; the app uses a placeholder size for display only (a [limitation of the model](../sources.md#limitations-of-the-model)).
 
-**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Triton, Naiad, Thalassa, Despina, Galatea, Larissa, Proteus, Nereid; from its NASA Science page (linked in its row): Hippocamp; from Sheppard, Jewitt & Kleyna (2006), *AJ* 132, 171, Table 3 ([arXiv:astro-ph/0604552](https://arxiv.org/abs/astro-ph/0604552)): Halimede, Psamathe, Sao, Laomedeia, Neso. The other 2 have no published radius and use a placeholder, marked *est.*; see [Moon sizes](../sources.md#moon-sizes).
+**Radii.** From JPL *Planetary Satellite Physical Parameters* <https://ssd.jpl.nasa.gov/sats/phys_par/>: Triton, Naiad, Thalassa, Despina, Galatea, Larissa, Proteus, Nereid; from its NASA Science page (linked in its row): Hippocamp; from Sheppard, Jewitt & Kleyna (2006), *AJ* 132, 171, Table 3 ([arXiv:astro-ph/0604552](https://arxiv.org/abs/astro-ph/0604552)): Halimede, Psamathe, Sao, Laomedeia, Neso; from Sheppard et al. (2024), *AJ* 168, 258 ([arXiv:2410.00108](https://arxiv.org/abs/2410.00108)): S/2002 N 5, S/2021 N 1. Every moon on this page has a published radius.
 
 ## Triton (1)
 
@@ -51,6 +51,6 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 | 4 | <a id="m-sao"></a>**Sao** | 22,239,900 | 0.296 | 50.2 | 2,919 | 22 | 811 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27811%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/sao/) | Plain shape |
 | 5 | <a id="m-laomedeia"></a>**Laomedeia** | 23,499,900 | 0.419 | 36.9 | 3,168 | 21 | 812 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27812%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/laomedeia/) | Plain shape |
 | 6 | <a id="m-neso"></a>**Neso** | 49,897,800 | 0.455 | 128.4 | 9,805 | 30 | 813 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27813%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/neso/) | Plain shape |
-| 7 | <a id="m-s-2002-n-5"></a>**S/2002 N 5** | 23,414,700 | 0.433 | 46.3 | 3,151 | *est.* | 85051 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2785051%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
-| 8 | <a id="m-s-2021-n-1"></a>**S/2021 N 1** | 50,700,200 | 0.503 | 135.2 | 10,043 | *est.* | 85052 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2785052%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 7 | <a id="m-s-2002-n-5"></a>**S/2002 N 5** | 23,414,700 | 0.433 | 46.3 | 3,151 | 11.5 | 85051 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2785051%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
+| 8 | <a id="m-s-2021-n-1"></a>**S/2021 N 1** | 50,700,200 | 0.503 | 135.2 | 10,043 | 7 | 85052 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2785052%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 

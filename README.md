@@ -160,7 +160,7 @@ New moons are announced every year; the rules for adding objects are in [What's 
     - 56 dwarf planets, asteroids and comets fitted to JPL Horizons over 1800–2050 AD, so every close planetary encounter of the period happens (Apophis passes the Earth on 13 April 2029 at 38,026 km, against JPL's 38,011);
     - the moons of dwarf planets and asteroids fitted to JPL Horizons or to Proudfoot et al. (2024): Dimorphos before and after NASA's DART impact, and Haumea's moons, pole and ring in the right plane;
     - the Moon from a lunar theory (Meeus), within 0.02° instead of up to 5°.
-  - **Better data**: each small body's size and rotation from its most recent published measurement (Arrokoth measured by New Horizons), the Jupiter trojans back at L4 and L5, and 9P/Tempel 1 turned to its real prime meridian.
+  - **Better data**: each small body's size and rotation from its most recent published measurement (Arrokoth measured by New Horizons, Torifune by Hayabusa2), published sizes for 354 more moons (10 still have none), the Jupiter trojans back at L4 and L5, and 9P/Tempel 1 turned to its real prime meridian.
   - **Interface**: a start-up screen that turns into an error message if the app cannot start, a camera position card, smooth trails around perihelion, and *source* links on the object card for any value not from NASA or JPL ([the interface](docs/interface.md)).
 - **Release 3** (current, branch `main`, tag `v3`):
   - The planets' moons placed by orbits fitted to JPL Horizons over 1800–2050 AD: typically within 1.5°, against about 90° before.
