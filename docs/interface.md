@@ -109,7 +109,7 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 
 ## The camera position card
 
-On screens at least 1300 px wide, a small card at the bottom right, as tall as the time bar, shows where the camera is:
+On screens at least 1300 px wide, a small card at the bottom right, as wide as the object card above it and as tall as the time bar, shows where the camera is:
 
 - **From** the selected object (the one the camera looks at and orbits, named on the card): the camera's distance from it, in metres below 1 km, then in kilometres, megametres (Mm, 1,000 km) and gigametres (Gm, 1 million km) in steps of 1,000, and in AU from 1 AU (149.60 Gm); with two decimals, except for metres.
 - **Ecliptic latitude** (−90° to +90°): the camera's angle above or below the plane of the distance rings, which is the ecliptic (the plane of Earth's orbit) through the body held still. At 0° the camera is in that plane and the rings appear as a single horizontal line; positive values are on the side of the ecliptic north pole.
