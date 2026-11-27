@@ -22,6 +22,11 @@ defaults:
       title: "Sources, methodology and accuracy"
       description: "Where every number in Solar System Explorer comes from, and how accurate it is: JPL orbits and the ephemerides they are fitted to, the accuracy targets every orbit is checked against, NASA fact sheets, star catalogues, sky maps and IAU constellation boundaries."
   - scope:
+      path: "docs/interface.md"
+    values:
+      title: "The interface"
+      description: "How to use Solar System Explorer: the layout, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails, and the settings it remembers."
+  - scope:
       path: "docs/catalogue/sun-planets.md"
     values:
       title: "Sun, planets and the Moon"

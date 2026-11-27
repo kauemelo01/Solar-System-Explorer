@@ -8,7 +8,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 ## Dwarf planets
 
-The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* switch.
+The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* switch ([the menu](../interface.md#the-menu)).
 
 | Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
@@ -22,7 +22,7 @@ The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* sw
 
 ## Dwarf planet candidates
 
-Large trans-Neptunian objects widely considered dwarf planets but not recognised by the IAU. In the app: the *Candidates* switch.
+Large trans-Neptunian objects widely considered dwarf planets but not recognised by the IAU. In the app: the *Candidates* switch ([the menu](../interface.md#the-menu)).
 
 | Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|

@@ -175,7 +175,7 @@ Orbit outlines follow the fits, so they turn as the orbits precess.
   - Queta (Eurybates): Brown et al. 2021, *Planetary Science Journal* 2:170, [doi:10.3847/PSJ/ac07b0](https://doi.org/10.3847/PSJ/ac07b0); J2000 ecliptic elements, Table 1.
   - No independent ephemeris is available to check these four against (Horizons has none; IMCCE's Miriade gives orbits for Queta and Skamandrios that contradict these peer-reviewed solutions), so their accuracy is set by their published uncertainties ([catalogue notes](catalogue/moons-small-bodies.md#notes)).
 - **Left out:** moons without a verifiable published orbit, such as Makemake's moon (orbit only bounded), Ida's moon Dactyl, Polymele's moon Shaun and Dinkinesh's moon Selam (distance and period only) (a [limitation of the model](#limitations-of-the-model); see [What's not included](#whats-not-included)).
-- **In the app:** listed in the moons menu under *Dwarf planets & candidates* or *Asteroids*; switching one on also shows its parent's group.
+- **In the app:** listed in the moons menu under *Dwarf planets & candidates* or *Asteroids* ([the menu](interface.md#the-menu)).
 - Details per moon: [catalogue/moons-small-bodies.md](catalogue/moons-small-bodies.md).
 
 ## Ring systems (7)
@@ -249,7 +249,7 @@ In practice:
 
 Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On capable devices the sky appears once the 8K map has arrived, so it takes a little longer to show up than when the 4K map loaded first.
 
-**Choosing the size.** The side panel's *Images → Sky map detail* control picks **Auto** (the rule above), **4K** or **8K**. Forcing 8K still falls back to 4K if the 8K file fails to load; the 8K option is disabled on devices whose graphics cannot show textures 8192 pixels wide. Each map is downloaded at most once per visit, so switching back and forth does not download it again. The choice is remembered on the device. The logic is in `index.html`, next to the comment `Sky map size`.
+**Choosing the size:** *Images → Sky map detail* ([interface](interface.md#the-menu)) overrides the rule above. The logic is in `index.html`, next to the comment `Sky map size`.
 
 ## Surface maps
 
@@ -312,7 +312,7 @@ All of the steps below are done by [`tools/build_textures.py`](../tools/build_te
 
 There is no manual choice of size for surface maps: the *Auto / 4K / 8K* buttons under *Images → Sky map detail* apply to the sky map only.
 
-**Turning them off.** The side panel's *Images → Realistic surface textures* switch (on by default, remembered on the device) turns all real maps off. Every body then uses its painted texture, Saturn's rings use the painted ring, Earth's clouds are hidden, the surface notes on the cards are hidden, and no map files are downloaded. Turning it back on reuses any maps already downloaded.
+**Turning them off:** *Images → Realistic surface textures* ([interface](interface.md#the-menu)) switches every real map off, and no map files are then downloaded.
 
 **Sphere detail.** Bodies with a map are drawn as smoother spheres (64 × 40 segments, as for the planets) so the map does not look faceted; other moons and small bodies use 32 × 20. Sizes and shapes are unchanged, and Vesta, Phobos and Deimos keep their lumpy shapes.
 
@@ -362,58 +362,7 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 
 ## In the app
 
-### Start-up
-
-While the app loads, a splash screen shows its name and what it is doing (*Loading…*, *Building the solar system…*, *Drawing the first frame…*, *Loading the sky map (6.9 MB)…*). It disappears once the 3D view has been drawn with the sky map in place ([Sky map loading](#sky-map-loading)), so the first view is complete. It does not wait for the sky map when the *Milky Way & faint stars* layer is off or the map cannot be downloaded, and waits at most 30 seconds after the first frame, after which the map appears whenever it arrives. If the app cannot start, the splash turns into an error message instead of leaving an empty view:
-
-- **When:** before the first frame is drawn, an error stops the app's start-up code; one of its scripts cannot be downloaded; the browser or device cannot show 3D graphics (WebGL); or no frame is drawn within 20 seconds (up to 60 seconds while the page is still downloading, as on a slow connection). Problems after the first frame, or a texture or font that fails to download, do not bring it back.
-- **What it shows:** a short explanation and the error itself, with **Reload**, **Reset saved settings and reload** (which clears the settings the app remembers on this device, in case one of them stops it from starting after an update) and a link to report the problem on GitHub, with the error and the browser's name filled in for review before sending.
-- Without JavaScript, the page shows a short description of the app and a link to this documentation instead.
-
-### Camera position
-
-On screens at least 1300 px wide, a small card at the bottom right, as tall as the time bar, shows where the camera is:
-
-- **From** the selected object (the one the camera looks at and orbits, named on the card): the camera's distance from it, in metres below 1 km, then in kilometres, megametres (Mm, 1,000 km) and gigametres (Gm, 1 million km) in steps of 1,000, and in AU from 1 AU (149.60 Gm); with two decimals, except for metres.
-- **Ecliptic latitude** (−90° to +90°): the camera's angle above or below the plane of the distance rings, which is the ecliptic (the plane of Earth's orbit) through the body held still. At 0° the camera is in that plane and the rings appear as a single horizontal line; positive values are on the side of the ecliptic north pole.
-- **Galactic latitude** (*b*, −90° to +90°) of the camera's direction as seen from the selected object: 0° is the plane of the Milky Way's disk, and positive values are on the side of the north galactic pole (in Coma Berenices).
-- **How:** the camera's position is taken in the app's J2000 ecliptic frame; for the galactic latitude its direction is turned into J2000 equatorial coordinates and then into galactic coordinates with the standard rotation from the Hipparcos catalogue (ESA 1997, vol. 1, §1.5.3). Checked: a camera towards the galactic centre reads *b* = 0°, and one towards the north galactic pole *b* = +90°; a camera level with the rings reads 0° ecliptic latitude.
-
-The card is hidden on narrower screens, where the time bar takes the width, and in fullscreen mode. It updates several times a second while the view moves.
-
-### The object card
-
-Clicking an object, or finding it with *Find*, opens its card:
-
-- its name and type, for example *Moon of Saturn · Norse group · retrograde irregular*;
-- the [surface note](#card-notes), and for a moon outside its fitted range an *Estimated position* note ([Moon orbits](#moon-orbits));
-- **From** the body held still: the distance, in kilometres below 20 million km and in AU above;
-- **Light time:** how long light takes to cover that distance;
-- **From the Sun**, **Radius** (with ≈ and *est.* for a [placeholder size](#what-is-not-to-scale)), **Rotation** (dwarf planets, asteroids, centaurs and comets: the spin period the app uses, in minutes, hours or days, or *illustrative* where none is published) and **Orbital period** (in hours, days or years; *retrograde* for moons that orbit backwards). Where a radius, rotation period or orbital period does not come from NASA or JPL, a **source** link after the value opens the paper or record it comes from (for example Uranus's irregular moons' radii, the IAU rotation rates of the bodies turned to their prime meridian, and the orbits of Hiʻiaka, Namaka, Xiangliu, Skamandrios, Queta and Menoetius); a placeholder, which has no source, links instead to the note that explains it (**why est.** for a [placeholder size](#what-is-not-to-scale), **why** for an illustrative rotation). Which values: [moon sizes](#moon-sizes), [small bodies](catalogue/small-bodies.md#notes-on-sizes-and-rotation), [moons of dwarf planets and asteroids](catalogue/moons-small-bodies.md#notes);
-- links: **Details** (its catalogue entry), **Rings** (for ringed bodies), **JPL** (its JPL Horizons record) or **JPL SBDB** (small bodies), and **NASA** (its NASA Science page, for 139 objects);
-- a **Hold … still** button, which makes it the reference body.
-
-On phones the card is shorter: it leaves out the type, the distance from the Sun, the radius, the rotation and the period.
-
-Objects in the sky have their own card: deep-sky objects give their distance, constellation and apparent size; named stars their magnitude and spectral type; stars with planets their distance and number of planets; all three their position (RA and Dec). Constellations give their abbreviation, area, size rank and, for the zodiac, the dates the Sun passes through. Links go to the catalogue entry and SIMBAD, plus the NASA image or the NASA Exoplanet Archive where there is one. The card's **✕** goes back to the selected body.
-
-### Trails
-
-A trail is the path a body has followed **as seen from the body held still**. With the Sun held still, planets trace their orbits; with Earth held still, Mars traces its loops in the sky; and a moon's trail combines its orbit with its planet's path.
-
-- **One slider per group** under *Trails*: planets (and the Sun, when another body is held still), major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, and comets. Each runs from off (far left) through 1 week, 1 month, 3 months, 1 year, 5, 12, 30 and 100 years to 250 years. **Everything** sets them all at once, and reads *Mixed* when they differ. A group with nothing on screen says *None shown*; its slider still works.
-- **Defaults:** 30 years for planets and small bodies, 1 year for major moons, off for minor moons.
-- **`T`** turns all trails off, and back to the previous lengths.
-- **When a trail is drawn:** only for bodies that are shown. A moon's trail appears only when its planet's moons are visible (see below), and is dropped when time runs so fast that the moon would go round more than 15 times a second.
-- **Detail:** a trail is sampled about 180 times per orbit and keeps at most 6,000 points (2,000 for minor moons), so a long trail of a fast moon shows only its most recent part. Older parts fade out.
-
-### When moons appear
-
-A planet's moons (their dots, labels and trails) appear as you zoom toward the planet: once its moon system is a few dozen pixels across on screen. They also appear when the planet or one of its moons is selected or held still.
-
-### Saved settings
-
-The app remembers its settings on the device (in the browser's local storage): the body held still, the speed, trail lengths, labels, distance rings and moon orbit outlines, which moons, small bodies, belts and sky layers are shown (constellation options included), realistic surface textures, the sky map size and whether the menu is collapsed. The date is not saved: the app always opens at the current date and time.
+The interface (the start-up screen, the menu, the time bar, the object card, the camera position card, trails, when moons appear and the saved settings) is described in [interface.md](interface.md).
 
 ## Accuracy
 
@@ -482,7 +431,7 @@ Small bodies were measured as described under [Small-body orbits](#small-body-or
 
 Before Release 4 most of these did not happen in the app, or came months or years off: Apophis passed the Earth at 194,000 km, 81P/Wild 2 never came within 36 million km of Jupiter. The measurements of those single orbits are in the documentation of Release 3 (tag `v3`).
 
-**Date range.** The app covers 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end. **Outside 1800–2050 AD: positions are estimates.** That is the range in which the planets' elements are valid. Outside it the time bar turns amber and shows *Estimated positions* (next to the speed on wide screens, after the clock on phones); the further from that range, the larger the errors. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Estimated positions outside 1800–2050 AD are a [limitation of the model](#limitations-of-the-model).
+**Date range.** The app covers 1000 to 3000 AD ([the time bar](interface.md#the-time-bar)). **Outside 1800–2050 AD, positions are estimates:** that is the range in which the planets' elements are valid, and the further from it, the larger the errors; the time bar then shows *Estimated positions*. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Estimated positions outside 1800–2050 AD are a [limitation of the model](#limitations-of-the-model).
 
 ## Known issues
 

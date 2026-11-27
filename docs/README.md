@@ -26,6 +26,10 @@ Each row in the catalogue links to:
 - **JPL Horizons** object record (planets and moons, by NAIF ID), or the **JPL SBDB** record (asteroids, dwarf planets, comets), the authoritative NASA source;
 - the **NASA Science** page for the object, where NASA has published one (142 objects).
 
+## Using the app
+
+- [The interface](interface.md): the layout, the start-up screen, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails, and the settings the app remembers
+
 ## Method and sources
 
 - [Sources, methodology and accuracy](sources.md), starting with [What's included](sources.md#whats-included) and [What's not included](sources.md#whats-not-included)

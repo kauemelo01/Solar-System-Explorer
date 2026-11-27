@@ -40,10 +40,8 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - **469 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5 · other dwarf planets and candidates 6 (Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu) · asteroids 4 (Dimorphos, Skamandrios, Queta, Menoetius)
   - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 35 asteroids, centaurs and Kuiper belt objects, 21 comets
 - **7 ring systems** at their true radii: Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo
-- **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from JPL Keplerian elements, the planets' moons from orbits fitted to JPL Horizons, and small bodies and their moons from JPL orbital elements. Outside 1800–2050 AD the time bar turns amber and shows *Estimated positions*
+- **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from JPL Keplerian elements, the Moon from a lunar theory, and the other moons, dwarf planets, asteroids and comets from orbits fitted to JPL Horizons (or published orbits); outside 1800–2050 AD positions are estimates
 - **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
-- **Moons menu by parent body**: the planets' moon families (Galilean, Himalia, Carme, Pasiphae, Norse, Inuit, Gallic…), then *Dwarf planets & candidates* (Pluto, Eris, Haumea, Quaoar, Orcus, Gonggong) and *Asteroids* (Didymos, Dinkinesh, Hektor, Eurybates, Patroclus), each with All / None, so you can switch moons on one group at a time
-- Separate switches for **dwarf planets**, **dwarf planet candidates**, **asteroids & centaurs** and **comets**
 - Statistical belts (main asteroid belt, Hilda asteroids, Jupiter trojans, Neptune trojans, Kuiper belt) to show where those populations live; the Hildas form the triangle that turns with Jupiter
 - **What is and is not included, and why:** [What's included](docs/sources.md#whats-included), [What's not included](docs/sources.md#whats-not-included), and the [Watchlist](docs/sources.md#watchlist) of objects waiting for published data
 - **The real sky behind it all**:
@@ -55,40 +53,12 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
 - **Real surface maps** where spacecraft have mapped a body: the Sun, the planets, the Moon, Saturn's rings, Ceres, Vesta and 18 major moons, from Solar System Scope, NASA, NASA/JPL, USGS and DLR. Large versions load on capable screens. Everything else gets a simple painted texture, and Earth gets painted clouds so the cloud-free map looks natural. **Each object's card says whether its surface is real photos, a partial map or a painted illustration**, and the *Images* panel can switch all maps off (see [Surface maps](docs/sources.md#surface-maps))
-- **Fullscreen mode** for classrooms and presentations: hides the menu, cards and time bar, leaving only the sky and the solar system
+- **An interface built for exploring**: a menu to choose the body held still and what is shown (moons by family, small bodies, belts, sky layers), a time bar from 1000 to 3000 AD, trails of adjustable length, cards with each object's data and sources, a camera position card and a fullscreen mode for classrooms ([the interface](docs/interface.md))
 - Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/) and the surface maps in [`textures/`](textures/). No build step; any static web host (such as GitHub Pages) can serve it
 
 ### Controls
 
-| Action | How |
-|---|---|
-| Rotate / zoom | Drag; scroll or pinch |
-| Fly to an object | Click its name, or use **Find** (`/`) |
-| Show constellations | *Beyond the solar system → Constellations (IAU)*; choose **All 88** or **Zodiac (13)**, figures and boundaries |
-| Look at a star, nebula or galaxy | Click its label to open its card, or type its name in **Find** to turn the view towards it; the card's **✕** goes back to the selected body |
-| **Make an object the centre** | Double-click it, pick it under *Reference body* (a button for each planet, or type any other object in *Hold any other object still…*), use the **Hold … still** button on its card, or press **C** for the selected one |
-| Pause / speed / reverse | `Space` · `←` `→` · `R` |
-| Toggle trails | `T` |
-| Go back to the previously selected object | `Backspace` (repeat to go further back; bodies and sky objects alike) |
-| Show moons | *Show → Moons*: **Major moons**, **All moons** or **No moons**, or open a planet, *Dwarf planets & candidates* or *Asteroids* and switch moon groups on one at a time (All / None per group). Switching on a moon of a dwarf planet or asteroid also shows its parent. A planet's moons (their dots, labels and trails) appear as you zoom toward it, or when it or one of its moons is selected or held still |
-| Show small bodies | *Show → Small bodies*: **Dwarf planets**, **Candidates**, **Asteroids & centaurs**, **Comets**, or **All** / **None** |
-| Quick views | *Show* → **Show everything** or **Planets only** |
-| Show the belts | *Show → Belts*: **Main asteroid belt**, **Hilda asteroids**, **Jupiter trojans**, **Neptune trojans**, **Kuiper belt** (statistical clouds, not catalogued objects), or **All** / **None** |
-| Sky layers | *Beyond the solar system*: **Milky Way & faint stars**, **Nebulae, clusters & galaxies**, **Bright star names**, **Stars with known planets** |
-| Trails, outlines and labels | *Trails*: a length slider (off at the far left, up to 250 years) for each group (planets, major moons, minor moons, dwarf planets, candidates, asteroids & centaurs, comets), plus *Everything* to set them all at once; minor moons are off by default; trails are drawn relative to the body held still, and `T` turns them all off and back on ([how trails work](docs/sources.md#trails)); *Show → Moon orbit outlines*; *View → Labels* and *Distance rings (AU)* |
-| Read about an object | Click it: its card gives its distance from the body held still, the light travel time, its distance from the Sun, radius, rotation period (for dwarf planets, asteroids and comets) and orbital period, each with a *source* link where the value does not come from NASA or JPL, or a *why est.* / *why* link where it is a placeholder, with links to its catalogue entry, JPL and NASA ([the object card](docs/sources.md#the-object-card)) |
-| Frame the view | *View* → **Inner planets** or **Whole system** |
-| See where the camera is | On screens at least 1300 px wide, the card at the bottom right gives the camera's distance from the selected object (in m, km, Mm, Gm or AU), its ecliptic latitude (0° in the plane of the distance rings) and its galactic latitude (0° in the Milky Way's disk) ([details](docs/sources.md#camera-position)) |
-| Time | The time bar: play / pause, reverse, the speed slider (also `Space`, `R`, `←` `→`), a date box to jump to any date between 1000 and 3000 AD, and **Today** |
-| Realistic or painted surfaces | *Images → Realistic surface textures*. Off: every body uses its painted texture, the surface notes on the cards are hidden, and no map files are downloaded |
-| Sky map detail | *Images → Sky map detail*: **Auto** (8K on large screens, otherwise 4K), **4K** or **8K** (disabled on devices whose graphics cannot show 8K textures) |
-| Fold or unfold a menu section | Click the section's heading |
-| Collapse / expand the menu | The arrow button at the top of the menu; the collapsed menu keeps the **Find and fly to** search bar (on phones: **Controls**) |
-| Fullscreen mode (hides menus, cards and the time bar) | The corner-arrows button at the top of the menu, or `F`; exit with `Esc`, `F` or the **Exit fullscreen** button |
-
-On screens at least 1300 px wide, the menu (360 px) runs the full height of the window and the time bar narrows to stay centred beside it. On smaller screens the menu stops above the time bar; on phones the menu, cards and time bar stack.
-
-Your settings are remembered on the device: the body held still, the speed, trail lengths, labels, distance rings and orbit outlines, which moons, small bodies, belts and sky layers are shown, surface textures, the sky map size and whether the menu is collapsed. The date is not: the app always opens at the current date and time.
+Drag to rotate, scroll or pinch to zoom, click a name to fly to it, and double-click an object to hold it still. `Space` pauses, `←` `→` change the speed and `R` reverses time; `/` opens **Find**. The menu, the time bar, the cards, trails, every keyboard shortcut and the settings the app remembers are described in **[the interface](docs/interface.md)**.
 
 ## Data provenance
 
@@ -166,7 +136,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 
 ## Accuracy and limits
 
-This is an educational model built on Keplerian orbits, not a full n-body integration: the planets use JPL's approximate elements, and the moons, dwarf planets, asteroids and comets use orbits fitted to JPL Horizons over 1800–2050 AD, which meet the [accuracy targets](docs/sources.md#accuracy-targets). Planet positions are good to roughly arc-minutes within 1800–2050 AD. The time bar covers **1 January 1000 AD to 1 January 3000 AD**: playing stops at either end, and dates typed outside that range are moved to the nearest end. Outside 1800–2050 AD the time bar turns amber and shows *Estimated positions*: positions there are estimates. **Known issue:** small-body orbits drift away from 2026 and miss planetary encounters (for example, Apophis's 2029 Earth flyby is shown at 194,000 km instead of 38,000 km); see [Known issues](docs/sources.md#known-issues) and [Error and drift over time](docs/sources.md#error-and-drift-over-time). Simplifications kept on purpose are listed under [Limitations of the model](docs/sources.md#limitations-of-the-model). Small-body positions drift slowly away from their element epoch. Planetary moons' positions are fitted to JPL Horizons over 1800–2050 AD, typically to 1.5° ([Moon orbits](docs/sources.md#moon-orbits)). For mission-grade ephemerides, use [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) directly. See [docs/sources.md](docs/sources.md#accuracy) for details.
+This is an educational model built on Keplerian orbits, not a full n-body integration: the planets use JPL's approximate elements, and the moons, dwarf planets, asteroids and comets use orbits fitted to JPL Horizons over 1800–2050 AD, which meet the [accuracy targets](docs/sources.md#accuracy-targets). Planet positions are good to roughly arc-minutes within 1800–2050 AD. The time bar covers **1000 to 3000 AD** ([the time bar](docs/interface.md#the-time-bar)); outside 1800–2050 AD positions are estimates. Known issues: none at the moment ([Known issues](docs/sources.md#known-issues)).
 
 Distances and body sizes are always to true scale. A few visual aids are not; they are among the [limitations of the model](docs/sources.md#limitations-of-the-model), and each is described in [docs/sources.md](docs/sources.md#what-is-not-to-scale):
 - the fixed-size dots and labels that mark each body;

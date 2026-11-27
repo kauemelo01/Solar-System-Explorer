@@ -164,7 +164,7 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 #dsub .est{display:none}
 #timebar.estm{border-color:var(--warn)}#timebar.estm input[type=range]{accent-color:var(--warn)}#timebar.estm #date{color:var(--warn)}#timebar.estm .est{visibility:visible}
 #jump{font:15px Jost,sans-serif;background:#151b29;color:var(--ink);border:1px solid var(--line);border-radius:8px;min-height:44px;padding:0 8px;color-scheme:dark}
-/* start-up splash: shown until the first frame is drawn, or turned into an error message (docs/sources.md#start-up) */
+/* start-up splash: shown until the first frame is drawn, or turned into an error message (docs/interface.md#start-up) */
 #splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:var(--bg);text-align:center;transition:opacity .6s ease}
 #splash.gone{opacity:0;pointer-events:none}
 #splash .box{max-width:460px;display:grid;justify-items:center;gap:10px}
@@ -206,7 +206,7 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 @media(max-width:600px){#pmin{display:none}}
 /* wide screens: the panel runs to the bottom of the screen; the time bar stays centred and narrows so it clears the panel (16 px edge + 360 px panel + 16 px gap, mirrored on the right) */
 @media(min-width:1300px){#panel{max-height:calc(100% - 32px)}#timebar{width:min(820px,calc(100% - 784px))}}
-/* camera position: bottom right on wide screens, as tall as the time bar (docs/sources.md#camera-position) */
+/* camera position: bottom right on wide screens, as tall as the time bar (docs/interface.md#the-camera-position-card) */
 #campos{right:16px;bottom:16px;width:min(330px,calc((100% - min(820px,calc(100% - 784px)))/2 - 32px));box-sizing:border-box;display:none;grid-template-columns:1.25fr 1fr 1fr;align-content:center;gap:2px 12px;padding:10px 14px;font-variant-numeric:tabular-nums}
 #campos span{color:var(--mute);font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #campos b{font-weight:500;font-size:15px;line-height:1.3;white-space:nowrap}
@@ -236,7 +236,7 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
  </div>
 </div></div>
 <script>
-// Start-up splash (docs/sources.md#start-up): removed once the first frame with the sky map is drawn (at most 30 s after the first frame).
+// Start-up splash (docs/interface.md#start-up): removed once the first frame with the sky map is drawn (at most 30 s after the first frame).
 // Before the first frame, an uncaught error, a script that fails to download, or no frame after 20 s (60 s while the page is still
 // downloading) turns it into an error message; after it, errors are ignored here.
 (()=>{const $=id=>document.getElementById(id),el=$('splash'),t0=Date.now();let done=false,framed=false,failed=null,timer;
@@ -826,7 +826,7 @@ const mw=new THREE.Mesh(new THREE.SphereGeometry(9,64,32),mwMat);mw.renderOrder=
 // otherwise 4K; any 8K attempt falls back to 4K if it fails. Loaded maps are kept, so switching back does not download again (docs/sources.md#sky-map-loading)
 const SKY8_OK=renderer.capabilities.maxTextureSize>=8192,SKY_AUTO8=SKY8_OK&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,skyTex={};let skyReq=0;
 if(S.skyRes==='8k'&&!SKY8_OK)S.skyRes='auto';
-let SKY_READY=!S.skyp.mw,SKY_MSG='Loading the sky map…';   // the start-up splash waits for this (docs/sources.md#start-up)
+let SKY_READY=!S.skyp.mw,SKY_MSG='Loading the sky map…';   // the start-up splash waits for this (docs/interface.md#start-up)
 function loadSky(){const req=++skyReq,want=(S.skyRes==='8k'||(S.skyRes==='auto'&&SKY_AUTO8))?['8k','4k']:['4k'],L=new THREE.TextureLoader();
  const use=(k,t)=>{if(req!==skyReq)return;const old=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(old&&old!==t)old.dispose();mw.visible=S.skyp.mw;mwMat.userData.res=k;SKY_READY=true};
  const next=i=>{const k=want[i];if(!k){SKY_READY=true;return}if(!skyTex[k]&&!SKY_READY){SKY_MSG='Loading the sky map ('+(k==='8k'?'6.9':'2.2')+' MB)…';window.__boot&&__boot.status(SKY_MSG)}if(skyTex[k])return use(k,skyTex[k]);
@@ -1135,7 +1135,7 @@ function renderUI(){
  syncTrailUI();$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
  $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
-// camera position (docs/sources.md#camera-position): distance and galactic latitude relative to the selected object, ecliptic latitude
+// camera position (docs/interface.md#the-camera-position-card): distance and galactic latitude relative to the selected object, ecliptic latitude
 // relative to the plane of the distance rings; the scene is the J2000 ecliptic as (x, z, -y),
 // 1 unit = 10^6 km (distances are true to scale); the direction goes to galactic coordinates through J2000 equatorial and the
 // ICRS-to-galactic rotation (Hipparcos, ESA 1997)
