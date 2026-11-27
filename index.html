@@ -164,7 +164,25 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 #dsub .est{display:none}
 #timebar.estm{border-color:var(--warn)}#timebar.estm input[type=range]{accent-color:var(--warn)}#timebar.estm #date{color:var(--warn)}#timebar.estm .est{visibility:visible}
 #jump{font:15px Jost,sans-serif;background:#151b29;color:var(--ink);border:1px solid var(--line);border-radius:8px;min-height:44px;padding:0 8px;color-scheme:dark}
-#err{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:var(--mute)}
+/* start-up splash: shown until the first frame is drawn, or turned into an error message (docs/sources.md#start-up) */
+#splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:var(--bg);text-align:center;transition:opacity .6s ease}
+#splash.gone{opacity:0;pointer-events:none}
+#splash .box{max-width:460px;display:grid;justify-items:center;gap:10px}
+#splash img{width:72px;height:72px}
+#splash h1{margin:4px 0 0;font-size:22px;font-weight:500;letter-spacing:.01em}
+#splash .status{margin:0;color:var(--mute);min-height:1.45em}
+#splash .spin{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--accent);animation:sspin 1s linear infinite}
+@keyframes sspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#splash .spin{animation-duration:3s}#splash{transition:none}}
+#splash .fail{display:none;gap:10px;justify-items:center}
+#splash.failed .spin,#splash.failed .status{display:none}
+#splash.failed .fail{display:grid}
+#splash .fail p{margin:0}
+#splash .detail{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--mute);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:8px;padding:8px 10px;max-width:100%;overflow-wrap:anywhere}
+#splash .acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px}
+#splash button{font:inherit;color:var(--ink);background:var(--hi);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+#splash button:hover{border-color:var(--accent)}
+#splash a{color:var(--accent)}
 @media(max-width:600px){
  #panel{left:8px;right:8px;top:8px;width:auto;max-height:calc(100% - 244px)}
  #panel:not(.open) #pbody{display:none}
@@ -200,10 +218,45 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
 </style>
 </head>
 <body>
+<div id="splash"><div class="box">
+ <img src="icon.svg" alt="" width="72" height="72">
+ <h1>Solar System Explorer</h1>
+ <div class="spin" aria-hidden="true"></div>
+ <p class="status" id="splashStatus" role="status" aria-live="polite">Loading…</p>
+ <div class="fail" role="alert">
+  <p id="splashMsg">Solar System Explorer couldn't start.</p>
+  <p class="detail" id="splashDetail" hidden></p>
+  <div class="acts"><button id="splashReload" type="button">Reload</button><button id="splashReset" type="button">Reset saved settings and reload</button></div>
+  <p><a id="splashIssue" href="https://github.com/kauemelo01/Solar-System-Explorer/issues" target="_blank" rel="noopener">Report the problem on GitHub</a> (the error and your browser's name are filled in for you)</p>
+ </div>
+</div></div>
+<script>
+// Start-up splash (docs/sources.md#start-up): removed once the first frame with the sky map is drawn (at most 30 s after the first frame).
+// Before the first frame, an uncaught error, a script that fails to download, or no frame after 20 s (60 s while the page is still
+// downloading) turns it into an error message; after it, errors are ignored here.
+(()=>{const $=id=>document.getElementById(id),el=$('splash'),t0=Date.now();let done=false,framed=false,failed=null,timer;
+ const B=window.__boot={
+  status(m){if(!done&&!failed)$('splashStatus').textContent=m},
+  fail(msg,detail,soft){if(done||failed)return;failed=soft?'soft':'hard';clearTimeout(timer);el.classList.add('failed');
+   $('splashMsg').textContent=msg||"Solar System Explorer couldn't start.";const d=$('splashDetail');d.textContent=detail||'';d.hidden=!detail;
+   const what=detail||msg||'unknown error',body='**What happened:** the app did not start.\n\n**Error:** '+what+'\n\n**Browser:** '+navigator.userAgent+'\n\n**Page:** '+location.pathname;
+   $('splashIssue').href='https://github.com/kauemelo01/Solar-System-Explorer/issues/new?title='+encodeURIComponent('App did not start: '+what.slice(0,80))+'&body='+encodeURIComponent(body)},
+  frame(){if(framed||failed==='hard')return;framed=true;clearTimeout(timer);timer=setTimeout(()=>B.done(),30000)},  // the app runs; wait up to 30 s more for the sky map
+  done(){if(done||failed==='hard')return;done=true;clearTimeout(timer);el.classList.add('gone');setTimeout(()=>el.remove(),700)}};  // a late start still clears a time-out message
+ const watch=()=>{const s=(Date.now()-t0)/1000;
+  if(document.readyState!=='complete'&&s<60){B.status('Still downloading… (a slow connection?)');timer=setTimeout(watch,5000);return}
+  B.fail('Solar System Explorer is taking too long to start.','No frame was drawn within '+Math.round(s)+' seconds'+(document.readyState!=='complete'?', and the page is still downloading':'')+'.',true)};
+ timer=setTimeout(watch,20000);
+ addEventListener('error',e=>{if(done||framed)return;const t=e.target;
+  if(t&&t!==window&&t.tagName){if(t.tagName==='SCRIPT')B.fail('Part of the app could not be downloaded.','Failed to load '+(t.getAttribute('src')||'a script'));return}  // images, fonts and styles are not fatal
+  B.fail(null,(e.message||'Error')+(e.lineno?' (line '+e.lineno+')':''))},true);
+ $('splashReload').onclick=()=>location.reload();
+ $('splashReset').onclick=()=>{try{for(const k of Object.keys(localStorage))if(k.startsWith('sse-'))localStorage.removeItem(k)}catch(e){}location.reload()};
+})();
+</script>
 <canvas id="c" aria-label="3D view of the solar system"></canvas>
-<noscript><p style="position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:#e9edf5">Solar System Explorer is an interactive 3D orrery of the solar system in which any body can be the centre. It needs JavaScript and WebGL. <a href="docs/" style="color:#8bb8ff">Read the documentation and object catalogue</a>.</p></noscript>
+<noscript><style>#splash{display:none}</style><p style="position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:#e9edf5">Solar System Explorer is an interactive 3D orrery of the solar system in which any body can be the centre. It needs JavaScript and WebGL. <a href="docs/" style="color:#8bb8ff">Read the documentation and object catalogue</a>.</p></noscript>
 <div id="labels"></div>
-<div id="err"><p>The 3D renderer could not start (WebGL or the Three.js library is unavailable in this browser).</p></div>
 
 <aside id="panel" class="card">
  <header>
@@ -314,6 +367,7 @@ const MOONS=[["Io","jupiter",421800,0.004,49.1,330.9,0.0,0.0,1.762732,268.1,64.5
 </script>
 <script>
 {
+window.__boot&&__boot.status('Building the solar system…');
 const $=id=>document.getElementById(id);
 if(typeof THREE==='undefined'){$('err').style.display='grid';throw new Error('THREE missing')}
 const AU=149.5978707,KM=1e-6,DEG=Math.PI/180,TAU=Math.PI*2,CKMS=299792.458,R0=20,OBL=23.4392911*DEG,J2000=2451545;
@@ -563,7 +617,7 @@ const anch=o=>o.cat==='moon'&&o.parent!==S.center&&o.id!==S.center;
 
 /* ---------- renderer ---------- */
 const canvas=$('c');let renderer;
-try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,logarithmicDepthBuffer:true})}catch(e){$('err').style.display='grid';throw e}
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,logarithmicDepthBuffer:true})}catch(e){window.__boot&&__boot.fail("This browser or device can't show 3D graphics.",'WebGL is unavailable: '+(e&&e.message||e));throw e}
 renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputEncoding=THREE.sRGBEncoding;renderer.autoClear=false;
 const PR=renderer.getPixelRatio();
 const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(50,1,1e-7,1e7);
@@ -763,9 +817,10 @@ const mw=new THREE.Mesh(new THREE.SphereGeometry(9,64,32),mwMat);mw.renderOrder=
 // otherwise 4K; any 8K attempt falls back to 4K if it fails. Loaded maps are kept, so switching back does not download again (docs/sources.md#sky-map-loading)
 const SKY8_OK=renderer.capabilities.maxTextureSize>=8192,SKY_AUTO8=SKY8_OK&&Math.max(screen.width,screen.height)*(devicePixelRatio||1)>=1600,skyTex={};let skyReq=0;
 if(S.skyRes==='8k'&&!SKY8_OK)S.skyRes='auto';
+let SKY_READY=!S.skyp.mw,SKY_MSG='Loading the sky map…';   // the start-up splash waits for this (docs/sources.md#start-up)
 function loadSky(){const req=++skyReq,want=(S.skyRes==='8k'||(S.skyRes==='auto'&&SKY_AUTO8))?['8k','4k']:['4k'],L=new THREE.TextureLoader();
- const use=(k,t)=>{if(req!==skyReq)return;const old=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(old&&old!==t)old.dispose();mw.visible=S.skyp.mw;mwMat.userData.res=k};
- const next=i=>{const k=want[i];if(!k)return;if(skyTex[k])return use(k,skyTex[k]);
+ const use=(k,t)=>{if(req!==skyReq)return;const old=mwMat.uniforms.map.value;mwMat.uniforms.map.value=t;if(old&&old!==t)old.dispose();mw.visible=S.skyp.mw;mwMat.userData.res=k;SKY_READY=true};
+ const next=i=>{const k=want[i];if(!k){SKY_READY=true;return}if(!skyTex[k]&&!SKY_READY){SKY_MSG='Loading the sky map ('+(k==='8k'?'6.9':'2.2')+' MB)…';window.__boot&&__boot.status(SKY_MSG)}if(skyTex[k])return use(k,skyTex[k]);
   L.load('sky/starmap_'+k+'.jpg',t=>{t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;skyTex[k]=t;use(k,t)},undefined,()=>next(i+1))};
  next(0)}
 loadSky();
@@ -1237,7 +1292,10 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
  const t1=performance.now();renderer.clear();renderer.render(starScene,starCam);renderer.clearDepth();renderer.render(scene,camera);const t2=performance.now();
  project();placeLabels();placeSkyLabels();if(now-infoT>150){infoT=now;renderInfo()}
  PERF.js=PERF.js*.9+(t1-t0+performance.now()-t2)*.1;PERF.gl=PERF.gl*.9+(t2-t1)*.1;
+ if(!FIRST){FIRST=true;if(window.__boot){__boot.frame();if(!SKY_READY)__boot.status(SKY_MSG)}}   // the first frame is drawn: the app runs
+ if(SKY_READY&&!SPLASH_OFF){SPLASH_OFF=true;window.__boot&&__boot.done()}   // and this frame has the sky map: remove the start-up splash
  requestAnimationFrame(frame)}
+let FIRST=false,SPLASH_OFF=false;window.__boot&&__boot.status('Drawing the first frame…');
 resize();buildRings();buildMoonUI();applyVis();applySky();renderUI();renderInfo();
 requestAnimationFrame(frame);
 window.__sse={PERF,S,OBJ,byId,LOD,setFocus,setCenter,MG,applyVis,buildMoonUI,cam};

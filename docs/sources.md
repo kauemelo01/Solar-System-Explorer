@@ -362,6 +362,14 @@ Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden
 
 ## In the app
 
+### Start-up
+
+While the app loads, a splash screen shows its name and what it is doing (*Loading…*, *Building the solar system…*, *Drawing the first frame…*, *Loading the sky map (6.9 MB)…*). It disappears once the 3D view has been drawn with the sky map in place ([Sky map loading](#sky-map-loading)), so the first view is complete. It does not wait for the sky map when the *Milky Way & faint stars* layer is off or the map cannot be downloaded, and waits at most 30 seconds after the first frame, after which the map appears whenever it arrives. If the app cannot start, the splash turns into an error message instead of leaving an empty view:
+
+- **When:** before the first frame is drawn, an error stops the app's start-up code; one of its scripts cannot be downloaded; the browser or device cannot show 3D graphics (WebGL); or no frame is drawn within 20 seconds (up to 60 seconds while the page is still downloading, as on a slow connection). Problems after the first frame, or a texture or font that fails to download, do not bring it back.
+- **What it shows:** a short explanation and the error itself, with **Reload**, **Reset saved settings and reload** (which clears the settings the app remembers on this device, in case one of them stops it from starting after an update) and a link to report the problem on GitHub, with the error and the browser's name filled in for review before sending.
+- Without JavaScript, the page shows a short description of the app and a link to this documentation instead.
+
 ### The object card
 
 Clicking an object, or finding it with *Find*, opens its card:
