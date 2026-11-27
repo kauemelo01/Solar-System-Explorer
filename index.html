@@ -981,7 +981,7 @@ buildCenters();
 cBox.onclick=e=>{const t=e.target.closest('.chip');if(t)setCenter(t.dataset.id)};
 // Moons menu: planets first, then two groups (dwarf planets & candidates, asteroids), each body listing its moon families.
 // Turning on a moon of a dwarf planet or asteroid also shows its parent's group, as for Pluto.
-const PLANETS_M=['earth','mars','jupiter','saturn','uranus','neptune'],MOON_GROUPS=[['dwarf','Dwarf planets & candidates',['pluto','eris','haumea','quaoar','orcus','gonggong']],['asteroid','Asteroids',['didymos','dinkinesh','hektor','eurybates','patroclus']]];
+const PLANETS_M=['earth','mars','jupiter','saturn','uranus','neptune'],MOON_GROUPS=[['dwarf','Dwarf planets & candidates',['pluto','eris','haumea','quaoar','orcus','gonggong']],['asteroid','Asteroids',['didymos','hektor','eurybates','patroclus']]];
 const openMP=new Set();
 const famKeys=p=>FAM[p].map(f=>p+':'+f[0]),cntOf=keys=>keys.reduce((s,g)=>s+(MOONCOUNT[g]||0),0),cntOn=keys=>keys.reduce((s,g)=>s+(MG.has(g)?MOONCOUNT[g]||0:0),0);
 function bodyMP(p){const o=byId[p],keys=famKeys(p),tot=cntOf(keys),on=cntOn(keys),cand=o.kind.includes('candidate')?' <small class="cand">candidate</small>':'';
