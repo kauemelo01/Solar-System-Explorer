@@ -2,7 +2,7 @@
 
 # Sun, planets and the Moon
 
-10 bodies. Their positions are computed from the JPL *Approximate Positions of the Planets* Keplerian elements (E. M. Standish, valid 1800–2050 AD), except the Moon, which is placed around the Earth–Moon barycentre by the lunar theory of Meeus, *Astronomical Algorithms*, ch. 47 ([how the Moon is placed](../sources.md#the-moon)). Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
+10 bodies. Their positions are computed from E. M. Standish and J. G. Williams's Keplerian elements (JPL SSD): Table 1 over 1800–2050 AD and Table 2 outside it ([Planets](../sources.md#planets)), except the Moon, which is placed around the Earth–Moon barycentre by the lunar theory of Meeus, *Astronomical Algorithms*, ch. 47 ([how the Moon is placed](../sources.md#the-moon)). Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
 
 Pluto, whose orbit also comes from this JPL table, is listed with the [dwarf planets](small-bodies.md#pluto). The ring systems of Jupiter, Saturn, Uranus and Neptune are listed with their radii and sources on the [rings page](rings.md).
 
@@ -23,7 +23,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 ## Sources for this group
 
-- JPL SSD, *Approximate Positions of the Planets*: <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
+- JPL SSD, Standish and Williams's Keplerian elements for the planets (Tables 1, 2a and 2b): <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
 - JPL SSD, *Planetary Physical Parameters*: <https://ssd.jpl.nasa.gov/planets/phys_par.html>
 - NASA NSSDCA *Planetary Fact Sheets*: <https://nssdc.gsfc.nasa.gov/planetary/planetfact.html>
 - Archinal et al. (2018), *Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015*, Celest. Mech. Dyn. Astr. 130:22: <https://doi.org/10.1007/s10569-017-9805-5>

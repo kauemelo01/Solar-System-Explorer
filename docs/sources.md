@@ -86,9 +86,14 @@ Distances and body sizes are always drawn to true scale. Bodies are therefore ti
 
 ## Planets
 
-- **Elements:** E. M. Standish, *Keplerian Elements for Approximate Positions of the Major Planets*, JPL SSD. Table 1 (valid 1800 AD – 2050 AD), with linear rates per Julian century. <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
+- **Elements:** E. M. Standish and J. G. Williams's Keplerian elements for the planets, published by JPL SSD (from Standish and Williams 1992, *Orbital Ephemerides of the Sun, Moon, and Planets*), with linear rates per Julian century. <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
+  - **1800–2050 AD:** Table 1, fitted by Standish and Williams to that span. The app uses it unchanged there, so the small-body fits near the planets, which follow JPL relative to the app's planets, need no change ([Small-body orbits](#small-body-orbits)).
+  - **Outside 1800–2050 AD:** Table 2a, fitted to 3000 BC – 3000 AD, with Table 2b's extra terms in the mean anomaly for Jupiter to Pluto (*b*T² + *c* cos *f*T + *s* sin *f*T). Over the 30 years beyond each end (1770–1800 and 2051–2081) the app blends the two tables' positions with a smooth step, so there is no jump.
+  - **Checked** with the app's own code against JPL Horizons ([`tools/planet-checks/`](../tools/planet-checks/README.md)), seen from the Sun. From 1800 to 2050 AD: within 12.3′ (Saturn; Jupiter 8.6′, Uranus 2.0′, Mars 1.7′, Neptune, Pluto and the inner planets within 1′). From 1000 to 1800 and 2051 to 3000 AD: within 26′ (Saturn; Uranus 21′, Jupiter 13′, Pluto 12′, Neptune 8.8′, Mercury 7.0′, Mars 3.1′, Venus 2.1′, the Earth–Moon barycentre 1.6′). Seen from the Earth, every planet is within 29′ (0.5°) from 1000 to 3000 AD. Table 1 alone would be up to 5.5° off there (Saturn; Pluto 2.6°, Jupiter 2.0°, Uranus 1.2°).
+  - Table 2 is less close than Table 1 in the century or two next to 1800–2050 for some planets: Neptune 5.2′ against 1.6′ in 2051–2100, Uranus 20′ against 6.6′ in 1700–1800. Further out it is far closer, and every planet stays within the 1° [accuracy target](#accuracy-targets) from 1000 to 3000 AD.
+  - Before 1600, Mercury's error (7′) is mostly the app's use of Universal Time where the elements use Terrestrial Time (about 26 minutes apart in 1000 AD); with that difference applied it would be within 1.3′.
 - The Earth and the Moon are placed around the **Earth–Moon barycentre** (EMB) using the Earth/Moon mass ratio (μ = 0.0121505).
-- **Pluto** uses the Pluto row of the original version of Standish's Table 1, which JPL has since removed from its web copy (the page now notes that "the former planet Pluto has also been removed"). Checked against JPL Horizons, it places Pluto within 0.01° (about 0.01 AU) of its true position from 1900 to 2100 AD, much closer than a single osculating orbit from the SBDB would (up to 0.45 AU). Pluto is a dwarf planet and is listed and shown with the dwarf planets.
+- **Pluto** uses the Pluto rows of the original versions of Standish and Williams's Tables 1, 2a and 2b (Web Archive copies of JPL's text files: [Table 1](https://web.archive.org/web/2020/https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt), [Tables 2a and 2b](https://web.archive.org/web/2020/https://ssd.jpl.nasa.gov/txt/p_elem_t2.txt)), which JPL has since removed from its web page (the page now notes that "the former planet Pluto has also been removed"). Checked against JPL Horizons, it places Pluto within 0.02° (58″) of its true direction from 1800 to 2050 AD and within 0.04° from 2051 to 2100 AD (about 0.03 AU at most from its true position over 1900–2100), much closer than a single osculating orbit from the SBDB would (up to 0.45 AU). Pluto is a dwarf planet and is listed and shown with the dwarf planets.
 - **Physical data:** JPL *Planetary Physical Parameters* <https://ssd.jpl.nasa.gov/planets/phys_par.html>; NASA NSSDCA *Planetary Fact Sheets* <https://nssdc.gsfc.nasa.gov/planetary/planetfact.html>.
 - **Spin poles and rotation periods:** B. A. Archinal et al. (2018), *Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015*, Celestial Mechanics and Dynamical Astronomy 130:22. <https://doi.org/10.1007/s10569-017-9805-5>. Machine-readable form: NAIF PCK `pck00011.tpc` <https://naif.jpl.nasa.gov/pub/naif/generic_kernels/pck/pck00011.tpc>.
 
@@ -288,7 +293,7 @@ The app turns **70 bodies** so that their prime meridian (longitude 0°) points 
 
 | Object type | Model | Typical accuracy |
 |---|---|---|
-| Planets | Standish Keplerian elements + secular rates | ~arc-minutes, 1800–2050 AD |
+| Planets | Standish and Williams's Keplerian elements (JPL SSD): Table 1 over 1800–2050 AD, Table 2 outside ([Planets](#planets)) | within 12.3′ seen from the Sun, 1800–2050 AD; within 0.5° from 1000 to 3000 AD |
 | The Moon | Lunar theory of Meeus, ch. 47 (main ELP-2000/82 terms) | within 0.02° (2 minutes), 1800–2050 AD |
 | Regular moons | One orbit fitted to JPL Horizons over 1800–2050 AD ([Moon orbits](#moon-orbits)) | Major moons within a fraction of a degree; small inner moons typically 1–3° |
 | Irregular moons | Orbits fitted to JPL Horizons in windows of 2.5–10 years | Typically 1–2.5°, at most 3.6°; distance typically within 2% |
@@ -313,7 +318,7 @@ Small bodies were measured as described under [Small-body orbits](#small-body-or
 
 | Objects | Model | Best period | Error there | Away from it |
 |---|---|---|---|---|
-| Planets and Pluto | Standish Keplerian elements | 1800–2050 AD | about arc-minutes (JPL's figure) | grows; the time bar shows *Estimated positions* (not measured here) |
+| Planets and Pluto | Standish and Williams's Keplerian elements (JPL SSD), Table 1 | 1800–2050 AD | within 12.3′ seen from the Sun (Saturn; Uranus 2.0′, Neptune and Pluto 1′) | Table 2 outside: within 26′ from 1000 to 3000 AD (Saturn), instead of up to 5.5° with Table 1 alone |
 | The Moon | Lunar theory of Meeus, ch. 47 | 1800–2050 AD | within 0.017° (at most 103 km, 2 minutes) | slowly grows; not measured outside this range |
 | Planets' moons, one orbit (113) | Fitted to JPL Horizons ([Moon orbits](#moon-orbits)) | 1800–2050 AD | typically 1.5° (all fitted moons), distance 1.6% | within about 0.5° 150 years beyond (Io 0.06°, Titan 0.16°) |
 | Planets' moons, time windows (345) | Fitted to JPL Horizons | 1800–2050 AD | as above | orbit size, shape and direction stay right; the position along the orbit is meaningless within a few decades |
@@ -351,7 +356,7 @@ Small bodies were measured as described under [Small-body orbits](#small-body-or
 
 Before Release 4 most of these did not happen in the app, or came months or years off: Apophis passed the Earth at 194,000 km, 81P/Wild 2 never came within 36 million km of Jupiter. The measurements of those single orbits are in the documentation of Release 3 (tag `v3`).
 
-**Date range.** The app covers 1000 to 3000 AD ([the time bar](interface.md#the-time-bar)). **Outside 1800–2050 AD, positions are estimates:** that is the range in which the planets' elements are valid, and the further from it, the larger the errors; the time bar then shows *Estimated positions*. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Estimated positions outside 1800–2050 AD are a [limitation of the model](#limitations-of-the-model).
+**Date range.** The app covers 1000 to 3000 AD ([the time bar](interface.md#the-time-bar)). **Outside 1800–2050 AD, positions are estimates:** that is the range the fits to JPL Horizons cover, and the range of the planets' Table 1. Outside it the planets switch to Standish and Williams's Table 2, within 0.5° up to 1000 and 3000 AD ([Planets](#planets)), while the moons and small bodies keep their fitted orbits, whose errors grow further from the range; the time bar then shows *Estimated positions*. The limits are `JD_MIN` and `JD_MAX` in `index.html`. Estimated positions outside 1800–2050 AD are a [limitation of the model](#limitations-of-the-model).
 
 ## Known issues
 
@@ -364,7 +369,7 @@ Simplifications kept on purpose. They are listed so you know what the app does a
 - **Visual aids not to scale:** the fixed-size dots and labels, the Sun's glow, comet tails, exaggerated ring opacity and computer-generated lumpy shapes. Each is described in [What is not to scale](interface.md#what-is-not-to-scale).
 - **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; fourteen small bodies with no published rotation period we could verify spin at an illustrative 12 hours ([notes on sizes and rotation](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Orbit models are simple, so precision depends on the date and the body** (see [Accuracy](#accuracy)):
-  - planets and Pluto use Keplerian elements valid for 1800–2050 AD; outside that range the time bar shows *Estimated positions*;
+  - planets and Pluto use Standish and Williams's Keplerian elements: Table 1 over 1800–2050 AD and Table 2 outside, within 0.5° of JPL Horizons from 1000 to 3000 AD; outside 1800–2050 AD the time bar shows *Estimated positions*;
   - the Moon uses a shortened lunar theory (Meeus, ch. 47), within 0.02° from 1800 to 2050 AD;
   - small bodies follow orbits fitted to JPL Horizons in time windows over 1800–2050 AD ([Small-body orbits](#small-body-orbits)), within 1° or 1 day of JPL on every date; outside that range, and Bennu before 1901, their positions are estimates. Eight distant bodies keep one SBDB orbit, which stays within 1° over the range. Within a few hours of a close flyby a body's path is drawn as a series of short orbits around the Sun, within 0.05° of its true direction as seen from the planet;
   - planetary moons are fitted to JPL Horizons over 1800–2050 AD; outside that range, and outside the shorter range Horizons covers for 24 of them, their positions are estimates, and S/2025 U 1, not yet in Horizons, uses JPL's mean elements ([Moon orbits](#moon-orbits));

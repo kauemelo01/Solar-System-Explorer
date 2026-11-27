@@ -18,7 +18,7 @@ The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* sw
 | <a id="haumea"></a>**Haumea** | 136108 Haumea (2003 EL61) | Dwarf planet · Kuiper belt | 43.06 | 0.1944 | 28.21 | 1,161 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136108) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136108&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/haumea/) · [rings](rings.md#haumea) | Painted |
 | <a id="makemake"></a>**Makemake** | 136472 Makemake (2005 FY9) | Dwarf planet · Kuiper belt | 45.57 | 0.1589 | 29.03 | 715 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20136472) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20136472&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/makemake/) | Painted |
 
-**Pluto** is a dwarf planet, but the app computes its orbit like the planets', from the original version of the JPL *Approximate Positions of the Planets* elements (E. M. Standish, valid 1800–2050 AD; JPL's current web page no longer lists Pluto), not from the SBDB. Checked against JPL Horizons, this places Pluto within 0.01° of its true position from 1900 to 2100 AD. The *a*, *e* and *i* shown are that table's J2000 values; its NAIF ID is 999. Its five moons, including Charon, are listed in [Moons of Pluto](moons-pluto.md).
+**Pluto** is a dwarf planet, but the app computes its orbit like the planets', from the original version of E. M. Standish and J. G. Williams's Keplerian elements (JPL SSD; Table 1 over 1800–2050 AD, Table 2 outside; JPL's current web page no longer lists Pluto), not from the SBDB. Checked against JPL Horizons, this places Pluto within 0.02° of its true direction from 1800 to 2050 AD, and within about 0.2° from 1000 to 3000 AD. The *a*, *e* and *i* shown are that table's J2000 values; its NAIF ID is 999. Its five moons, including Charon, are listed in [Moons of Pluto](moons-pluto.md).
 
 ## Dwarf planet candidates
 
@@ -150,7 +150,7 @@ Each size and rotation period is the **most recent published measurement**. That
 ## Sources for this group
 
 - JPL Small-Body Database Lookup: <https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html>
-- Pluto's orbit: JPL SSD, *Approximate Positions of the Planets* <https://ssd.jpl.nasa.gov/planets/approx_pos.html>; NASA NSSDCA *Pluto Fact Sheet* <https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html>
+- Pluto's orbit: Standish and Williams's Keplerian elements, JPL SSD <https://ssd.jpl.nasa.gov/planets/approx_pos.html> (Pluto's rows: Web Archive copies of JPL's text files: [Table 1](https://web.archive.org/web/2020/https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt), [Tables 2a and 2b](https://web.archive.org/web/2020/https://ssd.jpl.nasa.gov/txt/p_elem_t2.txt)); NASA NSSDCA *Pluto Fact Sheet* <https://nssdc.gsfc.nasa.gov/planetary/factsheet/plutofact.html>
 - JPL SBDB API documentation: <https://ssd-api.jpl.nasa.gov/doc/sbdb.html>
 - IAU Minor Planet Center: <https://www.minorplanetcenter.net/>
 - NASA Science — Asteroids, Comets & Meteors: <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/comets/>

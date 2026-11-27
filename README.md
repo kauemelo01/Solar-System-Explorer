@@ -40,7 +40,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - **469 natural satellites** (status as of November 2026): Mars 2 · Jupiter 115 · Saturn 292 · Uranus 29 · Neptune 16 · Pluto 5 · other dwarf planets and candidates 6 (Dysnomia, Hiʻiaka, Namaka, Weywot, Vanth, Xiangliu) · asteroids 4 (Dimorphos, Skamandrios, Queta, Menoetius)
   - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 35 asteroids, centaurs and Kuiper belt objects, 21 comets
 - **7 ring systems** at their true radii: Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo
-- **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from JPL Keplerian elements, the Moon from a lunar theory, and the other moons, dwarf planets, asteroids and comets from orbits fitted to JPL Horizons (or published orbits); outside 1800–2050 AD positions are estimates
+- **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from Standish and Williams's Keplerian elements (JPL SSD), the Moon from a lunar theory, and the other moons, dwarf planets, asteroids and comets from orbits fitted to JPL Horizons (or published orbits); outside 1800–2050 AD positions are estimates
 - **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
 - Statistical belts (main asteroid belt, Hilda asteroids, Jupiter trojans, Neptune trojans, Kuiper belt) to show where those populations live; the Hildas form the triangle that turns with Jupiter
 - **What is and is not included, and why:** [What's included](docs/sources.md#whats-included), [What's not included](docs/sources.md#whats-not-included), and the [Watchlist](docs/sources.md#watchlist) of objects waiting for published data
@@ -66,7 +66,7 @@ Everything in the app traces back to public, citable sources, mostly from NASA's
 
 | Data | Source |
 |---|---|
-| Planet orbits | JPL SSD, [*Approximate Positions of the Planets*](https://ssd.jpl.nasa.gov/planets/approx_pos.html) (Standish; best 1800–2050 AD) |
+| Planet orbits | Standish and Williams, [Keplerian elements](https://ssd.jpl.nasa.gov/planets/approx_pos.html) (JPL SSD): Table 1 over 1800–2050 AD, Tables 2a and 2b outside |
 | Moon orbits | Positions: orbits fitted to [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) over 1800–2050 AD ([`data/moon-orbits.js`](data/moon-orbits.js); [method and accuracy](docs/sources.md#moon-orbits)). Orbit shapes listed in the catalogue: JPL SSD, [*Planetary Satellite Mean Elements*](https://ssd.jpl.nasa.gov/sats/elem/) |
 | Moon sizes | JPL SSD, [*Planetary Satellite Physical Parameters*](https://ssd.jpl.nasa.gov/sats/phys_par/), then each moon's JPL Horizons record, then NASA Science pages and published surveys ([which source for each moon](docs/sources.md#moon-sizes)) |
 | Asteroids, dwarf planets, comets | Positions: orbits fitted to [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) over 1800–2050 AD ([`data/sb-orbits.js`](data/sb-orbits.js); [method and accuracy](docs/sources.md#small-body-orbits)). Orbital elements, sizes and rotation listed in the catalogue: [JPL Small-Body Database](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html) |
@@ -125,6 +125,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 | `data/moon-orbits.js` | The planets' moon orbits fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#moon-orbits)) |
 | `data/sb-orbits.js` | The orbits of 56 dwarf planets, asteroids and comets fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#small-body-orbits)) |
 | `tools/build_textures.py` | Rebuilds `textures/` from the original sources (downloads them; needs Pillow) |
+| `tools/planet-checks/` | Measures the planets against JPL Horizons ([how to run](tools/planet-checks/README.md)) |
 | `tools/moon-orbit-fits/` | Rebuilds `data/moon-orbits.js` from JPL Horizons and checks it ([how to run](tools/moon-orbit-fits/README.md)) |
 | `tools/small-body-orbit-fits/` | Rebuilds `data/sb-orbits.js` from JPL Horizons and checks it ([how to run](tools/small-body-orbit-fits/README.md)) |
 | `docs/` | Documentation and the per-object catalogue |
@@ -136,7 +137,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 
 ## Accuracy and limits
 
-This is an educational model built on Keplerian orbits, not a full n-body integration: the planets use JPL's approximate elements, and the moons, dwarf planets, asteroids and comets use orbits fitted to JPL Horizons over 1800–2050 AD, which meet the [accuracy targets](docs/sources.md#accuracy-targets). Planet positions are good to roughly arc-minutes within 1800–2050 AD. The time bar covers **1000 to 3000 AD** ([the time bar](docs/interface.md#the-time-bar)); outside 1800–2050 AD positions are estimates. Known issues: none at the moment ([Known issues](docs/sources.md#known-issues)).
+This is an educational model built on Keplerian orbits, not a full n-body integration: the planets use Standish and Williams's Keplerian elements (JPL SSD), and the moons, dwarf planets, asteroids and comets use orbits fitted to JPL Horizons over 1800–2050 AD, which meet the [accuracy targets](docs/sources.md#accuracy-targets). Planet positions are within 12.3′ of JPL Horizons over 1800–2050 AD and within 0.5° from 1000 to 3000 AD. The time bar covers **1000 to 3000 AD** ([the time bar](docs/interface.md#the-time-bar)); outside 1800–2050 AD positions are estimates. Known issues: none at the moment ([Known issues](docs/sources.md#known-issues)).
 
 Distances and body sizes are always to true scale. A few visual aids are not; they are among the [limitations of the model](docs/sources.md#limitations-of-the-model), and each is described under [What is not to scale](docs/interface.md#what-is-not-to-scale):
 - the fixed-size dots and labels that mark each body;
@@ -159,7 +160,8 @@ New moons are announced every year; the rules for adding objects are in [What's 
   - **Written [accuracy targets](docs/sources.md#accuracy-targets)** (within 1° or 1 day of JPL Horizons; close planetary encounters within 3 hours), and orbits that meet them:
     - 56 dwarf planets, asteroids and comets fitted to JPL Horizons over 1800–2050 AD, so every close planetary encounter of the period happens (Apophis passes the Earth on 13 April 2029 at 38,026 km, against JPL's 38,011);
     - the moons of dwarf planets and asteroids fitted to JPL Horizons or to Proudfoot et al. (2024): Dimorphos before and after NASA's DART impact, and Haumea's moons, pole and ring in the right plane;
-    - the Moon from a lunar theory (Meeus), within 0.02° instead of up to 5°.
+    - the Moon from a lunar theory (Meeus), within 0.02° instead of up to 5°;
+    - the planets and Pluto from Standish and Williams's Table 2 outside 1800–2050 AD (Table 1 inside, unchanged), within 0.5° of JPL Horizons from 1000 to 3000 AD instead of up to 5.5° (Saturn).
   - **Better data**: each small body's size and rotation from its most recent published measurement (Arrokoth measured by New Horizons, Torifune by Hayabusa2), published sizes for 354 more moons (10 still have none), the Jupiter trojans back at L4 and L5, and 9P/Tempel 1 turned to its real prime meridian.
   - **Interface**: a start-up screen that turns into an error message if the app cannot start, a camera position card, smooth trails around perihelion, and *source* links on the object card for any value not from NASA or JPL ([the interface](docs/interface.md)).
 - **Release 3** (current, branch `main`, tag `v3`):
