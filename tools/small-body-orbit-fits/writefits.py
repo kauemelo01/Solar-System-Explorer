@@ -7,7 +7,12 @@ F={}
 for f in sorted(glob.glob(WORK+'/fits/*.json')):
     k=os.path.basename(f)[:-5];W=json.load(open(f))['w']
     F[k]=[[g(w[0],12),g(w[1],12),g(w[2],13),g(w[3],13),g(w[4],12),g(w[5],8),g(w[6],12),g(w[7],8),g(w[8],8),g(w[9],10),g(w[10],10),g(w[11],10)] for w in W]
+MF=os.path.join(os.environ.get('SSE_WORK',os.path.expanduser('~/solar-system-explorer-work/sbfit')),'moonfits.json')
+M=json.load(open(MF,encoding='utf8')) if os.path.exists(MF) else {}
 s=('// Small-body orbits fitted to JPL Horizons over 1800-2050 AD in time windows (tools/small-body-orbit-fits; docs/sources.md#small-body-orbits).\n'
    '// Each window: [t0, t1 (days from J2000), M0 (deg), n (deg/day), argument of perihelion w0 and rate, node and rate, M\'\' (deg/day^2), a (km), e, i (deg)], J2000 ecliptic.\n'
-   'window.SB_FIT='+json.dumps(F,separators=(',',':'))+';\n')
+   'window.SB_FIT='+json.dumps(F,separators=(',',':'))+';\n'
+   '// Moons of dwarf planets and asteroids fitted to a reference ephemeris (JPL Horizons, or Proudfoot et al. 2024 for Haumea\'s moons),\n'
+   '// same window format; t: the span the reference covers (days from J2000), outside which positions are estimates.\n'
+   'window.SBM_FIT='+json.dumps(M,separators=(',',':'),ensure_ascii=False)+';\n')
 open(out,'w').write(s);print(len(F),'bodies,',sum(len(v) for v in F.values()),'windows,',len(s)//1024,'KB ->',out)

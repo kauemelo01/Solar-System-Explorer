@@ -34,7 +34,7 @@ Radii and widths from the NASA NSSDCA ring fact sheets. Ring planes follow each 
 
 | Body | Ring | Radius (km) | Width (km) | Ring plane (pole, J2000) | Source |
 |---|---|---|---|---|---|
-| <a id="haumea"></a>**[Haumea](small-bodies.md#haumea)** | — | 2,287 (+75/−45) | 70 | Coplanar with Haumea's equator and Hiʻiaka's orbit; pole taken from Hiʻiaka's orbit (Ragozzine & Brown 2009): RA 112.05°, Dec −14.94° | Ortiz et al. 2017, *Nature* ([arXiv:2006.03113](https://arxiv.org/abs/2006.03113)) |
+| <a id="haumea"></a>**[Haumea](small-bodies.md#haumea)** | — | 2,287 (+75/−45) | 70 | Coplanar with Haumea's equator and Hiʻiaka's orbit; pole taken from Hiʻiaka's orbit (Proudfoot et al. 2024, *PSJ* 5:69): RA 282.96°, Dec −10.23° | Ortiz et al. 2017, *Nature* ([arXiv:2006.03113](https://arxiv.org/abs/2006.03113)) |
 | <a id="quaoar"></a>**[Quaoar](small-bodies.md#quaoar)** | Q2R | 2,520 ± 20 | ~10 | Pole of Q1R, RA 259.82° (17h 19m 16.8s), Dec +53.45° (+53° 27′); co-planar with Quaoar's equator and Weywot's orbit | Pereira et al. 2023, *A&A* ([arXiv:2304.09237](https://arxiv.org/abs/2304.09237)) |
 | | Q1R | 4,057 ± 6 | ~5 (up to ~300, varies around the ring) | | Morgado et al. 2023, *Nature*; Pereira et al. 2023 |
 | <a id="chariklo"></a>**[Chariklo](small-bodies.md#chariklo)** | 2013C1R | 390.6 | ~7 | RA 151.30°, Dec +41.48° (preferred solution) | Braga-Ribas et al. 2014, *Nature* ([arXiv:1409.7259](https://arxiv.org/abs/1409.7259)) |

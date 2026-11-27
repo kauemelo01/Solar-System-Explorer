@@ -31,3 +31,14 @@ These scripts build `data/sb-orbits.js`: the orbits of the dwarf planets, astero
 ## Files
 
 `hz.py` downloads and caches Horizons state vectors; `sbfit.py` holds the orbit model (a copy of the app's `moonOrbit` and `ell1`, with the same Kepler solver) and the fitting rule; `appplanets.js` gives the app's planet positions to Python; `validate.js`, `flycheck.js` and `jumps.js` run the app's own code from `index.html`. The window format is the moons' (`[t0, t1, M0, n, ω0, ω′, Ω0, Ω′, M″, a km, e, i]`, J2000 ecliptic, times in days from J2000); the app blends neighbouring windows over 10% of the shorter one (`blendB()` in `index.html`).
+
+## Moons of dwarf planets and asteroids (`moons/`)
+
+These scripts fit Dysnomia, Weywot, Vanth and Dimorphos to JPL Horizons, and Hiʻiaka and Namaka to the ephemeris of Proudfoot et al. 2024; the fits are written to `data/sb-orbits.js` as `window.SBM_FIT` (same window format, with the span the reference covers in `t`, its name in `src`, and an optional blend length `b` in days). The other moons keep their published orbits ([docs/sources.md](../../docs/sources.md#moons-of-dwarf-planets-and-asteroids-10)). Run them in a work folder, in this order:
+
+1. `python hzmoons.py`, then `python hzdense.py`: Horizons positions relative to each primary (400 random dates, plus a dense block of 1.5 orbits every year) over the span Horizons covers.
+2. The Proudfoot et al. 2024 ephemeris, `psjad26e9t3_mrt.txt` (their Table 3, machine-readable, from the journal: <https://doi.org/10.3847/PSJ/ad26e9>), sampled at 1,500 dates into `sky_in.json` as `{"Hiiaka":{"primary":"Haumea","rows":[[JD, dRA, dDec] in mas, …]},"Namaka":…}`; then `node sky.js sky_in.json sky_fit.json`, which adds each date's light-time-corrected time and sky directions from the app's own geometry.
+3. `node -e` with `appmoons.js` to write `appinit.json` (the app's current orbits, as starting points); then `python runfits.py` (all fits), `python runfits2.py` (Dimorphos after the DART impact, with a periodogram for its mean motion) and `python runfits4.py` (Namaka in 3-year windows): `fits.json`.
+4. Copy the six fits into `$SSE_WORK/moonfits.json` (keys: the app's names; `t` in days from J2000; Dimorphos `"b":0.04`), then `python ../writefits.py`.
+
+`miriade.py`, `miriade_dense.py` and `runfits3.py` fetch and fit IMCCE Miriade's satellite ephemerides (Genoide). They were used to check: Miriade agrees with Proudfoot et al. for Haumea's moons and with Horizons for Vanth and Menoetius, but not for Weywot, Queta or Skamandrios, so those two keep their published orbits.
