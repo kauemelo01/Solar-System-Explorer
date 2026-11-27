@@ -25,12 +25,12 @@ defaults:
       path: "docs/interface.md"
     values:
       title: "The interface"
-      description: "How to use Solar System Explorer, and how it draws its data: the layout, every control and keyboard shortcut, the menu, the time bar, the cards and their notes, trails, saved settings, how sky and surface maps are loaded, and the visual aids that are not to scale."
+      description: "How to use Solar System Explorer, and how it draws its data: the layout, every control and keyboard shortcut, the menu, the time bar, the cards and their notes, trails and orbit outlines, saved settings, how sky and surface maps are loaded, and the visual aids that are not to scale."
   - scope:
       path: "docs/catalogue/sun-planets.md"
     values:
       title: "Sun, planets and the Moon"
-      description: "The Sun, the eight planets and the Moon in Solar System Explorer: JPL planetary elements, the Moon from Meeus's lunar theory, NAIF IDs and links to JPL Horizons and NASA fact sheets."
+      description: "The Sun, the eight planets and the Moon in Solar System Explorer: Standish and Williams's Keplerian elements (JPL SSD), the Moon from Meeus's lunar theory, NAIF IDs and links to JPL Horizons and NASA fact sheets."
   - scope:
       path: "docs/catalogue/small-bodies.md"
     values:
@@ -96,6 +96,21 @@ defaults:
     values:
       title: "Small-body orbit fits"
       description: "How Solar System Explorer fits the orbits of 56 dwarf planets, asteroids and comets, and six of their moons, to JPL Horizons and other reference ephemerides: the scripts, the steps and the checks."
+  - scope:
+      path: "tools/planet-checks/README.md"
+    values:
+      title: "Planet checks"
+      description: "How Solar System Explorer measures its planets, the Earth-Moon barycentre and Pluto against JPL Horizons from 1000 to 3000 AD: Standish and Williams's Table 1 over 1800-2050 AD and Table 2 outside."
+  - scope:
+      path: "tools/orbit-outlines/README.md"
+    values:
+      title: "Orbit outlines"
+      description: "How Solar System Explorer chooses which planets, dwarf planets, asteroids and comets get an orbit outline: the orbit must stay within 0.3 degrees of the body for 30 years, from every start date 1800-2020."
+  - scope:
+      path: "tools/textures/README.md"
+    values:
+      title: "Textures"
+      description: "How Solar System Explorer rebuilds its surface maps from their original sources: downloads, recompression, partial maps made transparent, and scaling."
   # Copies of two JPL pages, kept for the moon-orbit tools. They have no front matter, so Jekyll copies them unchanged and they keep
   # JPL's own titles; these entries record what they are, and take effect only if front matter is ever added.
   - scope:

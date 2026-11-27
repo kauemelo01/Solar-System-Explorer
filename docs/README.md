@@ -8,8 +8,8 @@ This folder documents **every object** in Solar System Explorer: the values the 
 
 | Page | Objects | Primary reference |
 |---|---:|---|
-| [Sun, planets and the Moon](catalogue/sun-planets.md) | 10 | JPL Keplerian elements · NASA fact sheets |
-| [Dwarf planets, asteroids, centaurs and comets](catalogue/small-bodies.md) | 65 | JPL Small-Body Database; Pluto from the JPL planet table |
+| [Sun, planets and the Moon](catalogue/sun-planets.md) | 10 | Standish and Williams's Keplerian elements (JPL SSD) · NASA fact sheets |
+| [Dwarf planets, asteroids, centaurs and comets](catalogue/small-bodies.md) | 65 | JPL Small-Body Database; Pluto from Standish and Williams's Keplerian elements (JPL SSD) |
 | [Moons of Mars](catalogue/moons-mars.md) | 2 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
 | [Moons of Jupiter](catalogue/moons-jupiter.md) | 115 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
 | [Moons of Saturn](catalogue/moons-saturn.md) | 292 | JPL Horizons (fitted orbits) · JPL satellite mean elements |
@@ -28,7 +28,7 @@ Each row in the catalogue links to:
 
 ## Using the app
 
-- [The interface](interface.md): the layout, the start-up screen, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails, the settings the app remembers, and how it loads the sky and surface maps
+- [The interface](interface.md): the layout, the start-up screen, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails and orbit outlines, the settings the app remembers, and how it loads the sky and surface maps
 
 ## Method and sources
 

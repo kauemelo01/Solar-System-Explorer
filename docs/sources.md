@@ -79,7 +79,7 @@ All positions are computed in the **heliocentric ecliptic J2000** frame, the sta
 
 Distances and body sizes are always drawn to true scale. Bodies are therefore tiny compared with their orbits, as they really are, and you zoom in (or click a name to fly to it) to see them.
 
-**To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,658–136,780 km), the orbit trails and the distance rings in AU.
+**To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,658–136,780 km), the orbit trails, the orbit outlines and the distance rings in AU.
 
 **Not to scale:** a few visual aids drawn on top of the model, such as the dots and labels that mark each body, the Sun's glow and comet tails ([What is not to scale](interface.md#what-is-not-to-scale)).
 

@@ -22,7 +22,7 @@
 <meta name="twitter:description" content="Interactive 3D orrery where any planet, moon or comet can be the centre: 544 real objects from NASA/JPL data, spacecraft surface maps and the real night sky.">
 <meta name="twitter:image" content="https://kauemelo01.github.io/Solar-System-Explorer/social-card.png">
 <meta name="twitter:image:alt" content="Solar System Explorer icon: a planet with its own moon orbiting the Sun, on a starry background">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Solar System Explorer", "url": "https://kauemelo01.github.io/Solar-System-Explorer/", "description": "An interactive 3D orrery of the solar system in which any body can be held still as the centre of the reference frame, showing that the Sun-centred view is one model among many. Positions come from NASA/JPL orbital elements and orbits fitted to JPL Horizons ephemerides; the sky shows real stars, the Milky Way, famous deep-sky objects and the 88 IAU constellations. Bodies mapped by spacecraft are drawn with real surface maps, and seven ring systems are shown at their true radii.", "softwareVersion": "Release 4", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (runs in a web browser)", "browserRequirements": "Requires JavaScript and WebGL", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "image": "https://kauemelo01.github.io/Solar-System-Explorer/social-card.png", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "author": {"@type": "Person", "name": "kauemelo01", "url": "https://github.com/kauemelo01"}, "codeRepository": "https://github.com/kauemelo01/Solar-System-Explorer", "educationalUse": "Exploring reference frames and the motion of planets, moons, asteroids and comets", "keywords": "solar system, orrery, 3D, planets, moons, reference frame, heliocentric, geocentric, retrograde motion, NASA, JPL, astronomy education, constellations, zodiac, dwarf planets, ring systems, planetary surface maps"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Solar System Explorer", "url": "https://kauemelo01.github.io/Solar-System-Explorer/", "description": "An interactive 3D orrery of the solar system in which any body can be held still as the centre of the reference frame, showing that the Sun-centred view is one model among many. Positions come from Standish and Williams's Keplerian elements for the planets (JPL SSD) and orbits fitted to JPL Horizons ephemerides; the sky shows real stars, the Milky Way, famous deep-sky objects and the 88 IAU constellations. Bodies mapped by spacecraft are drawn with real surface maps, and seven ring systems are shown at their true radii.", "softwareVersion": "Release 4", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (runs in a web browser)", "browserRequirements": "Requires JavaScript and WebGL", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "image": "https://kauemelo01.github.io/Solar-System-Explorer/social-card.png", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "author": {"@type": "Person", "name": "kauemelo01", "url": "https://github.com/kauemelo01"}, "codeRepository": "https://github.com/kauemelo01/Solar-System-Explorer", "educationalUse": "Exploring reference frames and the motion of planets, moons, asteroids and comets", "keywords": "solar system, orrery, 3D, planets, moons, reference frame, heliocentric, geocentric, retrograde motion, NASA, JPL, astronomy education, constellations, zodiac, dwarf planets, ring systems, planetary surface maps"}</script>
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -384,8 +384,8 @@ const MOONS=[["Io","jupiter",421800,0.004,49.1,330.9,0.0,0.0,1.762732,268.1,64.5
 {
 window.__boot&&__boot.status('Building the solar system…');
 const $=id=>document.getElementById(id);
-if(typeof THREE==='undefined'){$('err').style.display='grid';throw new Error('THREE missing')}
-const AU=149.5978707,KM=1e-6,DEG=Math.PI/180,TAU=Math.PI*2,CKMS=299792.458,R0=20,OBL=23.4392911*DEG,J2000=2451545;
+if(typeof THREE==='undefined'){window.__boot&&__boot.fail('Part of the app could not be downloaded.','three.js (the 3D library) did not load');throw new Error('THREE missing')}
+const AU=149.5978707,KM=1e-6,DEG=Math.PI/180,TAU=Math.PI*2,CKMS=299792.458,OBL=23.4392911*DEG,J2000=2451545;
 /* Standish & Williams's Keplerian elements for the planets (JPL SSD), J2000 ecliptic: a (AU), e, I, L, long. peri., long. node (deg), then their rates per century.
    EL: Table 1 (1800-2050 AD), with Pluto from JPL's original copy of the table. EL2: Table 2a (3000 BC - 3000 AD), and for Jupiter to Pluto Table 2b's b, c, s, f
    (M += b T^2 + c cos fT + s sin fT, f in deg per century). Which table applies at a date: plHelio(). */
@@ -595,7 +595,7 @@ const nowJD=()=>Date.now()/864e5+2440587.5;
 
 /* ---------- build object list ---------- */
 const OBJ=[],byId={};
-const add=o=>{o.i=OBJ.length;o.h=new Float64Array(3);o.d=new Float64Array(3);o.k=1;OBJ.push(o);byId[o.id]=o;return o};
+const add=o=>{o.i=OBJ.length;o.h=new Float64Array(3);o.d=new Float64Array(3);OBJ.push(o);byId[o.id]=o;return o};
 CORE.forEach(([id,name,cat,kind,R,color,P,pole,rot,tex])=>add({id,name,cat,kind,R,color,P,pole,rot,tex,major:1,orb:id==='sun'?'sun':id==='earth'||id==='moon'?'em':'pl',parent:id==='moon'?'earth':'sun',grp:id==='moon'?'earth:main':'core'}));
 byId.moon.par=byId.earth;
 add({id:'pluto',name:'Pluto',cat:'dwarf',kind:'Dwarf planet · Kuiper belt',R:1188.3,color:'#d9b996',P:90560,pole:[132.993,-6.163],rot:153.29,tex:'pluto',major:1,orb:'pl',parent:'sun',grp:'dwarf'});
@@ -634,21 +634,17 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
-const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,ol:{p:false,dwarf:false,candidate:false,asteroid:false,comet:false},mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
-try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});S.ol=Object.assign({p:false,dwarf:false,candidate:false,asteroid:false,comet:false},p.ol||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,labels:true,rings:true,orbits:true,ol:{p:false,dwarf:false,candidate:false,asteroid:false,comet:false},mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
+try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},p.cat||{});delete S.mode;delete S.sizeV;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});S.ol=Object.assign({p:false,dwarf:false,candidate:false,asteroid:false,comet:false},p.ol||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
 // trail lengths in days: p planets (and dwarf planets, asteroids, comets), m major moons, s minor moons; older prefs kept one length in years
 {const p0=S.tlen?S.tlen*365.25:10957.5,o=S.tl||{},b=o.b!=null?o.b:o.p!=null?o.p:p0;
  S.tl=Object.assign({p:p0,m:365.25,s:0,dwarf:b,candidate:b,asteroid:b,comet:b},o);delete S.tl.b;
  if(S.trails===false)for(const k in S.tl)S.tl[k]=0;delete S.trails;delete S.tlen;delete S.tset}
-const save=()=>{try{S.mg=[...MG];const{center,speed,tl,mode,sizeV,labels,rings,orbits,ol,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,tl,mode,sizeV,labels,rings,orbits,ol,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
+const save=()=>{try{S.mg=[...MG];const{center,speed,tl,labels,rings,orbits,ol,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,tl,labels,rings,orbits,ol,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
 const parOn=p=>p.grp==='core'||!!S.cat[p.grp];
 function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&parOn(o.par);return!!S.cat[o.grp]}
-const sizeF=()=>Math.round(Math.pow(10,S.sizeV/100*Math.log10(3000)));
-const kf=r=>S.mode!=='log'||r<1e-9?1:R0*Math.log1p(r/R0)/r;
-const mapS=r=>S.mode==='log'?R0*Math.log1p(r/R0):r;
-const dispR=o=>o.R*KM*o.k*(o.id==='sun'?Math.min(sizeF(),S.mode==='log'?25:40):sizeF());
-const anch=o=>o.cat==='moon'&&o.parent!==S.center&&o.id!==S.center;
+const dispR=o=>o.R*KM;
 
 /* ---------- renderer ---------- */
 const canvas=$('c');let renderer;
@@ -713,8 +709,8 @@ function mkTail(dust){const n=TAILN,g=new THREE.BufferGeometry(),pos=new Float32
 const comaTex=()=>ctex(128,128,(g,W)=>{const gr=g.createRadialGradient(W/2,W/2,0,W/2,W/2,W/2);gr.addColorStop(0,'rgba(255,255,250,1)');gr.addColorStop(.08,'rgba(225,250,240,.75)');
  gr.addColorStop(.3,'rgba(140,220,190,.22)');gr.addColorStop(.65,'rgba(90,170,160,.06)');gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,W,W)});
 const _tl=new Float64Array((TAILN+1)*3),_tq=new Float64Array(3),_tr=new Float64Array(3),_ta=new THREE.Vector3(),_tb=new THREE.Vector3(),_tc=new THREE.Vector3(),_tw=new THREE.Vector3(),_tg=new THREE.Vector3();
-// heliocentric point (km) -> scene offset from the comet's head, with the same mapping as the bodies (log scale included)
-function tailPt(o,ch,x,y,z,i){x-=ch[0];y-=ch[1];z-=ch[2];const k=S.mode==='log'?kf(Math.hypot(x,y,z)):1;_tl[i]=x*k-o.d[0];_tl[i+1]=z*k-o.d[1];_tl[i+2]=-y*k-o.d[2]}
+// heliocentric point (km) -> scene offset from the comet's head
+function tailPt(o,ch,x,y,z,i){x-=ch[0];y-=ch[1];z-=ch[2];_tl[i]=x-o.d[0];_tl[i+1]=z-o.d[1];_tl[i+2]=-y-o.d[2]}
 // fill a ribbon from the points in _tl; w0, w1: half-widths at the head and the end, as fractions of the tail's scene length;
 // lag (scene direction, dust tail only) puts the sharp edge (s < 0) on the leading side
 function ribbon(o,m,w0,w1,lag){const n=TAILN,P=m.geometry.attributes.position,a=P.array,Ld=Math.hypot(_tl[n*3],_tl[n*3+1],_tl[n*3+2]);
@@ -746,7 +742,7 @@ function potato(seed,amp,seg){const g=new THREE.SphereGeometry(1,seg||36,Math.ro
  g.computeVertexNormals();return g}
 
 const sph=new THREE.SphereGeometry(1,64,40),sphLo=new THREE.SphereGeometry(1,32,20),POT=[potato(3,.22),potato(8,.28),potato(21,.18)];
-const UP=new THREE.Vector3(0,1,0),v3=new THREE.Vector3(),q3=new THREE.Quaternion();
+const UP=new THREE.Vector3(0,1,0),v3=new THREE.Vector3();
 function orientTo(obj,pole){const p=poleEcl(pole[0],pole[1]);v3.set(p[0],p[2],-p[1]).normalize();obj.quaternion.setFromUnitVectors(UP,v3)}
 /* Where each body's prime meridian points (IAU 2015 rotational elements, from NAIF pck00011.tpc; docs/sources.md#which-side-faces-you):
    id: [pole RA0, Dec0 at J2000 (deg), W0, W1 (deg/day), W2 (deg/day²), then periodic terms [coefficient, angle0, angle1 (deg/century), angle2]].
@@ -956,28 +952,28 @@ function applySky(){mw.visible=S.skyp.mw&&!!mwMat.uniforms.map.value;
 const RINGS=[1,2,5,10,20,30,50,100],ringG=new THREE.Group();scene.add(ringG);
 const ringMat=new THREE.LineBasicMaterial({color:0x7d97d6,transparent:true,opacity:.16,depthWrite:false});
 function buildRings(){while(ringG.children.length){const c=ringG.children.pop();c.geometry.dispose()}
- RINGS.forEach(au=>{const r=mapS(au*AU),n=256,a=new Float32Array(n*3);for(let i=0;i<n;i++){const t=i/n*TAU;a[i*3]=Math.cos(t)*r;a[i*3+2]=-Math.sin(t)*r}
+ RINGS.forEach(au=>{const r=au*AU,n=256,a=new Float32Array(n*3);for(let i=0;i<n;i++){const t=i/n*TAU;a[i*3]=Math.cos(t)*r;a[i*3+2]=-Math.sin(t)*r}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));ringG.add(new THREE.LineLoop(g,ringMat))})}
 
 /* ---------- precise lines (trails and orbit outlines) ---------- */
 // Every point is sent to the graphics card as a single-precision value (position) and its remainder (plo), and the shader subtracts the
 // camera's position, split the same way (eyeHi, eyeLo), from each before adding them. Points near the camera so keep their precision however
 // far they are from the body held still: Saturn's moons are 1.4 billion km from the Sun, where one single-precision step is 120 km, and the
-// camera can come within a few km of them. ks scales the line (a moon system's outlines in the log view); tint colours it.
+// camera can come within a few km of them. tint colours the line.
 const PREC_VS=`#include <common>
 #include <logdepthbuf_pars_vertex>
-attribute vec3 plo;attribute vec4 rgba;uniform vec3 eyeHi;uniform vec3 eyeLo;uniform float ks;varying vec4 vC;
-void main(){vC=rgba;vec3 r=((position-eyeHi)+(plo-eyeLo))*ks;gl_Position=projectionMatrix*vec4((viewMatrix*vec4(r,0.0)).xyz,1.0);
+attribute vec3 plo;attribute vec4 rgba;uniform vec3 eyeHi;uniform vec3 eyeLo;varying vec4 vC;
+void main(){vC=rgba;vec3 r=(position-eyeHi)+(plo-eyeLo);gl_Position=projectionMatrix*vec4((viewMatrix*vec4(r,0.0)).xyz,1.0);
 #include <logdepthbuf_vertex>
 }`,PREC_FS=`uniform vec4 tint;varying vec4 vC;
 #include <logdepthbuf_pars_fragment>
 void main(){gl_FragColor=vC*tint;
 #include <logdepthbuf_fragment>
 }`;
-function precMat(c,op){return new THREE.ShaderMaterial({uniforms:{eyeHi:{value:new THREE.Vector3()},eyeLo:{value:new THREE.Vector3()},ks:{value:1},tint:{value:new THREE.Vector4(c.r,c.g,c.b,op)}},
+function precMat(c,op){return new THREE.ShaderMaterial({uniforms:{eyeHi:{value:new THREE.Vector3()},eyeLo:{value:new THREE.Vector3()},tint:{value:new THREE.Vector4(c.r,c.g,c.b,op)}},
  vertexShader:PREC_VS,fragmentShader:PREC_FS,transparent:true,depthWrite:false})}
 // the camera in a line's own frame (where the line's points are), split for the shader
-function setEye(m,x,y,z,k){const u=m.uniforms,hx=Math.fround(x),hy=Math.fround(y),hz=Math.fround(z);u.eyeHi.value.set(hx,hy,hz);u.eyeLo.value.set(x-hx,y-hy,z-hz);u.ks.value=k}
+function setEye(m,x,y,z){const u=m.uniforms,hx=Math.fround(x),hy=Math.fround(y),hz=Math.fround(z);u.eyeHi.value.set(hx,hy,hz);u.eyeLo.value.set(x-hx,y-hy,z-hz)}
 // a line's buffers: hi and lo parts of each point, and its colour (all 1 for outlines, which take theirs from tint)
 function precGeo(n,ones){const g=new THREE.BufferGeometry(),hi=new Float32Array(n*3),lo=new Float32Array(n*3),c=new Float32Array(n*4);if(ones)c.fill(1);
  g.setAttribute('position',new THREE.BufferAttribute(hi,3));g.setAttribute('plo',new THREE.BufferAttribute(lo,3));g.setAttribute('rgba',new THREE.BufferAttribute(c,4));return{g,hi,lo,c,cap:n}}
@@ -1073,10 +1069,10 @@ const FIELDS={
  ntrojans:makeField(800,13,0x86a9cf,R=>{const lam=-55.12003+(R()<.5?60:-60)+ray(R,15)*Math.sin(R()*TAU),om=R()*360,w=R()*360;let i;do{i=ray(R,14)}while(R()>Math.sin(i*DEG)/(i*DEG));
   return{a:30.06992,e:ray(R,.045),i,om,w,M:lam-om-w,n:0.00598110}}),
  kuiper:makeField(3500,9,0x8fb0d6,R=>{const t=R();if(t<.25)return{a:39.4+(R()-.5)*.6,e:.1+R()*.2,i:ray(R,10),om:R()*360,w:R()*360,M:R()*360};const hot=R()<.4;return{a:42+R()*6,e:ray(R,.05),i:hot?ray(R,14):ray(R,2),om:R()*360,w:R()*360,M:R()*360}})};
-function updateField(F,jd,ch,fv){const dt=jd-J2000,p=F.pos,l=S.mode==='log';
+function updateField(F,jd,ch,fv){const dt=jd-J2000,p=F.pos;
  for(let i=0;i<F.n;i++){const e=F.e[i],M=wrapPi(F.M0[i]+F.nn[i]*dt);let E=M+e*Math.sin(M);E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));E-=(E-e*Math.sin(E)-M)/(1-e*Math.cos(E));
   const a=F.a[i],c=a*(Math.cos(E)-e),s=a*Math.sin(E),j=i*3;let x=F.P[j]*c+F.Q[j]*s-ch[0],y=F.P[j+1]*c+F.Q[j+1]*s-ch[1],z=F.P[j+2]*c+F.Q[j+2]*s-ch[2];
-  if(l){const k=kf(Math.hypot(x,y,z));x*=k;y*=k;z*=k}p[j]=x-fv[0];p[j+1]=z-fv[1];p[j+2]=-y-fv[2]}
+  p[j]=x-fv[0];p[j+1]=z-fv[1];p[j+2]=-y-fv[2]}
  F.g.attributes.position.needsUpdate=true}
 
 /* ---------- trails (analytic history, shifted incrementally) ---------- */
@@ -1084,10 +1080,8 @@ const trailMat=precMat({r:1,g:1,b:1},1),EYE=[0,0,0];
 const LOD={};for(const k in SYS)LOD[k]=false;
 const sysOf=o=>o.cat==='moon'?o.parent:o.id,inCenterSys=o=>sysOf(o)===sysOf(byId[S.center]);
 const effP=(o,other)=>o.id==='sun'?Infinity:o.cat==='moon'?(LOD[o.parent]||sysOf(other)===o.parent?o.P:o.par.P):o.P;
-const _a=[0,0,0],_c=[0,0,0],_pp=[0,0,0];
-function sample(o,jd,arr,i){const C=byId[S.center];helio(o,jd,_a);helio(C,jd,_c);let x=_a[0]-_c[0],y=_a[1]-_c[1],z=_a[2]-_c[2],k=1;
- if(S.mode==='log'){if(anch(o)){helio(o.par,jd,_pp);k=kf(Math.hypot(_pp[0]-_c[0],_pp[1]-_c[1],_pp[2]-_c[2]))}else k=kf(Math.hypot(x,y,z))}
- arr[i*3]=x*k;arr[i*3+1]=z*k;arr[i*3+2]=-y*k}
+const _a=[0,0,0],_c=[0,0,0];
+function sample(o,jd,arr,i){const C=byId[S.center];helio(o,jd,_a);helio(C,jd,_c);arr[i*3]=_a[0]-_c[0];arr[i*3+1]=_a[2]-_c[2];arr[i*3+2]=-(_a[1]-_c[1])}
 // trails per group, each with its own length in days (0 = off)
 const TLEN=[[0,'Off'],[7,'1 week'],[30,'1 month'],[91,'3 months'],[365.25,'1 year'],[1826.25,'5 years'],[4383,'12 years'],[10957.5,'30 years'],[36525,'100 years'],[91312.5,'250 years']];
 const TLG=[['p','Planets'],['m','Major moons'],['s','Minor moons'],['dwarf','Dwarf planets'],['candidate','Candidates'],['asteroid','Asteroids & centaurs'],['comet','Comets']];
@@ -1112,7 +1106,7 @@ function syncTrails(force){const C=byId[S.center];
   const cap=o.major?6000:2000,warp=o.e>=.3&&o.P>0&&(o.orb==='sb'||o.orb==='sat');let N,dt0=step,U=SPEEDS[S.speed][1]>365?60:240;
   if(warp){const orbits=Math.floor(L/o.P)+2;U=Math.max(24,Math.min(U,Math.floor(cap*.6/orbits)));dt0=Math.max(step,L/Math.max(1,cap-orbits*U));N=Math.min(cap,orbits*U+Math.ceil(L/dt0)+2)}
   else N=Math.min(cap,Math.ceil(L/step));
-  const key=[S.center,S.mode,step,N,warp?'w'+U+'|'+dt0:''].join('|');
+  const key=[S.center,step,N,warp?'w'+U+'|'+dt0:''].join('|');
   if(o.tr&&o.tr.key===key&&!force)return;
   if(o.line){scene.remove(o.line);o.line.geometry.dispose()}
   const G=precGeo(N+1);o.line=new THREE.Line(G.g,trailMat);o.line.frustumCulled=false;scene.add(o.line);
@@ -1236,28 +1230,27 @@ function curveWalk(F,dmax,Ec,seg2,bmax){let E=0,al=0,split=false;F(0,_qs);_q0[0]
   if(E>=TAU-1e-12){E=TAU;_q1[0]=_qs[0];_q1[1]=_qs[1];_q1[2]=_qs[2]}else if(dE!==h)F(E,_q1);   // (when ok(h) passed at once, _q1 is already F(E))
   seg2(_q0[0],_q0[1],_q0[2],_q1[0],_q1[1],_q1[2]);_q0[0]=_q1[0];_q0[1]=_q1[1];_q0[2]=_q1[2]}
  return split}
-// One line per body. In the true-distance view the points are around the Sun (redrawn when the date moves on, at most every 250 ms, or
-// every frame while the camera is close enough for the steps to be shortened); in the log view they are around the body held still,
-// each squeezed by its own distance (kf), and redrawn every frame unless the Sun is held still.
-const ORB={},OL_KEYS=[['p','Planets'],['dwarf','Dwarf planets'],['candidate','Candidates'],['asteroid','Asteroids & centaurs'],['comet','Comets']],_qh=[0,0,0],_qc=[0,0,0];
+// One line per body, its points around the Sun: redrawn when the date moves on or the body held still changes (and every 6 frames, to
+// see whether the camera has come close), and every frame while the camera is close enough for the steps to be shortened.
+const ORB={};
 const olKey=o=>o.cat==='planet'?'p':o.grp;
 for(const id of OUTLINED){const o=byId[id];if(!o)continue;const G=precGeo(512,true),mat=precMat(new THREE.Color(o.color),o.cat==='planet'?.32:.26),ls=new THREE.LineSegments(G.g,mat);
  ls.frustumCulled=false;ls.visible=false;scene.add(ls);ORB[id]={o,ls,G,mat,jd:NaN,t:0,cnt:0,split:false,key:'',Ec:[0,0,0]}}
-function updOrbits(jd,now,ch){const log=S.mode==='log',C=byId[S.center],sun=byId.sun;
+function updOrbits(jd,now){const sun=byId.sun;
  for(const id in ORB){const R=ORB[id],o=R.o,on=!!S.ol[olKey(o)]&&vis(o)&&o.id!==S.center;R.ls.visible=on;if(!on)continue;
-  // the camera in the outline's frame: around the Sun (true distances) or around the body held still (log view, as the trails)
-  const E=R.Ec;if(log){E[0]=EYE[0];E[1]=EYE[1];E[2]=EYE[2]}else{E[0]=EYE[0]-sun.d[0];E[1]=EYE[1]-sun.d[1];E[2]=EYE[2]-sun.d[2]}setEye(R.mat,E[0],E[1],E[2],1);
-  const key=S.mode+'|'+S.center,moved=Math.abs(jd-R.jd)>0.05&&now-R.t>250;
-  if(!(R.key!==key||moved||R.split||(log&&C!==sun)||++R.cnt>=6))continue;
+  // the camera in the outline's frame, around the Sun
+  const E=R.Ec;E[0]=EYE[0]-sun.d[0];E[1]=EYE[1]-sun.d[1];E[2]=EYE[2]-sun.d[2];setEye(R.mat,E[0],E[1],E[2]);
+  const key=S.center,moved=Math.abs(jd-R.jd)>0.05&&now-R.t>250;
+  if(!(R.key!==key||moved||R.split||++R.cnt>=6))continue;
   R.key=key;R.cnt=0;if(moved||R.jd!==R.jd){R.t=now}R.jd=jd;const parts=orbParts(o,jd);
-  const F=log?(e,out)=>{orbPt(parts,e,_qh);const x=_qh[0]-ch[0],y=_qh[1]-ch[2],z=_qh[2]+ch[1],k=kf(Math.hypot(x,y,z));out[0]=x*k;out[1]=y*k;out[2]=z*k;return out}:(e,out)=>orbPt(parts,e,out);
-  // how far a piece can bow: a/8 per radian squared for the largest ellipse (the log view only squeezes it; 1.5 to spare)
-  const bmax=Math.max(...parts.map(c=>c.a))/8*(log?1.5:1);
+  const F=(e,out)=>orbPt(parts,e,out);
+  // how far a piece can bow: a/8 per radian squared for the largest ellipse
+  const bmax=Math.max(...parts.map(c=>c.a))/8;
   outFill(R,seg2=>{R.split=curveWalk(F,TAU/128,E,seg2,bmax)})}}
 
 /* ---------- camera ---------- */
 const cam={theta:.7,phi:1.05,dist:1,distT:1};
-const fitDist=au=>mapS(au*AU)/Math.tan(25*DEG)*1.25;
+const fitDist=au=>au*AU/Math.tan(25*DEG)*1.25;
 const minD=()=>Math.max(dispR(byId[S.focus])*1.3,2e-6),maxD=()=>fitDist(1500);
 const clampD=()=>{cam.distT=Math.min(maxD(),Math.max(minD(),cam.distT))};
 cam.dist=cam.distT=fitDist(S.center==='sun'?1.9:3);
@@ -1273,7 +1266,7 @@ canvas.addEventListener('wheel',e=>{e.preventDefault();cam.distT*=Math.exp((e.de
 
 /* ---------- focus & reference ---------- */
 let fFrom='sun',fT=1;const fv=[0,0,0];
-function flyDist(o){const r=dispR(o);return o.cat==='planet'||o.id==='sun'?r*(o.id==='sun'?6:12):Math.max(r*14,(o.cat==='moon'?.0012:.004)*o.k)}
+function flyDist(o){const r=dispR(o);return o.cat==='planet'||o.id==='sun'?r*(o.id==='sun'?6:12):Math.max(r*14,o.cat==='moon'?.0012:.004)}
 // selection history for Backspace: each new selection (a body or a sky object) saves the previous one, up to 50
 const HIST=[];let goingBack=false;
 const curSel=()=>S.sky?{k:'sky',id:S.sky}:{k:'body',id:S.focus};
@@ -1314,7 +1307,7 @@ function placeLabels(){const placed=PLACED=[],cand=[];
  for(const s of show){let el=s[4];if(!el){el=free[fi++];if(!el)continue;if(el.dataset.id&&LBL[el.dataset.id]===el)delete LBL[el.dataset.id];el.dataset.id=s[0].id;LBL[s[0].id]=el;el.textContent=s[0].name;el.style.setProperty('--c',s[0].color);el.className='lbl'+(s[3]?' sm':'')}
   used.add(el);el.classList.toggle('on',s[0].id===S.focus);el.style.display='flex';el.style.transform=`translate(${s[1]}px,${s[2]}px) translate(-50%,-140%)`}
  for(const el of POOL)if(!used.has(el))el.style.display='none';
- RINGS.forEach((au,i)=>{const el=ringLbls[i],r=mapS(au*AU);v3.set(r-fv[0],-fv[1],-fv[2]).project(camera);const x=(v3.x+1)/2*W,y=(1-v3.y)/2*H;
+ RINGS.forEach((au,i)=>{const el=ringLbls[i],r=au*AU;v3.set(r-fv[0],-fv[1],-fv[2]).project(camera);const x=(v3.x+1)/2*W,y=(1-v3.y)/2*H;
   const ok=S.rings&&v3.z<1&&x>0&&x<W-40&&y>0&&y<H&&!placed.some(q=>x+20>q[0]&&x-20<q[2]&&y>q[1]-6&&y<q[3]+6);el.style.display=ok?'block':'none';if(ok)el.style.transform=`translate(${x+4}px,${y-16}px)`})}
 function nearest(x,y){let best=null,bd=22;for(const o of OBJ){if(!SV[o.i])continue;const d=Math.hypot(SX[o.i*2]-x,SX[o.i*2+1]-y)+(o.cat==='moon'&&!o.major?4:0);if(d<bd){bd=d;best=o}}return best}
 function pick(x,y){const o=nearest(x,y);choose(o?o.id:null)}
@@ -1558,21 +1551,19 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
   if(o.orb==='sat'){ell(o,jd,_q);const p=o.par.h;o.h[0]=p[0]+_q[0];o.h[1]=p[1]+_q[1];o.h[2]=p[2]+_q[2]}else helio(o,jd,o.h)}
  const ch=C.h;
  for(const o of OBJ){if(!o.need)continue;const x=o.h[0]-ch[0],y=o.h[1]-ch[1],z=o.h[2]-ch[2];
-  o.k=S.mode==='log'?(anch(o)?kf(Math.hypot(o.par.h[0]-ch[0],o.par.h[1]-ch[1],o.par.h[2]-ch[2])):kf(Math.hypot(x,y,z))):1;
-  o.d[0]=x*o.k;o.d[1]=z*o.k;o.d[2]=-y*o.k}
+  o.d[0]=x;o.d[1]=z;o.d[2]=-y}
  if(fT<1)fT=Math.min(1,fT+dt/1.1);const e=fT<.5?4*fT**3:1-(-2*fT+2)**3/2,a=byId[fFrom].d,c=byId[S.focus].d;
  for(let i=0;i<3;i++)fv[i]=a[i]+(c[i]-a[i])*e;
  // camera
  clampD();const kk=1-Math.exp(-dt*7);cam.dist=Math.exp(Math.log(cam.dist)+(Math.log(cam.distT)-Math.log(cam.dist))*kk);
  turnStep(dt);const sp=Math.sin(cam.phi);camera.position.set(cam.dist*sp*Math.sin(cam.theta),cam.dist*Math.cos(cam.phi),cam.dist*sp*Math.cos(cam.theta));camera.lookAt(0,0,0);
  camera.updateMatrixWorld();starCam.quaternion.copy(camera.quaternion);
- EYE[0]=camera.position.x+fv[0];EYE[1]=camera.position.y+fv[1];EYE[2]=camera.position.z+fv[2];setEye(trailMat,EYE[0],EYE[1],EYE[2],1);   // the camera in the trails' frame
+ EYE[0]=camera.position.x+fv[0];EYE[1]=camera.position.y+fv[1];EYE[2]=camera.position.z+fv[2];setEye(trailMat,EYE[0],EYE[1],EYE[2]);   // the camera in the trails' frame
  // level of detail per moon system
  let lodChanged=false;
- for(const p in SYS){const o=byId[p];tv.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);const px=SYS[p]*KM*o.k/Math.max(1e-12,tv.distanceTo(camera.position))*PXR,f=S.focus,fo=byId[f];
+ for(const p in SYS){const o=byId[p];tv.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);const px=SYS[p]*KM/Math.max(1e-12,tv.distanceTo(camera.position))*PXR,f=S.focus,fo=byId[f];
   const want=px>(LOD[p]?22:34)||(fo.cat==='moon'&&fo.parent===p)||sysOf(C)===p;if(want!==LOD[p]){LOD[p]=want;lodChanged=true}}
  if(lodChanged)syncTrails();
- const sF=sizeF();
  for(const o of OBJ){if(!o.major)continue;const v=vis(o);o.g.visible=v;
   if(o.tail){o.tail.visible=o.dust.visible=o.coma.visible=false}
   if(!v)continue;o.g.position.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);
@@ -1590,9 +1581,9 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
  // orbit outlines
  for(const k in OUT){const O=OUT[k],p=O.par,on=S.orbits&&MG.has(k)&&parOn(p)&&(LOD[p.id]||sysOf(byId[S.center])===p.id);O.ls.visible=on;
   if(on&&O.refresh&&Math.abs(S.jd-O.jd)>0.05&&now-O.t>250){O.refresh(S.jd);O.jd=S.jd;O.t=now}
-  if(on){const c=camera.position,E=O.Ec;E[0]=(c.x-(p.d[0]-fv[0]))/p.k;E[1]=(c.y-(p.d[1]-fv[1]))/p.k;E[2]=(c.z-(p.d[2]-fv[2]))/p.k;setEye(O.mat,E[0],E[1],E[2],p.k);   // the camera in the planet's frame
+  if(on){const c=camera.position,E=O.Ec;E[0]=c.x-(p.d[0]-fv[0]);E[1]=c.y-(p.d[1]-fv[1]);E[2]=c.z-(p.d[2]-fv[2]);setEye(O.mat,E[0],E[1],E[2]);   // the camera in the planet's frame
    if(++O.cnt>=6){O.cnt=0;O.check()}if(O.dirty||O.any)O.draw()}}
- updOrbits(jd,now,ch);
+ updOrbits(jd,now);
  for(const k in FIELDS)if(S.cat[k])updateField(FIELDS[k],jd,ch,fv);
  glow.scale.setScalar(dispR(sun)*7);sunLight.position.copy(sun.g.position);ringG.position.set(-fv[0],-fv[1],-fv[2]);
  const t1=performance.now();renderer.clear();renderer.render(starScene,starCam);renderer.clearDepth();renderer.render(scene,camera);const t2=performance.now();

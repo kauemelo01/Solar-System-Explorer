@@ -41,7 +41,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
   - 5 dwarf planets (Pluto among them) and 4 dwarf planet candidates, 35 asteroids, centaurs and Kuiper belt objects, 21 comets
 - **7 ring systems** at their true radii: Jupiter, Saturn, Uranus, Neptune, Haumea, Quaoar and Chariklo
 - **Real-time positions** for any date from 1000 to 3000 AD (forward or backward in time): planets from Standish and Williams's Keplerian elements (JPL SSD), the Moon from a lunar theory, and the other moons, dwarf planets, asteroids and comets from orbits fitted to JPL Horizons (or published orbits); outside 1800–2050 AD positions are estimates
-- **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length and distance rings in AU
+- **Always true to scale**: real distances and real body sizes, with orbit trails of adjustable length, orbit outlines (every moon, and the planets, dwarf planets, asteroids and comets whose orbits stay the same for decades) and distance rings in AU
 - Statistical belts (main asteroid belt, Hilda asteroids, Jupiter trojans, Neptune trojans, Kuiper belt) to show where those populations live; the Hildas form the triangle that turns with Jupiter
 - **What is and is not included, and why:** [What's included](docs/sources.md#whats-included), [What's not included](docs/sources.md#whats-not-included), and the [Watchlist](docs/sources.md#watchlist) of objects waiting for published data
 - **The real sky behind it all**:
@@ -53,7 +53,7 @@ Mechanical orreries have two built-in limits. They are almost never to scale, be
 
   Everything is at its true position. Change the centre from Earth to Neptune and the sky does not move: the stars are that far away.
 - **Real surface maps** where spacecraft have mapped a body: the Sun, the planets, the Moon, Saturn's rings, Ceres, Vesta and 18 major moons, from Solar System Scope, NASA, NASA/JPL, USGS and DLR. Large versions load on capable screens. Everything else gets a simple painted texture, and Earth gets painted clouds so the cloud-free map looks natural. **Each object's card says whether its surface is real photos, a partial map or a painted illustration**, and the *Images* panel can switch all maps off (see [Surface maps](docs/sources.md#surface-maps))
-- **An interface built for exploring**: a menu to choose the body held still and what is shown (moons by family, small bodies, belts, sky layers), a time bar from 1000 to 3000 AD, trails of adjustable length, cards with each object's data and sources, a camera position card and a fullscreen mode for classrooms ([the interface](docs/interface.md))
+- **An interface built for exploring**: a menu to choose the body held still and what is shown (moons by family, small bodies, belts, orbit outlines, sky layers), a time bar from 1000 to 3000 AD, trails of adjustable length, cards with each object's data and sources, a camera position card and a fullscreen mode for classrooms ([the interface](docs/interface.md))
 - Runs fully in the browser: `index.html` with [three.js](https://threejs.org/), plus the sky data in [`sky/`](sky/) and the surface maps in [`textures/`](textures/). No build step; any static web host (such as GitHub Pages) can serve it
 
 ### Controls
