@@ -18,8 +18,8 @@ mostly the two Dawn mosaics; they are kept in the cache folder so reruns are qui
 Output is pixel-for-pixel reproducible; the exact bytes can differ between Pillow versions.
 
 Usage, from the repository root:
-  python3 tools/build_textures.py                  # writes textures/, cache in .texture-cache/
-  python3 tools/build_textures.py --out /tmp/tex --cache ~/tex-cache
+  python3 tools/textures/build_textures.py                  # writes textures/, cache in .texture-cache/
+  python3 tools/textures/build_textures.py --out /tmp/tex --cache ~/tex-cache
 """
 import argparse
 import os

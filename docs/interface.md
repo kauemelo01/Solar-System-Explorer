@@ -167,7 +167,7 @@ Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On
 
 ### Surface map processing
 
-All of the steps below are done by [`tools/build_textures.py`](../tools/build_textures.py), which downloads every source and rebuilds `textures/` (run `python3 tools/build_textures.py` from the repository root; it needs Pillow and about 400 MB of downloads, cached in `.texture-cache/`). Its output matches the committed files exactly.
+All of the steps below are done by [`tools/textures/build_textures.py`](../tools/textures/README.md), which downloads every source and rebuilds `textures/` (run `python3 tools/textures/build_textures.py` from the repository root; it needs Pillow and about 400 MB of downloads, cached in `.texture-cache/`). Its output matches the committed files exactly.
 
 - The large Solar System Scope maps are recompressed to JPEG quality 80; the 2K ones are used as published.
 - The NASA maps are recompressed to JPEG quality 85.

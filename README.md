@@ -124,7 +124,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 | `textures/` | Surface maps for the Sun, planets, Saturn's rings, Ceres, Vesta and the major moons ([sources](docs/sources.md#surface-maps)) |
 | `data/moon-orbits.js` | The planets' moon orbits fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#moon-orbits)) |
 | `data/sb-orbits.js` | The orbits of 56 dwarf planets, asteroids and comets fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#small-body-orbits)) |
-| `tools/build_textures.py` | Rebuilds `textures/` from the original sources (downloads them; needs Pillow) |
+| `tools/textures/` | Rebuilds `textures/` from the original sources (downloads them; needs Pillow) ([how to run](tools/textures/README.md)) |
 | `tools/planet-checks/` | Measures the planets against JPL Horizons ([how to run](tools/planet-checks/README.md)) |
 | `tools/moon-orbit-fits/` | Rebuilds `data/moon-orbits.js` from JPL Horizons and checks it ([how to run](tools/moon-orbit-fits/README.md)) |
 | `tools/small-body-orbit-fits/` | Rebuilds `data/sb-orbits.js` from JPL Horizons and checks it ([how to run](tools/small-body-orbit-fits/README.md)) |
