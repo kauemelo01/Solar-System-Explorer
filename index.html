@@ -961,18 +961,49 @@ function syncTrails(force){const C=byId[S.center];
  OBJ.forEach(o=>{const L=S.tl[tlKey(o)];
   if(!wantTrail(o)){if(o.line){scene.remove(o.line);o.line.geometry.dispose();o.line=null;o.tr=null}return}
   let step=Math.min(Math.min(effP(o,C),effP(C,o))/180,L/240);if(o.cat==='comet')step=Math.min(step,3);step=Math.min(Math.max(step,SPEEDS[S.speed][1]/1200),L/240);
-  const N=Math.min(o.major?6000:2000,Math.ceil(L/step)),key=[S.center,S.mode,step,N].join('|');
+  const cap=o.major?6000:2000,warp=o.e>=.3&&o.P>0&&(o.orb==='sb'||o.orb==='sat');let N,dt0=step,U=SPEEDS[S.speed][1]>365?60:240;
+  if(warp){const orbits=Math.floor(L/o.P)+2;U=Math.max(24,Math.min(U,Math.floor(cap*.6/orbits)));dt0=Math.max(step,L/Math.max(1,cap-orbits*U));N=Math.min(cap,orbits*U+Math.ceil(L/dt0)+2)}
+  else N=Math.min(cap,Math.ceil(L/step));
+  const key=[S.center,S.mode,step,N,warp?'w'+U+'|'+dt0:''].join('|');
   if(o.tr&&o.tr.key===key&&!force)return;
   if(o.line){scene.remove(o.line);o.line.geometry.dispose()}
   const arr=new Float32Array((N+1)*3),col=new Float32Array((N+1)*4),c=new THREE.Color(o.color),al=o.cat==='moon'?.6:.86;
   for(let i=0;i<=N;i++)col.set([c.r,c.g,c.b,.05+Math.pow(i/N,1.4)*al],i*4);
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(arr,3));g.setAttribute('color',new THREE.BufferAttribute(col,4));
-  o.line=new THREE.Line(g,trailMat);o.line.frustumCulled=false;scene.add(o.line);o.tr={N,step,K:null,arr,key}})}
-function updateTrail(o,jd){const t=o.tr,N=t.N,a=t.arr,K=Math.floor(jd/t.step);
+  o.line=new THREE.Line(g,trailMat);o.line.frustumCulled=false;scene.add(o.line);o.tr={N,step,K:null,arr,key};
+  if(warp)Object.assign(o.tr,{w:1,dt0,U,L,tm:new Float64Array(N+1),col,al,st:-1})})}
+// Eccentric orbits (e >= 0.3): trail samples are spaced evenly in u = t/dt0 + TRU*(orbits since a reference + E/2pi), where E is the
+// eccentric anomaly between the body's actual closest approaches to its primary (the Sun, or its planet), found from its computed path.
+// The points crowd near pericentre, where the body is fast and the path bends, and keep at least the uniform spacing dt0 elsewhere.
+const _pa=[0,0,0],_pb=[0,0,0];
+function rPri(o,t){helio(o,t,_pa);if(o.cat==='moon'){helio(o.par,t,_pb);_pa[0]-=_pb[0];_pa[1]-=_pb[1];_pa[2]-=_pb[2]}return Math.hypot(_pa[0],_pa[1],_pa[2])}
+function periScan(o,a,b){const h=o.P/48,out=[];let r0=rPri(o,a-h),r1=rPri(o,a);
+ for(let t=a;t<=b;t+=h){const r2=rPri(o,t+h);if(r1<=r0&&r1<r2){let lo=t-h,hi=t+h;for(let i=0;i<40;i++){const m1=lo+(hi-lo)/3,m2=hi-(hi-lo)/3;if(rPri(o,m1)<rPri(o,m2))hi=m2;else lo=m1}out.push((lo+hi)/2)}r0=r1;r1=r2}
+ return out}
+function periCover(o,t0,t1){let W=o.pw;const P=o.P;
+ if(!W){const T=periScan(o,t0-1.5*P,t1+1.5*P);W=o.pw={T,k0:0,lo:t0-1.5*P,hi:t1+1.5*P};return W}
+ if(t0-1.2*P<W.lo){const a=t0-3*P,T=periScan(o,a,W.lo).filter(x=>!W.T.length||x<W.T[0]-P/4);W.T=T.concat(W.T);W.k0-=T.length;W.lo=a}
+ if(t1+1.2*P>W.hi){const b=t1+3*P,T=periScan(o,W.hi,b).filter(x=>!W.T.length||x>W.T[W.T.length-1]+P/4);W.T=W.T.concat(T);W.hi=b}
+ return W}
+function warpU(o,t,dt0,U,d){const W=periCover(o,t,t),T=W.T;let lo=0,hi=T.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(T[m]<=t)lo=m;else hi=m}
+ const k=T[lo]<=t?lo:lo-1,Pk=T[k+1]-T[k],M=TAU*(t-T[k])/Pk,E0=solveE(wrapPi(M),o.e),E=E0<0?E0+TAU:E0,u=t/dt0+U*(W.k0+k+E/TAU);
+ if(d)d[0]=1/dt0+U/Pk/(1-o.e*Math.cos(E));return u}
+const _du=[0];
+function invU(o,u,g,dt0,U){let t=g;for(let i=0;i<30;i++){const f=warpU(o,t,dt0,U,_du)-u;if(Math.abs(f)<1e-9)break;t-=f/_du[0]}return t}
+function updateTrail(o,jd){const t=o.tr;if(t.w)return updateWarped(o,jd);const N=t.N,a=t.arr,K=Math.floor(jd/t.step);
  if(t.K===null||Math.abs(K-t.K)>=N){for(let i=0;i<N;i++)sample(o,(K-N+1+i)*t.step,a,i)}
  else if(K>t.K){const m=K-t.K;a.copyWithin(0,m*3,N*3);for(let j=0;j<m;j++)sample(o,(t.K+1+j)*t.step,a,N-m+j)}
  else if(K<t.K){const m=t.K-K;a.copyWithin(m*3,0,(N-m)*3);for(let j=0;j<m;j++)sample(o,(K-N+1+j)*t.step,a,j)}
  t.K=K;sample(o,jd,a,N);o.line.geometry.attributes.position.needsUpdate=true}
+function updateWarped(o,jd){const t=o.tr,N=t.N,a=t.arr,tm=t.tm,dt0=t.dt0,U=t.U,K=Math.floor(warpU(o,jd,dt0,U));
+ if(t.K===null||Math.abs(K-t.K)>=N){let g=jd;for(let i=N-1;i>=0;i--){g=invU(o,K-N+1+i,g,dt0,U);tm[i]=g;sample(o,g,a,i)}}
+ else if(K>t.K){const m=K-t.K;a.copyWithin(0,m*3,N*3);tm.copyWithin(0,m,N);let g=tm[N-m-1];for(let j=0;j<m;j++){g=invU(o,t.K+1+j,g,dt0,U);tm[N-m+j]=g;sample(o,g,a,N-m+j)}}
+ else if(K<t.K){const m=t.K-K;a.copyWithin(m*3,0,(N-m)*3);tm.copyWithin(m,0,N-m);let g=tm[m];for(let j=m-1;j>=0;j--){g=invU(o,K-N+1+j,g,dt0,U);tm[j]=g;sample(o,g,a,j)}}
+ t.K=K;tm[N]=jd;sample(o,jd,a,N);
+ // draw exactly the chosen length: from the first sample within L of now, with the fade recalculated over the part drawn
+ let st=0;const t0=jd-t.L;while(st<N&&tm[st]<t0)st++;const g=o.line.geometry;
+ if(st!==t.st){t.st=st;g.setDrawRange(st,N+1-st);const c=t.col,n=Math.max(1,N-st);for(let i=st;i<=N;i++)c[i*4+3]=.05+Math.pow((i-st)/n,1.4)*t.al;g.attributes.color.needsUpdate=true}
+ g.attributes.position.needsUpdate=true}
 
 /* ---------- camera ---------- */
 const cam={theta:.7,phi:1.05,dist:1,distT:1};

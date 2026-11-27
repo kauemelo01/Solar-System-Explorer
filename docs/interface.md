@@ -127,6 +127,7 @@ A trail is the path a body has followed **as seen from the body held still**. Wi
 - **`T`** turns all trails off, and back to the previous lengths.
 - **When a trail is drawn:** only for bodies that are shown. A moon's trail appears only when its planet's moons are visible (see below), and is dropped when time runs so fast that the moon would go round more than 15 times a second.
 - **Detail:** a trail is sampled about 180 times per orbit and keeps at most 6,000 points (2,000 for minor moons), so a long trail of a fast moon shows only its most recent part. Older parts fade out.
+- **Eccentric orbits** (eccentricity 0.3 or more: the comets, Phaethon, and eccentric moons such as Nereid) are sampled evenly along the orbit rather than evenly in time: up to 240 points per orbit (60 when time runs faster than a year per second) spaced by the eccentric anomaly, between the body's actual closest approaches to the Sun (or to its planet), on top of the even spacing in time. The points crowd together near perihelion, where the body moves fastest and its path bends most, so the trail stays smooth when you zoom in there; before, its points were up to 3 days apart, and a comet passing close to the Sun showed corners.
 
 ## When moons appear
 
