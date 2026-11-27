@@ -952,22 +952,98 @@ function buildRings(){while(ringG.children.length){const c=ringG.children.pop();
  RINGS.forEach(au=>{const r=mapS(au*AU),n=256,a=new Float32Array(n*3);for(let i=0;i<n;i++){const t=i/n*TAU;a[i*3]=Math.cos(t)*r;a[i*3+2]=-Math.sin(t)*r}
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));ringG.add(new THREE.LineLoop(g,ringMat))})}
 
+/* ---------- precise lines (trails and orbit outlines) ---------- */
+// Every point is sent to the graphics card as a single-precision value (position) and its remainder (plo), and the shader subtracts the
+// camera's position, split the same way (eyeHi, eyeLo), from each before adding them. Points near the camera so keep their precision however
+// far they are from the body held still: Saturn's moons are 1.4 billion km from the Sun, where one single-precision step is 120 km, and the
+// camera can come within a few km of them. ks scales the line (a moon system's outlines in the log view); tint colours it.
+const PREC_VS=`#include <common>
+#include <logdepthbuf_pars_vertex>
+attribute vec3 plo;attribute vec4 rgba;uniform vec3 eyeHi;uniform vec3 eyeLo;uniform float ks;varying vec4 vC;
+void main(){vC=rgba;vec3 r=((position-eyeHi)+(plo-eyeLo))*ks;gl_Position=projectionMatrix*vec4((viewMatrix*vec4(r,0.0)).xyz,1.0);
+#include <logdepthbuf_vertex>
+}`,PREC_FS=`uniform vec4 tint;varying vec4 vC;
+#include <logdepthbuf_pars_fragment>
+void main(){gl_FragColor=vC*tint;
+#include <logdepthbuf_fragment>
+}`;
+function precMat(c,op){return new THREE.ShaderMaterial({uniforms:{eyeHi:{value:new THREE.Vector3()},eyeLo:{value:new THREE.Vector3()},ks:{value:1},tint:{value:new THREE.Vector4(c.r,c.g,c.b,op)}},
+ vertexShader:PREC_VS,fragmentShader:PREC_FS,transparent:true,depthWrite:false})}
+// the camera in a line's own frame (where the line's points are), split for the shader
+function setEye(m,x,y,z,k){const u=m.uniforms,hx=Math.fround(x),hy=Math.fround(y),hz=Math.fround(z);u.eyeHi.value.set(hx,hy,hz);u.eyeLo.value.set(x-hx,y-hy,z-hz);u.ks.value=k}
+// a line's buffers: hi and lo parts of each point, and its colour (all 1 for outlines, which take theirs from tint)
+function precGeo(n,ones){const g=new THREE.BufferGeometry(),hi=new Float32Array(n*3),lo=new Float32Array(n*3),c=new Float32Array(n*4);if(ones)c.fill(1);
+ g.setAttribute('position',new THREE.BufferAttribute(hi,3));g.setAttribute('plo',new THREE.BufferAttribute(lo,3));g.setAttribute('rgba',new THREE.BufferAttribute(c,4));return{g,hi,lo,c,cap:n}}
+function putP(G,j,x,y,z){const H=G.hi,L=G.lo,i=j*3;let h=Math.fround(x);H[i]=h;L[i]=x-h;h=Math.fround(y);H[i+1]=h;L[i+1]=y-h;h=Math.fround(z);H[i+2]=h;L[i+2]=z-h}
+function segD(ax,ay,az,bx,by,bz,E){const ex=bx-ax,ey=by-ay,ez=bz-az,wx=E[0]-ax,wy=E[1]-ay,wz=E[2]-az,L2=ex*ex+ey*ey+ez*ez,f=L2>0?Math.min(1,Math.max(0,(wx*ex+wy*ey+wz*ez)/L2)):0;
+ return Math.hypot(wx-f*ex,wy-f*ey,wz-f*ez)}
+// Up close, curves are drawn with extra points only where the camera is near: each straight piece is kept short enough that it bows out
+// from the true curve by at most half a pixel at its own distance from the camera (a piece of length l on a curve of curvature kap bows out
+// by kap l^2/8). So a few dozen extra points keep a curve smooth even a few km from a small moon, and lines far from the camera keep their usual points.
+const PIECE=(kap,d)=>Math.sqrt(4*Math.max(d,1e-9)/(PXR*Math.max(kap,1e-300)));
+// the longest step, at most hi, for which ok(step) holds (it holds for short enough steps): shrink by the step each candidate allows until
+// one holds, then narrow the range between that and the last one that failed
+function longest(hi,ok,allow){if(ok(hi))return hi;let bad=hi,g=Math.min(hi*.5,allow());for(let r=0;r<30&&!ok(g);r++){bad=g;g=Math.min(g*.5,allow())}
+ for(let r=0;r<8;r++){const m=Math.sqrt(g*bad);if(ok(m))g=m;else bad=m}return g}
+// one gap of a cubic Hermite curve, from P[j0] to P[j1] with end tangents A and B (per unit of u): its points for u in [0,1), u = 0 first.
+// Returns whether it needed more than its first point.
+const _hm=[0,0,0];
+function herm(P,j0,j1,A,B,u,o){const u2=u*u,u3=u2*u,a=2*u3-3*u2+1,b=u3-2*u2+u,c=3*u2-2*u3,d=u3-u2;for(let k=0;k<3;k++)o[k]=a*P[j0+k]+b*A[k]+c*P[j1+k]+d*B[k];return o}
+let _al=0;
+function gapWalk(P,j0,j1,A,B,E,emit){emit(P[j0],P[j0+1],P[j0+2],0);herm(P,j0,j1,A,B,.5,_hm);
+ const sag=Math.hypot((P[j0]+P[j1])/2-_hm[0],(P[j0+1]+P[j1+1])/2-_hm[1],(P[j0+2]+P[j1+2])/2-_hm[2]),Lc=Math.hypot(P[j1]-P[j0],P[j1+1]-P[j0+1],P[j1+2]-P[j0+2]);
+ if(!(sag>0&&Lc>0)||sag*PXR<=.5*(segD(P[j0],P[j0+1],P[j0+2],P[j1],P[j1+1],P[j1+2],E)-sag))return false;
+ const kap=8*sag/(Lc*Lc);let u=0,x=P[j0],y=P[j0+1],z=P[j0+2];
+ // a piece from u to u+du is fine if it is no longer than the piece its own distance from the camera allows
+ const ok=du=>{herm(P,j0,j1,A,B,Math.min(1,u+du),_hm);_al=PIECE(kap,segD(x,y,z,_hm[0],_hm[1],_hm[2],E))/Lc;return _al>=du*.999},allow=()=>Math.max(_al,1e-9);
+ for(let it=0;it<100000;it++){const du=longest(Math.min(1-u,PIECE(kap,Math.hypot(x-E[0],y-E[1],z-E[2]))/Lc),ok,allow);
+  u+=du;if(u>=1-1e-12)break;herm(P,j0,j1,A,B,u,_hm);x=_hm[0];y=_hm[1];z=_hm[2];emit(x,y,z,u)}
+ return true}
+// how far a gap of an evenly spaced polyline bows out from its curve, from the second difference at sample i (a circle: r dE^2/8)
+const sd2=(P,i)=>{const j=i*3;return Math.hypot(P[j-3]-2*P[j]+P[j+3],P[j-2]-2*P[j+1]+P[j+4],P[j-1]-2*P[j+2]+P[j+5])/8};
+
 /* moon orbit outlines: one line set per planet family, drawn in the planet's frame */
-const OUT={};
-{const mat=new THREE.LineBasicMaterial({color:0x9fb4e0,transparent:true,opacity:.22,depthWrite:false}),matS=new THREE.LineBasicMaterial({color:0x9fb4e0,transparent:true,opacity:.1,depthWrite:false});
+// Each outline is a ring of points joined by straight lines: 128 per orbit for the major moons' families, 48 for the others, and 256 for the
+// Moon's month. They are drawn as precise lines (precMat), and an orbit the camera comes close to is drawn with extra points near the camera
+// (checked every 6 frames): an ellipse exactly, with each piece kept short enough for its curvature, at its distance from the camera, to bow
+// out by at most half a pixel; the Moon's path, from its lunar theory, as a Catmull-Rom curve through its 257 points (and one beyond each end).
+const OUT={},_o0=[0,0,0],_o1=[0,0,0];
+// fill a line set's buffers with segments (pairs of points) from draw(seg2), making room as needed
+function outFill(O,draw){for(;;){let n=0;const G=O.G,cap=G.cap,seg2=(ax,ay,az,bx,by,bz)=>{if(n+2<=cap){putP(G,n,ax,ay,az);putP(G,n+1,bx,by,bz)}n+=2};draw(seg2);
+  if(n<=cap){G.g.setDrawRange(0,n);G.g.attributes.position.needsUpdate=G.g.attributes.plo.needsUpdate=true;return}
+  const ng=precGeo(Math.ceil(n*1.5)+64,true);O.ls.geometry.dispose();O.ls.geometry=ng.g;O.G=ng}}
+{const col=new THREE.Color(0x9fb4e0);
  const byG={};OBJ.forEach(o=>{if(o.orb==='sat')(byG[o.grp]=byG[o.grp]||[]).push(o)});
- for(const k in byG){const L=byG[k],seg=L[0].major?128:48,a=new Float32Array(L.length*seg*6);let n=0;
+ for(const k in byG){const L=byG[k],seg=L[0].major?128:48,dE0=TAU/seg,el=L.map(()=>({P:null,Q:null,A:0,e:0,B:0})),near=new Uint8Array(L.length);
   // fitted orbits precess, so their outlines are redrawn for the date (refresh, called from the render loop)
-  const fill=jd=>{n=0;for(const o of L){let P=o.Pv,Q=o.Qv,A=o.a,e=o.e,B=o.b;if(o.fit){const m=moonOrbit(o,jd);P=m.P;Q=m.Q;A=m.a;e=m.e;B=m.b}
-   for(let s=0;s<seg;s++)for(const t of[s,s+1]){const E=t/seg*TAU,c=A*(Math.cos(E)-e),d=B*Math.sin(E);
-    a[n++]=P[0]*c+Q[0]*d;a[n++]=P[2]*c+Q[2]*d;a[n++]=-(P[1]*c+Q[1]*d)}}};fill(J2000);
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));
-  const ls=new THREE.LineSegments(g,L.some(o=>o.major)?mat:matS);ls.frustumCulled=false;ls.visible=false;scene.add(ls);
-  OUT[k]={ls,par:L[0].par,jd:J2000,t:0,refresh:L.some(o=>o.fit)?jd=>{fill(jd);g.attributes.position.needsUpdate=true}:null}}
+  const elems=jd=>{for(let q=0;q<L.length;q++){const o=L[q],w=el[q];let P=o.Pv,Q=o.Qv,A=o.a,e=o.e,B=o.b;if(o.fit){const m=moonOrbit(o,jd);P=m.P;Q=m.Q;A=m.a;e=m.e;B=m.b}Object.assign(w,{P,Q,A,e,B})}};
+  const X=(q,E,out)=>{const{P,Q,A,e,B}=el[q],c=A*(Math.cos(E)-e),d=B*Math.sin(E);out[0]=P[0]*c+Q[0]*d;out[1]=P[2]*c+Q[2]*d;out[2]=-(P[1]*c+Q[1]*d);return out};
+  const walk=(q,Ec,seg2)=>{const{A,B}=el[q];let E=0;X(q,0,_o0);
+   let kap=0,v=1,al=0;const ok=dE=>{X(q,E+dE,_o1);al=PIECE(kap,segD(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2],Ec))/v;return al>=dE*.999},allow=()=>Math.max(al,1e-12);
+   while(E<TAU){v=Math.hypot(A*Math.sin(E),B*Math.cos(E));kap=A*B/(v*v*v);
+    const dE=longest(Math.min(dE0,TAU-E,PIECE(kap,Math.hypot(_o0[0]-Ec[0],_o0[1]-Ec[1],_o0[2]-Ec[2]))/v),ok,allow);
+    E+=dE;if(E>=TAU-1e-12){E=TAU;X(q,0,_o1)}else X(q,E,_o1);seg2(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2]);_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}};
+  const O={ls:null,G:precGeo(L.length*seg*2,true),mat:precMat(col,L.some(o=>o.major)?.22:.1),par:L[0].par,jd:J2000,t:0,cnt:0,any:0,dirty:1,Ec:[0,0,0]};
+  O.draw=()=>{O.dirty=0;outFill(O,seg2=>{for(let q=0;q<L.length;q++){if(near[q]){walk(q,O.Ec,seg2);continue}
+   X(q,0,_o0);for(let s=1;s<=seg;s++){X(q,s===seg?0:s*dE0,_o1);seg2(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2]);_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}}})};
+  // which orbits does the camera come close enough to for their straight pieces to show (a piece bows out by A dE^2/8 at most)?
+  O.check=()=>{let ch=0,any=0;const Ec=O.Ec;for(let q=0;q<L.length;q++){const sg=el[q].A*dE0*dE0/8;let d=Infinity;X(q,0,_o0);
+    for(let s=1;s<=seg&&d>sg*(2*PXR+1);s++){X(q,s===seg?0:s*dE0,_o1);d=Math.min(d,segD(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2],Ec));_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}
+    const nr=sg*PXR>.5*(d-sg)?1:0;if(nr!==near[q]){near[q]=nr;ch=1}any|=nr}O.any=any;if(ch)O.dirty=1};
+  elems(J2000);O.ls=new THREE.LineSegments(O.G.g,O.mat);O.ls.frustumCulled=false;O.ls.visible=false;scene.add(O.ls);O.draw();
+  O.refresh=L.some(o=>o.fit)?jd=>{elems(jd);O.dirty=1}:null;OUT[k]=O}
  // the Moon's outline: its real path (moonGeo) over one sidereal month centred on the date, redrawn as the date changes
- const g=new THREE.BufferGeometry(),a=new Float32Array(256*6),mp=[0,0,0],mfill=jd=>{for(let s=0;s<256;s++)for(const[j,t]of[[0,s],[1,s+1]]){moonGeo(jd+(t/256-0.5)*27.321662,mp);a.set([mp[0],mp[2],-mp[1]],(s*2+j)*3)}};mfill(J2000);
- g.setAttribute('position',new THREE.BufferAttribute(a,3));const ls=new THREE.LineSegments(g,mat);ls.frustumCulled=false;ls.visible=false;scene.add(ls);
- OUT['earth:main']={ls,par:byId.earth,jd:J2000,t:0,refresh:jd=>{mfill(jd);g.attributes.position.needsUpdate=true}}}
+ const M=256,cp=new Float64Array((M+3)*3),mp=[0,0,0],TA=[0,0,0],TB=[0,0,0];   // samples -1 to M+1 (stored from 0): one beyond each end, for the curve's ends
+ const O={ls:null,G:precGeo(M*2,true),mat:precMat(col,.22),par:byId.earth,jd:J2000,t:0,cnt:0,any:0,dirty:1,Ec:[0,0,0]};
+ const tang=(i,o)=>{const a=i*3,b=(i+2)*3;for(let k=0;k<3;k++)o[k]=(cp[b+k]-cp[a+k])/2};   // the Catmull-Rom tangent at sample i (stored at i+1)
+ const msag=i=>Math.max(sd2(cp,i+1),sd2(cp,i+2));   // gap i (samples i to i+1)
+ O.draw=()=>{O.dirty=0;outFill(O,seg2=>{for(let i=0;i<M;i++){const j=(i+1)*3;
+   if(!O.any){seg2(cp[j],cp[j+1],cp[j+2],cp[j+3],cp[j+4],cp[j+5]);continue}
+   let px=cp[j],py=cp[j+1],pz=cp[j+2],first=true;tang(i,TA);tang(i+1,TB);
+   gapWalk(cp,j,j+3,TA,TB,O.Ec,(x,y,z)=>{if(first){first=false;return}seg2(px,py,pz,x,y,z);px=x;py=y;pz=z});seg2(px,py,pz,cp[j+3],cp[j+4],cp[j+5])}})};
+ O.check=()=>{let any=0;for(let i=0;i<M&&!any;i++){const j=(i+1)*3,sg=msag(i);if(sg*PXR>.5*(segD(cp[j],cp[j+1],cp[j+2],cp[j+3],cp[j+4],cp[j+5],O.Ec)-sg))any=1}if(any!==O.any){O.any=any;O.dirty=1}};
+ O.refresh=jd=>{for(let i=-1;i<=M+1;i++){moonGeo(jd+(i/M-0.5)*27.321662,mp);const j=(i+1)*3;cp[j]=mp[0];cp[j+1]=mp[2];cp[j+2]=-mp[1]}O.dirty=1};
+ O.refresh(J2000);O.ls=new THREE.LineSegments(O.G.g,O.mat);O.ls.frustumCulled=false;O.ls.visible=false;scene.add(O.ls);O.draw();OUT['earth:main']=O}
 
 /* illustrative belts */
 function makeField(n,seed,color,gen){const R=rng(seed),F={n,a:new Float32Array(n),e:new Float32Array(n),M0:new Float32Array(n),nn:new Float32Array(n),P:new Float32Array(n*3),Q:new Float32Array(n*3)};
@@ -997,7 +1073,7 @@ function updateField(F,jd,ch,fv){const dt=jd-J2000,p=F.pos,l=S.mode==='log';
  F.g.attributes.position.needsUpdate=true}
 
 /* ---------- trails (analytic history, shifted incrementally) ---------- */
-const trailMat=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,depthWrite:false});
+const trailMat=precMat({r:1,g:1,b:1},1),EYE=[0,0,0];
 const LOD={};for(const k in SYS)LOD[k]=false;
 const sysOf=o=>o.cat==='moon'?o.parent:o.id,inCenterSys=o=>sysOf(o)===sysOf(byId[S.center]);
 const effP=(o,other)=>o.id==='sun'?Infinity:o.cat==='moon'?(LOD[o.parent]||sysOf(other)===o.parent?o.P:o.par.P):o.P;
@@ -1032,11 +1108,56 @@ function syncTrails(force){const C=byId[S.center];
   const key=[S.center,S.mode,step,N,warp?'w'+U+'|'+dt0:''].join('|');
   if(o.tr&&o.tr.key===key&&!force)return;
   if(o.line){scene.remove(o.line);o.line.geometry.dispose()}
-  const arr=new Float32Array((N+1)*3),col=new Float32Array((N+1)*4),c=new THREE.Color(o.color),al=o.cat==='moon'?.6:.86;
-  for(let i=0;i<=N;i++)col.set([c.r,c.g,c.b,.05+Math.pow(i/N,1.4)*al],i*4);
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(arr,3));g.setAttribute('color',new THREE.BufferAttribute(col,4));
-  o.line=new THREE.Line(g,trailMat);o.line.frustumCulled=false;scene.add(o.line);o.tr={N,step,K:null,arr,key};
-  if(warp)Object.assign(o.tr,{w:1,dt0,U,L,tm:new Float64Array(N+1),col,al,st:-1})})}
+  const G=precGeo(N+1);o.line=new THREE.Line(G.g,trailMat);o.line.frustumCulled=false;scene.add(o.line);
+  o.tr={N,step,K:null,arr:new Float64Array((N+1)*3),tg:new Float64Array((N+1)*3),vf:new Uint8Array(N+1),key,c:new THREE.Color(o.color),al:o.cat==='moon'?.6:.86,G,st:0,near:0,cnt:0,full:1,cf:1,quiet:0};
+  if(warp)Object.assign(o.tr,{w:1,dt0,U,L,tm:new Float64Array(N+1)})})}
+// Drawn trails: the samples above (o.tr.arr, at times trailT) are joined by straight lines, except where the camera is close enough for
+// them to show: there each gap is drawn as a cubic Hermite curve through its two samples with their true velocities (o.tr.tg, from the
+// computed path a moment either side, found only for the gaps drawn so), with extra points near the camera (gapWalk). Mercury's trail,
+// sampled every half day, then stays within a few km of its true path, where straight lines would bow out by up to 14,000 km.
+const trailT=(t,i,jd)=>t.w?t.tm[i]:i===t.N?jd:(t.K-t.N+1+i)*t.step,_v1=[0,0,0],_v2=[0,0,0],_tA=[0,0,0],_tB=[0,0,0];
+function trailVel(o,t,i,jd){if(t.vf[i])return;t.vf[i]=1;const e=t.step*1e-3,x=trailT(t,i,jd);sample(o,x+e,_v1,0);sample(o,x-e,_v2,0);for(let k=0;k<3;k++)t.tg[i*3+k]=(_v1[k]-_v2[k])/(2*e)}
+// how far gap i bows out, from the samples alone: the acceleration at each end (from the sample's offset from its neighbours' chord) times h^2/8
+function trailAcc(t,i,jd){const P=t.arr,N=t.N;i=Math.min(Math.max(i,1),N-1);const t0=trailT(t,i-1,jd),t1=trailT(t,i,jd),t2=trailT(t,i+1,jd),h0=t1-t0,h1=t2-t1;if(!(h0>0&&h1>0))return 0;
+ const a=h1/(h0+h1),b=h0/(h0+h1),j=i*3,dx=P[j]-a*P[j-3]-b*P[j+3],dy=P[j+1]-a*P[j-2]-b*P[j+4],dz=P[j+2]-a*P[j-1]-b*P[j+5];return 2*Math.hypot(dx,dy,dz)/(h0*h1)}
+function trailBow(t,i,jd){const h=trailT(t,i+1,jd)-trailT(t,i,jd);return Math.max(trailAcc(t,i,jd),trailAcc(t,i+1,jd))*h*h/8}
+// the same from plain second differences (sd2: gaps spaced nearly evenly), and from the times where the body's own short gap is involved
+function gapBow(t,i,jd){return i<1||i>=t.N-2?trailBow(t,i,jd):Math.max(sd2(t.arr,i),sd2(t.arr,i+1))}
+// a gap whose straight line would show: its bow, sg, is over half a pixel at its distance from the camera, d < sg (2 PXR + 1)
+const gapShows=(t,i,jd)=>{const P=t.arr,j=i*3,sg=gapBow(t,i,jd);return sg>0&&sg*PXR>.5*(segD(P[j],P[j+1],P[j+2],P[j+3],P[j+4],P[j+5],EYE)-sg)};
+// the largest bow and gap length on the trail, to skip parts too far away to show (refreshed every 30 checks)
+function trailStats(t,jd){const P=t.arr;let b=0,c=0;for(let i=0;i<t.N;i++){const j=i*3;b=Math.max(b,gapBow(t,i,jd));c=Math.max(c,Math.hypot(P[j+3]-P[j],P[j+4]-P[j+1],P[j+5]-P[j+2]))}t.bM=b;t.cM=c;t.ns=0}
+// is any gap close enough to the camera for its straight line to show? (checked every 6 frames). Gaps i to i+k-1 are at least D - k cM from
+// the camera when sample i is D away, and none can show beyond R = bM (2 PXR + 1): so whole stretches are skipped.
+function trailNear(t,jd){if(!(t.ns++<30&&t.cM>0))trailStats(t,jd);const P=t.arr,N=t.N,R=t.bM*1.5*(2*PXR+1),cm=t.cM*1.5;let i=Math.max(0,t.st);
+ while(i<N){const j=i*3,D=Math.hypot(P[j]-EYE[0],P[j+1]-EYE[1],P[j+2]-EYE[2]);if(D-R>cm){i+=Math.floor((D-R)/cm);continue}if(gapShows(t,i,jd))return 1;i++}return 0}
+// draw: straight lines (each sample one point, kept up to date incrementally), or, near the camera, every gap walked again each frame
+function trailDraw(o,jd,m,n0,n1){const t=o.tr,N=t.N,P=t.arr;let G=t.G;
+ if(N>=3&&++t.cnt>=6){t.cnt=0;if(!t.near){if(trailNear(t,jd)){t.near=1;t.quiet=0;t.vf.fill(0)}}else if(t.quiet>=6){t.near=0;t.full=t.cf=1}}
+ const st=Math.max(0,t.st),al=t.al,cr=t.c.r,cg=t.c.g,cb=t.c.b,span=Math.max(1,N-st);
+ if(t.near){const V=t.vf;   // velocities are kept (and shifted with their samples) only while the trail is drawn as curves
+  if(t.full){V.fill(0);t.full=0;t.ns=99}else{if(m>0){V.copyWithin(0,m,N);t.tg.copyWithin(0,m*3,N*3)}else if(m<0){V.copyWithin(-m,0,N+m);t.tg.copyWithin(-m*3,0,(N+m)*3)}for(let i=n0;i<n1;i++)V[i]=0}
+  V[N]=0;
+  if(!(t.ns++<30&&t.cM>0))trailStats(t,jd);const R=t.bM*1.5*(2*PXR+1),cm=t.cM*1.5;   // as in trailNear: stretches too far away to show are not tested
+  for(;;){let n=0,any=false,skip=0;const cap=G.cap,emit=(x,y,z,f)=>{if(n<cap){putP(G,n,x,y,z);const c=n*4;G.c[c]=cr;G.c[c+1]=cg;G.c[c+2]=cb;G.c[c+3]=.05+Math.pow(Math.max(0,f-st)/span,1.4)*al}n++};
+   for(let i=st;i<N;i++){const j=i*3;
+    if(i>=skip){const D=Math.hypot(P[j]-EYE[0],P[j+1]-EYE[1],P[j+2]-EYE[2]);if(D-R>cm)skip=i+Math.floor((D-R)/cm)}
+    if(i<skip||n>4*N+200000||!gapShows(t,i,jd)){emit(P[j],P[j+1],P[j+2],i);continue}
+    trailVel(o,t,i,jd);trailVel(o,t,i+1,jd);const h=trailT(t,i+1,jd)-trailT(t,i,jd);for(let k=0;k<3;k++){_tA[k]=t.tg[j+k]*h;_tB[k]=t.tg[j+3+k]*h}
+    if(gapWalk(P,j,j+3,_tA,_tB,EYE,(x,y,z,u)=>emit(x,y,z,i+u)))any=true}
+   emit(P[N*3],P[N*3+1],P[N*3+2],N);
+   if(n<=cap){t.quiet=any?0:t.quiet+1;G.g.setDrawRange(0,n);break}
+   const ng=precGeo(Math.ceil(n*1.5)+64);o.line.geometry.dispose();o.line.geometry=ng.g;t.G=G=ng}   // more points than room: a larger buffer, and again
+  G.g.attributes.position.needsUpdate=G.g.attributes.plo.needsUpdate=G.g.attributes.rgba.needsUpdate=true;t.cf=1;return}
+ // straight lines
+ if(G.cap!==N+1){const ng=precGeo(N+1);o.line.geometry.dispose();o.line.geometry=ng.g;t.G=G=ng;t.full=t.cf=1}
+ if(t.full){t.full=0;t.ns=99;for(let i=0;i<N;i++)putP(G,i,P[i*3],P[i*3+1],P[i*3+2])}
+ else if(m>0){G.hi.copyWithin(0,m*3,N*3);G.lo.copyWithin(0,m*3,N*3);for(let i=n0;i<n1;i++)putP(G,i,P[i*3],P[i*3+1],P[i*3+2])}
+ else if(m<0){G.hi.copyWithin(-m*3,0,(N+m)*3);G.lo.copyWithin(-m*3,0,(N+m)*3);for(let i=n0;i<n1;i++)putP(G,i,P[i*3],P[i*3+1],P[i*3+2])}
+ putP(G,N,P[N*3],P[N*3+1],P[N*3+2]);
+ if(t.cf||t.st!==t.cst){t.cf=0;t.cst=t.st;const c=G.c;for(let i=0;i<=N;i++){c[i*4]=cr;c[i*4+1]=cg;c[i*4+2]=cb;c[i*4+3]=.05+Math.pow(Math.max(0,i-st)/span,1.4)*al}
+  G.g.setDrawRange(st,N+1-st);G.g.attributes.rgba.needsUpdate=true}
+ G.g.attributes.position.needsUpdate=G.g.attributes.plo.needsUpdate=true}
 // Eccentric orbits (e >= 0.3): trail samples are spaced evenly in u = t/dt0 + TRU*(orbits since a reference + E/2pi), where E is the
 // eccentric anomaly between the body's actual closest approaches to its primary (the Sun, or its planet), found from its computed path.
 // The points crowd near pericentre, where the body is fast and the path bends, and keep at least the uniform spacing dt0 elsewhere.
@@ -1055,20 +1176,19 @@ function warpU(o,t,dt0,U,d){const W=periCover(o,t,t),T=W.T;let lo=0,hi=T.length-
  if(d)d[0]=1/dt0+U/Pk/(1-o.e*Math.cos(E));return u}
 const _du=[0];
 function invU(o,u,g,dt0,U){let t=g;for(let i=0;i<30;i++){const f=warpU(o,t,dt0,U,_du)-u;if(Math.abs(f)<1e-9)break;t-=f/_du[0]}return t}
-function updateTrail(o,jd){const t=o.tr;if(t.w)return updateWarped(o,jd);const N=t.N,a=t.arr,K=Math.floor(jd/t.step);
- if(t.K===null||Math.abs(K-t.K)>=N){for(let i=0;i<N;i++)sample(o,(K-N+1+i)*t.step,a,i)}
- else if(K>t.K){const m=K-t.K;a.copyWithin(0,m*3,N*3);for(let j=0;j<m;j++)sample(o,(t.K+1+j)*t.step,a,N-m+j)}
- else if(K<t.K){const m=t.K-K;a.copyWithin(m*3,0,(N-m)*3);for(let j=0;j<m;j++)sample(o,(K-N+1+j)*t.step,a,j)}
- t.K=K;sample(o,jd,a,N);o.line.geometry.attributes.position.needsUpdate=true}
-function updateWarped(o,jd){const t=o.tr,N=t.N,a=t.arr,tm=t.tm,dt0=t.dt0,U=t.U,K=Math.floor(warpU(o,jd,dt0,U));
- if(t.K===null||Math.abs(K-t.K)>=N){let g=jd;for(let i=N-1;i>=0;i--){g=invU(o,K-N+1+i,g,dt0,U);tm[i]=g;sample(o,g,a,i)}}
- else if(K>t.K){const m=K-t.K;a.copyWithin(0,m*3,N*3);tm.copyWithin(0,m,N);let g=tm[N-m-1];for(let j=0;j<m;j++){g=invU(o,t.K+1+j,g,dt0,U);tm[N-m+j]=g;sample(o,g,a,N-m+j)}}
- else if(K<t.K){const m=t.K-K;a.copyWithin(m*3,0,(N-m)*3);tm.copyWithin(m,0,N-m);let g=tm[m];for(let j=m-1;j>=0;j--){g=invU(o,K-N+1+j,g,dt0,U);tm[j]=g;sample(o,g,a,j)}}
+// after the samples shift (by m), the new ones are n0 to n1-1; the last sample (index N) is the body itself, taken every frame
+function updateTrail(o,jd){const t=o.tr;if(t.w)return updateWarped(o,jd);const N=t.N,a=t.arr,K=Math.floor(jd/t.step);let m=0,n0=N,n1=N;
+ if(t.K===null||Math.abs(K-t.K)>=N){for(let i=0;i<N;i++)sample(o,(K-N+1+i)*t.step,a,i);t.full=1}
+ else if(K>t.K){m=K-t.K;a.copyWithin(0,m*3,N*3);for(let j=0;j<m;j++)sample(o,(t.K+1+j)*t.step,a,N-m+j);n0=N-m}
+ else if(K<t.K){m=K-t.K;a.copyWithin(-m*3,0,(N+m)*3);for(let j=0;j<-m;j++)sample(o,(K-N+1+j)*t.step,a,j);n0=0;n1=-m}
+ t.K=K;sample(o,jd,a,N);trailDraw(o,jd,m,n0,n1)}
+function updateWarped(o,jd){const t=o.tr,N=t.N,a=t.arr,tm=t.tm,dt0=t.dt0,U=t.U,K=Math.floor(warpU(o,jd,dt0,U));let m=0,n0=N,n1=N;
+ if(t.K===null||Math.abs(K-t.K)>=N){let g=jd;for(let i=N-1;i>=0;i--){g=invU(o,K-N+1+i,g,dt0,U);tm[i]=g;sample(o,g,a,i)}t.full=1}
+ else if(K>t.K){m=K-t.K;a.copyWithin(0,m*3,N*3);tm.copyWithin(0,m,N);let g=tm[N-m-1];for(let j=0;j<m;j++){g=invU(o,t.K+1+j,g,dt0,U);tm[N-m+j]=g;sample(o,g,a,N-m+j)}n0=N-m}
+ else if(K<t.K){m=K-t.K;a.copyWithin(-m*3,0,(N+m)*3);tm.copyWithin(-m,0,N+m);let g=tm[-m];for(let j=-m-1;j>=0;j--){g=invU(o,K-N+1+j,g,dt0,U);tm[j]=g;sample(o,g,a,j)}n0=0;n1=-m}
  t.K=K;tm[N]=jd;sample(o,jd,a,N);
- // draw exactly the chosen length: from the first sample within L of now, with the fade recalculated over the part drawn
- let st=0;const t0=jd-t.L;while(st<N&&tm[st]<t0)st++;const g=o.line.geometry;
- if(st!==t.st){t.st=st;g.setDrawRange(st,N+1-st);const c=t.col,n=Math.max(1,N-st);for(let i=st;i<=N;i++)c[i*4+3]=.05+Math.pow((i-st)/n,1.4)*t.al;g.attributes.color.needsUpdate=true}
- g.attributes.position.needsUpdate=true}
+ // draw exactly the chosen length: from the first sample within L of now, with the fade over the part drawn
+ let st=0;const t0=jd-t.L;while(st<N&&tm[st]<t0)st++;t.st=st;trailDraw(o,jd,m,n0,n1)}
 
 /* ---------- camera ---------- */
 const cam={theta:.7,phi:1.05,dist:1,distT:1};
@@ -1380,6 +1500,7 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
  clampD();const kk=1-Math.exp(-dt*7);cam.dist=Math.exp(Math.log(cam.dist)+(Math.log(cam.distT)-Math.log(cam.dist))*kk);
  turnStep(dt);const sp=Math.sin(cam.phi);camera.position.set(cam.dist*sp*Math.sin(cam.theta),cam.dist*Math.cos(cam.phi),cam.dist*sp*Math.cos(cam.theta));camera.lookAt(0,0,0);
  camera.updateMatrixWorld();starCam.quaternion.copy(camera.quaternion);
+ EYE[0]=camera.position.x+fv[0];EYE[1]=camera.position.y+fv[1];EYE[2]=camera.position.z+fv[2];setEye(trailMat,EYE[0],EYE[1],EYE[2],1);   // the camera in the trails' frame
  // level of detail per moon system
  let lodChanged=false;
  for(const p in SYS){const o=byId[p];tv.set(o.d[0]-fv[0],o.d[1]-fv[1],o.d[2]-fv[2]);const px=SYS[p]*KM*o.k/Math.max(1e-12,tv.distanceTo(camera.position))*PXR,f=S.focus,fo=byId[f];
@@ -1403,7 +1524,8 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
  // orbit outlines
  for(const k in OUT){const O=OUT[k],p=O.par,on=S.orbits&&MG.has(k)&&parOn(p)&&(LOD[p.id]||sysOf(byId[S.center])===p.id);O.ls.visible=on;
   if(on&&O.refresh&&Math.abs(S.jd-O.jd)>0.05&&now-O.t>250){O.refresh(S.jd);O.jd=S.jd;O.t=now}
-  if(on){O.ls.position.set(p.d[0]-fv[0],p.d[1]-fv[1],p.d[2]-fv[2]);O.ls.scale.setScalar(p.k)}}
+  if(on){const c=camera.position,E=O.Ec;E[0]=(c.x-(p.d[0]-fv[0]))/p.k;E[1]=(c.y-(p.d[1]-fv[1]))/p.k;E[2]=(c.z-(p.d[2]-fv[2]))/p.k;setEye(O.mat,E[0],E[1],E[2],p.k);   // the camera in the planet's frame
+   if(++O.cnt>=6){O.cnt=0;O.check()}if(O.dirty||O.any)O.draw()}}
  for(const k in FIELDS)if(S.cat[k])updateField(FIELDS[k],jd,ch,fv);
  glow.scale.setScalar(dispR(sun)*7);sunLight.position.copy(sun.g.position);ringG.position.set(-fv[0],-fv[1],-fv[2]);
  const t1=performance.now();renderer.clear();renderer.render(starScene,starCam);renderer.clearDepth();renderer.render(scene,camera);const t2=performance.now();

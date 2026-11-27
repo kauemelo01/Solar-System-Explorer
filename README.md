@@ -163,7 +163,7 @@ New moons are announced every year; the rules for adding objects are in [What's 
     - the Moon from a lunar theory (Meeus), within 0.02° instead of up to 5°;
     - the planets and Pluto from Standish and Williams's Table 2 outside 1800–2050 AD (Table 1 inside, unchanged), within 0.5° of JPL Horizons from 1000 to 3000 AD instead of up to 5.5° (Saturn).
   - **Better data**: each small body's size and rotation from its most recent published measurement (Arrokoth measured by New Horizons, Torifune by Hayabusa2), published sizes for 354 more moons (10 still have none), the Jupiter trojans back at L4 and L5, and 9P/Tempel 1 turned to its real prime meridian.
-  - **Interface**: a start-up screen that turns into an error message if the app cannot start, a camera position card, smooth trails around perihelion, and *source* links on the object card for any value not from NASA or JPL ([the interface](docs/interface.md)).
+  - **Interface**: a start-up screen that turns into an error message if the app cannot start, a camera position card, smooth, precise trails and moon orbit outlines up close, even next to a small moon (and trails around perihelion), and *source* links on the object card for any value not from NASA or JPL ([the interface](docs/interface.md)).
 - **Release 3** (current, branch `main`, tag `v3`):
   - The planets' moons placed by orbits fitted to JPL Horizons over 1800–2050 AD: typically within 1.5°, against about 90° before.
   - A time bar from 1000 to 3000 AD, with an *Estimated positions* alert outside 1800–2050 AD; a trail length slider for each group of bodies.
