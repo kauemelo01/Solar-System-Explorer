@@ -20,7 +20,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *binary companion*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-charon"></a>**Charon** | 19,600 | 0 | 0 | 6.3872 | 606 | 901 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27901%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/charon/) | Painted |
 
@@ -28,7 +28,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *small moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-styx"></a>**Styx** | 43,200 | 0.025 | 0 | 20.1600 | 5.2 | 905 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27905%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/styx/) | Plain shape |
 | 2 | <a id="m-nix"></a>**Nix** | 49,300 | 0.015 | 0 | 24.8500 | 18 | 902 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27902%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/dwarf-planets/pluto/moons/nix/) | Plain shape |

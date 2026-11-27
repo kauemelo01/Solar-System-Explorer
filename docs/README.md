@@ -28,7 +28,7 @@ Each row in the catalogue links to:
 
 ## Using the app
 
-- [The interface](interface.md): the layout, the start-up screen, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails, and the settings the app remembers
+- [The interface](interface.md): the layout, the start-up screen, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails, the settings the app remembers, and how it loads the sky and surface maps
 
 ## Method and sources
 

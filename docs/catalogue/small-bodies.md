@@ -10,7 +10,7 @@ The *Surface image* column says what the app draws on each body: real photos, pa
 
 The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* switch ([the menu](../interface.md#the-menu)).
 
-| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
+| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | <a id="ceres"></a>**Ceres** | 1 Ceres (A801 AA) | Dwarf planet · asteroid belt | 2.766 | 0.0797 | 10.59 | 469.7 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20000001) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20000001&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/ceres/) | Real photos |
 | <a id="pluto"></a>**Pluto** | 134340 Pluto (1930 BM) | Dwarf planet · Kuiper belt | 39.48 | 0.2488 | 17.14 | 1,188.3 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20134340) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20134340&phys-par=1) · [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27999%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | [science.nasa.gov](https://science.nasa.gov/dwarf-planets/pluto/) | Painted |
@@ -24,7 +24,7 @@ The five dwarf planets recognised by the IAU. In the app: the *Dwarf planets* sw
 
 Large trans-Neptunian objects widely considered dwarf planets but not recognised by the IAU. In the app: the *Candidates* switch ([the menu](../interface.md#the-menu)).
 
-| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
+| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | <a id="gonggong"></a>**Gonggong** | 225088 Gonggong (2007 OR10) | Dwarf planet candidate · scattered disc | 66.87 | 0.5043 | 30.9 | 615 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20225088) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20225088&phys-par=1) | — | Painted |
 | <a id="quaoar"></a>**Quaoar** | 50000 Quaoar (2002 LM60) | Dwarf planet candidate · Kuiper belt | 43.16 | 0.0352 | 7.99 | 555 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20050000) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20050000&phys-par=1) | [rings](rings.md#quaoar) | Painted |
@@ -33,7 +33,7 @@ Large trans-Neptunian objects widely considered dwarf planets but not recognised
 
 ## Asteroids and centaurs
 
-| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
+| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | <a id="vesta"></a>**Vesta** | 4 Vesta (A807 FA) | Main-belt asteroid · Dawn visited | 2.361 | 0.0902 | 7.14 | 261.385 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20000004) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20000004&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/asteroids/4-vesta/) | Real photos |
 | <a id="pallas"></a>**Pallas** | 2 Pallas (A802 FA) | Main-belt asteroid | 2.77 | 0.2307 | 34.93 | 256.5 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=20000002) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=20000002&phys-par=1) | — | Painted |
@@ -73,7 +73,7 @@ Large trans-Neptunian objects widely considered dwarf planets but not recognised
 
 ## Comets
 
-| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../sources.md#card-notes) |
+| Body | Designation (JPL) | Class | a (AU) | e | i (°) | Radius (km) | JPL SBDB | NASA page | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | <a id="halley"></a>**1P/Halley** | 1P/Halley | Periodic comet · returns 2061 | 17.929 | 0.968 | 162.19 | 5.5 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000036) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000036&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/1p-halley/) | Painted |
 | <a id="encke"></a>**2P/Encke** | 2P/Encke | Periodic comet · 3.3-year orbit | 2.218 | 0.847 | 11.3 | 2.4 | [lookup](https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1000025) · [JSON](https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=1000025&phys-par=1) | [science.nasa.gov](https://science.nasa.gov/solar-system/comets/2p-encke/) | Painted |

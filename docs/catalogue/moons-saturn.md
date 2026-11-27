@@ -21,7 +21,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *major moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-mimas"></a>**Mimas** | 186,000 | 0.02 | 1.6 | 0.9424 | 198.2 | 601 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27601%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/mimas/) | Real photos |
 | 2 | <a id="m-enceladus"></a>**Enceladus** | 238,400 | 0.005 | 0 | 1.3702 | 252.1 | 602 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27602%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/enceladus/) | Real photos |
@@ -36,7 +36,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *ring moon / shepherd*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-janus"></a>**Janus** | 151,500 | 0.007 | 0.2 | 0.6974 | 89.5 | 610 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27610%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/janus/) | Plain shape |
 | 2 | <a id="m-epimetheus"></a>**Epimetheus** | 151,400 | 0.02 | 0.3 | 0.697 | 58.1 | 611 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27611%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/epimetheus/) | Plain shape |
@@ -52,7 +52,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *Alkyonides · small moon between Mimas and Enceladus*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-methone"></a>**Methone** | 194,700 | 0.002 | 0 | 1.0095 | 1.45 | 632 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27632%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/methone/) | Plain shape |
 | 2 | <a id="m-pallene"></a>**Pallene** | 212,300 | 0.004 | 0.2 | 1.1561 | 2.2 | 633 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27633%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/pallene/) | Plain shape |
@@ -62,7 +62,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *Trojan co-orbital*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-helene"></a>**Helene** | 377,600 | 0.007 | 0.2 | 2.7369 | 18 | 612 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27612%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/helene/) | Plain shape |
 | 2 | <a id="m-telesto"></a>**Telesto** | 295,000 | 0.001 | 1.2 | 1.8878 | 12.4 | 613 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27613%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/telesto/) | Plain shape |
@@ -73,7 +73,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *Inuit group · prograde irregular*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-paaliaq"></a>**Paaliaq** | 14,997,700 | 0.378 | 48.5 | 685.7153 | 11 | 620 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27620%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/paaliaq/) | Plain shape |
 | 2 | <a id="m-ijiraq"></a>**Ijiraq** | 11,344,700 | 0.293 | 49.2 | 451.1201 | 6 | 622 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27622%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/ijiraq/) | Plain shape |
@@ -118,7 +118,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *Gallic group · prograde irregular*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-tarvos"></a>**Tarvos** | 18,216,600 | 0.522 | 37.8 | 917.984 | 7.5 | 621 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27621%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/tarvos/) | Plain shape |
 | 2 | <a id="m-albiorix"></a>**Albiorix** | 16,329,200 | 0.482 | 36.8 | 779.0701 | 16 | 626 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27626%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/albiorix/) | Plain shape |
@@ -145,7 +145,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *Norse group · retrograde irregular*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-phoebe"></a>**Phoebe** | 12,929,400 | 0.164 | 175.2 | 550.3039 | 106.5 | 609 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27609%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/phoebe/) | Plain shape |
 | 2 | <a id="m-ymir"></a>**Ymir** | 22,955,600 | 0.338 | 172.3 | 1,298.6819 | 9 | 619 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27619%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/saturn/moons/ymir/) | Plain shape |

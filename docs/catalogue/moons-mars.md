@@ -20,7 +20,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *major moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-phobos"></a>**Phobos** | 9,375 | 0.015 | 1.1 | 0.3187 | 11.1 | 401 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27401%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/mars/moons/phobos/) | Real photos |
 | 2 | <a id="m-deimos"></a>**Deimos** | 23,457 | 0 | 1.8 | 1.2625 | 6.2 | 402 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27402%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/mars/moons/deimos/) | Real photos, gaps filled |

@@ -81,20 +81,8 @@ Distances and body sizes are always drawn to true scale. Bodies are therefore ti
 
 **To scale:** every position (computed in kilometres from the orbital elements), every body's radius, Saturn's rings (74,658–136,780 km), the orbit trails and the distance rings in AU.
 
-### What is not to scale
+**Not to scale:** a few visual aids drawn on top of the model, such as the dots and labels that mark each body, the Sun's glow and comet tails ([What is not to scale](interface.md#what-is-not-to-scale)).
 
-These are visual aids drawn on top of the true-scale model; each is a [limitation of the model](#limitations-of-the-model):
-
-| Element | What it really is |
-|---|---|
-| Coloured dots and labels marking bodies | A fixed 3.5–6 pixels on screen whatever the zoom, so bodies smaller than a pixel can still be found |
-| The Sun's glow | A glow 7 times the Sun's radius, plus a halo of fixed screen size. The Sun's sphere itself is true size |
-| Comet tails and comas | Drawn only while the comet is within 5 AU of the Sun. Illustrative length: the shorter of 0.6 AU and 0.3 / r² AU, where r is the comet's distance from the Sun in AU. Real tails vary widely and can exceed 1 AU |
-| Bodies with no published radius | Placeholder radii, marked *est.* in the app and the catalogue: 1.5–40 km for moons, and for small bodies with no published size: Torifune and Kamoʻoalewa from their brightness, 0.5 km for comets with no nucleus measurement (311P, Thatcher and three SOHO comets) and 2.5 km for C/2020 F3 (NEOWISE) ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)) |
-| Irregular asteroids and small moons | Mean radius is correct; the lumpy shape is computer-generated, not the real shape |
-| Main asteroid belt, Hildas, Jupiter and Neptune trojans, Kuiper belt | Statistical clouds of fixed-size points, not individual catalogued objects (see [Belts](#belts)) |
-| Ring opacity | Radii are true, but rings are drawn more opaque than they are, so that faint and narrow rings (for example Jupiter's, with optical depths around 10⁻⁶) can be seen |
-| The sky (stars, Milky Way, deep-sky objects) | Directions are true, but the sky is drawn on a backdrop that moves with the camera, so distances are not represented; the object's card gives its real distance. Star dot size shows brightness, not physical size |
 
 ## Planets
 
@@ -130,7 +118,7 @@ Each moon's radius comes from the first of these sources that gives one, checked
    - Sheppard, Jewitt & Kleyna (2005), *AJ* 129, 518, Table 3 ([arXiv:astro-ph/0410059](https://arxiv.org/abs/astro-ph/0410059)): Uranus's Prospero, Setebos, Stephano, Trinculo, Francisco, Ferdinand and Margaret;
    - Sheppard, Jewitt & Kleyna (2006), *AJ* 132, 171, Table 3 ([arXiv:astro-ph/0604552](https://arxiv.org/abs/astro-ph/0604552)): Neptune's Halimede, Sao, Laomedeia, Psamathe and Neso;
    - Jewitt, Sheppard & Porco (2004), *Jupiter's Outer Satellites and Trojans*, Table 12.1: Jupiter's Themisto and Callirrhoe (half the listed diameter).
-4. **None of these**: the other 363 moons have no published radius, so the app gives them a small placeholder size for display, marked *est.* in the app and the catalogue ([What is not to scale](#what-is-not-to-scale)). Mab and Cupid are among them: their discovery paper gives sizes, but it is not openly available to check.
+4. **None of these**: the other 363 moons have no published radius, so the app gives them a small placeholder size for display, marked *est.* in the app and the catalogue ([What is not to scale](interface.md#what-is-not-to-scale)). Mab and Cupid are among them: their discovery paper gives sizes, but it is not openly available to check.
 
 Each moon page in the catalogue lists which source each radius comes from. Earlier versions used radii from compilations whose sources were not documented; 35 of them differed from JPL's current values (for example Leda 10.8 km, now 5; Sycorax 78.5 km, now 60; Nix 25 km, now 18).
 
@@ -218,7 +206,7 @@ The main asteroid belt, the Hilda asteroids, the Jupiter and Neptune trojans and
 ## The sky beyond the solar system
 
 - **Stars:** *Yale Bright Star Catalogue*, 5th revised ed. (D. Hoffleit & W. H. Warren Jr., 1991; CDS V/50), via the NASA HEASARC table `bsc5p` <https://heasarc.gsfc.nasa.gov/W3Browse/star-catalog/bsc5p.html>. All 9,096 entries with a position and V magnitude are drawn; colour comes from B−V.
-- **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app ships two sizes; see [Sky map loading](#sky-map-loading).
+- **Milky Way and faint stars:** NASA/Goddard Space Flight Center Scientific Visualization Studio, *Deep Star Maps* (2009) <https://svs.gsfc.nasa.gov/3895>. Plate carrée map in J2000 right ascension and declination, built from over 100 million stars in the Bright Star, Tycho-2 and UCAC3 catalogues. The app ships two sizes; see [Sky map loading](interface.md#sky-map-loading).
 - **Deep-sky positions:** CDS SIMBAD and the Sesame name resolver (J2000).
 - **Deep-sky reference images:** NASA Image and Video Library <https://images.nasa.gov/>, linked from each object's card and catalogue entry (not drawn in the sky; see [What's not included](#whats-not-included)). Credits are listed in [catalogue/sky.md](catalogue/sky.md).
 - **Planet-hosting stars:** NASA Exoplanet Archive, `pscomppars` table <https://exoplanetarchive.ipac.caltech.edu/>.
@@ -227,33 +215,9 @@ The main asteroid belt, the Hilda asteroids, the Jupiter and Neptune trojans and
 - **Frame:** J2000 equatorial positions are rotated into the ecliptic J2000 frame used for the planets. The sky sphere is centred on the camera, so it behaves as infinitely far away. That is a very good approximation: from Neptune, even Proxima Centauri shifts by less than 25″.
 - **Not modelled:** proper motion (the catalogue is J2000; Barnard's Star, the fastest, moves about 10″ per year) and precession (a [limitation of the model](#limitations-of-the-model)).
 
-### Sky map loading
-
-The star map comes in two sizes, in `sky/`:
-
-| File | Size | Download |
-|---|---|---|
-| `starmap_4k.jpg` | 4096 × 2048 | 2.2 MB |
-| `starmap_8k.jpg` | 8192 × 4096 | 6.9 MB |
-
-1. **Capable devices try the 8K map first.** A device counts as capable when both of these hold:
-   - the graphics chip accepts textures at least 8192 pixels wide (`renderer.capabilities.maxTextureSize >= 8192`);
-   - the screen's longer side is at least 1600 device pixels (`max(screen.width, screen.height) × devicePixelRatio >= 1600`).
-2. **The 4K map is the fallback.** It loads only if the 8K map fails to load, or straight away on devices that are not capable.
-
-In practice:
-
-- **Most desktops and laptops** use 8K; a 1920 × 1080 monitor already qualifies.
-- **Recent phones usually use 8K too.** For example, an iPhone screen's long side is 844 × 3 = 2,532 device pixels, and its graphics chip supports 8192.
-- **Older or low-end devices** use 4K.
-
-Each device normally downloads only one file: 6.9 MB for 8K or 2.2 MB for 4K. On capable devices the sky appears once the 8K map has arrived, so it takes a little longer to show up than when the 4K map loaded first.
-
-**Choosing the size:** *Images → Sky map detail* ([interface](interface.md#the-menu)) overrides the rule above. The logic is in `index.html`, next to the comment `Sky map size`.
-
 ## Surface maps
 
-Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it. Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](#card-notes)). The remaining gaps, where no better published map exists, are [limitations of the model](#limitations-of-the-model).
+Bodies with a surface map in `textures/` are drawn with it. All others keep a simple texture painted in code (`texFor()` in `index.html`). **Not every map is complete.** Some are partial and some have gaps filled in by their makers. Each map is listed below with what its publisher says about it; how the maps were processed and how the app loads them is in [interface.md](interface.md#surface-map-processing). Each object's card in the app also carries a one-line note saying what its surface image is (see [Card notes](interface.md#card-notes)). The remaining gaps, where no better published map exists, are [limitations of the model](#limitations-of-the-model).
 
 ### Sources
 
@@ -293,29 +257,6 @@ Bodies with no map keep the painted texture (a [limitation of the model](#limita
 
 **Removed maps** (see [What's not included](#whats-not-included)). Earlier versions used NASA 3D Resources maps for Pluto, Charon and Titan. NASA's own pages call all three "Fictional": Pluto was stitched from a painting by Pat Rawlings, Charon was "faked from some Magellan images", and Titan is a "concept". They were dropped, and these bodies use the painted texture again. Real maps exist for Pluto and Charon (New Horizons, 2015) and Titan (Cassini radar and infrared) and could be added later.
 
-### Processing
-
-All of the steps below are done by [`tools/build_textures.py`](../tools/build_textures.py), which downloads every source and rebuilds `textures/` (run `python3 tools/build_textures.py` from the repository root; it needs Pillow and about 400 MB of downloads, cached in `.texture-cache/`). Its output matches the committed files exactly.
-
-- The large Solar System Scope maps are recompressed to JPEG quality 80; the 2K ones are used as published.
-- The NASA maps are recompressed to JPEG quality 85.
-- For Io, the Uranian moons and Triton, the unmapped area (black in the originals) is made transparent and saved as WebP. In the app it is filled with the painted texture, so a seam is visible where they meet.
-- The Ceres and Vesta mosaics (21093 and 26703 pixels wide) and the Triton map (14138 pixels wide) are scaled down to 2048 × 1024.
-- The Cassini maps of Saturn's six icy moons (11741 to 15960 pixels wide) are converted to black-and-white and scaled down to 2048 × 1024.
-- The USGS Callisto mosaic (15138 pixels wide) is scaled down to 2048 × 1024; its no-data area is made transparent and saved as WebP, so the app fills it with the painted texture.
-
-### How they load
-
-1. **Each body starts in its plain colour** and switches to its map when the file arrives. Maps are downloaded only while realistic textures are on (see below), and then every map is requested as soon as the page opens, not when you fly to a body.
-2. **Capable devices try the large map first** (same test as the [sky map](#sky-map-loading)); if it fails they load the 2K map. Other devices load the 2K map directly. The test is made once, when the page opens. Saturn's ring strip follows the same rule (8192 px, then 2048 px).
-3. **The painted texture is the fallback**, used only if every file for that body fails to load.
-
-There is no manual choice of size for surface maps: the *Auto / 4K / 8K* buttons under *Images → Sky map detail* apply to the sky map only.
-
-**Turning them off:** *Images → Realistic surface textures* ([interface](interface.md#the-menu)) switches every real map off, and no map files are then downloaded.
-
-**Sphere detail.** Bodies with a map are drawn as smoother spheres (64 × 40 segments, as for the planets) so the map does not look faceted; other moons and small bodies use 32 × 20. Sizes and shapes are unchanged, and Vesta, Phobos and Deimos keep their lumpy shapes.
-
 ### Orientation
 
 - **North is up on every map, and for 70 bodies longitude is aligned too**, so the side facing you is the real one: see [Which side faces you](#which-side-faces-you) below.
@@ -339,30 +280,9 @@ The app turns **70 bodies** so that their prime meridian (longitude 0°) points 
 - **Checked** with the app's own code: on 21 June 2026 at 12:00 UTC the Sun is overhead at 0.6°E on Earth (expected about 0.4°E); the Moon faces Earth within 8°, its real libration; the other tidally locked moons face their planet within 1–7°, including the backward-spinning ones (Uranus's moons within 2°, Triton within 6°). Mimas is off by up to about 20°: the IAU's model for it has a 45° libration term, from its resonance with Tethys, that is not quite in step with the app's fitted orbit.
 - **Not aligned** (a [limitation of the model](#limitations-of-the-model)): Vesta, whose Dawn mosaic does not say which of Vesta's two longitude systems it uses (the Dawn team's or the IAU's), and every body without IAU rotational elements (most small moons and small bodies). These spin at their true rate from an arbitrary starting angle. On the giant planets, Venus and the Sun the surfaces are clouds or gas that move, so the map shows a representative view.
 
-### Earth's clouds
-
-The Earth map is cloud-free, which looks artificial, so the app draws a separate layer of random clouds just above it. There is no weather model: the clouds are fixed noise patterns, the same on every visit, and they turn with the planet. They are shaped to look plausible: stretched east–west, a little denser near the equator and at mid-latitudes, and thinner in the subtropics. They cover about a fifth of the globe (real cloud cover is about two-thirds). The layer is generated a few rows at a time after the Earth map loads, so the page does not stall. It is added only on top of the real map, not the painted fallback. The code is in `index.html`, next to the comment `Earth's clouds`. The painted clouds are a [limitation of the model](#limitations-of-the-model).
-
-### Card notes
-
-Each object's card in the app has a short note under its type saying what its surface image is. Every note fits in two lines on the card, on desktop and phone screens.
-
-| Note | Used for |
-|---|---|
-| Surface: real spacecraft photos | Ceres, Vesta, Phobos, Mimas, Enceladus, Tethys, Dione, Rhea, Iapetus |
-| Surface: based on real spacecraft photos | Mercury, Earth, the Moon, Mars (Solar System Scope: colours tuned and any gaps filled by the publisher) |
-| Clouds: based on real photos, but they change constantly | Venus, Jupiter, Saturn, Uranus, Neptune |
-| Representative image: the Sun has no fixed surface | The Sun |
-| Surface: real photos; gaps filled in by map makers | Deimos, Europa, Ganymede |
-| Surface: real photos, partial; the rest is painted | Io, Callisto, Miranda, Ariel, Umbriel, Titania, Oberon, Triton |
-| Surface: painted illustration, not a real image | Every other body drawn as a sphere or lumpy shape, including Pluto, Charon and Titan |
-| Plain shape; no surface image | The small moons, including the moons of dwarf planets, candidates and asteroids, drawn as plain-coloured shapes |
-
-Some notes add a short detail: Earth "Clouds are painted", Venus "Surface hidden", Neptune "Dark spot of 1989, now gone", Vesta "Far north in shadow", Io "Small polar gaps", Callisto "Small gap near the south pole", Triton "Voyager 2 saw half", and the five Uranian moons "Only the south was seen". If a body's map fails to load, its note says it is showing the painted texture instead. The notes are defined in `index.html` next to the comment `one-line note on each object's card`.
-
 ## In the app
 
-The interface (the start-up screen, the menu, the time bar, the object card, the camera position card, trails, when moons appear and the saved settings) is described in [interface.md](interface.md).
+The interface (the start-up screen, the menu, the time bar, the object card, the camera position card, trails, when moons appear and the saved settings), and how the app loads the sky and surface maps, are described in [interface.md](interface.md).
 
 ## Accuracy
 
@@ -441,7 +361,7 @@ Things that are wrong compared with official NASA, JPL or IAU data. Every issue 
 
 Simplifications kept on purpose. They are listed so you know what the app does and does not show.
 
-- **Visual aids not to scale:** the fixed-size dots and labels, the Sun's glow, comet tails, exaggerated ring opacity and computer-generated lumpy shapes. Each is described in [What is not to scale](#what-is-not-to-scale).
+- **Visual aids not to scale:** the fixed-size dots and labels, the Sun's glow, comet tails, exaggerated ring opacity and computer-generated lumpy shapes. Each is described in [What is not to scale](interface.md#what-is-not-to-scale).
 - **Placeholders:** bodies with no published radius get a placeholder size, marked *est.*; fourteen small bodies with no published rotation period we could verify spin at an illustrative 12 hours ([details](catalogue/small-bodies.md#notes-on-sizes-and-rotation)).
 - **Orbit models are simple, so precision depends on the date and the body** (see [Accuracy](#accuracy)):
   - planets and Pluto use Keplerian elements valid for 1800–2050 AD; outside that range the time bar shows *Estimated positions*;

@@ -21,7 +21,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *major moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-ariel"></a>**Ariel** | 190,929 | 0.001 | 0 | 2.5204 | 578.9 | 701 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27701%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ariel/) | Real photos, partial; rest painted |
 | 2 | <a id="m-umbriel"></a>**Umbriel** | 265,986 | 0.004 | 0.1 | 4.1442 | 584.7 | 702 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27702%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/umbriel/) | Real photos, partial; rest painted |
@@ -33,7 +33,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *inner moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-cordelia"></a>**Cordelia** | 49,755 | 0 | 0.2 | 0.3347 | 13 | 706 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27706%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/cordelia/) | Plain shape |
 | 2 | <a id="m-ophelia"></a>**Ophelia** | 53,765 | 0.011 | 0.2 | 0.3764 | 16 | 707 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27707%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/ophelia/) | Plain shape |
@@ -54,7 +54,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *irregular moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-caliban"></a>**Caliban** | 7,167,000 | 0.2 | 141.4 | 580 | 30 | 716 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27716%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/caliban/) | Plain shape |
 | 2 | <a id="m-sycorax"></a>**Sycorax** | 12,193,200 | 0.52 | 157 | 1,286 | 60 | 717 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27717%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/uranus/moons/sycorax/) | Plain shape |

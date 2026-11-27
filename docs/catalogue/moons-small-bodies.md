@@ -8,7 +8,7 @@ The *Surface image* column says what the app draws on each body; these moons are
 
 Moons whose orbit could not be found in a verifiable published source are not included (a [limitation of the model](../sources.md#limitations-of-the-model); see [What's not included](../sources.md#whats-not-included)); this is why Makemake's moon (S/2015 (136472) 1, "MK2", whose orbit is only bounded), Ida's moon Dactyl, Polymele's moon Shaun and Dinkinesh's moon Selam (whose plane and phase are not published: only its distance, 3.1 km, and period, 52.7 h, Levison et al. 2024) are absent. They are on the [Watchlist](../sources.md#watchlist).
 
-| Moon | Parent | a (km) | e | i (°) | Period | Radius (km) | JPL ID | Orbit source | References | [Surface image](../sources.md#card-notes) |
+| Moon | Parent | a (km) | e | i (°) | Period | Radius (km) | JPL ID | Orbit source | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|---|
 | <a id="m-dysnomia"></a>**Dysnomia** | [Eris](small-bodies.md#eris) | 37,272.97 | 0.0061 | 61.61 | 15.7859 d | 350 | 120136199 | Fitted to JPL Horizons over 2000–2030 (its TNO satellite solution) | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27120136199%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Plain shape |
 | <a id="m-hi-iaka"></a>**Hiʻiaka** | [Haumea](small-bodies.md#haumea) | 49,344.96 | 0.0619 | 76.92 | 49.0344 d | 160 | — | Fitted to the Proudfoot et al. 2024 ephemeris over 2005–2035; values for 2026 | Proudfoot et al. 2024, *PSJ* 5:69 ([doi:10.3847/PSJ/ad26e9](https://doi.org/10.3847/PSJ/ad26e9)) · Ragozzine & Brown 2009, *AJ* ([arXiv:0903.4213](https://arxiv.org/abs/0903.4213)) | Plain shape |

@@ -138,7 +138,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 
 This is an educational model built on Keplerian orbits, not a full n-body integration: the planets use JPL's approximate elements, and the moons, dwarf planets, asteroids and comets use orbits fitted to JPL Horizons over 1800–2050 AD, which meet the [accuracy targets](docs/sources.md#accuracy-targets). Planet positions are good to roughly arc-minutes within 1800–2050 AD. The time bar covers **1000 to 3000 AD** ([the time bar](docs/interface.md#the-time-bar)); outside 1800–2050 AD positions are estimates. Known issues: none at the moment ([Known issues](docs/sources.md#known-issues)).
 
-Distances and body sizes are always to true scale. A few visual aids are not; they are among the [limitations of the model](docs/sources.md#limitations-of-the-model), and each is described in [docs/sources.md](docs/sources.md#what-is-not-to-scale):
+Distances and body sizes are always to true scale. A few visual aids are not; they are among the [limitations of the model](docs/sources.md#limitations-of-the-model), and each is described in [docs/sources.md](docs/interface.md#what-is-not-to-scale):
 - the fixed-size dots and labels that mark each body;
 - the Sun's glow;
 - comet tails;

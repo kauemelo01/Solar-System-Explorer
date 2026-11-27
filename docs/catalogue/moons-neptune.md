@@ -21,7 +21,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *captured, retrograde*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-triton"></a>**Triton** | 354,800 | 0 | 157.3 | 5.8792 | 1,353.4 | 801 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27801%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/triton/) | Real photos, partial; rest painted |
 
@@ -29,7 +29,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *inner moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-naiad"></a>**Naiad** | 48,300 | 0.001 | 4.7 | 0.2951 | 29 | 803 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27803%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/naiad/) | Plain shape |
 | 2 | <a id="m-thalassa"></a>**Thalassa** | 50,100 | 0.001 | 0.2 | 0.3118 | 40 | 804 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27804%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/thalassa/) | Plain shape |
@@ -43,7 +43,7 @@ Radius values marked *est.* are not published; the app uses a placeholder size f
 
 *irregular moon*
 
-| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../sources.md#card-notes) |
+| # | Moon | a (km) | e | i (°) | Period (days) | Radius (km) | NAIF ID | References | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | <a id="m-nereid"></a>**Nereid** | 5,513,900 | 0.751 | 5.1 | 360.133 | 170 | 802 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27802%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/nereid/) | Plain shape |
 | 2 | <a id="m-halimede"></a>**Halimede** | 16,590,500 | 0.521 | 119.6 | 1,879 | 31 | 809 | [JPL Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27809%27&OBJ_DATA=YES&MAKE_EPHEM=NO) · [NASA](https://science.nasa.gov/neptune/moons/halimede/) | Plain shape |

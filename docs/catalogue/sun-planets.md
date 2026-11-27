@@ -8,7 +8,7 @@ Pluto, whose orbit also comes from this JPL table, is listed with the [dwarf pla
 
 The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
 
-| Body | Type | NAIF ID | NASA overview | NASA fact sheet | JPL Horizons record | [Surface image](../sources.md#card-notes) |
+| Body | Type | NAIF ID | NASA overview | NASA fact sheet | JPL Horizons record | [Surface image](../interface.md#card-notes) |
 |---|---|---|---|---|---|---|
 | <a id="sun"></a>**Sun** | Star | 10 | [science.nasa.gov](https://science.nasa.gov/sun/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2710%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Representative image |
 | <a id="mercury"></a>**Mercury** | Planet | 199 | [science.nasa.gov](https://science.nasa.gov/mercury/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/mercuryfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27199%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Based on real photos |

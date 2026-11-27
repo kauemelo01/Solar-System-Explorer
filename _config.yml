@@ -25,7 +25,7 @@ defaults:
       path: "docs/interface.md"
     values:
       title: "The interface"
-      description: "How to use Solar System Explorer: the layout, every control and keyboard shortcut, the menu, the time bar, the object and camera position cards, trails, and the settings it remembers."
+      description: "How to use Solar System Explorer, and how it loads and draws its data: the layout, every control and keyboard shortcut, the menu, the time bar, the cards, trails, saved settings, and how sky and surface maps are prepared and loaded."
   - scope:
       path: "docs/catalogue/sun-planets.md"
     values:
