@@ -1,0 +1,30 @@
+[← Documentation index](../README.md) · [Project README](https://github.com/kauemelo01/Solar-System-Explorer#readme)
+
+# Sun, planets and the Moon
+
+10 bodies. Their positions come from orbits fitted to JPL Horizons over 1800–2050 AD, within 7″ ([how the planets are placed](../sources.md#planets); JPL's *Approximate Positions of the Planets* Keplerian elements outside that range), except the Moon, which is placed around the Earth–Moon barycentre by the lunar theory of Meeus, *Astronomical Algorithms*, ch. 47 ([how the Moon is placed](../sources.md#the-moon)). Radii, rotation periods and spin-pole directions follow the IAU WGCCRE 2015 report and NASA fact sheets.
+
+Pluto, whose orbit is fitted the same way, is listed with the [dwarf planets](small-bodies.md#pluto). The ring systems of Jupiter, Saturn, Uranus and Neptune are listed with their radii and sources on the [rings page](rings.md).
+
+The *Surface image* column says what the app draws on each body: real photos, partial maps, painted illustrations or plain shapes. Details and sources: [Surface maps](../sources.md#surface-maps).
+
+| Body | Type | NAIF ID | NASA overview | NASA fact sheet | JPL Horizons record | [Surface image](../interface.md#card-notes) |
+|---|---|---|---|---|---|---|
+| <a id="sun"></a>**Sun** | Star | 10 | [science.nasa.gov](https://science.nasa.gov/sun/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%2710%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Representative image |
+| <a id="mercury"></a>**Mercury** | Planet | 199 | [science.nasa.gov](https://science.nasa.gov/mercury/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/mercuryfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27199%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Based on real photos |
+| <a id="venus"></a>**Venus** | Planet | 299 | [science.nasa.gov](https://science.nasa.gov/venus/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27299%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
+| <a id="earth"></a>**Earth** | Planet | 399 | [science.nasa.gov](https://science.nasa.gov/earth/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27399%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Based on real photos; clouds painted |
+| <a id="moon"></a>**Moon** | Earth’s moon | 301 | [science.nasa.gov](https://science.nasa.gov/moon/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27301%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Based on real photos |
+| <a id="mars"></a>**Mars** | Planet | 499 | [science.nasa.gov](https://science.nasa.gov/mars/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27499%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Based on real photos |
+| <a id="jupiter"></a>**Jupiter** | Gas giant | 599 | [science.nasa.gov](https://science.nasa.gov/jupiter/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27599%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
+| <a id="saturn"></a>**Saturn** | Gas giant | 699 | [science.nasa.gov](https://science.nasa.gov/saturn/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/saturnfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27699%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
+| <a id="uranus"></a>**Uranus** | Ice giant | 799 | [science.nasa.gov](https://science.nasa.gov/uranus/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27799%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
+| <a id="neptune"></a>**Neptune** | Ice giant | 899 | [science.nasa.gov](https://science.nasa.gov/neptune/) | [NSSDCA](https://nssdc.gsfc.nasa.gov/planetary/factsheet/neptunefact.html) | [Horizons](https://ssd.jpl.nasa.gov/api/horizons.api?format=text&COMMAND=%27899%27&OBJ_DATA=YES&MAKE_EPHEM=NO) | Clouds from real photos (snapshot) |
+
+## Sources for this group
+
+- JPL Horizons (DE440), for the fitted orbits: <https://ssd.jpl.nasa.gov/horizons/>
+- JPL SSD, *Approximate Positions of the Planets* (outside 1800–2050 AD): <https://ssd.jpl.nasa.gov/planets/approx_pos.html>
+- JPL SSD, *Planetary Physical Parameters*: <https://ssd.jpl.nasa.gov/planets/phys_par.html>
+- NASA NSSDCA *Planetary Fact Sheets*: <https://nssdc.gsfc.nasa.gov/planetary/planetfact.html>
+- Archinal et al. (2018), *Report of the IAU Working Group on Cartographic Coordinates and Rotational Elements: 2015*, Celest. Mech. Dyn. Astr. 130:22: <https://doi.org/10.1007/s10569-017-9805-5>
