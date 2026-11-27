@@ -206,10 +206,15 @@ dt{color:var(--mute)}dd{margin:0;text-align:right;font-variant-numeric:tabular-n
 @media(max-width:600px){#pmin{display:none}}
 /* wide screens: the panel runs to the bottom of the screen; the time bar stays centred and narrows so it clears the panel (16 px edge + 360 px panel + 16 px gap, mirrored on the right) */
 @media(min-width:1300px){#panel{max-height:calc(100% - 32px)}#timebar{width:min(820px,calc(100% - 784px))}}
+/* camera position: bottom right on wide screens, as tall as the time bar (docs/sources.md#camera-position) */
+#campos{right:16px;bottom:16px;width:min(330px,calc((100% - min(820px,calc(100% - 784px)))/2 - 32px));box-sizing:border-box;display:none;grid-template-columns:1.25fr 1fr 1fr;align-content:center;gap:2px 12px;padding:10px 14px;font-variant-numeric:tabular-nums}
+#campos span{color:var(--mute);font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#campos b{font-weight:500;font-size:15px;line-height:1.3;white-space:nowrap}
+@media(min-width:1300px){#campos{display:grid}}   /* after the base rule, so it wins */
 .hbtns{display:flex;align-items:center;gap:6px;flex:none}
 .hbtns .ib{min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center}
 #pmin svg{transition:transform .2s}#panel.min #pmin svg{transform:rotate(180deg)}
-body.fs #panel,body.fs #focus,body.fs #sky,body.fs #timebar{display:none!important}
+body.fs #panel,body.fs #focus,body.fs #sky,body.fs #timebar,body.fs #campos{display:none!important}
 #fsExit{position:fixed;top:12px;right:12px;display:none;background:rgba(8,12,21,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .3s;z-index:5}
 #fsExit small{color:var(--mute);margin-left:6px}
 body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
@@ -354,6 +359,10 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
  <input type="date" id="jump" aria-label="Jump to date">
  <button class="btn" id="today">Today</button>
 </footer>
+<aside id="campos" class="card" aria-label="Camera position">
+ <span id="cpFrom" title="Distance of the camera from the selected object">From the Sun</span><span title="Angle of the camera above or below the plane of the distance rings (the ecliptic): 0° in that plane, where the rings appear as one line">Ecliptic lat.</span><span title="Galactic latitude: 0° is the plane of the Milky Way's disk">Galactic lat.</span>
+ <b id="cpDist">—</b><b id="cpL">—</b><b id="cpB">—</b>
+</aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="sky/stars.js"></script>
@@ -1126,7 +1135,23 @@ function renderUI(){
  syncTrailUI();$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
  $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
-function renderInfo(){const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
+// camera position (docs/sources.md#camera-position): distance and galactic latitude relative to the selected object, ecliptic latitude
+// relative to the plane of the distance rings; the scene is the J2000 ecliptic as (x, z, -y),
+// 1 unit = 10^6 km (distances are true to scale); the direction goes to galactic coordinates through J2000 equatorial and the
+// ICRS-to-galactic rotation (Hipparcos, ESA 1997)
+const GAL=[[-0.0548755604162154,-0.8734370902348850,-0.4838350155487132],[0.4941094278755837,-0.4448296299600112,0.7469822444972189],[-0.8676661490190047,-0.1980763734312015,0.4559837761750669]];
+function camPos(){const f=byId[S.focus].d,x=fv[0]+camera.position.x-f[0],y=fv[1]+camera.position.y-f[1],z=fv[2]+camera.position.z-f[2],r=Math.hypot(x,y,z);
+ const e=[x,-z,y],q=[e[0],Math.cos(OBL)*e[1]-Math.sin(OBL)*e[2],Math.sin(OBL)*e[1]+Math.cos(OBL)*e[2]],g=GAL.map(m=>m[0]*q[0]+m[1]*q[1]+m[2]*q[2]);
+ const h=fv[1]+camera.position.y;   // height above the plane of the distance rings: the ecliptic through the body held still (scene y = 0)
+ return{u:r,e:r>0?Math.asin(Math.max(-1,Math.min(1,h/r)))/DEG:0,b:r>0?Math.asin(Math.max(-1,Math.min(1,g[2]/r)))/DEG:0}}
+// m below 1 km; then km, Mm (10^3 km) and Gm (10^6 km) in steps of 1,000; AU from 1 AU; two decimals except for metres
+const fmtCam=u=>{const km=u*1e6,f=(v,un)=>v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+un;
+ return km<1?Math.round(km*1000)+' m':km<1e3?f(km,'km'):km<1e6?f(km/1e3,'Mm'):u<AU?f(km/1e6,'Gm'):f(u/AU,'AU')};
+function renderCam(){const el=$('campos');if(!el||!el.getClientRects().length)return;const c=camPos(),tb=$('timebar').getBoundingClientRect().height;
+ if(tb&&el.style.height!==tb+'px')el.style.height=tb+'px';   // exactly the time bar's height
+ $('cpFrom').textContent='From '+byId[S.focus].name;$('cpDist').textContent=fmtCam(c.u);
+ const sg=v=>{v=Math.abs(v)<.05?0:v;return(v>=0?'+':'−')+Math.abs(v).toFixed(1)+'°'};$('cpL').textContent=sg(c.e);$('cpB').textContent=sg(c.b)}
+function renderInfo(){renderCam();const f=byId[S.focus];helio(f,S.jd,_h);helio(byId[S.center],S.jd,_hc);
  const d=Math.hypot(_h[0]-_hc[0],_h[1]-_hc[1],_h[2]-_hc[2]),ds=Math.hypot(..._h);
  $('fDist').textContent=f.id===S.center?'—':fmtD(d);$('fLight').textContent=f.id===S.center?'—':fmtL(d);$('fSun').textContent=f.id==='sun'?'—':fmtD(ds);
  const dt=new Date((S.jd-2440587.5)*864e5);

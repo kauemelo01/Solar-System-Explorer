@@ -370,6 +370,17 @@ While the app loads, a splash screen shows its name and what it is doing (*Loadi
 - **What it shows:** a short explanation and the error itself, with **Reload**, **Reset saved settings and reload** (which clears the settings the app remembers on this device, in case one of them stops it from starting after an update) and a link to report the problem on GitHub, with the error and the browser's name filled in for review before sending.
 - Without JavaScript, the page shows a short description of the app and a link to this documentation instead.
 
+### Camera position
+
+On screens at least 1300 px wide, a small card at the bottom right, as tall as the time bar, shows where the camera is:
+
+- **From** the selected object (the one the camera looks at and orbits, named on the card): the camera's distance from it, in metres below 1 km, then in kilometres, megametres (Mm, 1,000 km) and gigametres (Gm, 1 million km) in steps of 1,000, and in AU from 1 AU (149.60 Gm); with two decimals, except for metres.
+- **Ecliptic latitude** (−90° to +90°): the camera's angle above or below the plane of the distance rings, which is the ecliptic (the plane of Earth's orbit) through the body held still. At 0° the camera is in that plane and the rings appear as a single horizontal line; positive values are on the side of the ecliptic north pole.
+- **Galactic latitude** (*b*, −90° to +90°) of the camera's direction as seen from the selected object: 0° is the plane of the Milky Way's disk, and positive values are on the side of the north galactic pole (in Coma Berenices).
+- **How:** the camera's position is taken in the app's J2000 ecliptic frame; for the galactic latitude its direction is turned into J2000 equatorial coordinates and then into galactic coordinates with the standard rotation from the Hipparcos catalogue (ESA 1997, vol. 1, §1.5.3). Checked: a camera towards the galactic centre reads *b* = 0°, and one towards the north galactic pole *b* = +90°; a camera level with the rings reads 0° ecliptic latitude.
+
+The card is hidden on narrower screens, where the time bar takes the width, and in fullscreen mode. It updates several times a second while the view moves.
+
 ### The object card
 
 Clicking an object, or finding it with *Find*, opens its card:
