@@ -204,6 +204,39 @@ The app places 56 of the 64 small bodies with orbits fitted to JPL Horizons over
 - **Data:** `data/sb-orbits.js` (388 KB, with the fitted moons of dwarf planets and asteroids), built and checked by [`tools/small-body-orbit-fits/`](../tools/small-body-orbit-fits/README.md).
 - **Outside 1800–2050 AD**, and for Bennu before 1901 (JPL's solution starts there), the nearest window is extended, so positions there are estimates.
 
+## Orbit outlines
+
+Every moon has an orbit outline (**Show → Orbit outlines → Moons**). Of the bodies that orbit the Sun, an outline is drawn only for those whose orbit stays the same for decades, so that it means something: an outline is one orbit, and a body whose orbit the planets reshape within a few years or decades would leave it far behind. Those keep their trail, which shows the path they really took ([Trails](interface.md#trails)).
+
+**The rule.** A body has an outline if the orbit the app uses for it on a date, held fixed, stays within **0.3°** of the body (seen from the Sun) for the next **30 years**, from every start date 1800, 1820, … 2020 AD. Long-period comets (periods over 200 years) are left out whatever they measure: their orbit is known for one pass near the Sun only. The orbit and the body's positions both come from the app's own code; [`tools/orbit-outlines/drift.js`](../tools/orbit-outlines/drift.js) measures every body and checks the list in `index.html` (`OUTLINED`) against the rule.
+
+**With an outline (35):**
+
+| Group (menu switch) | Bodies, and their largest drift in 30 years |
+|---|---|
+| Planets | Mercury 0.011°, Venus 0.005°, the Earth (its outline is the Earth–Moon barycentre's, 0.004°), Mars 0.013°, Jupiter 0.004°, Saturn 0.013°, Uranus 0.008°, Neptune 0.001° |
+| Dwarf planets | Pluto 0.004°, Ceres 0.25°, Eris, Haumea, Makemake |
+| Candidates | Gonggong, Sedna, Quaoar 0.021°, Orcus 0.022° |
+| Asteroids & centaurs | Annefrank 0.017°, Arrokoth 0.023°, Dinkinesh 0.026°, Gaspra 0.034°, Eros 0.040°, Torifune 0.055°, Chariklo 0.073°, Vesta 0.10°, Šteins 0.11°, Didymos 0.15°, Lutetia 0.19°, Itokawa 0.23°, Donaldjohanson 0.25°, Ida 0.26°, Ryugu 0.28°, Phaethon 0.29° |
+| Comets | 311P/PANSTARRS 0.026° (a comet in the main asteroid belt), 1P/Halley 0.26° |
+
+Eris, Haumea, Makemake, Gonggong and Sedna keep one SBDB orbit in the app, so they pass the rule by construction; that one orbit stays within 1° of JPL Horizons from 1800 to 2050 AD ([Small-body orbits](#small-body-orbits)), and their real orbits change very little in decades.
+
+**Without an outline (38),** nearest the limit first:
+
+| Why | Bodies, and their largest drift in 30 years |
+|---|---|
+| Just over the limit | Juno 0.32°, Psyche 0.38°, Mathilde 0.42°, Patroclus 0.43°, Pallas 0.46°, Braille 0.51° |
+| Close passes by the Earth, the Moon or Mars reshape the orbit | Bennu 0.71°, 1998 KY26 1.1°, Toutatis 3.4°, Apophis 17° (its 2029 Earth flyby) |
+| Crosses the giant planets' orbits | Chiron 0.77° |
+| Jupiter's pull | Hygiea 1.5°, 2003 EH1 7.2° (passes of Jupiter in 1842 and 1973) |
+| Jupiter trojans, circling Jupiter's L4 and L5 points | Eurybates 1.4°, Orus 1.5°, Hektor 1.6°, Polymele 1.6°, Leucus 2.3° |
+| The Earth's quasi-satellite, its orbit tied to the Earth's | Kamoʻoalewa 1.4° |
+| Periodic comets | 55P/Tempel-Tuttle 0.77°, 8P/Tuttle 1.0°, 109P/Swift-Tuttle 1.1°, 2P/Encke 1.7°, 96P/Machholz 1 8.2°, the SOHO comets P/2008 Y12 7.2°, P/1999 J6 8.5° and 342P 9.9°; and the Jupiter-family comets, thrown around by Jupiter: 19P/Borrelly 6.0°, 26P/Grigg-Skjellerup 11°, 9P/Tempel 1 21°, 21P/Giacobini-Zinner 27°, 103P/Hartley 2 48°, 67P/Churyumov-Gerasimenko 70°, 81P/Wild 2 (its orbit changed completely in 1974) |
+| Long-period comets (one pass) | C/1995 O1 (Hale-Bopp) 0.54°, C/1996 B2 (Hyakutake), C/2020 F3 (NEOWISE), C/1861 G1 (Thatcher) |
+
+**How they are drawn.** Each outline is the orbit on the date shown: a planet's from its elements (blending its two tables between 1770 and 1800 and between 2051 and 2081, as its position does; [Planets](#planets)), a fitted body's from its current time window (blending two windows near a window's edge, as its position does). So the body always sits exactly on its outline. Far from the camera an outline has 128 points; near the camera it gets more, so it stays a smooth curve ([Show](interface.md#the-menu)).
+
 ## Belts
 
 The main asteroid belt, the Hilda asteroids, the Jupiter and Neptune trojans and the Kuiper belt are **statistical point clouds** drawn from typical orbital distributions (semi-major axis, eccentricity, inclination ranges). They show where those populations are, not individual catalogued objects. Overview: NASA Science <https://science.nasa.gov/solar-system/asteroids/>, <https://science.nasa.gov/solar-system/kuiper-belt/>. This is a [limitation of the model](#limitations-of-the-model).

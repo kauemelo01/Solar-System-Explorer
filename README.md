@@ -125,6 +125,7 @@ Opening `index.html` directly from disk works, but browsers block the sky map an
 | `data/moon-orbits.js` | The planets' moon orbits fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#moon-orbits)) |
 | `data/sb-orbits.js` | The orbits of 56 dwarf planets, asteroids and comets fitted to JPL Horizons over 1800–2050 AD ([method](docs/sources.md#small-body-orbits)) |
 | `tools/textures/` | Rebuilds `textures/` from the original sources (downloads them; needs Pillow) ([how to run](tools/textures/README.md)) |
+| `tools/orbit-outlines/` | Chooses the bodies that get an orbit outline, by how long their orbit stays the same ([how to run](tools/orbit-outlines/README.md)) |
 | `tools/planet-checks/` | Measures the planets against JPL Horizons ([how to run](tools/planet-checks/README.md)) |
 | `tools/moon-orbit-fits/` | Rebuilds `data/moon-orbits.js` from JPL Horizons and checks it ([how to run](tools/moon-orbit-fits/README.md)) |
 | `tools/small-body-orbit-fits/` | Rebuilds `data/sb-orbits.js` from JPL Horizons and checks it ([how to run](tools/small-body-orbit-fits/README.md)) |
@@ -163,7 +164,7 @@ New moons are announced every year; the rules for adding objects are in [What's 
     - the Moon from a lunar theory (Meeus), within 0.02° instead of up to 5°;
     - the planets and Pluto from Standish and Williams's Table 2 outside 1800–2050 AD (Table 1 inside, unchanged), within 0.5° of JPL Horizons from 1000 to 3000 AD instead of up to 5.5° (Saturn).
   - **Better data**: each small body's size and rotation from its most recent published measurement (Arrokoth measured by New Horizons, Torifune by Hayabusa2), published sizes for 354 more moons (10 still have none), the Jupiter trojans back at L4 and L5, and 9P/Tempel 1 turned to its real prime meridian.
-  - **Interface**: a start-up screen that turns into an error message if the app cannot start, a camera position card, smooth, precise trails and moon orbit outlines up close, even next to a small moon (and trails around perihelion), and *source* links on the object card for any value not from NASA or JPL ([the interface](docs/interface.md)).
+  - **Interface**: a start-up screen that turns into an error message if the app cannot start, a camera position card, orbit outlines for the planets, dwarf planets and the asteroids and comets whose orbits stay the same for decades, switched on per group; smooth, precise trails and orbit outlines up close, even next to a small moon (and trails around perihelion), and *source* links on the object card for any value not from NASA or JPL ([the interface](docs/interface.md)).
 - **Release 3** (current, branch `main`, tag `v3`):
   - The planets' moons placed by orbits fitted to JPL Horizons over 1800–2050 AD: typically within 1.5°, against about 90° before.
   - A time bar from 1000 to 3000 AD, with an *Estimated positions* alert outside 1800–2050 AD; a trail length slider for each group of bodies.

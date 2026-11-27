@@ -286,13 +286,20 @@ body.fs #fsExit{display:block}body.fs.peek #fsExit{opacity:1}
    <div class="qrow"><button class="g q" data-bulk="moons-major">Major moons</button><button class="g q" data-bulk="moons-all">All moons</button><button class="g q" data-bulk="moons-none">No moons</button></div>
    <div id="moonUI"></div>
    <p class="note">Moons appear as you zoom toward their parent body.</p>
-   <label class="sw"><input type="checkbox" id="orbits" checked> Moon orbit outlines</label>
    <h3>Small bodies</h3>
    <div class="qrow"><button class="g q" data-bulk="small-all">All</button><button class="g q" data-bulk="small-none">None</button></div>
    <div id="catUI"></div>
    <h3>Belts <span>· illustrative distributions</span></h3>
    <div class="qrow"><button class="g q" data-bulk="belts-all">All</button><button class="g q" data-bulk="belts-none">None</button></div>
    <div id="beltUI"></div>
+   <h3>Orbit outlines</h3>
+   <label class="sw"><input type="checkbox" id="orbits" checked> Moons</label>
+   <label class="sw"><input type="checkbox" data-ol="p"> Planets</label>
+   <label class="sw"><input type="checkbox" data-ol="dwarf"> Dwarf planets</label>
+   <label class="sw"><input type="checkbox" data-ol="candidate"> Candidates</label>
+   <label class="sw"><input type="checkbox" data-ol="asteroid"> Asteroids &amp; centaurs</label>
+   <label class="sw"><input type="checkbox" data-ol="comet"> Comets</label>
+   <p class="note">See <a id="olRule" target="_blank" rel="noopener">bodies criteria and selection</a></p>
   </details>
   <details class="sec" open><summary>Beyond the solar system</summary>
    <p class="sub">Real stars, the Milky Way and famous objects at their true positions in the sky.</p>
@@ -627,14 +634,14 @@ const SYS={earth:384400,mars:23457,jupiter:1882700,saturn:3561700,uranus:583511,
 
 /* ---------- state ---------- */
 const SPEEDS=[['Real time',1/86400],['1 hour / s',1/24],['6 hours / s',.25],['1 day / s',1],['1 week / s',7],['1 month / s',30.44],['3 months / s',91.31],['1 year / s',365.25],['5 years / s',1826.2],['20 years / s',7305],['100 years / s',36525]];
-const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
-try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
+const S={center:'sun',focus:'sun',jd:nowJD(),playing:true,dir:1,speed:5,mode:'true',sizeV:0,labels:true,rings:true,orbits:true,ol:{p:false,dwarf:false,candidate:false,asteroid:false,comet:false},mg:[],cat:{dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},skyp:{mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},realTex:true,skyRes:'auto'};
+try{const p=JSON.parse(localStorage.getItem('sse-prefs-v2')||'{}');Object.assign(S,p);S.cat=Object.assign({dwarf:false,candidate:false,asteroid:false,comet:false,belt:false,hildas:false,trojans:false,ntrojans:false,kuiper:false},p.cat||{});S.mode='true';S.sizeV=0;S.skyp=Object.assign({mw:true,dso:true,st:true,exo:true,con:false,conMode:'all',conFig:true,conBnd:false},p.skyp||{});S.ol=Object.assign({p:false,dwarf:false,candidate:false,asteroid:false,comet:false},p.ol||{});if(!byId[S.center])S.center='sun';S.focus=S.center}catch(e){}
 let MG=new Set(S.mg);
 // trail lengths in days: p planets (and dwarf planets, asteroids, comets), m major moons, s minor moons; older prefs kept one length in years
 {const p0=S.tlen?S.tlen*365.25:10957.5,o=S.tl||{},b=o.b!=null?o.b:o.p!=null?o.p:p0;
  S.tl=Object.assign({p:p0,m:365.25,s:0,dwarf:b,candidate:b,asteroid:b,comet:b},o);delete S.tl.b;
  if(S.trails===false)for(const k in S.tl)S.tl[k]=0;delete S.trails;delete S.tlen;delete S.tset}
-const save=()=>{try{S.mg=[...MG];const{center,speed,tl,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,tl,mode,sizeV,labels,rings,orbits,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
+const save=()=>{try{S.mg=[...MG];const{center,speed,tl,mode,sizeV,labels,rings,orbits,ol,mg,cat,skyp,pmin,realTex,skyRes}=S;localStorage.setItem('sse-prefs-v2',JSON.stringify({center,speed,tl,mode,sizeV,labels,rings,orbits,ol,mg,cat,skyp,pmin,realTex,skyRes}))}catch(e){}};
 const parOn=p=>p.grp==='core'||!!S.cat[p.grp];
 function vis(o){if(o.grp==='core'||o.id===S.center)return true;if(o.cat==='moon')return MG.has(o.grp)&&parOn(o.par);return!!S.cat[o.grp]}
 const sizeF=()=>Math.round(Math.pow(10,S.sizeV/100*Math.log10(3000)));
@@ -1190,6 +1197,64 @@ function updateWarped(o,jd){const t=o.tr,N=t.N,a=t.arr,tm=t.tm,dt0=t.dt0,U=t.U,K
  // draw exactly the chosen length: from the first sample within L of now, with the fade over the part drawn
  let st=0;const t0=jd-t.L;while(st<N&&tm[st]<t0)st++;t.st=st;trailDraw(o,jd,m,n0,n1)}
 
+/* ---------- orbit outlines of the planets, dwarf planets, asteroids and comets ---------- */
+// Only bodies whose orbit stays put for decades get one (docs/sources.md#orbit-outlines): the orbit the app uses for the body on any date
+// from 1800 to 2020, held fixed, stays within 0.3 degrees of the body (seen from the Sun) for the next 30 years (tools/orbit-outlines).
+// Long-period comets, whose orbit is known for one pass near the Sun only, are left out. The Earth's outline is the Earth-Moon barycentre's.
+const OUTLINED=['mercury','venus','earth','mars','jupiter','saturn','uranus','neptune','pluto','ceres','eris','haumea','makemake','gonggong','quaoar','sedna','orcus',
+ 'annefrank','arrokoth','dinkinesh','gaspra','eros','torifune','chariklo','vesta','steins','didymos','lutetia','itokawa','donaldjohanson','ida','ryugu','phaethon','c311p','halley'];
+// The orbit a body follows on a date, as the app computes its position: one ellipse, or two blended (a planet between its two tables,
+// plHelio; a fitted body near the edge of a time window, ell). Each part: its weight w, orbit axes P and Q, a, b, e, and mean anomaly M (rad).
+function kepC(el,jd,w){const T=(jd-J2000)/36525,a=(el[0]+el[6]*T)*AU,e=el[1]+el[7]*T,I=(el[2]+el[8]*T)*DEG,L=el[3]+el[9]*T,wb=el[4]+el[10]*T,Om=(el[5]+el[11]*T)*DEG;
+ const M=L-wb+(el.length>12?el[12]*T*T+el[13]*Math.cos(el[15]*T*DEG)+el[14]*Math.sin(el[15]*T*DEG):0),om=wb*DEG-Om,cw=Math.cos(om),sw=Math.sin(om),cO=Math.cos(Om),sO=Math.sin(Om),cI=Math.cos(I),sI=Math.sin(I);
+ return{w,P:[cw*cO-sw*sO*cI,cw*sO+sw*cO*cI,sw*sI],Q:[-sw*cO-cw*sO*cI,-sw*sO+cw*cO*cI,cw*sI],a,b:a*Math.sqrt(1-e*e),e,M:wrapPi(M*DEG)}}
+function ellC(o,jd,kw,w){if(o.fit){const m=moonOrbit(o,jd,kw);return{w,P:m.P.slice(),Q:m.Q.slice(),a:m.a,b:m.b,e:m.e,M:wrapPi(m.M*DEG)}}
+ return{w,P:o.Pv,Q:o.Qv,a:o.a,b:o.b,e:o.e,M:wrapPi((o.M0+o.n*(jd-o.ep))*DEG)}}
+function orbParts(o,jd){
+ if(o.orb==='pl'||o.orb==='em'){const k=o.orb==='em'?'emb':o.id,d=jd<PL_T1A?PL_T1A-jd:jd>PL_T1B?jd-PL_T1B:0;
+  if(d<=0)return[kepC(EL[k],jd,1)];if(d>=PL_FADE)return[kepC(EL2[k],jd,1)];const x=d/PL_FADE,w=x*x*(3-2*x);
+  return w<.5?[kepC(EL[k],jd,1-w),kepC(EL2[k],jd,w)]:[kepC(EL2[k],jd,w),kepC(EL[k],jd,1-w)]}
+ const W=o.fit&&o.fit.w;if(!W||W.length<2)return[ellC(o,jd,undefined,1)];
+ const t=jd-J2000,k=winOf(W,t);let j=-1,x=1;
+ if(k>0){const B=blendB(W,k,k-1,o.fit.sb,o.fit.b),d=t-W[k][0];if(d<B){j=k-1;x=Math.max(0,d)/B}}
+ if(j<0&&k<W.length-1){const B=blendB(W,k,k+1,o.fit.sb,o.fit.b),d=W[k][1]-t;if(d<B){j=k+1;x=Math.max(0,d)/B}}
+ if(j<0)return[ellC(o,jd,k,1)];const w=.5+.5*x*x*(3-2*x);return[ellC(o,jd,k,w),ellC(o,jd,j,1-w)]}
+// a point of the outline, around the Sun (the app's axes): E is the eccentric anomaly of the main part; the other part, if any, is taken
+// at the same change of mean anomaly from where the body is now, so the body itself (E now) lies exactly on the outline
+function orbPt(C,E,out){const c0=C[0],dM=E-c0.e*Math.sin(E)-c0.M;out[0]=out[1]=out[2]=0;
+ for(const c of C){const Ec=c===c0?E:solveE(wrapPi(c.M+dM),c.e),x=c.a*(Math.cos(Ec)-c.e),y=c.b*Math.sin(Ec);
+  out[0]+=c.w*(c.P[0]*x+c.Q[0]*y);out[1]+=c.w*(c.P[2]*x+c.Q[2]*y);out[2]-=c.w*(c.P[1]*x+c.Q[1]*y)}return out}
+// a closed curve F(E), E from 0 to 2 pi, as segments: steps of at most dmax, shorter where the camera Ec is close enough for a straight
+// piece to show (its midpoint off the chord by more than half a pixel at its distance). bmax bounds how far a piece can bow, bmax dE^2
+// (an ellipse: a/8), so the midpoint is only computed where that bound cannot rule a piece out. Returns whether any step was shortened.
+const _q0=[0,0,0],_q1=[0,0,0],_qm=[0,0,0],_qs=[0,0,0];
+function curveWalk(F,dmax,Ec,seg2,bmax){let E=0,al=0,split=false;F(0,_qs);_q0[0]=_qs[0];_q0[1]=_qs[1];_q0[2]=_qs[2];
+ const ok=dE=>{F(E+dE,_q1);const dc=segD(_q0[0],_q0[1],_q0[2],_q1[0],_q1[1],_q1[2],Ec),bb=bmax*dE*dE;if(bb*PXR<=.5*(dc-bb))return true;
+  F(E+dE/2,_qm);const bow=Math.hypot(_qm[0]-(_q0[0]+_q1[0])/2,_qm[1]-(_q0[1]+_q1[1])/2,_qm[2]-(_q0[2]+_q1[2])/2),d=dc-bow;
+  if(bow*PXR<=.5*d)return true;al=dE*Math.sqrt(Math.max(.5*d,1e-12)/(PXR*bow))*.95;return false},allow=()=>Math.max(al,1e-9);
+ while(E<TAU-1e-12){const h=Math.min(dmax,TAU-E),dE=longest(h,ok,allow);if(dE<h*.999)split=true;E+=dE;
+  if(E>=TAU-1e-12){E=TAU;_q1[0]=_qs[0];_q1[1]=_qs[1];_q1[2]=_qs[2]}else if(dE!==h)F(E,_q1);   // (when ok(h) passed at once, _q1 is already F(E))
+  seg2(_q0[0],_q0[1],_q0[2],_q1[0],_q1[1],_q1[2]);_q0[0]=_q1[0];_q0[1]=_q1[1];_q0[2]=_q1[2]}
+ return split}
+// One line per body. In the true-distance view the points are around the Sun (redrawn when the date moves on, at most every 250 ms, or
+// every frame while the camera is close enough for the steps to be shortened); in the log view they are around the body held still,
+// each squeezed by its own distance (kf), and redrawn every frame unless the Sun is held still.
+const ORB={},OL_KEYS=[['p','Planets'],['dwarf','Dwarf planets'],['candidate','Candidates'],['asteroid','Asteroids & centaurs'],['comet','Comets']],_qh=[0,0,0],_qc=[0,0,0];
+const olKey=o=>o.cat==='planet'?'p':o.grp;
+for(const id of OUTLINED){const o=byId[id];if(!o)continue;const G=precGeo(512,true),mat=precMat(new THREE.Color(o.color),o.cat==='planet'?.32:.26),ls=new THREE.LineSegments(G.g,mat);
+ ls.frustumCulled=false;ls.visible=false;scene.add(ls);ORB[id]={o,ls,G,mat,jd:NaN,t:0,cnt:0,split:false,key:'',Ec:[0,0,0]}}
+function updOrbits(jd,now,ch){const log=S.mode==='log',C=byId[S.center],sun=byId.sun;
+ for(const id in ORB){const R=ORB[id],o=R.o,on=!!S.ol[olKey(o)]&&vis(o)&&o.id!==S.center;R.ls.visible=on;if(!on)continue;
+  // the camera in the outline's frame: around the Sun (true distances) or around the body held still (log view, as the trails)
+  const E=R.Ec;if(log){E[0]=EYE[0];E[1]=EYE[1];E[2]=EYE[2]}else{E[0]=EYE[0]-sun.d[0];E[1]=EYE[1]-sun.d[1];E[2]=EYE[2]-sun.d[2]}setEye(R.mat,E[0],E[1],E[2],1);
+  const key=S.mode+'|'+S.center,moved=Math.abs(jd-R.jd)>0.05&&now-R.t>250;
+  if(!(R.key!==key||moved||R.split||(log&&C!==sun)||++R.cnt>=6))continue;
+  R.key=key;R.cnt=0;if(moved||R.jd!==R.jd){R.t=now}R.jd=jd;const parts=orbParts(o,jd);
+  const F=log?(e,out)=>{orbPt(parts,e,_qh);const x=_qh[0]-ch[0],y=_qh[1]-ch[2],z=_qh[2]+ch[1],k=kf(Math.hypot(x,y,z));out[0]=x*k;out[1]=y*k;out[2]=z*k;return out}:(e,out)=>orbPt(parts,e,out);
+  // how far a piece can bow: a/8 per radian squared for the largest ellipse (the log view only squeezes it; 1.5 to spare)
+  const bmax=Math.max(...parts.map(c=>c.a))/8*(log?1.5:1);
+  outFill(R,seg2=>{R.split=curveWalk(F,TAU/128,E,seg2,bmax)})}}
+
 /* ---------- camera ---------- */
 const cam={theta:.7,phi:1.05,dist:1,distT:1};
 const fitDist=au=>mapS(au*AU)/Math.tan(25*DEG)*1.25;
@@ -1349,7 +1414,7 @@ function renderUI(){
  $('rev').setAttribute('aria-pressed',S.dir<0);$('playIco').innerHTML=S.playing?'<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>':'<path d="M7 5l12 7-12 7z"/>';
  $('play').setAttribute('aria-label',S.playing?'Pause':'Play');
  syncTrailUI();$('lbls').checked=S.labels;$('realTex').checked=S.realTex;
- $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});$('rings').checked=S.rings;$('orbits').checked=S.orbits;ringG.visible=S.rings}
+ $('skyRes').querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.v===S.skyRes);if(b.dataset.v==='8k'){b.disabled=!SKY8_OK;b.title=SKY8_OK?'':'This device\'s graphics cannot show 8K textures'}});$('rings').checked=S.rings;$('orbits').checked=S.orbits;document.querySelectorAll('[data-ol]').forEach(c=>c.checked=!!S.ol[c.dataset.ol]);ringG.visible=S.rings}
 const _h=[0,0,0],_hc=[0,0,0];
 // camera position (docs/interface.md#the-camera-position-card): distance and galactic latitude relative to the selected object, ecliptic latitude
 // relative to the plane of the distance rings; the scene is the J2000 ecliptic as (x, z, -y),
@@ -1406,6 +1471,7 @@ $('rings').onchange=e=>{S.rings=e.target.checked;renderUI();save()};
 $('realTex').onchange=e=>{S.realTex=e.target.checked;applyTextures();renderUI();save()};
 $('skyRes').onclick=e=>{const v=e.target.dataset.v;if(!v||e.target.disabled||v===S.skyRes)return;S.skyRes=v;loadSky();renderUI();save()};
 $('orbits').onchange=e=>{S.orbits=e.target.checked;save()};
+document.querySelectorAll('[data-ol]').forEach(c=>c.onchange=()=>{S.ol[c.dataset.ol]=c.checked;save()});$('olRule').href=DOCS_SRC+'sources.md#orbit-outlines';
 $('fitIn').onclick=()=>{cam.distT=fitDist(1.9);clampD()};$('fitAll').onclick=()=>{cam.distT=fitDist(S.cat.dwarf||S.cat.candidate||S.cat.kuiper?55:36);clampD()};
 $('hold').onclick=()=>setCenter(S.focus);
 $('speed').oninput=e=>{S.speed=+e.target.value;renderUI();syncTrails();save()};
@@ -1526,6 +1592,7 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
   if(on&&O.refresh&&Math.abs(S.jd-O.jd)>0.05&&now-O.t>250){O.refresh(S.jd);O.jd=S.jd;O.t=now}
   if(on){const c=camera.position,E=O.Ec;E[0]=(c.x-(p.d[0]-fv[0]))/p.k;E[1]=(c.y-(p.d[1]-fv[1]))/p.k;E[2]=(c.z-(p.d[2]-fv[2]))/p.k;setEye(O.mat,E[0],E[1],E[2],p.k);   // the camera in the planet's frame
    if(++O.cnt>=6){O.cnt=0;O.check()}if(O.dirty||O.any)O.draw()}}
+ updOrbits(jd,now,ch);
  for(const k in FIELDS)if(S.cat[k])updateField(FIELDS[k],jd,ch,fv);
  glow.scale.setScalar(dispR(sun)*7);sunLight.position.copy(sun.g.position);ringG.position.set(-fv[0],-fv[1],-fv[2]);
  const t1=performance.now();renderer.clear();renderer.render(starScene,starCam);renderer.clearDepth();renderer.render(scene,camera);const t2=performance.now();
