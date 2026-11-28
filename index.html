@@ -1018,24 +1018,45 @@ function outFill(O,draw){for(;;){let n=0;const G=O.G,cap=G.cap,seg2=(ax,ay,az,bx
   const ng=precGeo(Math.ceil(n*1.5)+64,true);O.ls.geometry.dispose();O.ls.geometry=ng.g;O.G=ng}}
 {const col=new THREE.Color(0x9fb4e0);
  const byG={};OBJ.forEach(o=>{if(o.orb==='sat')(byG[o.grp]=byG[o.grp]||[]).push(o)});
- for(const k in byG){const L=byG[k],seg=L[0].major?128:48,dE0=TAU/seg,el=L.map(()=>({P:null,Q:null,A:0,e:0,B:0})),near=new Uint8Array(L.length);
-  // fitted orbits precess, so their outlines are redrawn for the date (refresh, called from the render loop)
-  const elems=jd=>{for(let q=0;q<L.length;q++){const o=L[q],w=el[q];let P=o.Pv,Q=o.Qv,A=o.a,e=o.e,B=o.b;if(o.fit){const m=moonOrbit(o,jd);P=m.P;Q=m.Q;A=m.a;e=m.e;B=m.b}Object.assign(w,{P,Q,A,e,B})}};
-  const X=(q,E,out)=>{const{P,Q,A,e,B}=el[q],c=A*(Math.cos(E)-e),d=B*Math.sin(E);out[0]=P[0]*c+Q[0]*d;out[1]=P[2]*c+Q[2]*d;out[2]=-(P[1]*c+Q[1]*d);return out};
-  const walk=(q,Ec,seg2)=>{const{A,B}=el[q];let E=0;X(q,0,_o0);
+ for(const k in byG){const L=byG[k],seg=L[0].major?128:48,dE0=TAU/seg,el=L.map(()=>null),near=new Uint8Array(L.length),split=new Uint8Array(L.length);
+  // fitted orbits precess, so their outlines are redrawn for the date (refresh, called from the render loop): each is the orbit the moon
+  // follows on the date as its position is computed (orbParts: near the edge of a fitted window, the two windows' ellipses blended as in
+  // ell()), so the moon sits on it; while the camera is close, every frame, so the outline does not lag the moon as the orbit precesses
+  const elems=jd=>{for(let q=0;q<L.length;q++)el[q]=orbParts(L[q],jd)};
+  const X=(q,E,out)=>orbPt(el[q],E,out);
+  const walk=(q,Ec,seg2)=>{const{a:A,b:B}=el[q][0];let E=0;X(q,0,_o0);
    let kap=0,v=1,al=0;const ok=dE=>{X(q,E+dE,_o1);al=PIECE(kap,segD(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2],Ec))/v;return al>=dE*.999},allow=()=>Math.max(al,1e-12);
    while(E<TAU){v=Math.hypot(A*Math.sin(E),B*Math.cos(E));kap=A*B/(v*v*v);
     const dE=longest(Math.min(dE0,TAU-E,PIECE(kap,Math.hypot(_o0[0]-Ec[0],_o0[1]-Ec[1],_o0[2]-Ec[2]))/v),ok,allow);
     E+=dE;if(E>=TAU-1e-12){E=TAU;X(q,0,_o1)}else X(q,E,_o1);seg2(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2]);_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}};
   const O={ls:null,G:precGeo(L.length*seg*2,true),mat:precMat(col,L.some(o=>o.major)?.22:.1),par:L[0].par,jd:J2000,t:0,cnt:0,any:0,dirty:1,Ec:[0,0,0]};
-  O.draw=()=>{O.dirty=0;outFill(O,seg2=>{for(let q=0;q<L.length;q++){if(near[q]){walk(q,O.Ec,seg2);continue}
-   X(q,0,_o0);for(let s=1;s<=seg;s++){X(q,s===seg?0:s*dE0,_o1);seg2(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2]);_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}}})};
-  // which orbits does the camera come close enough to for their straight pieces to show (a piece bows out by A dE^2/8 at most)?
-  O.check=()=>{let ch=0,any=0;const Ec=O.Ec;for(let q=0;q<L.length;q++){const sg=el[q].A*dE0*dE0/8;let d=Infinity;X(q,0,_o0);
-    for(let s=1;s<=seg&&d>sg*(2*PXR+1);s++){X(q,s===seg?0:s*dE0,_o1);d=Math.min(d,segD(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2],Ec));_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}
-    const nr=sg*PXR>.5*(d-sg)?1:0;if(nr!==near[q]){near[q]=nr;ch=1}any|=nr}O.any=any;if(ch)O.dirty=1};
+  // Each orbit's segments are kept (hi and lo parts, as the line set's buffers take them) and rebuilt only when they could visibly change:
+  // when its orbit has moved by more than 0.3 pixel at its distance from the camera since they were drawn (checked at two points of it),
+  // or, for an orbit drawn with extra points near the camera, when the camera has moved by more than a fifth of its distance from it.
+  // So with time running only the orbits close to the camera are redrawn every frame, and nothing is when time and camera are still.
+  const C=L.map(()=>({hi:new Float32Array(seg*6),lo:new Float32Array(seg*6),n:0,d:Infinity,E:[0,0,0],r0:[0,0,0],r1:[0,0,0],ok:0})),_r=[0,0,0];
+  const build=q=>{const c=C[q],Ec=O.Ec;let n=0,d=Infinity;
+   const seg2=(ax,ay,az,bx,by,bz)=>{if((n+2)*3>c.hi.length){const h=new Float32Array(c.hi.length*2),l=new Float32Array(c.lo.length*2);h.set(c.hi);l.set(c.lo);c.hi=h;c.lo=l}
+    for(const[x,y,z]of[[ax,ay,az],[bx,by,bz]]){const i=n*3;let v=Math.fround(x);c.hi[i]=v;c.lo[i]=x-v;v=Math.fround(y);c.hi[i+1]=v;c.lo[i+1]=y-v;v=Math.fround(z);c.hi[i+2]=v;c.lo[i+2]=z-v;n++}
+    d=Math.min(d,segD(ax,ay,az,bx,by,bz,Ec))};
+   if(near[q]&&!split[q])walk(q,Ec,seg2);
+   else{const ns=seg*(split[q]||1),dE=TAU/ns;X(q,0,_o0);for(let s=1;s<=ns;s++){X(q,s===ns?0:s*dE,_o1);seg2(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2]);_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}}
+   c.n=n;c.d=d;c.E[0]=Ec[0];c.E[1]=Ec[1];c.E[2]=Ec[2];X(q,0,c.r0);X(q,Math.PI,c.r1);c.ok=1};
+  const stale=q=>{const c=C[q];if(!c.ok)return true;const tol=.3*Math.max(c.d,1e-12)/PXR;
+   X(q,0,_r);if(Math.hypot(_r[0]-c.r0[0],_r[1]-c.r0[1],_r[2]-c.r0[2])>tol)return true;X(q,Math.PI,_r);if(Math.hypot(_r[0]-c.r1[0],_r[1]-c.r1[1],_r[2]-c.r1[2])>tol)return true;
+   return near[q]&&Math.hypot(O.Ec[0]-c.E[0],O.Ec[1]-c.E[1],O.Ec[2]-c.E[2])>.2*c.d};
+  O.draw=()=>{let ch=O.dirty;O.dirty=0;for(let q=0;q<L.length;q++)if(stale(q)){build(q);ch=1}if(!ch)return;
+   let tot=0;for(const c of C)tot+=c.n;if(tot>O.G.cap){const ng=precGeo(Math.ceil(tot*1.5)+64,true);O.ls.geometry.dispose();O.ls.geometry=ng.g;O.G=ng}
+   const G=O.G;let off=0;for(const c of C){G.hi.set(c.hi.subarray(0,c.n*3),off*3);G.lo.set(c.lo.subarray(0,c.n*3),off*3);off+=c.n}
+   G.g.setDrawRange(0,tot);G.g.attributes.position.needsUpdate=G.g.attributes.plo.needsUpdate=true};
+  // which orbits does the camera come close enough to for their straight pieces to show (a piece bows out by A dE^2/8 at most)? Those within
+  // 5% of their size from the camera are walked (more points only near it); the others are split evenly, S pieces per piece, S^2 times flatter
+  O.check=()=>{let ch=0,any=0;const Ec=O.Ec;for(let q=0;q<L.length;q++){const sg=Math.max(...el[q].map(c=>c.a))*dE0*dE0/8;let d=Infinity;X(q,0,_o0);
+    for(let s=1;s<=seg;s++){X(q,s===seg?0:s*dE0,_o1);d=Math.min(d,segD(_o0[0],_o0[1],_o0[2],_o1[0],_o1[1],_o1[2],Ec));_o0[0]=_o1[0];_o0[1]=_o1[1];_o0[2]=_o1[2]}
+    const nr=sg*PXR>.5*(d-sg)?1:0,A=Math.max(...el[q].map(c=>c.a)),sp=nr&&d>.05*A?Math.min(64,Math.ceil(Math.sqrt(sg*PXR/(.5*Math.max(d-sg,1e-12))))):0;
+    if(nr!==near[q]||sp!==split[q]){near[q]=nr;split[q]=sp;C[q].ok=0;ch=1}any|=nr}O.any=any;if(ch)O.dirty=1};
   elems(J2000);O.ls=new THREE.LineSegments(O.G.g,O.mat);O.ls.frustumCulled=false;O.ls.visible=false;scene.add(O.ls);O.draw();
-  O.refresh=L.some(o=>o.fit)?jd=>{elems(jd);O.dirty=1}:null;OUT[k]=O}
+  O.refresh=L.some(o=>o.fit)?jd=>{elems(jd);O.moved=1}:null;OUT[k]=O}
  // the Moon's outline: its real path (moonGeo) over one sidereal month centred on the date, redrawn as the date changes
  const M=256,cp=new Float64Array((M+3)*3),mp=[0,0,0],TA=[0,0,0],TB=[0,0,0];   // samples -1 to M+1 (stored from 0): one beyond each end, for the curve's ends
  const O={ls:null,G:precGeo(M*2,true),mat:precMat(col,.22),par:byId.earth,jd:J2000,t:0,cnt:0,any:0,dirty:1,Ec:[0,0,0]};
@@ -1581,9 +1602,9 @@ function frame(now){const t0=performance.now();const dt=Math.min(.1,(now-last)/1
  for(const m of MK){m.list.forEach((o,i)=>{const s=shownMarker(o);m.col[i*4+3]=s?1:0;if(s){m.pos[i*3]=o.d[0]-fv[0];m.pos[i*3+1]=o.d[1]-fv[1];m.pos[i*3+2]=o.d[2]-fv[2]}});m.g.attributes.position.needsUpdate=true;m.g.attributes.color.needsUpdate=true}
  // orbit outlines
  for(const k in OUT){const O=OUT[k],p=O.par,on=S.orbits&&MG.has(k)&&parOn(p)&&(LOD[p.id]||sysOf(byId[S.center])===p.id);O.ls.visible=on;
-  if(on&&O.refresh&&Math.abs(S.jd-O.jd)>0.05&&now-O.t>250){O.refresh(S.jd);O.jd=S.jd;O.t=now}
+  if(on&&O.refresh&&(O.any?S.jd!==O.jd:Math.abs(S.jd-O.jd)>0.05&&now-O.t>250)){O.refresh(S.jd);O.jd=S.jd;O.t=now}   // close up: every frame
   if(on){const c=camera.position,E=O.Ec;E[0]=c.x-(p.d[0]-fv[0]);E[1]=c.y-(p.d[1]-fv[1]);E[2]=c.z-(p.d[2]-fv[2]);setEye(O.mat,E[0],E[1],E[2]);   // the camera in the planet's frame
-   if(++O.cnt>=6){O.cnt=0;O.check()}if(O.dirty||O.any)O.draw()}}
+   if(++O.cnt>=6){O.cnt=0;O.check()}if(O.dirty||O.any||O.moved){O.moved=0;O.draw()}}}
  updOrbits(jd,now);
  for(const k in FIELDS)if(S.cat[k])updateField(FIELDS[k],jd,ch,fv);
  glow.scale.setScalar(dispR(sun)*7);sunLight.position.copy(sun.g.position);ringG.position.set(-fv[0],-fv[1],-fv[2]);

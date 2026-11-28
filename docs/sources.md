@@ -159,7 +159,7 @@ Over all 458 fitted moons the typical error is 1.5°, and 90% of moons are withi
 
 **Outside 1800–2050 AD** the fits are extended, and the time bar shows *Estimated positions*. A test of the same method 150 years beyond its fitted range kept one-orbit moons within about 0.5° (Io 0.06°, Titan 0.16°, Iapetus 0.38°), and their errors grow slowly beyond that. Windowed moons keep their first or last window: their orbit's size, shape and direction stay right, but within a few decades their position along it is no longer meaningful.
 
-Orbit outlines follow the fits, so they turn as the orbits precess.
+Orbit outlines follow the fits, so they turn as the orbits precess. Each is the orbit the moon follows on the date shown, with the two windows blended near a window's edge as its position is, so the moon sits on its outline; close up it is redrawn every frame, so it does not lag behind the moon as the orbit precesses.
 
 ## Moons of dwarf planets and asteroids (10)
 
