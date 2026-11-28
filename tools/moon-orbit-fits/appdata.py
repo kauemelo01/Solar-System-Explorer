@@ -8,11 +8,11 @@ def load(path):
     sb=s[s.index('const SB=['):];sb=sb[:sb.index(']];')+2]
     SB=[]
     for m in re.finditer(r"\[\s*'([^']+)',\s*'([^']+)',\s*'([^']+)',\s*'([^']+)',\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*([^,]+),\s*'([^']+)',\s*([^,]+),\s*(\d)\]",sb):
-        g=m.groups();SB.append(dict(id=g[0],name=g[1],cat=g[2],kind=g[3],a=eval(g[4]),e=float(g[5]),i=float(g[6]),om=float(g[7]),w=float(g[8]),M0=float(g[9]),ep=float(g[10]),R=float(g[11]),rot=float(g[13])))
+        g=m.groups();SB.append(dict(id=g[0],name=g[1],cat=g[2],kind=g[3],a=eval(g[4]),e=float(g[5]),i=float(g[6]),om=float(g[7]),w=float(g[8]),M0=float(g[9]),ep=float(g[10]),R=float(g[11])))
     core=s[s.index('const CORE=['):];core=core[:core.index(']];')+2]
     CORE=[]
-    for m in re.finditer(r"\['([a-z]+)','([^']+)','([a-z]+)','([^']+)',([0-9.]+),'(#[0-9a-f]+)',([0-9.]+|Infinity),\[([-0-9.]+),([-0-9.]+)\],([-0-9.]+),",core):
-        g=m.groups();CORE.append(dict(id=g[0],name=g[1],R=float(g[4]),P=g[6],pole=(float(g[7]),float(g[8])),rot=float(g[9])))
+    for m in re.finditer(r"\['([a-z]+)','([^']+)','([a-z]+)','([^']+)',([0-9.]+),'(#[0-9a-f]+)',([0-9.]+|Infinity),\[([-0-9.]+),([-0-9.]+)\],",core):
+        g=m.groups();CORE.append(dict(id=g[0],name=g[1],R=float(g[4]),P=g[6],pole=(float(g[7]),float(g[8]))))
     el=s[s.index('const EL={'):];el=el[:el.index('};')+2]
     EL={k:[float(x) for x in v.split(',')] for k,v in re.findall(r'(\w+):\[([^\]]*)\]',el)}
     pl=re.search(r"add\(\{id:'pluto'[^}]*\}\)",s).group(0)

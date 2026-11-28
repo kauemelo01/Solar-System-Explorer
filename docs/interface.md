@@ -72,7 +72,7 @@ Each section folds and unfolds when its heading is clicked. The arrow button at 
 
 ## The time bar
 
-Play / pause, reverse, the speed slider (real time, then 1 hour, 6 hours, 1 day, 1 week, 1 month, 3 months, 1 year, 5, 20 and 100 years per second), the date and time (UTC), a date box to jump to any date, and **Today**.
+Play / pause, reverse, the speed slider (real time, then 1 hour, 6 hours, 1 day, 1 week, 1 month, 3 months, 1 year, 5, 20 and 100 years per second), the date and time (UTC), a date box to jump to any date (not on phones), and **Today**.
 
 - **Range:** 1 January 1000 AD to 1 January 3000 AD (UTC, Gregorian calendar). Playing stops at either end, and a date entered outside the range is moved to the nearest end.
 - **Outside 1800–2050 AD** the time bar turns amber and shows *Estimated positions* (next to the speed on wide screens, after the clock on phones): positions there are estimates ([Error and drift over time](sources.md#error-and-drift-over-time)).
@@ -92,7 +92,7 @@ Clicking an object, or finding it with *Find*, opens its card:
 
 On phones the card is shorter: it leaves out the type, the distance from the Sun, the radius, the rotation and the period.
 
-Objects in the sky have their own card: deep-sky objects give their distance, constellation and apparent size; named stars their magnitude and spectral type; stars with planets their distance and number of planets; all three their position (RA and Dec). Constellations give their abbreviation, area, size rank and, for the zodiac, the dates the Sun passes through. Links go to the catalogue entry and SIMBAD, plus the NASA image or the NASA Exoplanet Archive where there is one. The card's **✕** goes back to the selected body.
+Objects in the sky have their own card: deep-sky objects give their distance, constellation and apparent size; named stars their magnitude and spectral type; stars with planets their distance and number of planets; all three their position (RA and Dec). Constellations give their abbreviation, area, size rank and, for the zodiac, the dates the Sun passes through. Links go to the catalogue entry and SIMBAD, plus the NASA image or the NASA Exoplanet Archive where there is one. The card's **✕** goes back to the selected body. On phones these cards are shorter too: they leave out the size rank, the constellation, the apparent size, the spectral type and the position.
 
 ### Card notes
 
@@ -207,7 +207,7 @@ These are visual aids drawn on top of the true-scale model; each is a [limitatio
 | Coloured dots and labels marking bodies | A fixed 3.5–6 pixels on screen whatever the zoom, so bodies smaller than a pixel can still be found |
 | The Sun's glow | A glow 7 times the Sun's radius, plus a halo of fixed screen size. The Sun's sphere itself is true size |
 | Comet tails and comas | Drawn only while the comet is within 5 AU of the Sun, and brighter closer to it. Two tails, as real comets show: a narrow blue ion (gas) tail pointing straight away from the Sun, and a broader, yellowish dust tail that curves back along the orbit, behind the comet's motion, with its sharper edge on the leading side. Illustrative lengths: the ion tail is the shorter of 0.6 AU and 0.3 / r² AU, where r is the comet's distance from the Sun in AU, and the dust tail 0.65 of that; widths, curvature and the streaks in the ion tail are illustrative too. The coma is a bright core in a faint green haze, the colour of the C₂ gas seen in real comas. Real tails vary widely and can exceed 1 AU |
-| Bodies with no published radius | Placeholder radii, marked *est.* in the app and the catalogue: 1.5–40 km for moons, and for small bodies with no published size: Torifune and Kamoʻoalewa from their brightness, 0.5 km for comets with no nucleus measurement (311P, Thatcher and three SOHO comets) and 2.5 km for C/2020 F3 (NEOWISE) ([notes on sizes and rotation](catalogue/small-bodies.md#notes-on-sizes-and-rotation)) |
+| Bodies with no published radius | Placeholder radii, marked *est.* in the app and the catalogue: 1.5–40 km for moons, and for the five small bodies with no published size: Kamoʻoalewa from its brightness, and 0.5 km for comets with no nucleus measurement (Thatcher and three SOHO comets) ([notes on sizes and rotation](catalogue/small-bodies.md#notes-on-sizes-and-rotation)) |
 | Irregular asteroids and small moons | Mean radius is correct; the lumpy shape is computer-generated, not the real shape |
 | Main asteroid belt, Hildas, Jupiter and Neptune trojans, Kuiper belt | Statistical clouds of fixed-size points, not individual catalogued objects (see [Belts](sources.md#belts)) |
 | Ring opacity | Radii are true, but rings are drawn more opaque than they are, so that faint and narrow rings (for example Jupiter's, with optical depths around 10⁻⁶) can be seen |
