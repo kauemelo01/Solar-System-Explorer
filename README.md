@@ -108,10 +108,12 @@ The full methodology, accuracy notes and bibliography are in [Sources, methodolo
 ## Running locally
 
 ```bash
-git clone https://github.com/kauemelo01/Solar-System-Explorer.git
+git clone -b wip-release-4 https://github.com/kauemelo01/Solar-System-Explorer.git
 cd Solar-System-Explorer
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
+
+This gets Release 4, still in progress (branch `wip-release-4`). Without `-b wip-release-4` the clone gets the current release, Release 3 (branch `main`).
 
 Opening `index.html` directly from disk works, but browsers block the sky map and surface maps over `file://` (bodies then use their simpler painted textures), so use a local server to see them.
 
